@@ -1,0 +1,11 @@
+# PLYXIS platform - Python 3.11+ (developed on 3.14, torch 2.14 CPU)
+# No external AI services or pretrained models are used: every model is trained locally from the twin.
+torch>=2.3
+numpy>=1.26
+fastapi>=0.111
+uvicorn[standard]>=0.30
+websockets>=12
+
+# tests
+pytest>=8
+httpx>=0.27

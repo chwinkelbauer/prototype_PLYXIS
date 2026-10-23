@@ -121,8 +121,10 @@ def split_accumulator(e: IR, x: str) -> Optional[IR]:
 
 # ----------------------------------------------------------------------------- compiler
 class Compiler:
-    def __init__(self, flat: FlatModel, diags: Optional[Diagnostics] = None, physical: bool = False):
+    def __init__(self, flat: FlatModel, diags: Optional[Diagnostics] = None, physical: bool = False,
+                 levels: Optional[dict] = None):
         self.flat = flat
+        self.level_override = levels
         self.diags = diags if diags is not None else flat.lib.diags
         self.physical = physical
         self.groups: list[Group] = []
@@ -139,7 +141,8 @@ class Compiler:
     def compile(self) -> "Program":
         bc = BehaviorCompiler(self.flat.lib, self.diags)
         self._type_irs(bc)
-        levels = self._levels()
+        levels = self.level_override if self.level_override is not None else self._levels()
+        self.levels = levels
         self._make_groups(levels)
         self._routing()
         self._env_group(bc)
@@ -529,8 +532,9 @@ class Compiler:
 
     def _is_static(self, gn: GNode) -> bool:
         if gn.kind == "state":
-            g = self.gmap[gn.gid]
-            return not g.ir.states[gn.key.split(":", 1)[1]].has_update
+            # states without dynamics are exogenous inputs (status, availability). They may be given
+            # as a trajectory [B, n, T] (e.g. replaying observed history), so they are time-varying.
+            return False
         if gn.kind in ("in", "delay"):
             return False
         if gn.kind == "agg":
@@ -728,7 +732,7 @@ class Compiler:
                         out_names.append(f"{gn.var}_clip")
                     out_names.append(f"{gn.var}_f")
                 elif gn.kind == "state":
-                    w(f"{gn.var}_f = rt.full(S0_{g.gid}_{_ident(gn.key.split(':', 1)[1])}, B, {g.n})")
+                    w(f"{gn.var}_f = rt.state_final(S0_{g.gid}_{_ident(gn.key.split(':', 1)[1])}, B, {g.n})")
                     out_names.append(f"{gn.var}_f")
                 out_names.append(gn.var)
             elif b.kind == "acc":
@@ -753,6 +757,7 @@ class Compiler:
                 out_names.append(var)
         w("_out = {" + ", ".join(f"'{n}': {n}" for n in out_names) + "}")
         w("if want_mag:")
+        w("pass", 2)
         for g in self.groups:
             R = self._renderer(g, "vec")
             for ck, ci in g.ir.cons.items():
@@ -778,7 +783,7 @@ class Compiler:
         if gn.kind == "state":
             sname = gn.key.split(":", 1)[1]
             if not g.ir.states[sname].has_update:
-                return f"S0_{g.gid}_{_ident(sname)}.unsqueeze(-1)"
+                return f"rt.state_input(S0_{g.gid}_{_ident(sname)}, T_len)"
             nxt = self.nodes[self._nid(g.gid, f"next:{sname}")]
             clamp = self._clamp_code(g, sname, f"rt.full({nxt.var}, B, {g.n}, T_len)", "vec")
             return f"rt.shift({clamp}, S0_{g.gid}_{_ident(sname)})"

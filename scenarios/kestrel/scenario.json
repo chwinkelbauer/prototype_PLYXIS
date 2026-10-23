@@ -1,0 +1,205 @@
+{
+  "name": "Kestrel Field - autonomous operations showcase",
+  "description": "Synthetic Permian-style oil field (96 ESP wells, 12 pads, 3 tank batteries, 2 compressor stations, gas plant, LACT terminal, 3 SWD wells, 8 trucks, 2 workover rigs). Two identical copies of the field run side by side from the same state with the same events: one operated by PLYXIS, one by typical manual operations.",
+  "twin": {
+    "files": [
+      "field.plx"
+    ],
+    "env": "kestrel",
+    "sim": "ops72"
+  },
+  "truth": {
+    "files": [
+      "field.plx",
+      "truth.plx"
+    ],
+    "env": "kestrel_truth",
+    "hidden": [
+      "P07_W11"
+    ]
+  },
+  "time": {
+    "dt_emulator_h": 0.16666666666666666,
+    "replan_every_h": 3.0,
+    "calibrate_every_h": 1.0,
+    "start_hour": 6.0,
+    "end_hour": 72.0
+  },
+  "prices": {
+    "oil_price": {
+      "base": 72.0,
+      "unit": "USD/bbl",
+      "walk": 0.35
+    },
+    "gas_price": {
+      "base": 1.2,
+      "unit": "USD/Mscf",
+      "walk": 0.04
+    },
+    "power_price": {
+      "base": 0.048,
+      "unit": "USD/kWh",
+      "daily": [
+        0.7,
+        0.66,
+        0.64,
+        0.64,
+        0.68,
+        0.78,
+        0.92,
+        1.0,
+        1.02,
+        1.04,
+        1.06,
+        1.1,
+        1.16,
+        1.24,
+        1.38,
+        1.85,
+        2.6,
+        3.1,
+        2.7,
+        1.6,
+        1.15,
+        0.95,
+        0.84,
+        0.76
+      ],
+      "spike_prob": 0.01
+    }
+  },
+  "events": [
+    {
+      "t": 7.0,
+      "kind": "trip",
+      "asset": "CS1",
+      "units": 1,
+      "title": "Compressor unit trip at CS-1",
+      "narrative": "One of three compressor units at CS-1 trips. Compression capacity drops by a third while the field keeps sending gas."
+    },
+    {
+      "t": 16.0,
+      "kind": "wear",
+      "asset": "P11_W01",
+      "rate": 0.045,
+      "title": "ESP on PAD-11 W-01 starts degrading fast",
+      "narrative": "Bearing wear accelerates on a high-rate pump. Only vibration telemetry reveals it."
+    },
+    {
+      "t": 22.0,
+      "kind": "capacity",
+      "asset": "SWD2",
+      "param": "inj_cap",
+      "factor": 0.45,
+      "title": "Injectivity loss at SWD-2",
+      "narrative": "Formation plugging cuts the injection capacity of SWD-2 by more than half. Nothing announces it - the twin has to notice."
+    },
+    {
+      "t": 26.0,
+      "kind": "announce",
+      "name": "gas_price",
+      "start": 30.0,
+      "end": 54.0,
+      "value": -2.5,
+      "title": "Pipeline maintenance notice: Waha gas turns negative",
+      "narrative": "A midstream maintenance notice pushes the Waha hub price to -2.50 USD/Mscf for 24 hours starting in 4 hours."
+    },
+    {
+      "t": 30.0,
+      "kind": "price",
+      "name": "gas_price",
+      "value": -2.5,
+      "hours": 24.0,
+      "title": "Negative gas price in effect",
+      "narrative": "Every Mscf sold now costs money."
+    },
+    {
+      "t": 36.0,
+      "kind": "commission",
+      "asset": "P07_W11",
+      "title": "New well tied in on PAD-07",
+      "narrative": "A new well is brought online by the completions team. It is not in any engineering database yet - only its SCADA tags appear."
+    },
+    {
+      "t": 48.0,
+      "kind": "trip",
+      "asset": "CS2",
+      "units": 1,
+      "title": "Compressor unit trip at CS-2",
+      "narrative": "Second compression event during the negative-price window."
+    }
+  ],
+  "legacy": {
+    "speed": 0.95,
+    "flare_response_h": 2.0,
+    "curtail": 0.8,
+    "rig_start_hour": 7.0,
+    "crew_callout_h": 6.0,
+    "rig_job_h": 30.0
+  },
+  "demo": [
+    {
+      "id": "intro",
+      "t": 0.0,
+      "title": "One operating system for the whole field",
+      "view": "overview",
+      "text": "Kestrel Field: 96 wells, 3 tank batteries, 2 compressor stations, trucks, rigs. Left: what PLYXIS operates. The same field is also run by conventional manual operations in parallel - same starting point, same events, same physics."
+    },
+    {
+      "id": "map",
+      "t": 2.0,
+      "title": "The digital twin is the map",
+      "view": "map",
+      "text": "Every asset on the map is an instance of a PLX blueprint, instantiated from the asset register by about 120 lines of field code. Flows, tank levels and trucks are live."
+    },
+    {
+      "id": "trip",
+      "t": 7.2,
+      "title": "Disruption: compressor trip",
+      "view": "optimizer",
+      "text": "A CS-1 unit trips. PLYXIS detects the status change, re-plans the whole field and pushes new set points within seconds - shifting gas to CS-2 and easing the gassiest wells instead of flaring, while a lease crew is dispatched to restart the unit."
+    },
+    {
+      "id": "explain",
+      "t": 9.0,
+      "title": "Why did it do that?",
+      "view": "schedule",
+      "text": "Every decision carries its reasons: marginal oil value, power cost and the shadow price of the binding bottleneck - computed from the model, not generated text."
+    },
+    {
+      "id": "predict",
+      "t": 24.6,
+      "title": "Predictive maintenance",
+      "view": "data",
+      "text": "Vibration on PAD-11 W-01 is trending up. The twin infers the falling pump health that no sensor measures, extrapolates the time to alarm and plans a workover rig for a replacement before the pump fails."
+    },
+    {
+      "id": "swd",
+      "t": 25.2,
+      "title": "Reality drifts - the twin follows",
+      "view": "data",
+      "text": "SWD-2 lost more than half of its injectivity and nobody told the system. The injection pressure no longer matched the twin, so the estimator re-estimated the disposal capacity within hours; the planner re-routed water and eased the wells with the most water per barrel of oil."
+    },
+    {
+      "id": "gas",
+      "t": 31.0,
+      "title": "Markets move - operations follow",
+      "view": "overview",
+      "text": "Waha gas is negative for 24 hours. PLYXIS re-prices every barrel: oil still pays for the gas it brings, so it keeps producing - and it does not flare to dodge the price, which would cost carbon and break the zero-routine-flaring policy."
+    },
+    {
+      "id": "tiein",
+      "t": 37.0,
+      "title": "The twin rewrites itself",
+      "view": "studio",
+      "text": "Unknown tags from a new well appeared. A discovery rule turned them into PLX code - reviewed, committed and compiled into the live twin in seconds."
+    },
+    {
+      "id": "value",
+      "t": 71.5,
+      "title": "Value",
+      "view": "overview",
+      "text": "Same field, same events: the difference in production, profit, flaring and emissions is the value of autonomous operations."
+    }
+  ]
+}

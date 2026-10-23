@@ -191,6 +191,21 @@ def shift(nxt, x0):
     return nxt
 
 
+def state_input(x, T_len):
+    """Exogenous state: [B, n] (constant over the horizon) or [B, n, T] (given trajectory)."""
+    x = T(x)
+    if x.dim() == 3:
+        return x
+    return x.unsqueeze(-1).expand(*x.shape, T_len)
+
+
+def state_final(x, B, n):
+    x = T(x)
+    if x.dim() == 3:
+        x = x[..., -1]
+    return full(x, B, n)
+
+
 def excumsum(inc):
     """exclusive cumulative sum along time."""
     c = torch.cumsum(inc, -1)

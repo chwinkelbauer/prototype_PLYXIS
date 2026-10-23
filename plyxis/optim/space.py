@@ -8,6 +8,7 @@ metaheuristics and neural sub-solvers.
 from __future__ import annotations
 
 import math
+import warnings
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -16,6 +17,7 @@ import torch
 from ..lang import rt
 
 ROUTE_EPS = 1e-3
+warnings.filterwarnings("ignore", message="index_reduce")
 
 
 @dataclass

@@ -57,10 +57,12 @@ def compile_model(files: list[str], env: Optional[str] = None, sim: Optional[str
         env = envs[-1]
     flat = Elaborator(lib, diags).elaborate(env, sim)
     diags.raise_if_errors()
-    prog = Compiler(flat, diags, physical=False).compile()
-    phys = None
-    if physical:
-        phys = Compiler(flat, diags, physical=True).compile()
+    # one grouping for both variants (physical mode can add feed-through via sat()), so that
+    # parameter / state / decision tensors are interchangeable between the two programs
+    phys = Compiler(flat, diags, physical=True).compile()
+    prog = Compiler(flat, diags, physical=False, levels=phys.comp.levels).compile()
+    if not physical:
+        phys = None
     return CompiledModel(prog, phys, flat, lib, diags, dict(diags.sources))
 
 

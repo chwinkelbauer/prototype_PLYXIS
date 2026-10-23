@@ -147,6 +147,7 @@ class TermInfo:
     kind: str
     name: str
     final: bool = False
+    unit: Optional[str] = None
 
 
 @dataclass
@@ -402,10 +403,10 @@ class BehaviorCompiler:
                     continue
                 if st.final:
                     ir.finals[key.replace("term:", "final:")] = self.expr(st.expr)
-                    ir.terms[key.replace("term:", "final:")] = TermInfo(st.kind, st.name, True)
+                    ir.terms[key.replace("term:", "final:")] = TermInfo(st.kind, st.name, True, st.unit)
                 else:
                     ir.nodes[key] = self.expr(st.expr)
-                    ir.terms[key] = TermInfo(st.kind, st.name, False)
+                    ir.terms[key] = TermInfo(st.kind, st.name, False, st.unit)
         # state bounds -> constraints on next values (x[t+1])
         for n, s in ir.states.items():
             if s.lo is None:
@@ -770,7 +771,7 @@ class BehaviorCompiler:
             return None
         if isinstance(e, Op):
             if e.op in ("add", "sub", "min", "max", "sum", "neg", "abs", "clamp", "pos", "negpart", "floor",
-                        "ceil", "round", "smin", "smax", "mean"):
+                        "ceil", "round", "smin", "smax", "mean", "sat"):
                 for a in e.args:
                     d = self.dims(a)
                     if d is not None:
@@ -778,14 +779,14 @@ class BehaviorCompiler:
                 return None
             if e.op == "mul":
                 a, b = self.dims(e.args[0]), self.dims(e.args[1])
-                if a is None and b is None:
+                if a is None or b is None:          # unknown x anything = unknown (never assume dimensionless)
                     return None
-                return U.dims_mul(a or U.ZERO, b or U.ZERO) if (a is None) != (b is None) or (a and b) else None
+                return U.dims_mul(a, b)
             if e.op == "div":
                 a, b = self.dims(e.args[0]), self.dims(e.args[1])
-                if a is None and b is None:
+                if a is None or b is None:
                     return None
-                return U.dims_div(a or U.ZERO, b or U.ZERO)
+                return U.dims_div(a, b)
             if e.op == "where":
                 return self.dims(e.args[1]) or self.dims(e.args[2])
             if e.op == "delay":

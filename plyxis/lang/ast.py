@@ -139,6 +139,7 @@ class TermStmt(Stmt):
     name: str
     expr: Expr
     final: bool = False
+    unit: Optional[str] = None
 
 
 @dataclass

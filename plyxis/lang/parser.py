@@ -254,6 +254,10 @@ class Parser:
         if not self.accept_ident("as"):
             self.error(f"expected 'as' after 'define {name}'", hint="syntax: define NAME as KIND { ... };")
             raise ParseError()
+        if name in KIND_ALIASES:
+            self.diags.warning(f"'{name}' is a definition kind keyword: 'define x as {name}' declares a new "
+                               f"{KIND_ALIASES[name]} instead of extending this definition", name_tok.loc, "W-NAME",
+                               hint=f"rename it, or extend it explicitly with 'define x as env extends {name}'")
         kind_tok = self.expect_ident("kind (ent, pkg, env, sim, grp, res) or a base type")
         kind = KIND_ALIASES.get(kind_tok.value)
         base = None
@@ -737,8 +741,11 @@ class Parser:
         name = self.expect_ident(f"{t.value} name").value
         self.expect_op("=")
         expr = self.parse_expr()
+        unit = self._decl_unit()
+        if isinstance(expr, A.Num) and expr.unit and unit == expr.unit:
+            unit = None
         self.semi()
-        return A.TermStmt(t.value, name, expr, loc=t.loc)
+        return A.TermStmt(t.value, name, expr, unit=unit, loc=t.loc)
 
     def parse_constraint(self, t: Token) -> A.ConstraintStmt:
         soft = None

@@ -288,6 +288,9 @@ class Library:
             if parent is not None:
                 t.base = parent.name
                 t.ancestors = [parent.name] + parent.ancestors
+                if parent.kind == "env":
+                    t.kind = "env"
+                    t.params = dict(parent.params)
                 t.params = dict(parent.params)
                 t.states = dict(parent.states)
                 t.decisions = dict(parent.decisions)
@@ -297,6 +300,8 @@ class Library:
                 t.geom = dict(parent.geom)
                 t.telemetry = list(parent.telemetry)
                 t.attrs = dict(parent.attrs)
+                t.constraints = list(parent.constraints)
+                t.rules = list(parent.rules)
                 if not t.doc:
                     t.doc = parent.doc
         for p in d.params:
@@ -323,8 +328,8 @@ class Library:
         for x in d.telemetry:
             tele[x.signal] = x
         t.telemetry = list(tele.values())
-        t.rules = list(d.rules)
-        t.constraints = list(d.constraints)
+        t.rules = list(t.rules) + list(d.rules)
+        t.constraints = list(t.constraints) + list(d.constraints)
         t.attrs.update(d.attrs)
         # name clash check among symbol kinds
         seen: dict[str, str] = {}
@@ -347,12 +352,13 @@ def load_library(files: list[str], diags: Optional[Diagnostics] = None, sources:
     for f in files:
         if sources and f in sources:
             text = sources[f]
-            base_dir = os.path.dirname(os.path.abspath(f)) if os.path.exists(f) else "."
+            d = os.path.dirname(os.path.abspath(f))
+            base_dir = d if os.path.isdir(d) else "."
         else:
             with open(f, encoding="utf-8") as fh:
                 text = fh.read()
             base_dir = os.path.dirname(os.path.abspath(f))
-        prog = parse(text, os.path.basename(f) if os.path.exists(f) else f, diags)
+        prog = parse(text, os.path.basename(f), diags)
         items.append((prog, base_dir))
     # register everything first, then process 'use' (packages may be in later files)
     for prog, base_dir in items:

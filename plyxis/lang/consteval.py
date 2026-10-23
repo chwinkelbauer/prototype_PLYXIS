@@ -14,6 +14,7 @@ import csv
 import json
 import math
 import os
+import re
 from typing import Any, Callable, Optional
 
 from . import ast as A
@@ -133,6 +134,25 @@ class Scope:
 
 
 _MISSING = object()
+_INTERP = re.compile(r"\{([A-Za-z_][A-Za-z0-9_]*)\}")
+
+
+def interp_str(s: str, scope) -> str:
+    """String interpolation: '{name}' in a string literal is replaced by a loop variable or rule binding.
+
+    "KST.P{pad}.W{well}" inside `for`/`rule` bodies becomes "KST.P07.W11"; unknown names are left as written."""
+    if scope is None or "{" not in s:
+        return s
+
+    def rep(m):
+        try:
+            v = scope.lookup(m.group(1)) if hasattr(scope, "lookup") else scope[m.group(1)]
+        except KeyError:
+            return m.group(0)
+        if isinstance(v, (int, float)) and not isinstance(v, bool) and float(v).is_integer():
+            v = int(v)
+        return str(v) if isinstance(v, (str, int, float)) else m.group(0)
+    return _INTERP.sub(rep, s)
 MISSING = _MISSING
 
 
@@ -182,7 +202,7 @@ def const_eval(e: A.Expr, scope, *, base_dir: str = ".", extra: Optional[dict] =
             return Canon(float(e.value) * parse_unit(e.unit)[0])
         return float(e.value)
     if isinstance(e, A.Str):
-        return e.value
+        return interp_str(e.value, scope)
     if isinstance(e, A.Bool):
         return e.value
     if isinstance(e, A.Name):

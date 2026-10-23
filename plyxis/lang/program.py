@@ -27,6 +27,7 @@ class TermRef:
     kind: str
     name: str
     final: bool
+    unit: Optional[str] = None
 
 
 @dataclass
@@ -69,7 +70,7 @@ class Program:
         self.cons: list[ConRef] = []
         for g in self.groups:
             for k, ti in g.ir.terms.items():
-                self.terms.append(TermRef(g.gid, k, ti.kind, ti.name, ti.final))
+                self.terms.append(TermRef(g.gid, k, ti.kind, ti.name, ti.final, ti.unit))
             for ck, ci in g.ir.cons.items():
                 self.cons.append(ConRef(g.gid, ck, ci.name, ci.kind, ci.soft is not None, ci.is_bound, ci))
         sim = self.flat.sim
@@ -164,6 +165,7 @@ class Program:
                     df = hi if info.domain in ("bool", "int") else (lo + hi) / 2
                 v = _t(df)
                 v = torch.minimum(torch.maximum(v, lo), hi)
+                v = v.to(self.dtype)
                 D[g.gid][d] = v.expand(B, g.n, T).clone() if v.dim() == 3 else \
                     v.reshape(1, -1, 1).expand(B, g.n, T).clone()
         return D
@@ -190,6 +192,27 @@ class Program:
     def node_var(self, gid: str, key: str) -> str:
         return self.comp.nodes[f"{gid}|{key}"].var
 
+    def final_states(self, raw: dict) -> dict:
+        """State values after the simulated horizon: gid -> name -> [B, n]."""
+        out = {}
+        for g in self.groups:
+            out[g.gid] = {}
+            for s in g.ir.states:
+                v = raw[self.node_var(g.gid, f"state:{s}") + "_f"]
+                out[g.gid][s] = v if v.dim() == 2 else v.reshape(v.shape[0], -1)
+        return out
+
+    def signal(self, raw: dict, gid: str, key: str):
+        """Signal by telemetry key ('node:local:x', 'state:x', 'in:p:r', 'param:x', 'dec:x')."""
+        kind, _, name = key.partition(":")
+        if kind == "node":
+            return raw[self.node_var(gid, name)]
+        if kind == "state":
+            return raw[self.node_var(gid, f"state:{name}")]
+        if kind == "in":
+            return raw[self.node_var(gid, f"in:{name}")]
+        raise KeyError(key)
+
     def get(self, raw: dict, gid: str, key: str, B: int = 1, T: Optional[int] = None) -> torch.Tensor:
         """Fetch a signal tensor [B, n, T] by group-local key (e.g. 'local:liquid', 'out:prod:oil')."""
         g = self.gmap[gid]
@@ -202,13 +225,15 @@ class Program:
         return x
 
     def evaluate(self, raw: dict, dt: Optional[float] = None, E: Optional[dict] = None,
-                 B: Optional[int] = None) -> dict:
+                 B: Optional[int] = None, include_final: bool = True) -> dict:
         """Objective totals, soft penalties and hard-constraint violations."""
         dt = float(dt if dt is not None else self.dt)
         bnd = self._bounds_cache()
         totals = {k: 0.0 for k in TERM_KINDS}
         named: dict = {}
         for tr in self.terms:
+            if tr.final and not include_final:
+                continue
             if tr.final:
                 x = raw[f"F_{tr.gid}_{_ident(tr.key)}"]
                 v = x.sum(dim=tuple(range(1, x.dim())))

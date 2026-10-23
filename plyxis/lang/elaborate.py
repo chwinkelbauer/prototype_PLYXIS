@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Any, Optional
 
 from . import ast as A
-from .consteval import (Canon, EvalError, MISSING, Scope, const_eval, haversine_km, is_canon,
+from .consteval import (Canon, EvalError, MISSING, Scope, const_eval, haversine_km, interp_str, is_canon,
                         template_str)
 from .errors import Diagnostics, Loc, NOLOC, suggest
 from .library import JUNCTION, EntityType, Library
@@ -482,7 +482,7 @@ class Elaborator:
             attr = e.attr if isinstance(e.attr, str) else template_str(e.attr, ctx.scope, base_dir=ctx.base_dir)
             return head + [attr]
         if isinstance(e, A.Str):
-            return e.value.split(".")
+            return interp_str(e.value, ctx.scope).split(".")
         return None
 
     def _connect(self, st: A.ConnectStmt, ctx: "_Ctx") -> None:

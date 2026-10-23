@@ -30,6 +30,7 @@ class ALMResult:
     evals: int = 0
     seconds: float = 0.0
     feasible: bool = False
+    population: Optional[torch.Tensor] = None
 
 
 def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, rho: float = 2.0,
@@ -107,7 +108,7 @@ def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, 
         ef = problem.evaluate(best_x, relax=relax)
     return ALMResult(best_x, float(ef.objective[0]), float(ef.max_violation()[0]),
                      {k: v[:1].detach() for k, v in lam.items()}, hist, problem.n_evals - evals0,
-                     time.perf_counter() - t_start, float(ef.max_violation()[0]) <= tol)
+                     time.perf_counter() - t_start, float(ef.max_violation()[0]) <= tol, x.detach().clone())
 
 
 def integrality_penalty(space, x: torch.Tensor) -> torch.Tensor:

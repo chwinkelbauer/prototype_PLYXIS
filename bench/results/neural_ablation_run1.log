@@ -1,0 +1,91 @@
+C:\Users\cwink\OneDrive\Dokumente\.quarries\proto\proto2\plyxis\optim\space.py:218: UserWarning: index_reduce() is in beta and the API may change at any time. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\aten\src\ATen\native\TensorAdvancedIndexing.cpp:1524.)
+  best = torch.zeros(B, self._n_ports, T, dtype=w.dtype).index_reduce(
+nominal plan 4,445,117 (16.9s)
+{'stage': 'experts', 'i': 0, 'objective': 3324248.25, 'feasible': True, 'seconds': 7.0210243999999875}
+{'stage': 'experts', 'i': 1, 'objective': 3272656.75, 'feasible': True, 'seconds': 6.609966699999859}
+{'stage': 'experts', 'i': 2, 'objective': 4074733.5, 'feasible': True, 'seconds': 5.966637399999854}
+{'stage': 'experts', 'i': 3, 'objective': 4349969.5, 'feasible': True, 'seconds': 6.014491599999928}
+{'stage': 'experts', 'i': 4, 'objective': 4164919.75, 'feasible': True, 'seconds': 6.042276299999685}
+{'stage': 'experts', 'i': 5, 'objective': 3610013.25, 'feasible': True, 'seconds': 6.433298699999796}
+{'stage': 'experts', 'i': 6, 'objective': 4780858.5, 'feasible': True, 'seconds': 7.614622000000054}
+{'stage': 'experts', 'i': 7, 'objective': 5520036.0, 'feasible': False, 'seconds': 6.724377399999867}
+{'stage': 'experts', 'i': 8, 'objective': 4496495.5, 'feasible': True, 'seconds': 6.882166899999902}
+{'stage': 'experts', 'i': 9, 'objective': 3779332.5, 'feasible': True, 'seconds': 6.52710019999995}
+{'stage': 'experts', 'i': 10, 'objective': 2507065.5, 'feasible': True, 'seconds': 6.858206400000199}
+{'stage': 'experts', 'i': 11, 'objective': 3973572.5, 'feasible': False, 'seconds': 6.402543700000024}
+{'stage': 'experts', 'i': 12, 'objective': 3519438.5, 'feasible': True, 'seconds': 6.421667900000102}
+{'stage': 'experts', 'i': 13, 'objective': 3617658.25, 'feasible': True, 'seconds': 6.424827499999992}
+{'stage': 'experts', 'i': 14, 'objective': 3949470.5, 'feasible': True, 'seconds': 7.03745009999966}
+{'stage': 'experts', 'i': 15, 'objective': 3774063.25, 'feasible': True, 'seconds': 7.003388000000086}
+{'stage': 'experts', 'i': 16, 'objective': 3244013.0, 'feasible': True, 'seconds': 6.74204169999939}
+{'stage': 'experts', 'i': 17, 'objective': 4509831.5, 'feasible': True, 'seconds': 6.682459600000584}
+{'stage': 'experts', 'i': 18, 'objective': 3834139.0, 'feasible': True, 'seconds': 7.371616000000358}
+{'stage': 'experts', 'i': 19, 'objective': 3817386.0, 'feasible': True, 'seconds': 6.754178299999694}
+{'stage': 'experts', 'i': 20, 'objective': 3895579.0, 'feasible': True, 'seconds': 6.903532499999528}
+{'stage': 'experts', 'i': 21, 'objective': 3563549.0, 'feasible': True, 'seconds': 6.779459299999871}
+{'stage': 'experts', 'i': 22, 'objective': 5494266.0, 'feasible': True, 'seconds': 6.166296600000351}
+{'stage': 'experts', 'i': 23, 'objective': 4394177.5, 'feasible': True, 'seconds': 6.005556700000852}
+{'stage': 'experts', 'i': 24, 'objective': 4042811.0, 'feasible': False, 'seconds': 6.010962299999846}
+{'stage': 'experts', 'i': 25, 'objective': 3175503.25, 'feasible': False, 'seconds': 6.0973627000003034}
+{'stage': 'experts', 'i': 26, 'objective': 4099674.0, 'feasible': True, 'seconds': 6.463464899999963}
+{'stage': 'experts', 'i': 27, 'objective': 3168343.5, 'feasible': True, 'seconds': 6.844830500000171}
+{'stage': 'experts', 'i': 28, 'objective': 3242114.0, 'feasible': True, 'seconds': 6.662974899999426}
+{'stage': 'experts', 'i': 29, 'objective': 3653901.5, 'feasible': True, 'seconds': 6.025865300000078}
+{'stage': 'experts', 'i': 30, 'objective': 5372571.5, 'feasible': True, 'seconds': 6.1695441000001665}
+{'stage': 'experts', 'i': 31, 'objective': 5281652.0, 'feasible': True, 'seconds': 6.937622499999634}
+{'stage': 'experts', 'i': 32, 'objective': 4309415.0, 'feasible': False, 'seconds': 6.773698900000454}
+{'stage': 'experts', 'i': 33, 'objective': 3237120.5, 'feasible': False, 'seconds': 5.977085999999872}
+{'stage': 'experts', 'i': 34, 'objective': 2605850.25, 'feasible': True, 'seconds': 5.957405500000277}
+{'stage': 'experts', 'i': 35, 'objective': 3750125.75, 'feasible': True, 'seconds': 5.93805010000051}
+{'stage': 'experts', 'i': 36, 'objective': 2600444.5, 'feasible': True, 'seconds': 6.2095941999996285}
+{'stage': 'experts', 'i': 37, 'objective': 4247449.0, 'feasible': True, 'seconds': 5.9948968999997305}
+{'stage': 'experts', 'i': 38, 'objective': 4035444.75, 'feasible': True, 'seconds': 6.046815400000014}
+{'stage': 'experts', 'i': 39, 'objective': 4799214.0, 'feasible': True, 'seconds': 6.051575200000116}
+{'stage': 'experts', 'i': 40, 'objective': 4125248.25, 'feasible': False, 'seconds': 6.659344100000453}
+{'stage': 'experts', 'i': 41, 'objective': 2331270.0, 'feasible': True, 'seconds': 6.732159600000159}
+{'stage': 'experts', 'i': 42, 'objective': 3107676.5, 'feasible': True, 'seconds': 6.308288900000662}
+{'stage': 'experts', 'i': 43, 'objective': 4915514.5, 'feasible': True, 'seconds': 5.952898199999254}
+{'stage': 'experts', 'i': 44, 'objective': 3966062.0, 'feasible': True, 'seconds': 5.96046269999988}
+{'stage': 'experts', 'i': 45, 'objective': 3312296.25, 'feasible': True, 'seconds': 5.983609599999909}
+{'stage': 'experts', 'i': 46, 'objective': 3184065.75, 'feasible': True, 'seconds': 6.018594300000586}
+{'stage': 'experts', 'i': 47, 'objective': 3137814.25, 'feasible': True, 'seconds': 5.977390600000035}
+{'stage': 'experts', 'i': 48, 'objective': 5644799.5, 'feasible': True, 'seconds': 5.9686862999997174}
+{'stage': 'experts', 'i': 49, 'objective': 3657532.75, 'feasible': True, 'seconds': 5.9608574999992925}
+{'stage': 'experts', 'i': 50, 'objective': 3819474.5, 'feasible': True, 'seconds': 5.947729000000436}
+{'stage': 'experts', 'i': 51, 'objective': 3877456.75, 'feasible': True, 'seconds': 6.0130345000006855}
+{'stage': 'experts', 'i': 52, 'objective': 4371923.0, 'feasible': True, 'seconds': 6.08289700000023}
+{'stage': 'experts', 'i': 53, 'objective': 3654743.75, 'feasible': True, 'seconds': 6.271634699999595}
+{'stage': 'experts', 'i': 54, 'objective': 2376111.75, 'feasible': True, 'seconds': 7.638616700000057}
+{'stage': 'experts', 'i': 55, 'objective': 3296712.5, 'feasible': False, 'seconds': 6.996168900000157}
+{'stage': 'experts', 'i': 56, 'objective': 2706621.75, 'feasible': False, 'seconds': 6.956327899999451}
+{'stage': 'experts', 'i': 57, 'objective': 3214970.0, 'feasible': True, 'seconds': 6.619645200000377}
+{'stage': 'experts', 'i': 58, 'objective': 3039869.75, 'feasible': False, 'seconds': 6.590103900000031}
+{'stage': 'experts', 'i': 59, 'objective': 4625869.0, 'feasible': True, 'seconds': 6.897592700000132}
+{'stage': 'experts', 'i': 60, 'objective': 4814418.0, 'feasible': False, 'seconds': 6.658822800000053}
+{'stage': 'experts', 'i': 61, 'objective': 3948406.75, 'feasible': True, 'seconds': 6.201356000000487}
+{'stage': 'experts', 'i': 62, 'objective': 4461886.5, 'feasible': True, 'seconds': 6.079365900000084}
+{'stage': 'experts', 'i': 63, 'objective': 3723611.25, 'feasible': True, 'seconds': 9.127700699999878}
+{'stage': 'experts', 'i': 64, 'objective': 4049212.25, 'feasible': False, 'seconds': 9.067741200000455}
+{'stage': 'experts', 'i': 65, 'objective': 4090587.5, 'feasible': True, 'seconds': 6.844223899999633}
+{'stage': 'experts', 'i': 66, 'objective': 4280632.0, 'feasible': True, 'seconds': 6.416253500000494}
+{'stage': 'experts', 'i': 67, 'objective': 4743103.5, 'feasible': True, 'seconds': 6.752878799999962}
+experts: 445s
+C:\Users\cwink\OneDrive\Dokumente\.quarries\proto\proto2\plyxis\optim\neural.py:547: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  rec = {"stage": "imitation", "step": step, "loss": float(loss), "t": time.perf_counter() - t0}
+{'stage': 'imitation', 'step': 0, 'loss': 2.9566116333007812, 't': 0.40733730000010837}
+{'stage': 'imitation', 'step': 50, 'loss': 7.31307315826416, 't': 19.401683399999456}
+{'stage': 'imitation', 'step': 100, 'loss': 7.182242393493652, 't': 39.25209180000002}
+{'stage': 'imitation', 'step': 150, 'loss': 8.163524627685547, 't': 59.30359589999989}
+{'stage': 'imitation', 'step': 200, 'loss': 5.483188629150391, 't': 77.92222649999985}
+{'stage': 'imitation', 'step': 250, 'loss': 10.604670524597168, 't': 96.29887859999963}
+{'stage': 'imitation', 'step': 300, 'loss': 5.923179626464844, 't': 117.20838230000027}
+{'stage': 'imitation', 'step': 350, 'loss': 7.105905532836914, 't': 138.63358179999977}
+{'case': 0, 'neural_ms': 33.27339999941614, 'reuse_raw': [4499311.5, 0.40658408403396606], 'neural_raw': [4366068.5, 0.04902823269367218], 'reuse_repair': [4529352.5, 0.0, 2.1611490999994203], 'neural_repair': [4889579.0, 0.0017915057251229882, 1.855879300000197], 'cascade': [4769302.5, 0.002148071536794305, 6.246308300000237], 'cascade_nn': [5052644.0, 0.0016410170355811715, 6.126435999999558]}
+{'case': 1, 'neural_ms': 21.30470000065543, 'reuse_raw': [4263107.0, 0.3875983953475952], 'neural_raw': [4021262.5, 0.35295629501342773], 'reuse_repair': [3877845.0, 0.12087687849998474, 1.7478539000003366], 'neural_repair': [3495584.5, 0.0, 1.7182330000005095], 'cascade': [3948406.75, 0.0011231749085709453, 5.979901499999869], 'cascade_nn': [4012416.0, 0.0017238626023754478, 6.110813700000108]}
+{'case': 2, 'neural_ms': 21.520700000110082, 'reuse_raw': [5042559.5, 0.6107809543609619], 'neural_raw': [4809959.0, 0.3413863480091095], 'reuse_repair': [4419703.0, 0.14174522459506989, 1.7294263000003411], 'neural_repair': [4545068.0, 0.0011000751983374357, 1.751588800000718], 'cascade': [4452510.5, 0.001083702314645052, 6.153957999999875], 'cascade_nn': [4453513.5, 0.0019661032129079103, 6.16467879999982]}
+{'case': 3, 'neural_ms': 20.770800000718737, 'reuse_raw': [3885404.25, 0.8841115236282349], 'neural_raw': [3783728.5, 0.4943486750125885], 'reuse_repair': [3333657.0, 0.028334369882941246, 1.7422237000000678], 'neural_repair': [4251374.0, 0.0019038202008232474, 1.749362999999903], 'cascade': [3696417.0, 0.0011093703797087073, 6.028083700000025], 'cascade_nn': [4352938.5, 0.0027579134330153465, 6.008595299999797]}
+{'case': 4, 'neural_ms': 20.428600000741426, 'reuse_raw': [4472783.5, 0.7133362889289856], 'neural_raw': [4220815.0, 0.5395280122756958], 'reuse_repair': [3749791.25, 0.0026063472032546997, 1.7550584999999046], 'neural_repair': [3818080.5, 0.0028782282024621964, 1.7044906000000992], 'cascade': [3969782.25, 0.00460065295919776, 6.865493199999946], 'cascade_nn': [3696034.5, 0.009101349860429764, 6.150738600000295]}
+{'case': 5, 'neural_ms': 20.90810000026977, 'reuse_raw': [3866405.75, 0.06667204201221466], 'neural_raw': [3663205.0, 0.06792884320020676], 'reuse_repair': [3902166.25, 0.038076236844062805, 1.765680199999224], 'neural_repair': [3859528.25, 0.0004837902379222214, 1.7540994000000865], 'cascade': [4090587.5, 0.0015368267195299268, 7.31127639999977], 'cascade_nn': [4098590.0, 0.0016095227329060435, 7.284718500000054]}
+{'case': 6, 'neural_ms': 20.66599999943719, 'reuse_raw': [4092017.25, 0.17387738823890686], 'neural_raw': [3864264.75, 0.23936110734939575], 'reuse_repair': [4104203.75, 0.0, 1.9370810000000347], 'neural_repair': [4052701.75, 0.0, 1.9214805999999953], 'cascade': [4280632.0, 0.000238785520195961, 6.355317999999897], 'cascade_nn': [4377433.5, 0.0018078830325976014, 6.270041699999638]}
+{'case': 7, 'neural_ms': 21.587000000181433, 'reuse_raw': [4238957.0, 0.12265928089618683], 'neural_raw': [4167992.0, 0.0872090607881546], 'reuse_repair': [4368313.0, 0.0, 1.7642212000000654], 'neural_repair': [4804133.0, 0.000956389878410846, 1.768644900000254], 'cascade': [4743103.5, 0.0, 6.252835899999809], 'cascade_nn': [4896253.0, 0.0, 6.205366299999696]}

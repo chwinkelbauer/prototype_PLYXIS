@@ -1,0 +1,6819 @@
+{
+ "hours": 72.0,
+ "wall_seconds": 397.413005800001,
+ "neural": true,
+ "kpis": {
+  "plyxis": {
+   "revenue": 4074404.2915649414,
+   "cost": 400829.7279717922,
+   "emission_kg": 465244.22943115234,
+   "oil_bbl": 57071.119769042925,
+   "gas_mscf": 116867.28470792413,
+   "water_bbl": 129285.66529514664,
+   "flared_mscf": 184.53599989380663,
+   "spilled_bbl": 0.0,
+   "hours": 71.99999999999986,
+   "inventory_value": 54530.2490234375,
+   "equipment_value": -195428.0,
+   "profit": 3532676.8126165867,
+   "carbon_cost": 27914.653765869145,
+   "profit_after_carbon": 3504762.1588507183
+  },
+  "legacy": {
+   "revenue": 3969442.713256836,
+   "cost": 301477.8499083519,
+   "emission_kg": 714510.8458251953,
+   "oil_bbl": 55997.251189489994,
+   "gas_mscf": 117601.02559089882,
+   "water_bbl": 130820.33012794796,
+   "flared_mscf": 2599.682781856099,
+   "spilled_bbl": 0.0,
+   "hours": 71.99999999999986,
+   "inventory_value": 66156.85498046875,
+   "equipment_value": -269794.0,
+   "profit": 3464327.718328953,
+   "carbon_cost": 42870.65074951171,
+   "profit_after_carbon": 3421457.0675794403
+  },
+  "delta": {
+   "profit": 68349.0942876339,
+   "profit_after_carbon": 83305.09127127798,
+   "oil_bbl": 1073.868579552931,
+   "flared_mscf": -2415.1467819622926,
+   "emission_t": -249.26661639404296
+  },
+  "value_per_day": 22783.031429211343
+ },
+ "terms": {
+  "plyxis": {
+   "power": -58517.71293640137,
+   "lease": -96852.00141906738,
+   "restarts": -12208.586807489395,
+   "risk": -103427.1596069336,
+   "pump_wear": -264937.9306640625,
+   "gas": 22201.398010253906,
+   "crude": 4052202.8935546875,
+   "disposal": -9826.347732543945,
+   "pumping": -6707.692255496979,
+   "standby": -12672.000274658203,
+   "treating": -40998.49443817139,
+   "hauling": -19446.892107963562,
+   "starts": -3600.0,
+   "flare_risk": -3537.872200064361,
+   "pump_replacement": -140000.0
+  },
+  "legacy": {
+   "power": -55387.31220245361,
+   "lease": -96877.66714477539,
+   "restarts": -6825.708398342133,
+   "risk": -107682.34930419922,
+   "pump_wear": -270208.02307128906,
+   "gas": 17581.286987304688,
+   "crude": 3951861.4262695312,
+   "disposal": -9509.114639282227,
+   "pumping": -6602.047697067261,
+   "standby": -12672.000274658203,
+   "treating": -41099.86917877197,
+   "hauling": -23904.1303730011,
+   "starts": -3600.0,
+   "flare_risk": -11723.732681274414,
+   "unplanned_failures": -45000.0
+  }
+ },
+ "calibration_error": {
+  "q_max": {
+   "engineering": 0.1194,
+   "twin": 0.0244
+  },
+  "wc": {
+   "engineering": 0.0467,
+   "twin": 0.0209
+  },
+  "gor": {
+   "engineering": 0.1293,
+   "twin": 0.0538
+  }
+ },
+ "plans": [
+  {
+   "id": 1,
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "trigger": "initial plan",
+   "objective": 4490775.0,
+   "feasible": true,
+   "seconds": 9.239424500003224,
+   "variables": 4983
+  },
+  {
+   "id": 2,
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "trigger": "rolling horizon",
+   "objective": 4806557.0,
+   "feasible": true,
+   "seconds": 8.113260700003593,
+   "variables": 4983
+  },
+  {
+   "id": 3,
+   "t": 12.000000012,
+   "clock": "Day 1 12:00",
+   "trigger": "rolling horizon",
+   "objective": 4831549.5,
+   "feasible": true,
+   "seconds": 9.07956639999611,
+   "variables": 4983
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "trigger": "disruption detected",
+   "objective": 4358123.5,
+   "feasible": true,
+   "seconds": 8.29809430000023,
+   "variables": 4983
+  },
+  {
+   "id": 5,
+   "t": 16.166666687,
+   "clock": "Day 1 16:10",
+   "trigger": "rolling horizon",
+   "objective": 4414358.5,
+   "feasible": true,
+   "seconds": 8.377090399997542,
+   "variables": 4983
+  },
+  {
+   "id": 6,
+   "t": 16.333333354,
+   "clock": "Day 1 16:20",
+   "trigger": "asset returned to service",
+   "objective": 4717505.5,
+   "feasible": true,
+   "seconds": 9.882677699999476,
+   "variables": 4983
+  },
+  {
+   "id": 7,
+   "t": 19.33333336,
+   "clock": "Day 1 19:20",
+   "trigger": "rolling horizon",
+   "objective": 4803084.5,
+   "feasible": true,
+   "seconds": 9.257089800004906,
+   "variables": 4983
+  },
+  {
+   "id": 8,
+   "t": 22.333333366,
+   "clock": "Day 1 22:20",
+   "trigger": "rolling horizon",
+   "objective": 4796156.0,
+   "feasible": false,
+   "seconds": 7.864809399994556,
+   "variables": 4983
+  },
+  {
+   "id": 9,
+   "t": 25.333333372,
+   "clock": "Day 2 01:20",
+   "trigger": "rolling horizon",
+   "objective": 4913987.5,
+   "feasible": true,
+   "seconds": 7.910336900000402,
+   "variables": 4983
+  },
+  {
+   "id": 10,
+   "t": 28.333333378,
+   "clock": "Day 2 04:20",
+   "trigger": "rolling horizon",
+   "objective": 4895907.0,
+   "feasible": true,
+   "seconds": 7.60715839999466,
+   "variables": 4983
+  },
+  {
+   "id": 11,
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "trigger": "disruption detected",
+   "objective": 4759853.0,
+   "feasible": true,
+   "seconds": 7.3472664000000805,
+   "variables": 4983
+  },
+  {
+   "id": 12,
+   "t": 30.666666716,
+   "clock": "Day 2 06:40",
+   "trigger": "disruption detected",
+   "objective": 4790494.5,
+   "feasible": true,
+   "seconds": 7.433342699994682,
+   "variables": 4983
+  },
+  {
+   "id": 13,
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "trigger": "disruption detected",
+   "objective": 4491134.5,
+   "feasible": true,
+   "seconds": 7.506199099996593,
+   "variables": 4983
+  },
+  {
+   "id": 14,
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "trigger": "market notice: gas_price",
+   "objective": 4461382.0,
+   "feasible": true,
+   "seconds": 7.520941900002072,
+   "variables": 4983
+  },
+  {
+   "id": 15,
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "trigger": "rolling horizon",
+   "objective": 4428662.0,
+   "feasible": true,
+   "seconds": 7.390775200001372,
+   "variables": 4983
+  },
+  {
+   "id": 16,
+   "t": 38.000000064,
+   "clock": "Day 2 14:00",
+   "trigger": "rolling horizon",
+   "objective": 4454226.0,
+   "feasible": false,
+   "seconds": 7.486744700006966,
+   "variables": 4983
+  },
+  {
+   "id": 17,
+   "t": 41.00000007,
+   "clock": "Day 2 17:00",
+   "trigger": "rolling horizon",
+   "objective": 4556784.0,
+   "feasible": true,
+   "seconds": 7.258192599998438,
+   "variables": 4983
+  },
+  {
+   "id": 18,
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "trigger": "twin rewritten (new asset)",
+   "objective": 4555268.5,
+   "feasible": true,
+   "seconds": 7.627564099995652,
+   "variables": 5031
+  },
+  {
+   "id": 19,
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "trigger": "rolling horizon",
+   "objective": 4611113.5,
+   "feasible": true,
+   "seconds": 7.465343500000017,
+   "variables": 5031
+  },
+  {
+   "id": 20,
+   "t": 48.000000084,
+   "clock": "Day 3 00:00",
+   "trigger": "rolling horizon",
+   "objective": 4580886.5,
+   "feasible": true,
+   "seconds": 7.58803920000355,
+   "variables": 5031
+  },
+  {
+   "id": 21,
+   "t": 51.00000009,
+   "clock": "Day 3 03:00",
+   "trigger": "rolling horizon",
+   "objective": 4542191.5,
+   "feasible": true,
+   "seconds": 7.538657400000375,
+   "variables": 5031
+  },
+  {
+   "id": 22,
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "trigger": "rolling horizon",
+   "objective": 4597974.5,
+   "feasible": true,
+   "seconds": 8.264335599997139,
+   "variables": 5031
+  },
+  {
+   "id": 23,
+   "t": 54.166666763,
+   "clock": "Day 3 06:10",
+   "trigger": "disruption detected",
+   "objective": 4333968.0,
+   "feasible": true,
+   "seconds": 7.406341800000519,
+   "variables": 5031
+  },
+  {
+   "id": 24,
+   "t": 57.166666769,
+   "clock": "Day 3 09:10",
+   "trigger": "rolling horizon",
+   "objective": 4352861.5,
+   "feasible": true,
+   "seconds": 7.370187699998496,
+   "variables": 5031
+  },
+  {
+   "id": 25,
+   "t": 57.333333436,
+   "clock": "Day 3 09:20",
+   "trigger": "asset returned to service",
+   "objective": 4459874.0,
+   "feasible": true,
+   "seconds": 7.535248899999715,
+   "variables": 5031
+  },
+  {
+   "id": 26,
+   "t": 60.333333442,
+   "clock": "Day 3 12:20",
+   "trigger": "rolling horizon",
+   "objective": 4798391.5,
+   "feasible": true,
+   "seconds": 7.707068399999116,
+   "variables": 5031
+  },
+  {
+   "id": 27,
+   "t": 60.500000109,
+   "clock": "Day 3 12:30",
+   "trigger": "asset returned to service",
+   "objective": 4812867.0,
+   "feasible": true,
+   "seconds": 7.434222500000033,
+   "variables": 5031
+  },
+  {
+   "id": 28,
+   "t": 63.500000115,
+   "clock": "Day 3 15:30",
+   "trigger": "rolling horizon",
+   "objective": 4858338.5,
+   "feasible": true,
+   "seconds": 7.612820200003625,
+   "variables": 5031
+  },
+  {
+   "id": 29,
+   "t": 66.500000121,
+   "clock": "Day 3 18:30",
+   "trigger": "rolling horizon",
+   "objective": 4794283.0,
+   "feasible": true,
+   "seconds": 7.479993799999647,
+   "variables": 5031
+  },
+  {
+   "id": 30,
+   "t": 69.500000127,
+   "clock": "Day 3 21:30",
+   "trigger": "rolling horizon",
+   "objective": 4790788.5,
+   "feasible": true,
+   "seconds": 7.585665399994468,
+   "variables": 5031
+  },
+  {
+   "id": 31,
+   "t": 72.500000133,
+   "clock": "Day 4 00:30",
+   "trigger": "rolling horizon",
+   "objective": 4723982.0,
+   "feasible": false,
+   "seconds": 7.430993800000579,
+   "variables": 5031
+  },
+  {
+   "id": 32,
+   "t": 75.500000139,
+   "clock": "Day 4 03:30",
+   "trigger": "rolling horizon",
+   "objective": 4675519.0,
+   "feasible": true,
+   "seconds": 7.945382099998824,
+   "variables": 5031
+  }
+ ],
+ "runs": [
+  {
+   "id": 3,
+   "t": 12.000000012,
+   "trigger": "rolling horizon",
+   "objective": 4831549.5,
+   "feasible": true,
+   "seconds": 9.07956639999611,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02663380000012694,
+     "objective": 3867569.0,
+     "max_violation": 0.19268593192100525
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 4.894798599998467,
+     "objective": 4858820.5,
+     "max_violation": 0.002240797970443964,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.93169510000007,
+     "objective": 4780984.5,
+     "max_violation": 0.0013363605830818415,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.2256337999933749,
+     "objective": 4831549.5,
+     "max_violation": 0.0006772060296498239
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "trigger": "disruption detected",
+   "objective": 4358123.5,
+   "feasible": true,
+   "seconds": 8.29809430000023,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.031166100001428276,
+     "objective": 356321.25,
+     "max_violation": 0.2114417999982834
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 4.339357099997869,
+     "objective": 4365106.0,
+     "max_violation": 0.0026539599057286978,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.881485400001111,
+     "objective": 4358123.5,
+     "max_violation": 0.0016777066048234701,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0451604000045336,
+     "objective": 4358123.5,
+     "max_violation": 0.0016777066048234701
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 5,
+   "t": 16.166666687,
+   "trigger": "rolling horizon",
+   "objective": 4414358.5,
+   "feasible": true,
+   "seconds": 8.377090399997542,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029102899999998044,
+     "objective": 550818.75,
+     "max_violation": 0.2036573439836502
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7866514999986975,
+     "objective": 4482923.5,
+     "max_violation": 0.06817369908094406,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 3.420848300003854,
+     "objective": 4388283.5,
+     "max_violation": 0.0,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.139661300003354,
+     "objective": 4414358.5,
+     "max_violation": 0.0
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 6,
+   "t": 16.333333354,
+   "trigger": "asset returned to service",
+   "objective": 4717505.5,
+   "feasible": true,
+   "seconds": 9.882677699999476,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.026731300000392366,
+     "objective": 3861863.75,
+     "max_violation": 0.20149798691272736
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.9344609000036144,
+     "objective": 4744523.5,
+     "max_violation": 0.0035221341531723738,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 4.099193000001833,
+     "objective": 4717505.5,
+     "max_violation": 0.0005435058264993131,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.8214410000000498,
+     "objective": 4717505.5,
+     "max_violation": 0.0005435058264993131
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 7,
+   "t": 19.33333336,
+   "trigger": "rolling horizon",
+   "objective": 4803084.5,
+   "feasible": true,
+   "seconds": 9.257089800004906,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.028396000001521315,
+     "objective": 4070929.25,
+     "max_violation": 0.17208854854106903
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 4.472078300001158,
+     "objective": 4815651.5,
+     "max_violation": 0.011727908626198769,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 3.4421345999944606,
+     "objective": 4726932.0,
+     "max_violation": 0.0,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.3136360999997123,
+     "objective": 4803084.5,
+     "max_violation": 0.0017631773371249437
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 8,
+   "t": 22.333333366,
+   "trigger": "rolling horizon",
+   "objective": 4796156.0,
+   "feasible": false,
+   "seconds": 7.864809399994556,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029252200001792517,
+     "objective": 4098451.5,
+     "max_violation": 0.16306334733963013
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.957015899999533,
+     "objective": 4954513.0,
+     "max_violation": 0.001825236715376377,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.736403800001426,
+     "objective": 4796156.0,
+     "max_violation": 0.002210871549323201,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.141003600001568,
+     "objective": 4796156.0,
+     "max_violation": 0.002210871549323201
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 9,
+   "t": 25.333333372,
+   "trigger": "rolling horizon",
+   "objective": 4913987.5,
+   "feasible": true,
+   "seconds": 7.910336900000402,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.027213699999265373,
+     "objective": 4109266.75,
+     "max_violation": 0.1815754473209381
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.9822209999983897,
+     "objective": 5016791.0,
+     "max_violation": 0.001396584790199995,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.8246908000000985,
+     "objective": 4913987.5,
+     "max_violation": 0.0013493670849129558,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.075380900001619,
+     "objective": 4913987.5,
+     "max_violation": 0.0013493670849129558
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 10,
+   "t": 28.333333378,
+   "trigger": "rolling horizon",
+   "objective": 4895907.0,
+   "feasible": true,
+   "seconds": 7.60715839999466,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02692650000244612,
+     "objective": 4202997.0,
+     "max_violation": 0.08916927874088287
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7918542999977944,
+     "objective": 4967660.5,
+     "max_violation": 0.0013183091068640351,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6778705999968224,
+     "objective": 4802355.5,
+     "max_violation": 0.0,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1096079999988433,
+     "objective": 4895907.0,
+     "max_violation": 0.0016996238846331835
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 11,
+   "t": 30.000000048,
+   "trigger": "disruption detected",
+   "objective": 4759853.0,
+   "feasible": true,
+   "seconds": 7.3472664000000805,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.025684599997475743,
+     "objective": 4147038.0,
+     "max_violation": 0.1451069414615631
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6172659000003478,
+     "objective": 4845275.5,
+     "max_violation": 0.004108842462301254,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.636444900002971,
+     "objective": 4759853.0,
+     "max_violation": 0.001224346924573183,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0670765999966534,
+     "objective": 4759853.0,
+     "max_violation": 0.001224346924573183
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 12,
+   "t": 30.666666716,
+   "trigger": "disruption detected",
+   "objective": 4790494.5,
+   "feasible": true,
+   "seconds": 7.433342699994682,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.026897800002188887,
+     "objective": 4139450.25,
+     "max_violation": 0.1475343406200409
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7336131000047317,
+     "objective": 4796086.5,
+     "max_violation": 0.000521143723744899,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.638792799996736,
+     "objective": 4790494.5,
+     "max_violation": 0.00037022316246293485,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0332917999985511,
+     "objective": 4790494.5,
+     "max_violation": 0.00037022316246293485
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 13,
+   "t": 31.00000005,
+   "trigger": "disruption detected",
+   "objective": 4491134.5,
+   "feasible": true,
+   "seconds": 7.506199099996593,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02501040000061039,
+     "objective": 4205329.5,
+     "max_violation": 0.5390362739562988
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6732322000025306,
+     "objective": 4499258.5,
+     "max_violation": 0.0035503916442394257,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.696664499999315,
+     "objective": 4491134.5,
+     "max_violation": 0.0012070570373907685,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1105059999972582,
+     "objective": 4491134.5,
+     "max_violation": 0.0012070570373907685
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 14,
+   "t": 32.000000052,
+   "trigger": "market notice: gas_price",
+   "objective": 4461382.0,
+   "feasible": true,
+   "seconds": 7.520941900002072,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.0266362999973353,
+     "objective": 3915141.75,
+     "max_violation": 0.473158061504364
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.678233500002534,
+     "objective": 4390906.5,
+     "max_violation": 0.0034156600013375282,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.7294076999969548,
+     "objective": 4408241.5,
+     "max_violation": 0.0016418566228821874,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.085876900004223,
+     "objective": 4461382.0,
+     "max_violation": 0.0007858562166802585
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 15,
+   "t": 35.000000058,
+   "trigger": "rolling horizon",
+   "objective": 4428662.0,
+   "feasible": true,
+   "seconds": 7.390775200001372,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.031657700004871,
+     "objective": 3903093.75,
+     "max_violation": 0.4782325029373169
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6290969000037876,
+     "objective": 4178168.25,
+     "max_violation": 0.00017803344235289842,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.61688729999878,
+     "objective": 4428662.0,
+     "max_violation": 0.0017704175552353263,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.112347400005092,
+     "objective": 4428662.0,
+     "max_violation": 0.0017704175552353263
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 16,
+   "t": 38.000000064,
+   "trigger": "rolling horizon",
+   "objective": 4454226.0,
+   "feasible": false,
+   "seconds": 7.486744700006966,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.03181190000032075,
+     "objective": 4040023.5,
+     "max_violation": 0.5514663457870483
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.712160099996254,
+     "objective": 4418126.5,
+     "max_violation": 0.0004677816468756646,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.7109340999959386,
+     "objective": 4452330.0,
+     "max_violation": 0.002615795936435461,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0307646000001114,
+     "objective": 4454226.0,
+     "max_violation": 0.0020620208233594894
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 17,
+   "t": 41.00000007,
+   "trigger": "rolling horizon",
+   "objective": 4556784.0,
+   "feasible": true,
+   "seconds": 7.258192599998438,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4983,
+     "discrete": 1272,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.027372600001399405,
+     "objective": 4134348.0,
+     "max_violation": 0.5745973587036133
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.5993449999950826,
+     "objective": 4554523.5,
+     "max_violation": 0.0020118423271924257,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6025249999947846,
+     "objective": 4465885.5,
+     "max_violation": 0.0002521882997825742,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.028126199998951,
+     "objective": 4556784.0,
+     "max_violation": 0.0017230685334652662
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 18,
+   "t": 42.000000072,
+   "trigger": "twin rewritten (new asset)",
+   "objective": 4555268.5,
+   "feasible": true,
+   "seconds": 7.627564099995652,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.03004240000154823,
+     "objective": 4183016.75,
+     "max_violation": 0.6907851696014404
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.700591099994199,
+     "objective": 4468106.0,
+     "max_violation": 0.00373380770906806,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.7833374999972875,
+     "objective": 4555268.5,
+     "max_violation": 0.0014731187839061022,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1124324999982491,
+     "objective": 4555268.5,
+     "max_violation": 0.0014731187839061022
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 19,
+   "t": 45.000000078,
+   "trigger": "rolling horizon",
+   "objective": 4611113.5,
+   "feasible": true,
+   "seconds": 7.465343500000017,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029981299994688015,
+     "objective": 4234100.5,
+     "max_violation": 0.699015200138092
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7194156000041403,
+     "objective": 4491323.0,
+     "max_violation": 0.002272525103762746,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.603145500004757,
+     "objective": 4611113.5,
+     "max_violation": 0.0008350776042789221,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1118824999939534,
+     "objective": 4611113.5,
+     "max_violation": 0.0008350776042789221
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 20,
+   "t": 48.000000084,
+   "trigger": "rolling horizon",
+   "objective": 4580886.5,
+   "feasible": true,
+   "seconds": 7.58803920000355,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029758700002275873,
+     "objective": 4200305.5,
+     "max_violation": 0.6962156891822815
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.8023928999973577,
+     "objective": 4048420.5,
+     "max_violation": 0.0018202232895419002,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.736567499996454,
+     "objective": 4531920.5,
+     "max_violation": 0.011401034891605377,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.018540800003393,
+     "objective": 4580886.5,
+     "max_violation": 0.0005306259845383465
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 21,
+   "t": 51.00000009,
+   "trigger": "rolling horizon",
+   "objective": 4542191.5,
+   "feasible": true,
+   "seconds": 7.538657400000375,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02697720000287518,
+     "objective": 4197231.0,
+     "max_violation": 0.674812376499176
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.717646400000376,
+     "objective": 4209414.0,
+     "max_violation": 6.56468328088522e-05,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6993703999978607,
+     "objective": 4538557.5,
+     "max_violation": 0.004093219991773367,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0938566999975592,
+     "objective": 4542191.5,
+     "max_violation": 0.0014467753935605288
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 22,
+   "t": 54.000000096,
+   "trigger": "rolling horizon",
+   "objective": 4597974.5,
+   "feasible": true,
+   "seconds": 8.264335599997139,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.04158169999573147,
+     "objective": 4285595.5,
+     "max_violation": 0.6322938799858093
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 4.486984400005895,
+     "objective": 4522217.5,
+     "max_violation": 0.005386175587773323,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6505175000056624,
+     "objective": 4547447.5,
+     "max_violation": 0.0014727611560374498,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0841049999944516,
+     "objective": 4597974.5,
+     "max_violation": 0.0008898441446945071
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 23,
+   "t": 54.166666763,
+   "trigger": "disruption detected",
+   "objective": 4333968.0,
+   "feasible": true,
+   "seconds": 7.406341800000519,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.027939300001889933,
+     "objective": -2508467.75,
+     "max_violation": 0.6365026235580444
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.739197900002182,
+     "objective": 4277862.5,
+     "max_violation": 0.004607600159943104,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.624136599995836,
+     "objective": 4333968.0,
+     "max_violation": 0.000657307798974216,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0141503999984707,
+     "objective": 4333968.0,
+     "max_violation": 0.000657307798974216
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 24,
+   "t": 57.166666769,
+   "trigger": "rolling horizon",
+   "objective": 4352861.5,
+   "feasible": true,
+   "seconds": 7.370187699998496,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029864599993743468,
+     "objective": -2626649.75,
+     "max_violation": 0.6290644407272339
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6466500999958953,
+     "objective": 4391043.0,
+     "max_violation": 0.011680517345666885,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6272793999960413,
+     "objective": 4341374.0,
+     "max_violation": 0.0014253441477194428,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0655999000009615,
+     "objective": 4352861.5,
+     "max_violation": 0.0009997364832088351
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 25,
+   "t": 57.333333436,
+   "trigger": "asset returned to service",
+   "objective": 4459874.0,
+   "feasible": true,
+   "seconds": 7.535248899999715,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02975750000041444,
+     "objective": 4431668.0,
+     "max_violation": 0.5449481010437012
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6775658999977168,
+     "objective": 4425453.0,
+     "max_violation": 0.0028156330808997154,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.7610471999942092,
+     "objective": 4459874.0,
+     "max_violation": 0.00100000761449337,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0659628000066732,
+     "objective": 4459874.0,
+     "max_violation": 0.00100000761449337
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 26,
+   "t": 60.333333442,
+   "trigger": "rolling horizon",
+   "objective": 4798391.5,
+   "feasible": true,
+   "seconds": 7.707068399999116,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.030980499999714084,
+     "objective": 4550118.5,
+     "max_violation": 0.5538870096206665
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7864936999976635,
+     "objective": 4767940.5,
+     "max_violation": 0.04532403126358986,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.818172000006598,
+     "objective": 4772606.0,
+     "max_violation": 0.002106649102643132,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0705686999936006,
+     "objective": 4798391.5,
+     "max_violation": 0.001817316748201847
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 27,
+   "t": 60.500000109,
+   "trigger": "asset returned to service",
+   "objective": 4812867.0,
+   "feasible": true,
+   "seconds": 7.434222500000033,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.029867500001273584,
+     "objective": 4480471.0,
+     "max_violation": 0.554190993309021
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7289549999986775,
+     "objective": 4766443.5,
+     "max_violation": 0.00043927712249569595,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6005699999950593,
+     "objective": 4745412.0,
+     "max_violation": 0.002334973309189081,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0738005000021076,
+     "objective": 4812867.0,
+     "max_violation": 0.001076703192666173
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 28,
+   "t": 63.500000115,
+   "trigger": "rolling horizon",
+   "objective": 4858338.5,
+   "feasible": true,
+   "seconds": 7.612820200003625,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.025923000001057517,
+     "objective": 4567184.5,
+     "max_violation": 0.4895814061164856
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.729534900005092,
+     "objective": 4713687.5,
+     "max_violation": 0.0008589759818278253,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.819043399998918,
+     "objective": 4867185.5,
+     "max_violation": 0.003194492543116212,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0375619999977062,
+     "objective": 4858338.5,
+     "max_violation": 0.0015150622930377722
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 29,
+   "t": 66.500000121,
+   "trigger": "rolling horizon",
+   "objective": 4794283.0,
+   "feasible": true,
+   "seconds": 7.479993799999647,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.027815000001282897,
+     "objective": 4541359.5,
+     "max_violation": 0.48053810000419617
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.7039896999995108,
+     "objective": 4859016.5,
+     "max_violation": 0.004259834531694651,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6842918999973335,
+     "objective": 4794283.0,
+     "max_violation": 0.0016426548827439547,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.063051400000404,
+     "objective": 4794283.0,
+     "max_violation": 0.0016426548827439547
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 30,
+   "t": 69.500000127,
+   "trigger": "rolling horizon",
+   "objective": 4790788.5,
+   "feasible": true,
+   "seconds": 7.585665399994468,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02843880000000354,
+     "objective": 4503046.5,
+     "max_violation": 0.47341233491897583
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.8292060000021593,
+     "objective": 4767808.5,
+     "max_violation": 0.0006848025368526578,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6659269999945536,
+     "objective": 4744923.5,
+     "max_violation": 0.0018507828935980797,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.0611940000017057,
+     "objective": 4790788.5,
+     "max_violation": 0.0013841961044818163
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 31,
+   "t": 72.500000133,
+   "trigger": "rolling horizon",
+   "objective": 4723982.0,
+   "feasible": false,
+   "seconds": 7.430993800000579,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.02779490000102669,
+     "objective": 4400058.0,
+     "max_violation": 0.39846909046173096
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.6639472999959253,
+     "objective": 4646660.0,
+     "max_violation": 0.0016263822326436639,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.6358075000025565,
+     "objective": 4681881.0,
+     "max_violation": 0.002325037494301796,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1025467999934335,
+     "objective": 4723982.0,
+     "max_violation": 0.0020104965660721064
+    }
+   ],
+   "evals": 1588
+  },
+  {
+   "id": 32,
+   "t": 75.500000139,
+   "trigger": "rolling horizon",
+   "objective": 4675519.0,
+   "feasible": true,
+   "seconds": 7.945382099998824,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5031,
+     "discrete": 1284,
+     "subsystems": 32
+    },
+    {
+     "stage": "neural",
+     "seconds": 0.0308288000014727,
+     "objective": 4369953.0,
+     "max_violation": 0.41074255108833313
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 3.9222031999961473,
+     "objective": 4522115.0,
+     "max_violation": 0.0014612178783863783,
+     "starts": 3
+    },
+    {
+     "stage": "discrete",
+     "seconds": 2.7996400999982143,
+     "objective": 4640403.0,
+     "max_violation": 0.0008235096465796232,
+     "population": 12,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 1.1918713999984902,
+     "objective": 4675519.0,
+     "max_violation": 0.0017978018149733543
+    }
+   ],
+   "evals": 1588
+  }
+ ],
+ "timeline": [
+  {
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "kind": "plan",
+   "title": "Re-plan #1 (initial plan)",
+   "text": "4,983 decisions optimised in 9.2 s"
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "kind": "plan",
+   "title": "Re-plan #2 (rolling horizon)",
+   "text": "4,983 decisions optimised in 8.1 s"
+  },
+  {
+   "t": 12.000000012,
+   "clock": "Day 1 12:00",
+   "kind": "plan",
+   "title": "Re-plan #3 (rolling horizon)",
+   "text": "4,983 decisions optimised in 9.1 s"
+  },
+  {
+   "t": 13.000000014,
+   "clock": "Day 1 13:00",
+   "kind": "event",
+   "title": "Compressor unit trip at CS-1",
+   "text": "One of three compressor units at CS-1 trips. Compression capacity drops by a third while the field keeps sending gas.",
+   "asset": "CS1",
+   "manual": false
+  },
+  {
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "kind": "plan",
+   "title": "Re-plan #4 (disruption detected)",
+   "text": "4,983 decisions optimised in 8.3 s"
+  },
+  {
+   "t": 13.333333348,
+   "clock": "Day 1 13:20",
+   "kind": "maintenance",
+   "title": "Lease crew 4 started: CS-1",
+   "text": "1 compressor unit(s) tripped - restart - restoring is worth $52/h at current bottlenecks"
+  },
+  {
+   "t": 16.166666687,
+   "clock": "Day 1 16:10",
+   "kind": "plan",
+   "title": "Re-plan #5 (rolling horizon)",
+   "text": "4,983 decisions optimised in 8.4 s"
+  },
+  {
+   "t": 16.333333354,
+   "clock": "Day 1 16:20",
+   "kind": "maintenance",
+   "title": "CS-1 back in service",
+   "text": "Lease crew 4 finished"
+  },
+  {
+   "t": 16.333333354,
+   "clock": "Day 1 16:20",
+   "kind": "plan",
+   "title": "Re-plan #6 (asset returned to service)",
+   "text": "4,983 decisions optimised in 9.9 s"
+  },
+  {
+   "t": 19.33333336,
+   "clock": "Day 1 19:20",
+   "kind": "plan",
+   "title": "Re-plan #7 (rolling horizon)",
+   "text": "4,983 decisions optimised in 9.3 s"
+  },
+  {
+   "t": 22.000000032,
+   "clock": "Day 1 22:00",
+   "kind": "event",
+   "title": "ESP on PAD-11 W-01 starts degrading fast",
+   "text": "Bearing wear accelerates on a high-rate pump. Only vibration telemetry reveals it.",
+   "asset": "P11_W01",
+   "manual": false
+  },
+  {
+   "t": 22.333333366,
+   "clock": "Day 1 22:20",
+   "kind": "plan",
+   "title": "Re-plan #8 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.9 s"
+  },
+  {
+   "t": 25.333333372,
+   "clock": "Day 2 01:20",
+   "kind": "plan",
+   "title": "Re-plan #9 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.9 s"
+  },
+  {
+   "t": 28.000000044,
+   "clock": "Day 2 04:00",
+   "kind": "event",
+   "title": "Injectivity loss at SWD-2",
+   "text": "Formation plugging cuts the injection capacity of SWD-2 by more than half. Nothing announces it - the twin has to notice.",
+   "asset": "SWD2",
+   "manual": false
+  },
+  {
+   "t": 28.333333378,
+   "clock": "Day 2 04:20",
+   "kind": "plan",
+   "title": "Re-plan #10 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.6 s"
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "kind": "plan",
+   "title": "Re-plan #11 (disruption detected)",
+   "text": "4,983 decisions optimised in 7.3 s"
+  },
+  {
+   "t": 30.500000049,
+   "clock": "Day 2 06:30",
+   "kind": "maintenance",
+   "title": "Workover rig 1 started: PAD-11 W-01",
+   "text": "vibration trend: alarm expected in ~5 h, pump health 59% - planned replacement before failure (avoids ~$0/h risk)"
+  },
+  {
+   "t": 30.666666716,
+   "clock": "Day 2 06:40",
+   "kind": "plan",
+   "title": "Re-plan #12 (disruption detected)",
+   "text": "4,983 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "kind": "plan",
+   "title": "Re-plan #13 (disruption detected)",
+   "text": "4,983 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "kind": "market",
+   "title": "Pipeline maintenance notice: Waha gas turns negative",
+   "text": "A midstream maintenance notice pushes the Waha hub price to -2.50 USD/Mscf for 24 hours starting in 4 hours."
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "kind": "plan",
+   "title": "Re-plan #14 (market notice: gas_price)",
+   "text": "4,983 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "kind": "plan",
+   "title": "Re-plan #15 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "event",
+   "title": "Negative gas price in effect",
+   "text": "Every Mscf sold now costs money.",
+   "asset": null,
+   "manual": false
+  },
+  {
+   "t": 38.000000064,
+   "clock": "Day 2 14:00",
+   "kind": "plan",
+   "title": "Re-plan #16 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 41.00000007,
+   "clock": "Day 2 17:00",
+   "kind": "plan",
+   "title": "Re-plan #17 (rolling horizon)",
+   "text": "4,983 decisions optimised in 7.3 s"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "event",
+   "title": "New well tied in on PAD-07",
+   "text": "A new well is brought online by the completions team. It is not in any engineering database yet - only its SCADA tags appear.",
+   "asset": "P07_W11",
+   "manual": false
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "twin",
+   "title": "Discovery: P07_W11",
+   "text": "    ## discovered from tag KST.P07.W11.FLOW.LIQ (rule 'new_well')\n    init P07_W11 as esp_well { tag = \"KST.P07.W11\"; label = \"PAD-07 W-11\"; at = (31.640564, -103.665814); };\n    connect(P07_W11.prod, PAD07.wells);"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "twin",
+   "title": "Twin rewritten (v2): P07_W11 added",
+   "text": "commit c0037"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "plan",
+   "title": "Re-plan #18 (twin rewritten (new asset))",
+   "text": "5,031 decisions optimised in 7.6 s"
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "kind": "plan",
+   "title": "Re-plan #19 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 48.000000084,
+   "clock": "Day 3 00:00",
+   "kind": "plan",
+   "title": "Re-plan #20 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.6 s"
+  },
+  {
+   "t": 51.00000009,
+   "clock": "Day 3 03:00",
+   "kind": "plan",
+   "title": "Re-plan #21 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "kind": "plan",
+   "title": "Re-plan #22 (rolling horizon)",
+   "text": "5,031 decisions optimised in 8.3 s"
+  },
+  {
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "kind": "event",
+   "title": "Compressor unit trip at CS-2",
+   "text": "Second compression event during the negative-price window.",
+   "asset": "CS2",
+   "manual": false
+  },
+  {
+   "t": 54.166666763,
+   "clock": "Day 3 06:10",
+   "kind": "plan",
+   "title": "Re-plan #23 (disruption detected)",
+   "text": "5,031 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 54.33333343,
+   "clock": "Day 3 06:20",
+   "kind": "maintenance",
+   "title": "Lease crew 1 started: CS-2",
+   "text": "1 compressor unit(s) tripped - restart - restoring is worth $0/h at current bottlenecks"
+  },
+  {
+   "t": 57.166666769,
+   "clock": "Day 3 09:10",
+   "kind": "plan",
+   "title": "Re-plan #24 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 57.333333436,
+   "clock": "Day 3 09:20",
+   "kind": "maintenance",
+   "title": "CS-2 back in service",
+   "text": "Lease crew 1 finished"
+  },
+  {
+   "t": 57.333333436,
+   "clock": "Day 3 09:20",
+   "kind": "plan",
+   "title": "Re-plan #25 (asset returned to service)",
+   "text": "5,031 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 60.333333442,
+   "clock": "Day 3 12:20",
+   "kind": "plan",
+   "title": "Re-plan #26 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.7 s"
+  },
+  {
+   "t": 60.500000109,
+   "clock": "Day 3 12:30",
+   "kind": "maintenance",
+   "title": "PAD-11 W-01 back in service",
+   "text": "Workover rig 1 finished"
+  },
+  {
+   "t": 60.500000109,
+   "clock": "Day 3 12:30",
+   "kind": "plan",
+   "title": "Re-plan #27 (asset returned to service)",
+   "text": "5,031 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 63.500000115,
+   "clock": "Day 3 15:30",
+   "kind": "plan",
+   "title": "Re-plan #28 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.6 s"
+  },
+  {
+   "t": 66.500000121,
+   "clock": "Day 3 18:30",
+   "kind": "plan",
+   "title": "Re-plan #29 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.5 s"
+  },
+  {
+   "t": 69.500000127,
+   "clock": "Day 3 21:30",
+   "kind": "plan",
+   "title": "Re-plan #30 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.6 s"
+  },
+  {
+   "t": 72.500000133,
+   "clock": "Day 4 00:30",
+   "kind": "plan",
+   "title": "Re-plan #31 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.4 s"
+  },
+  {
+   "t": 75.500000139,
+   "clock": "Day 4 03:30",
+   "kind": "plan",
+   "title": "Re-plan #32 (rolling horizon)",
+   "text": "5,031 decisions optimised in 7.9 s"
+  }
+ ],
+ "hourly": [
+  {
+   "t": 7.000000002,
+   "clock": "Day 1 07:00",
+   "plyxis": {
+    "oil_bpd": 19774.1,
+    "gas_mscfd": 41497.0,
+    "water_bpd": 46196.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17288.3,
+    "profit_usd_h": 54305.1,
+    "revenue_usd_h": 53989.5,
+    "cost_usd_h": 3173.9,
+    "inventory_usd_h": 6747.5,
+    "equipment_usd_h": -3258.0,
+    "emission_t_h": 6.6,
+    "cum_profit": 53609
+   },
+   "legacy": {
+    "oil_bpd": 18525.5,
+    "gas_mscfd": 39309.2,
+    "water_bpd": 43910.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 8372.4,
+    "profit_usd_h": 49327.2,
+    "revenue_usd_h": 27235.2,
+    "cost_usd_h": 2949.4,
+    "inventory_usd_h": 27801.3,
+    "equipment_usd_h": -2760.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 40476
+   },
+   "delta_profit": 13133
+  },
+  {
+   "t": 8.000000004,
+   "clock": "Day 1 08:00",
+   "plyxis": {
+    "oil_bpd": 19847.5,
+    "gas_mscfd": 41567.0,
+    "water_bpd": 46330.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17288.3,
+    "profit_usd_h": 53998.6,
+    "revenue_usd_h": 53600.8,
+    "cost_usd_h": 3235.5,
+    "inventory_usd_h": 6897.3,
+    "equipment_usd_h": -3264.0,
+    "emission_t_h": 6.6,
+    "cum_profit": 102317
+   },
+   "legacy": {
+    "oil_bpd": 18565.9,
+    "gas_mscfd": 39312.3,
+    "water_bpd": 43985.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 13192.7,
+    "profit_usd_h": 50096.6,
+    "revenue_usd_h": 41330.7,
+    "cost_usd_h": 3080.8,
+    "inventory_usd_h": 14606.7,
+    "equipment_usd_h": -2760.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 84698
+   },
+   "delta_profit": 17620
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "plyxis": {
+    "oil_bpd": 19479.0,
+    "gas_mscfd": 40891.4,
+    "water_bpd": 45581.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18994.7,
+    "profit_usd_h": 53359.7,
+    "revenue_usd_h": 58564.9,
+    "cost_usd_h": 3340.6,
+    "inventory_usd_h": 1369.5,
+    "equipment_usd_h": -3234.0,
+    "emission_t_h": 6.4,
+    "cum_profit": 155587
+   },
+   "legacy": {
+    "oil_bpd": 18542.0,
+    "gas_mscfd": 39295.2,
+    "water_bpd": 43983.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 15684.0,
+    "profit_usd_h": 50465.5,
+    "revenue_usd_h": 48663.3,
+    "cost_usd_h": 3205.1,
+    "inventory_usd_h": 7767.3,
+    "equipment_usd_h": -2760.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 134841
+   },
+   "delta_profit": 20746
+  },
+  {
+   "t": 10.000000008,
+   "clock": "Day 1 10:00",
+   "plyxis": {
+    "oil_bpd": 20121.5,
+    "gas_mscfd": 42476.1,
+    "water_bpd": 47134.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22035.6,
+    "profit_usd_h": 55415.3,
+    "revenue_usd_h": 67826.8,
+    "cost_usd_h": 3469.8,
+    "inventory_usd_h": -5251.6,
+    "equipment_usd_h": -3690.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 213812
+   },
+   "legacy": {
+    "oil_bpd": 18503.7,
+    "gas_mscfd": 39315.4,
+    "water_bpd": 43842.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16971.2,
+    "profit_usd_h": 50670.0,
+    "revenue_usd_h": 52589.1,
+    "cost_usd_h": 3340.6,
+    "inventory_usd_h": 4181.5,
+    "equipment_usd_h": -2760.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 188524
+   },
+   "delta_profit": 25289
+  },
+  {
+   "t": 11.00000001,
+   "clock": "Day 1 11:00",
+   "plyxis": {
+    "oil_bpd": 20088.3,
+    "gas_mscfd": 42358.0,
+    "water_bpd": 47054.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22035.6,
+    "profit_usd_h": 55589.0,
+    "revenue_usd_h": 68120.0,
+    "cost_usd_h": 3483.9,
+    "inventory_usd_h": -5357.1,
+    "equipment_usd_h": -3690.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 271492
+   },
+   "legacy": {
+    "oil_bpd": 18494.1,
+    "gas_mscfd": 39245.1,
+    "water_bpd": 43811.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17648.3,
+    "profit_usd_h": 50932.2,
+    "revenue_usd_h": 54853.6,
+    "cost_usd_h": 3462.9,
+    "inventory_usd_h": 2313.4,
+    "equipment_usd_h": -2772.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 241808
+   },
+   "delta_profit": 29683
+  },
+  {
+   "t": 12.000000012,
+   "clock": "Day 1 12:00",
+   "plyxis": {
+    "oil_bpd": 20051.4,
+    "gas_mscfd": 42374.9,
+    "water_bpd": 47097.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18359.0,
+    "profit_usd_h": 54684.1,
+    "revenue_usd_h": 57220.7,
+    "cost_usd_h": 3378.4,
+    "inventory_usd_h": 4567.8,
+    "equipment_usd_h": -3726.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 327937
+   },
+   "legacy": {
+    "oil_bpd": 18449.2,
+    "gas_mscfd": 39274.8,
+    "water_bpd": 43760.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18008.7,
+    "profit_usd_h": 51113.6,
+    "revenue_usd_h": 56004.1,
+    "cost_usd_h": 3332.7,
+    "inventory_usd_h": 1208.3,
+    "equipment_usd_h": -2766.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 294850
+   },
+   "delta_profit": 33087
+  },
+  {
+   "t": 13.000000014,
+   "clock": "Day 1 13:00",
+   "plyxis": {
+    "oil_bpd": 20001.2,
+    "gas_mscfd": 42212.0,
+    "water_bpd": 46867.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19347.8,
+    "profit_usd_h": 51743.1,
+    "revenue_usd_h": 60039.9,
+    "cost_usd_h": 6126.9,
+    "inventory_usd_h": 1724.1,
+    "equipment_usd_h": -3894.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 377615
+   },
+   "legacy": {
+    "oil_bpd": 18470.8,
+    "gas_mscfd": 39258.6,
+    "water_bpd": 43708.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18253.9,
+    "profit_usd_h": 48722.7,
+    "revenue_usd_h": 56614.0,
+    "cost_usd_h": 5706.9,
+    "inventory_usd_h": 593.7,
+    "equipment_usd_h": -2778.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 341265
+   },
+   "delta_profit": 36350
+  },
+  {
+   "t": 14.000000016,
+   "clock": "Day 1 14:00",
+   "plyxis": {
+    "oil_bpd": 17517.3,
+    "gas_mscfd": 34737.6,
+    "water_bpd": 41164.5,
+    "flare_mscfd": 29.5,
+    "oil_sold_bpd": 20669.2,
+    "profit_usd_h": 48956.1,
+    "revenue_usd_h": 63836.4,
+    "cost_usd_h": 3261.9,
+    "inventory_usd_h": -8780.3,
+    "equipment_usd_h": -2838.0,
+    "emission_t_h": 5.7,
+    "cum_profit": 430671
+   },
+   "legacy": {
+    "oil_bpd": 18431.0,
+    "gas_mscfd": 39237.2,
+    "water_bpd": 43574.9,
+    "flare_mscfd": 5767.3,
+    "oil_sold_bpd": 18314.9,
+    "profit_usd_h": 50809.8,
+    "revenue_usd_h": 56714.4,
+    "cost_usd_h": 3433.4,
+    "inventory_usd_h": 318.7,
+    "equipment_usd_h": -2790.0,
+    "emission_t_h": 32.0,
+    "cum_profit": 395609
+   },
+   "delta_profit": 35062
+  },
+  {
+   "t": 15.000000018,
+   "clock": "Day 1 15:00",
+   "plyxis": {
+    "oil_bpd": 17599.2,
+    "gas_mscfd": 34867.0,
+    "water_bpd": 41340.5,
+    "flare_mscfd": 50.5,
+    "oil_sold_bpd": 20669.2,
+    "profit_usd_h": 49235.3,
+    "revenue_usd_h": 63997.9,
+    "cost_usd_h": 3353.2,
+    "inventory_usd_h": -8577.4,
+    "equipment_usd_h": -2832.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 481586
+   },
+   "legacy": {
+    "oil_bpd": 18540.4,
+    "gas_mscfd": 39445.9,
+    "water_bpd": 43806.2,
+    "flare_mscfd": 5957.6,
+    "oil_sold_bpd": 18431.8,
+    "profit_usd_h": 51308.9,
+    "revenue_usd_h": 57204.2,
+    "cost_usd_h": 3404.1,
+    "inventory_usd_h": 298.8,
+    "equipment_usd_h": -2790.0,
+    "emission_t_h": 32.9,
+    "cum_profit": 448665
+   },
+   "delta_profit": 32921
+  },
+  {
+   "t": 16.00000002,
+   "clock": "Day 1 16:00",
+   "plyxis": {
+    "oil_bpd": 17616.7,
+    "gas_mscfd": 35074.5,
+    "water_bpd": 41545.3,
+    "flare_mscfd": 191.0,
+    "oil_sold_bpd": 22320.3,
+    "profit_usd_h": 49771.6,
+    "revenue_usd_h": 69438.5,
+    "cost_usd_h": 3817.4,
+    "inventory_usd_h": -13011.5,
+    "equipment_usd_h": -2838.0,
+    "emission_t_h": 6.5,
+    "cum_profit": 536509
+   },
+   "legacy": {
+    "oil_bpd": 17549.7,
+    "gas_mscfd": 36844.8,
+    "water_bpd": 41639.1,
+    "flare_mscfd": 4700.5,
+    "oil_sold_bpd": 17479.1,
+    "profit_usd_h": 49108.0,
+    "revenue_usd_h": 54639.7,
+    "cost_usd_h": 3543.4,
+    "inventory_usd_h": 195.7,
+    "equipment_usd_h": -2184.0,
+    "emission_t_h": 26.7,
+    "cum_profit": 502662
+   },
+   "delta_profit": 33848
+  },
+  {
+   "t": 17.000000022,
+   "clock": "Day 1 17:00",
+   "plyxis": {
+    "oil_bpd": 19979.1,
+    "gas_mscfd": 41683.0,
+    "water_bpd": 46740.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17976.8,
+    "profit_usd_h": 54477.2,
+    "revenue_usd_h": 56875.0,
+    "cost_usd_h": 4550.6,
+    "inventory_usd_h": 5524.8,
+    "equipment_usd_h": -3372.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 587292
+   },
+   "legacy": {
+    "oil_bpd": 17539.8,
+    "gas_mscfd": 36841.1,
+    "water_bpd": 41635.1,
+    "flare_mscfd": 4589.7,
+    "oil_sold_bpd": 17455.9,
+    "profit_usd_h": 48810.6,
+    "revenue_usd_h": 54757.7,
+    "cost_usd_h": 3995.2,
+    "inventory_usd_h": 232.1,
+    "equipment_usd_h": -2184.0,
+    "emission_t_h": 26.2,
+    "cum_profit": 552875
+   },
+   "delta_profit": 34417
+  },
+  {
+   "t": 18.000000024,
+   "clock": "Day 1 18:00",
+   "plyxis": {
+    "oil_bpd": 19975.8,
+    "gas_mscfd": 41636.5,
+    "water_bpd": 46798.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17976.8,
+    "profit_usd_h": 53722.5,
+    "revenue_usd_h": 56539.0,
+    "cost_usd_h": 4935.2,
+    "inventory_usd_h": 5484.7,
+    "equipment_usd_h": -3366.0,
+    "emission_t_h": 6.7,
+    "cum_profit": 637138
+   },
+   "legacy": {
+    "oil_bpd": 17536.3,
+    "gas_mscfd": 36809.1,
+    "water_bpd": 41679.8,
+    "flare_mscfd": 4518.2,
+    "oil_sold_bpd": 17486.8,
+    "profit_usd_h": 48184.7,
+    "revenue_usd_h": 54535.1,
+    "cost_usd_h": 4296.9,
+    "inventory_usd_h": 136.4,
+    "equipment_usd_h": -2190.0,
+    "emission_t_h": 25.8,
+    "cum_profit": 596652
+   },
+   "delta_profit": 40486
+  },
+  {
+   "t": 19.000000026,
+   "clock": "Day 1 19:00",
+   "plyxis": {
+    "oil_bpd": 19905.9,
+    "gas_mscfd": 41389.5,
+    "water_bpd": 46667.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20140.1,
+    "profit_usd_h": 54630.6,
+    "revenue_usd_h": 63432.0,
+    "cost_usd_h": 4749.6,
+    "inventory_usd_h": -673.8,
+    "equipment_usd_h": -3378.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 696374
+   },
+   "legacy": {
+    "oil_bpd": 17448.6,
+    "gas_mscfd": 36535.4,
+    "water_bpd": 41428.5,
+    "flare_mscfd": 4385.8,
+    "oil_sold_bpd": 17423.1,
+    "profit_usd_h": 48508.0,
+    "revenue_usd_h": 54670.5,
+    "cost_usd_h": 4049.6,
+    "inventory_usd_h": 71.1,
+    "equipment_usd_h": -2184.0,
+    "emission_t_h": 25.2,
+    "cum_profit": 650528
+   },
+   "delta_profit": 45845
+  },
+  {
+   "t": 20.000000028,
+   "clock": "Day 1 20:00",
+   "plyxis": {
+    "oil_bpd": 19573.4,
+    "gas_mscfd": 41239.3,
+    "water_bpd": 46669.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21537.5,
+    "profit_usd_h": 54766.4,
+    "revenue_usd_h": 67726.3,
+    "cost_usd_h": 3831.9,
+    "inventory_usd_h": -5563.9,
+    "equipment_usd_h": -3564.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 750858
+   },
+   "legacy": {
+    "oil_bpd": 18435.9,
+    "gas_mscfd": 39132.7,
+    "water_bpd": 43735.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18515.7,
+    "profit_usd_h": 51776.2,
+    "revenue_usd_h": 58434.0,
+    "cost_usd_h": 3635.0,
+    "inventory_usd_h": -220.8,
+    "equipment_usd_h": -2802.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 700202
+   },
+   "delta_profit": 50656
+  },
+  {
+   "t": 21.00000003,
+   "clock": "Day 1 21:00",
+   "plyxis": {
+    "oil_bpd": 19573.4,
+    "gas_mscfd": 41299.0,
+    "water_bpd": 46653.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21537.5,
+    "profit_usd_h": 55001.2,
+    "revenue_usd_h": 67612.4,
+    "cost_usd_h": 3483.9,
+    "inventory_usd_h": -5551.4,
+    "equipment_usd_h": -3576.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 804234
+   },
+   "legacy": {
+    "oil_bpd": 18438.9,
+    "gas_mscfd": 39176.9,
+    "water_bpd": 43738.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18453.0,
+    "profit_usd_h": 51992.0,
+    "revenue_usd_h": 58148.7,
+    "cost_usd_h": 3303.7,
+    "inventory_usd_h": -39.0,
+    "equipment_usd_h": -2814.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 750339
+   },
+   "delta_profit": 53895
+  },
+  {
+   "t": 22.000000032,
+   "clock": "Day 1 22:00",
+   "plyxis": {
+    "oil_bpd": 19604.1,
+    "gas_mscfd": 41402.6,
+    "water_bpd": 46752.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 23387.6,
+    "profit_usd_h": 55799.4,
+    "revenue_usd_h": 73390.9,
+    "cost_usd_h": 3442.7,
+    "inventory_usd_h": -10572.7,
+    "equipment_usd_h": -3576.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 862367
+   },
+   "legacy": {
+    "oil_bpd": 18452.2,
+    "gas_mscfd": 39243.8,
+    "water_bpd": 43790.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18457.4,
+    "profit_usd_h": 52304.9,
+    "revenue_usd_h": 58287.1,
+    "cost_usd_h": 3166.2,
+    "inventory_usd_h": -14.0,
+    "equipment_usd_h": -2802.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 805358
+   },
+   "delta_profit": 57009
+  },
+  {
+   "t": 23.000000034,
+   "clock": "Day 1 23:00",
+   "plyxis": {
+    "oil_bpd": 19759.0,
+    "gas_mscfd": 41705.9,
+    "water_bpd": 46349.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20311.4,
+    "profit_usd_h": 50355.0,
+    "revenue_usd_h": 64531.7,
+    "cost_usd_h": 3329.6,
+    "inventory_usd_h": -1541.2,
+    "equipment_usd_h": -9306.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 918447
+   },
+   "legacy": {
+    "oil_bpd": 18368.7,
+    "gas_mscfd": 39092.5,
+    "water_bpd": 43605.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18415.1,
+    "profit_usd_h": 49200.8,
+    "revenue_usd_h": 58578.4,
+    "cost_usd_h": 3085.9,
+    "inventory_usd_h": -129.6,
+    "equipment_usd_h": -6162.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 860746
+   },
+   "delta_profit": 57701
+  },
+  {
+   "t": 24.000000036,
+   "clock": "Day 2 00:00",
+   "plyxis": {
+    "oil_bpd": 19748.5,
+    "gas_mscfd": 41727.9,
+    "water_bpd": 46335.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20311.4,
+    "profit_usd_h": 50315.5,
+    "revenue_usd_h": 64468.7,
+    "cost_usd_h": 3267.2,
+    "inventory_usd_h": -1568.0,
+    "equipment_usd_h": -9318.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 967761
+   },
+   "legacy": {
+    "oil_bpd": 18312.6,
+    "gas_mscfd": 38986.1,
+    "water_bpd": 43499.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18312.3,
+    "profit_usd_h": 49086.6,
+    "revenue_usd_h": 58200.5,
+    "cost_usd_h": 3024.7,
+    "inventory_usd_h": 0.8,
+    "equipment_usd_h": -6090.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 908695
+   },
+   "delta_profit": 59066
+  },
+  {
+   "t": 25.000000038,
+   "clock": "Day 2 01:00",
+   "plyxis": {
+    "oil_bpd": 19871.9,
+    "gas_mscfd": 41969.6,
+    "water_bpd": 46653.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16108.6,
+    "profit_usd_h": 49894.2,
+    "revenue_usd_h": 51698.2,
+    "cost_usd_h": 3104.9,
+    "inventory_usd_h": 10624.8,
+    "equipment_usd_h": -9324.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 1019505
+   },
+   "legacy": {
+    "oil_bpd": 18347.8,
+    "gas_mscfd": 39047.8,
+    "water_bpd": 43581.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18355.8,
+    "profit_usd_h": 49345.6,
+    "revenue_usd_h": 58426.9,
+    "cost_usd_h": 2986.2,
+    "inventory_usd_h": -23.2,
+    "equipment_usd_h": -6072.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 959934
+   },
+   "delta_profit": 59571
+  },
+  {
+   "t": 26.00000004,
+   "clock": "Day 2 02:00",
+   "plyxis": {
+    "oil_bpd": 20067.5,
+    "gas_mscfd": 42072.5,
+    "water_bpd": 47343.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16093.3,
+    "profit_usd_h": 50838.9,
+    "revenue_usd_h": 51852.2,
+    "cost_usd_h": 3085.1,
+    "inventory_usd_h": 11257.8,
+    "equipment_usd_h": -9186.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 1072498
+   },
+   "legacy": {
+    "oil_bpd": 18371.3,
+    "gas_mscfd": 38956.1,
+    "water_bpd": 43600.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18376.0,
+    "profit_usd_h": 49631.8,
+    "revenue_usd_h": 58711.0,
+    "cost_usd_h": 3054.3,
+    "inventory_usd_h": -13.0,
+    "equipment_usd_h": -6012.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1013097
+   },
+   "delta_profit": 59401
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "plyxis": {
+    "oil_bpd": 20046.6,
+    "gas_mscfd": 42108.4,
+    "water_bpd": 47298.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16093.3,
+    "profit_usd_h": 50570.3,
+    "revenue_usd_h": 51677.9,
+    "cost_usd_h": 3068.9,
+    "inventory_usd_h": 11141.4,
+    "equipment_usd_h": -9180.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 1119400
+   },
+   "legacy": {
+    "oil_bpd": 18357.2,
+    "gas_mscfd": 38972.4,
+    "water_bpd": 43568.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18358.8,
+    "profit_usd_h": 49267.6,
+    "revenue_usd_h": 58439.3,
+    "cost_usd_h": 3137.9,
+    "inventory_usd_h": -3.8,
+    "equipment_usd_h": -6030.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1058303
+   },
+   "delta_profit": 61097
+  },
+  {
+   "t": 28.000000044,
+   "clock": "Day 2 04:00",
+   "plyxis": {
+    "oil_bpd": 20103.8,
+    "gas_mscfd": 42231.2,
+    "water_bpd": 47348.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22253.2,
+    "profit_usd_h": 51903.0,
+    "revenue_usd_h": 70535.3,
+    "cost_usd_h": 3246.6,
+    "inventory_usd_h": -6049.6,
+    "equipment_usd_h": -9336.0,
+    "emission_t_h": 6.9,
+    "cum_profit": 1170250
+   },
+   "legacy": {
+    "oil_bpd": 18386.3,
+    "gas_mscfd": 38962.9,
+    "water_bpd": 43601.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18410.1,
+    "profit_usd_h": 49481.5,
+    "revenue_usd_h": 58585.7,
+    "cost_usd_h": 3037.6,
+    "inventory_usd_h": -66.6,
+    "equipment_usd_h": -6000.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1107102
+   },
+   "delta_profit": 63148
+  },
+  {
+   "t": 29.000000046,
+   "clock": "Day 2 05:00",
+   "plyxis": {
+    "oil_bpd": 20220.9,
+    "gas_mscfd": 42486.1,
+    "water_bpd": 47712.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 24717.0,
+    "profit_usd_h": 52944.8,
+    "revenue_usd_h": 77303.9,
+    "cost_usd_h": 3222.0,
+    "inventory_usd_h": -12743.2,
+    "equipment_usd_h": -8394.0,
+    "emission_t_h": 7.0,
+    "cum_profit": 1213958
+   },
+   "legacy": {
+    "oil_bpd": 18381.2,
+    "gas_mscfd": 39040.3,
+    "water_bpd": 43600.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18384.8,
+    "profit_usd_h": 48857.3,
+    "revenue_usd_h": 57952.2,
+    "cost_usd_h": 3021.7,
+    "inventory_usd_h": -49.2,
+    "equipment_usd_h": -6024.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1146342
+   },
+   "delta_profit": 67616
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "plyxis": {
+    "oil_bpd": 20192.8,
+    "gas_mscfd": 42450.7,
+    "water_bpd": 47703.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 24717.0,
+    "profit_usd_h": 52521.3,
+    "revenue_usd_h": 77115.0,
+    "cost_usd_h": 3411.3,
+    "inventory_usd_h": -12788.4,
+    "equipment_usd_h": -8394.0,
+    "emission_t_h": 7.0,
+    "cum_profit": 1264796
+   },
+   "legacy": {
+    "oil_bpd": 18325.3,
+    "gas_mscfd": 38943.9,
+    "water_bpd": 43527.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18339.0,
+    "profit_usd_h": 48459.2,
+    "revenue_usd_h": 57671.0,
+    "cost_usd_h": 3139.8,
+    "inventory_usd_h": -89.9,
+    "equipment_usd_h": -5982.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1192848
+   },
+   "delta_profit": 71948
+  },
+  {
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "plyxis": {
+    "oil_bpd": 20004.4,
+    "gas_mscfd": 41092.8,
+    "water_bpd": 46637.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21493.3,
+    "profit_usd_h": 56659.8,
+    "revenue_usd_h": 67447.5,
+    "cost_usd_h": 3349.5,
+    "inventory_usd_h": -4354.2,
+    "equipment_usd_h": -3084.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 1319863
+   },
+   "legacy": {
+    "oil_bpd": 18376.4,
+    "gas_mscfd": 39047.8,
+    "water_bpd": 43580.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18386.8,
+    "profit_usd_h": 48511.5,
+    "revenue_usd_h": 57935.1,
+    "cost_usd_h": 3356.5,
+    "inventory_usd_h": -91.1,
+    "equipment_usd_h": -5976.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1243312
+   },
+   "delta_profit": 76552
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "plyxis": {
+    "oil_bpd": 17717.5,
+    "gas_mscfd": 37018.0,
+    "water_bpd": 40682.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17159.2,
+    "profit_usd_h": 49660.0,
+    "revenue_usd_h": 53863.9,
+    "cost_usd_h": 3146.6,
+    "inventory_usd_h": 1546.7,
+    "equipment_usd_h": -2604.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 1366971
+   },
+   "legacy": {
+    "oil_bpd": 18328.9,
+    "gas_mscfd": 38945.7,
+    "water_bpd": 43474.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18323.1,
+    "profit_usd_h": 48139.3,
+    "revenue_usd_h": 57482.7,
+    "cost_usd_h": 3265.4,
+    "inventory_usd_h": -42.0,
+    "equipment_usd_h": -6036.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1288390
+   },
+   "delta_profit": 78581
+  },
+  {
+   "t": 33.000000054,
+   "clock": "Day 2 09:00",
+   "plyxis": {
+    "oil_bpd": 17933.4,
+    "gas_mscfd": 37150.9,
+    "water_bpd": 41262.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18984.7,
+    "profit_usd_h": 50783.0,
+    "revenue_usd_h": 59736.0,
+    "cost_usd_h": 3117.1,
+    "inventory_usd_h": -2962.0,
+    "equipment_usd_h": -2874.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1421981
+   },
+   "legacy": {
+    "oil_bpd": 18328.4,
+    "gas_mscfd": 38940.1,
+    "water_bpd": 43483.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18321.9,
+    "profit_usd_h": 48418.8,
+    "revenue_usd_h": 57835.4,
+    "cost_usd_h": 3274.2,
+    "inventory_usd_h": -34.4,
+    "equipment_usd_h": -6108.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1341699
+   },
+   "delta_profit": 80282
+  },
+  {
+   "t": 34.000000056,
+   "clock": "Day 2 10:00",
+   "plyxis": {
+    "oil_bpd": 17940.2,
+    "gas_mscfd": 37263.2,
+    "water_bpd": 41295.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18984.7,
+    "profit_usd_h": 50546.4,
+    "revenue_usd_h": 59497.5,
+    "cost_usd_h": 3131.6,
+    "inventory_usd_h": -2933.5,
+    "equipment_usd_h": -2886.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1470056
+   },
+   "legacy": {
+    "oil_bpd": 18306.3,
+    "gas_mscfd": 39015.4,
+    "water_bpd": 43470.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18326.1,
+    "profit_usd_h": 48175.8,
+    "revenue_usd_h": 57612.7,
+    "cost_usd_h": 3286.3,
+    "inventory_usd_h": -108.7,
+    "equipment_usd_h": -6042.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1387054
+   },
+   "delta_profit": 83002
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "plyxis": {
+    "oil_bpd": 18007.9,
+    "gas_mscfd": 37339.9,
+    "water_bpd": 41370.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20452.8,
+    "profit_usd_h": 50818.9,
+    "revenue_usd_h": 63784.1,
+    "cost_usd_h": 3319.2,
+    "inventory_usd_h": -6772.1,
+    "equipment_usd_h": -2874.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1519389
+   },
+   "legacy": {
+    "oil_bpd": 18389.7,
+    "gas_mscfd": 39144.5,
+    "water_bpd": 43620.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18420.5,
+    "profit_usd_h": 48324.8,
+    "revenue_usd_h": 57769.1,
+    "cost_usd_h": 3303.8,
+    "inventory_usd_h": -140.6,
+    "equipment_usd_h": -6000.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1433510
+   },
+   "delta_profit": 85879
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "plyxis": {
+    "oil_bpd": 18062.8,
+    "gas_mscfd": 37650.5,
+    "water_bpd": 41334.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20813.4,
+    "profit_usd_h": 51208.2,
+    "revenue_usd_h": 65032.5,
+    "cost_usd_h": 3320.4,
+    "inventory_usd_h": -7623.9,
+    "equipment_usd_h": -2880.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1571413
+   },
+   "legacy": {
+    "oil_bpd": 18412.0,
+    "gas_mscfd": 39203.6,
+    "water_bpd": 43646.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18418.1,
+    "profit_usd_h": 48486.3,
+    "revenue_usd_h": 57901.2,
+    "cost_usd_h": 3333.6,
+    "inventory_usd_h": -75.3,
+    "equipment_usd_h": -6006.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1483055
+   },
+   "delta_profit": 88358
+  },
+  {
+   "t": 37.000000062,
+   "clock": "Day 2 13:00",
+   "plyxis": {
+    "oil_bpd": 18073.5,
+    "gas_mscfd": 37657.7,
+    "water_bpd": 41405.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20813.4,
+    "profit_usd_h": 45078.4,
+    "revenue_usd_h": 58993.3,
+    "cost_usd_h": 3452.4,
+    "inventory_usd_h": -7582.4,
+    "equipment_usd_h": -2880.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1615397
+   },
+   "legacy": {
+    "oil_bpd": 18418.7,
+    "gas_mscfd": 39194.9,
+    "water_bpd": 43694.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18435.0,
+    "profit_usd_h": 42200.3,
+    "revenue_usd_h": 51682.2,
+    "cost_usd_h": 3378.9,
+    "inventory_usd_h": -103.0,
+    "equipment_usd_h": -6000.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1523913
+   },
+   "delta_profit": 91484
+  },
+  {
+   "t": 38.000000064,
+   "clock": "Day 2 14:00",
+   "plyxis": {
+    "oil_bpd": 18052.3,
+    "gas_mscfd": 37609.2,
+    "water_bpd": 41278.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16416.5,
+    "profit_usd_h": 43921.4,
+    "revenue_usd_h": 45616.6,
+    "cost_usd_h": 3246.7,
+    "inventory_usd_h": 4431.5,
+    "equipment_usd_h": -2880.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1657461
+   },
+   "legacy": {
+    "oil_bpd": 18420.0,
+    "gas_mscfd": 39159.1,
+    "water_bpd": 43687.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18400.6,
+    "profit_usd_h": 41972.4,
+    "revenue_usd_h": 51422.0,
+    "cost_usd_h": 3427.0,
+    "inventory_usd_h": -4.6,
+    "equipment_usd_h": -6018.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1563588
+   },
+   "delta_profit": 93873
+  },
+  {
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "plyxis": {
+    "oil_bpd": 18569.7,
+    "gas_mscfd": 38346.9,
+    "water_bpd": 41626.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 14893.7,
+    "profit_usd_h": 44784.7,
+    "revenue_usd_h": 40994.7,
+    "cost_usd_h": 3401.4,
+    "inventory_usd_h": 10071.3,
+    "equipment_usd_h": -2880.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1702068
+   },
+   "legacy": {
+    "oil_bpd": 18412.8,
+    "gas_mscfd": 39030.9,
+    "water_bpd": 43637.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18426.7,
+    "profit_usd_h": 41640.8,
+    "revenue_usd_h": 51539.8,
+    "cost_usd_h": 3824.5,
+    "inventory_usd_h": -98.5,
+    "equipment_usd_h": -5976.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1605920
+   },
+   "delta_profit": 96147
+  },
+  {
+   "t": 40.000000068,
+   "clock": "Day 2 16:00",
+   "plyxis": {
+    "oil_bpd": 18590.8,
+    "gas_mscfd": 38284.6,
+    "water_bpd": 41664.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 14893.7,
+    "profit_usd_h": 45019.2,
+    "revenue_usd_h": 41283.5,
+    "cost_usd_h": 3582.2,
+    "inventory_usd_h": 10192.0,
+    "equipment_usd_h": -2874.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1751219
+   },
+   "legacy": {
+    "oil_bpd": 18462.7,
+    "gas_mscfd": 39057.4,
+    "water_bpd": 43791.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18449.7,
+    "profit_usd_h": 42174.2,
+    "revenue_usd_h": 51956.5,
+    "cost_usd_h": 3838.1,
+    "inventory_usd_h": -28.2,
+    "equipment_usd_h": -5916.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1652906
+   },
+   "delta_profit": 98312
+  },
+  {
+   "t": 41.00000007,
+   "clock": "Day 2 17:00",
+   "plyxis": {
+    "oil_bpd": 18538.5,
+    "gas_mscfd": 38183.0,
+    "water_bpd": 41465.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18858.0,
+    "profit_usd_h": 45224.9,
+    "revenue_usd_h": 53289.0,
+    "cost_usd_h": 4273.8,
+    "inventory_usd_h": -934.3,
+    "equipment_usd_h": -2856.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1796331
+   },
+   "legacy": {
+    "oil_bpd": 18416.1,
+    "gas_mscfd": 38958.2,
+    "water_bpd": 43759.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18432.5,
+    "profit_usd_h": 41591.3,
+    "revenue_usd_h": 51926.6,
+    "cost_usd_h": 4344.4,
+    "inventory_usd_h": -110.9,
+    "equipment_usd_h": -5880.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1694680
+   },
+   "delta_profit": 101651
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "plyxis": {
+    "oil_bpd": 18533.5,
+    "gas_mscfd": 37901.1,
+    "water_bpd": 41841.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16715.1,
+    "profit_usd_h": 44262.8,
+    "revenue_usd_h": 46762.2,
+    "cost_usd_h": 4645.6,
+    "inventory_usd_h": 5002.2,
+    "equipment_usd_h": -2856.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1839602
+   },
+   "legacy": {
+    "oil_bpd": 18408.7,
+    "gas_mscfd": 39012.7,
+    "water_bpd": 43681.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18426.5,
+    "profit_usd_h": 41026.9,
+    "revenue_usd_h": 51819.9,
+    "cost_usd_h": 4778.4,
+    "inventory_usd_h": -116.6,
+    "equipment_usd_h": -5898.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1734614
+   },
+   "delta_profit": 104988
+  },
+  {
+   "t": 43.000000074,
+   "clock": "Day 2 19:00",
+   "plyxis": {
+    "oil_bpd": 18777.6,
+    "gas_mscfd": 38115.2,
+    "water_bpd": 41567.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17351.5,
+    "profit_usd_h": 45025.7,
+    "revenue_usd_h": 48236.4,
+    "cost_usd_h": 4279.0,
+    "inventory_usd_h": 3894.4,
+    "equipment_usd_h": -2826.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1877534
+   },
+   "legacy": {
+    "oil_bpd": 19032.6,
+    "gas_mscfd": 40203.9,
+    "water_bpd": 44343.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19089.3,
+    "profit_usd_h": 42568.9,
+    "revenue_usd_h": 53236.1,
+    "cost_usd_h": 4490.6,
+    "inventory_usd_h": -230.6,
+    "equipment_usd_h": -5946.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1770152
+   },
+   "delta_profit": 107381
+  },
+  {
+   "t": 44.000000076,
+   "clock": "Day 2 20:00",
+   "plyxis": {
+    "oil_bpd": 18876.9,
+    "gas_mscfd": 38252.6,
+    "water_bpd": 41730.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17351.5,
+    "profit_usd_h": 46150.0,
+    "revenue_usd_h": 48614.9,
+    "cost_usd_h": 3842.1,
+    "inventory_usd_h": 4197.2,
+    "equipment_usd_h": -2820.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 1928865
+   },
+   "legacy": {
+    "oil_bpd": 19019.5,
+    "gas_mscfd": 40043.4,
+    "water_bpd": 44232.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19078.8,
+    "profit_usd_h": 43807.4,
+    "revenue_usd_h": 53651.1,
+    "cost_usd_h": 3726.1,
+    "inventory_usd_h": -237.6,
+    "equipment_usd_h": -5880.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1819785
+   },
+   "delta_profit": 109080
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "plyxis": {
+    "oil_bpd": 18869.3,
+    "gas_mscfd": 38408.7,
+    "water_bpd": 41779.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21095.1,
+    "profit_usd_h": 47739.4,
+    "revenue_usd_h": 60125.3,
+    "cost_usd_h": 3365.6,
+    "inventory_usd_h": -6188.3,
+    "equipment_usd_h": -2832.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 1979009
+   },
+   "legacy": {
+    "oil_bpd": 19048.7,
+    "gas_mscfd": 40101.2,
+    "water_bpd": 44307.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19032.1,
+    "profit_usd_h": 44349.0,
+    "revenue_usd_h": 53713.9,
+    "cost_usd_h": 3415.5,
+    "inventory_usd_h": -27.5,
+    "equipment_usd_h": -5922.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1866875
+   },
+   "delta_profit": 112134
+  },
+  {
+   "t": 46.00000008,
+   "clock": "Day 2 22:00",
+   "plyxis": {
+    "oil_bpd": 19003.2,
+    "gas_mscfd": 38523.6,
+    "water_bpd": 41642.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19623.4,
+    "profit_usd_h": 47533.8,
+    "revenue_usd_h": 55277.2,
+    "cost_usd_h": 3166.9,
+    "inventory_usd_h": -1744.5,
+    "equipment_usd_h": -2832.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2022039
+   },
+   "legacy": {
+    "oil_bpd": 19056.7,
+    "gas_mscfd": 40167.0,
+    "water_bpd": 44317.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19098.1,
+    "profit_usd_h": 44040.0,
+    "revenue_usd_h": 53536.7,
+    "cost_usd_h": 3355.5,
+    "inventory_usd_h": -189.2,
+    "equipment_usd_h": -5952.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1905898
+   },
+   "delta_profit": 116142
+  },
+  {
+   "t": 47.000000082,
+   "clock": "Day 2 23:00",
+   "plyxis": {
+    "oil_bpd": 19032.2,
+    "gas_mscfd": 38547.5,
+    "water_bpd": 41668.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19623.4,
+    "profit_usd_h": 47904.7,
+    "revenue_usd_h": 55439.5,
+    "cost_usd_h": 3033.3,
+    "inventory_usd_h": -1669.5,
+    "equipment_usd_h": -2832.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2071722
+   },
+   "legacy": {
+    "oil_bpd": 19055.5,
+    "gas_mscfd": 40144.7,
+    "water_bpd": 44284.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19025.0,
+    "profit_usd_h": 44367.4,
+    "revenue_usd_h": 53478.7,
+    "cost_usd_h": 3211.7,
+    "inventory_usd_h": 10.4,
+    "equipment_usd_h": -5910.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1952376
+   },
+   "delta_profit": 119346
+  },
+  {
+   "t": 48.000000084,
+   "clock": "Day 3 00:00",
+   "plyxis": {
+    "oil_bpd": 19095.6,
+    "gas_mscfd": 38868.2,
+    "water_bpd": 41658.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21827.8,
+    "profit_usd_h": 48504.3,
+    "revenue_usd_h": 61979.3,
+    "cost_usd_h": 3087.9,
+    "inventory_usd_h": -7555.1,
+    "equipment_usd_h": -2832.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2119278
+   },
+   "legacy": {
+    "oil_bpd": 19119.6,
+    "gas_mscfd": 40339.3,
+    "water_bpd": 44394.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19118.1,
+    "profit_usd_h": 44587.3,
+    "revenue_usd_h": 53670.7,
+    "cost_usd_h": 3150.1,
+    "inventory_usd_h": -71.3,
+    "equipment_usd_h": -5862.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 1995873
+   },
+   "delta_profit": 123405
+  },
+  {
+   "t": 49.000000086,
+   "clock": "Day 3 01:00",
+   "plyxis": {
+    "oil_bpd": 19025.5,
+    "gas_mscfd": 38540.1,
+    "water_bpd": 41771.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21041.6,
+    "profit_usd_h": 48318.0,
+    "revenue_usd_h": 59819.1,
+    "cost_usd_h": 3111.5,
+    "inventory_usd_h": -5569.5,
+    "equipment_usd_h": -2820.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2169478
+   },
+   "legacy": {
+    "oil_bpd": 19113.5,
+    "gas_mscfd": 40258.8,
+    "water_bpd": 44394.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19122.0,
+    "profit_usd_h": 44594.1,
+    "revenue_usd_h": 53851.0,
+    "cost_usd_h": 3205.7,
+    "inventory_usd_h": -99.3,
+    "equipment_usd_h": -5952.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2042721
+   },
+   "delta_profit": 126756
+  },
+  {
+   "t": 50.000000088,
+   "clock": "Day 3 02:00",
+   "plyxis": {
+    "oil_bpd": 19047.2,
+    "gas_mscfd": 38563.8,
+    "water_bpd": 41800.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21041.6,
+    "profit_usd_h": 48233.8,
+    "revenue_usd_h": 59555.7,
+    "cost_usd_h": 2997.2,
+    "inventory_usd_h": -5486.6,
+    "equipment_usd_h": -2838.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2214967
+   },
+   "legacy": {
+    "oil_bpd": 19286.0,
+    "gas_mscfd": 39879.7,
+    "water_bpd": 44315.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19154.4,
+    "profit_usd_h": 45554.4,
+    "revenue_usd_h": 53748.4,
+    "cost_usd_h": 6132.6,
+    "inventory_usd_h": 290.6,
+    "equipment_usd_h": -2352.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2039165
+   },
+   "delta_profit": 175802
+  },
+  {
+   "t": 51.00000009,
+   "clock": "Day 3 03:00",
+   "plyxis": {
+    "oil_bpd": 18960.6,
+    "gas_mscfd": 38412.9,
+    "water_bpd": 41764.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16716.2,
+    "profit_usd_h": 46817.4,
+    "revenue_usd_h": 46255.4,
+    "cost_usd_h": 2812.5,
+    "inventory_usd_h": 6176.4,
+    "equipment_usd_h": -2802.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2257798
+   },
+   "legacy": {
+    "oil_bpd": 19282.1,
+    "gas_mscfd": 39928.5,
+    "water_bpd": 44396.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19295.2,
+    "profit_usd_h": 48281.4,
+    "revenue_usd_h": 53822.0,
+    "cost_usd_h": 3078.2,
+    "inventory_usd_h": -110.4,
+    "equipment_usd_h": -2352.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2082750
+   },
+   "delta_profit": 175047
+  },
+  {
+   "t": 52.000000092,
+   "clock": "Day 3 04:00",
+   "plyxis": {
+    "oil_bpd": 18959.4,
+    "gas_mscfd": 38351.3,
+    "water_bpd": 41576.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16259.4,
+    "profit_usd_h": 46919.1,
+    "revenue_usd_h": 44760.8,
+    "cost_usd_h": 2802.2,
+    "inventory_usd_h": 7408.5,
+    "equipment_usd_h": -2448.0,
+    "emission_t_h": 5.9,
+    "cum_profit": 2302775
+   },
+   "legacy": {
+    "oil_bpd": 19322.3,
+    "gas_mscfd": 39956.5,
+    "water_bpd": 44389.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19334.2,
+    "profit_usd_h": 48265.9,
+    "revenue_usd_h": 53776.6,
+    "cost_usd_h": 3063.7,
+    "inventory_usd_h": -107.0,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2128818
+   },
+   "delta_profit": 173956
+  },
+  {
+   "t": 53.000000094,
+   "clock": "Day 3 05:00",
+   "plyxis": {
+    "oil_bpd": 18870.5,
+    "gas_mscfd": 38212.5,
+    "water_bpd": 41452.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16259.4,
+    "profit_usd_h": 46807.9,
+    "revenue_usd_h": 44893.7,
+    "cost_usd_h": 2826.3,
+    "inventory_usd_h": 7182.4,
+    "equipment_usd_h": -2442.0,
+    "emission_t_h": 5.9,
+    "cum_profit": 2351340
+   },
+   "legacy": {
+    "oil_bpd": 19315.7,
+    "gas_mscfd": 40012.4,
+    "water_bpd": 44474.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19347.7,
+    "profit_usd_h": 48302.8,
+    "revenue_usd_h": 53953.4,
+    "cost_usd_h": 3147.5,
+    "inventory_usd_h": -163.1,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2179125
+   },
+   "delta_profit": 172215
+  },
+  {
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "plyxis": {
+    "oil_bpd": 18860.5,
+    "gas_mscfd": 38162.7,
+    "water_bpd": 41500.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19928.2,
+    "profit_usd_h": 47227.5,
+    "revenue_usd_h": 55643.5,
+    "cost_usd_h": 3044.2,
+    "inventory_usd_h": -2917.9,
+    "equipment_usd_h": -2454.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2396076
+   },
+   "legacy": {
+    "oil_bpd": 19282.7,
+    "gas_mscfd": 39974.6,
+    "water_bpd": 44433.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19286.5,
+    "profit_usd_h": 47919.3,
+    "revenue_usd_h": 53555.1,
+    "cost_usd_h": 3217.9,
+    "inventory_usd_h": -83.8,
+    "equipment_usd_h": -2334.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2224180
+   },
+   "delta_profit": 171896
+  },
+  {
+   "t": 55.000000098,
+   "clock": "Day 3 07:00",
+   "plyxis": {
+    "oil_bpd": 18270.0,
+    "gas_mscfd": 34867.3,
+    "water_bpd": 40506.9,
+    "flare_mscfd": 521.1,
+    "oil_sold_bpd": 13990.5,
+    "profit_usd_h": 44697.9,
+    "revenue_usd_h": 38517.6,
+    "cost_usd_h": 2885.1,
+    "inventory_usd_h": 11819.5,
+    "equipment_usd_h": -2754.0,
+    "emission_t_h": 7.8,
+    "cum_profit": 2442840
+   },
+   "legacy": {
+    "oil_bpd": 19207.9,
+    "gas_mscfd": 39885.4,
+    "water_bpd": 44181.9,
+    "flare_mscfd": 6426.7,
+    "oil_sold_bpd": 19205.8,
+    "profit_usd_h": 48594.8,
+    "revenue_usd_h": 54211.5,
+    "cost_usd_h": 3217.3,
+    "inventory_usd_h": -65.5,
+    "equipment_usd_h": -2334.0,
+    "emission_t_h": 35.2,
+    "cum_profit": 2276328
+   },
+   "delta_profit": 166512
+  },
+  {
+   "t": 56.0000001,
+   "clock": "Day 3 08:00",
+   "plyxis": {
+    "oil_bpd": 18260.6,
+    "gas_mscfd": 34894.4,
+    "water_bpd": 40462.6,
+    "flare_mscfd": 564.2,
+    "oil_sold_bpd": 13990.5,
+    "profit_usd_h": 44397.2,
+    "revenue_usd_h": 38345.9,
+    "cost_usd_h": 2935.3,
+    "inventory_usd_h": 11746.6,
+    "equipment_usd_h": -2760.0,
+    "emission_t_h": 8.0,
+    "cum_profit": 2484434
+   },
+   "legacy": {
+    "oil_bpd": 19220.5,
+    "gas_mscfd": 39965.5,
+    "water_bpd": 44145.2,
+    "flare_mscfd": 6469.3,
+    "oil_sold_bpd": 19211.2,
+    "profit_usd_h": 48318.9,
+    "revenue_usd_h": 53986.3,
+    "cost_usd_h": 3269.6,
+    "inventory_usd_h": -45.8,
+    "equipment_usd_h": -2352.0,
+    "emission_t_h": 35.4,
+    "cum_profit": 2321395
+   },
+   "delta_profit": 163039
+  },
+  {
+   "t": 57.000000102,
+   "clock": "Day 3 09:00",
+   "plyxis": {
+    "oil_bpd": 18315.8,
+    "gas_mscfd": 35022.5,
+    "water_bpd": 40566.9,
+    "flare_mscfd": 650.7,
+    "oil_sold_bpd": 12851.4,
+    "profit_usd_h": 44435.3,
+    "revenue_usd_h": 35098.7,
+    "cost_usd_h": 3030.6,
+    "inventory_usd_h": 15109.2,
+    "equipment_usd_h": -2742.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 2531559
+   },
+   "legacy": {
+    "oil_bpd": 18062.8,
+    "gas_mscfd": 37026.3,
+    "water_bpd": 41652.6,
+    "flare_mscfd": 4785.2,
+    "oil_sold_bpd": 17967.0,
+    "profit_usd_h": 45792.9,
+    "revenue_usd_h": 50612.7,
+    "cost_usd_h": 3150.5,
+    "inventory_usd_h": 226.7,
+    "equipment_usd_h": -1896.0,
+    "emission_t_h": 27.1,
+    "cum_profit": 2369794
+   },
+   "delta_profit": 161765
+  },
+  {
+   "t": 58.000000104,
+   "clock": "Day 3 10:00",
+   "plyxis": {
+    "oil_bpd": 17335.4,
+    "gas_mscfd": 34621.4,
+    "water_bpd": 36994.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 10146.2,
+    "profit_usd_h": 41430.4,
+    "revenue_usd_h": 26951.5,
+    "cost_usd_h": 2872.5,
+    "inventory_usd_h": 19901.5,
+    "equipment_usd_h": -2550.0,
+    "emission_t_h": 5.1,
+    "cum_profit": 2571951
+   },
+   "legacy": {
+    "oil_bpd": 18135.0,
+    "gas_mscfd": 37150.3,
+    "water_bpd": 41837.2,
+    "flare_mscfd": 4819.7,
+    "oil_sold_bpd": 18097.0,
+    "profit_usd_h": 45936.9,
+    "revenue_usd_h": 50941.6,
+    "cost_usd_h": 3168.6,
+    "inventory_usd_h": 65.9,
+    "equipment_usd_h": -1902.0,
+    "emission_t_h": 27.3,
+    "cum_profit": 2414955
+   },
+   "delta_profit": 156996
+  },
+  {
+   "t": 59.000000106,
+   "clock": "Day 3 11:00",
+   "plyxis": {
+    "oil_bpd": 17382.7,
+    "gas_mscfd": 34743.8,
+    "water_bpd": 37063.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 10146.2,
+    "profit_usd_h": 41578.5,
+    "revenue_usd_h": 26962.8,
+    "cost_usd_h": 2886.0,
+    "inventory_usd_h": 20045.7,
+    "equipment_usd_h": -2544.0,
+    "emission_t_h": 5.1,
+    "cum_profit": 2614039
+   },
+   "legacy": {
+    "oil_bpd": 18182.9,
+    "gas_mscfd": 37261.8,
+    "water_bpd": 41898.0,
+    "flare_mscfd": 4800.4,
+    "oil_sold_bpd": 18140.0,
+    "profit_usd_h": 46103.6,
+    "revenue_usd_h": 51098.8,
+    "cost_usd_h": 3184.4,
+    "inventory_usd_h": 79.3,
+    "equipment_usd_h": -1890.0,
+    "emission_t_h": 27.2,
+    "cum_profit": 2461589
+   },
+   "delta_profit": 152450
+  },
+  {
+   "t": 60.000000108,
+   "clock": "Day 3 12:00",
+   "plyxis": {
+    "oil_bpd": 17684.2,
+    "gas_mscfd": 35891.0,
+    "water_bpd": 37630.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 11344.5,
+    "profit_usd_h": 42320.2,
+    "revenue_usd_h": 30294.0,
+    "cost_usd_h": 3008.0,
+    "inventory_usd_h": 17476.2,
+    "equipment_usd_h": -2442.0,
+    "emission_t_h": 5.2,
+    "cum_profit": 2652990
+   },
+   "legacy": {
+    "oil_bpd": 18206.2,
+    "gas_mscfd": 37295.1,
+    "water_bpd": 41938.4,
+    "flare_mscfd": 4759.2,
+    "oil_sold_bpd": 18204.0,
+    "profit_usd_h": 45918.4,
+    "revenue_usd_h": 51056.3,
+    "cost_usd_h": 3209.8,
+    "inventory_usd_h": -32.2,
+    "equipment_usd_h": -1896.0,
+    "emission_t_h": 27.0,
+    "cum_profit": 2504276
+   },
+   "delta_profit": 148714
+  },
+  {
+   "t": 61.00000011,
+   "clock": "Day 3 13:00",
+   "plyxis": {
+    "oil_bpd": 19049.1,
+    "gas_mscfd": 38295.6,
+    "water_bpd": 41959.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18519.1,
+    "profit_usd_h": 52688.6,
+    "revenue_usd_h": 57717.9,
+    "cost_usd_h": 3570.5,
+    "inventory_usd_h": 1457.1,
+    "equipment_usd_h": -2916.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2631405
+   },
+   "legacy": {
+    "oil_bpd": 19437.6,
+    "gas_mscfd": 40379.2,
+    "water_bpd": 44634.4,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19551.3,
+    "profit_usd_h": 54749.4,
+    "revenue_usd_h": 60931.4,
+    "cost_usd_h": 3474.3,
+    "inventory_usd_h": -385.7,
+    "equipment_usd_h": -2322.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2555948
+   },
+   "delta_profit": 75457
+  },
+  {
+   "t": 62.000000112,
+   "clock": "Day 3 14:00",
+   "plyxis": {
+    "oil_bpd": 19053.6,
+    "gas_mscfd": 38288.3,
+    "water_bpd": 41971.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18519.1,
+    "profit_usd_h": 52635.8,
+    "revenue_usd_h": 57518.9,
+    "cost_usd_h": 3434.2,
+    "inventory_usd_h": 1467.1,
+    "equipment_usd_h": -2916.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2682498
+   },
+   "legacy": {
+    "oil_bpd": 19397.9,
+    "gas_mscfd": 40271.3,
+    "water_bpd": 44538.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19442.8,
+    "profit_usd_h": 54371.8,
+    "revenue_usd_h": 60392.5,
+    "cost_usd_h": 3491.1,
+    "inventory_usd_h": -195.6,
+    "equipment_usd_h": -2334.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2608818
+   },
+   "delta_profit": 73679
+  },
+  {
+   "t": 63.000000114,
+   "clock": "Day 3 15:00",
+   "plyxis": {
+    "oil_bpd": 19119.4,
+    "gas_mscfd": 38566.9,
+    "water_bpd": 42073.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19117.9,
+    "profit_usd_h": 53236.6,
+    "revenue_usd_h": 59796.0,
+    "cost_usd_h": 3642.9,
+    "inventory_usd_h": 17.5,
+    "equipment_usd_h": -2934.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2741348
+   },
+   "legacy": {
+    "oil_bpd": 19404.7,
+    "gas_mscfd": 40284.2,
+    "water_bpd": 44549.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19439.6,
+    "profit_usd_h": 54714.5,
+    "revenue_usd_h": 60873.4,
+    "cost_usd_h": 3643.7,
+    "inventory_usd_h": -169.3,
+    "equipment_usd_h": -2346.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2669535
+   },
+   "delta_profit": 71812
+  },
+  {
+   "t": 64.000000116,
+   "clock": "Day 3 16:00",
+   "plyxis": {
+    "oil_bpd": 19167.1,
+    "gas_mscfd": 38682.4,
+    "water_bpd": 42296.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20305.7,
+    "profit_usd_h": 53319.8,
+    "revenue_usd_h": 63386.1,
+    "cost_usd_h": 3942.4,
+    "inventory_usd_h": -3177.8,
+    "equipment_usd_h": -2946.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2794847
+   },
+   "legacy": {
+    "oil_bpd": 19402.1,
+    "gas_mscfd": 40364.0,
+    "water_bpd": 44543.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19398.4,
+    "profit_usd_h": 54278.1,
+    "revenue_usd_h": 60776.3,
+    "cost_usd_h": 4078.3,
+    "inventory_usd_h": -61.9,
+    "equipment_usd_h": -2358.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2724821
+   },
+   "delta_profit": 70025
+  },
+  {
+   "t": 65.000000118,
+   "clock": "Day 3 17:00",
+   "plyxis": {
+    "oil_bpd": 19169.3,
+    "gas_mscfd": 38660.3,
+    "water_bpd": 42354.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20305.7,
+    "profit_usd_h": 52893.3,
+    "revenue_usd_h": 63333.5,
+    "cost_usd_h": 4319.0,
+    "inventory_usd_h": -3175.2,
+    "equipment_usd_h": -2946.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2848159
+   },
+   "legacy": {
+    "oil_bpd": 19334.0,
+    "gas_mscfd": 40189.7,
+    "water_bpd": 44438.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19322.9,
+    "profit_usd_h": 53665.5,
+    "revenue_usd_h": 60482.0,
+    "cost_usd_h": 4437.2,
+    "inventory_usd_h": -39.3,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2779059
+   },
+   "delta_profit": 69101
+  },
+  {
+   "t": 66.00000012,
+   "clock": "Day 3 18:00",
+   "plyxis": {
+    "oil_bpd": 19044.0,
+    "gas_mscfd": 38408.1,
+    "water_bpd": 42053.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17813.1,
+    "profit_usd_h": 51771.3,
+    "revenue_usd_h": 55890.8,
+    "cost_usd_h": 4507.9,
+    "inventory_usd_h": 3322.4,
+    "equipment_usd_h": -2934.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2903154
+   },
+   "legacy": {
+    "oil_bpd": 19240.0,
+    "gas_mscfd": 39983.3,
+    "water_bpd": 44296.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19234.1,
+    "profit_usd_h": 53088.9,
+    "revenue_usd_h": 60261.8,
+    "cost_usd_h": 4781.5,
+    "inventory_usd_h": -51.4,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2835165
+   },
+   "delta_profit": 67989
+  },
+  {
+   "t": 67.000000122,
+   "clock": "Day 3 19:00",
+   "plyxis": {
+    "oil_bpd": 19062.2,
+    "gas_mscfd": 38448.1,
+    "water_bpd": 42179.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16391.4,
+    "profit_usd_h": 51485.8,
+    "revenue_usd_h": 51439.3,
+    "cost_usd_h": 4277.4,
+    "inventory_usd_h": 7288.0,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2952027
+   },
+   "legacy": {
+    "oil_bpd": 19245.9,
+    "gas_mscfd": 40030.0,
+    "water_bpd": 44341.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19238.1,
+    "profit_usd_h": 53163.8,
+    "revenue_usd_h": 60072.9,
+    "cost_usd_h": 4505.7,
+    "inventory_usd_h": -45.3,
+    "equipment_usd_h": -2358.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2885496
+   },
+   "delta_profit": 66530
+  },
+  {
+   "t": 68.000000124,
+   "clock": "Day 3 20:00",
+   "plyxis": {
+    "oil_bpd": 19170.7,
+    "gas_mscfd": 38585.2,
+    "water_bpd": 42374.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 16391.4,
+    "profit_usd_h": 52322.9,
+    "revenue_usd_h": 51347.1,
+    "cost_usd_h": 3637.2,
+    "inventory_usd_h": 7576.9,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 3003303
+   },
+   "legacy": {
+    "oil_bpd": 19329.2,
+    "gas_mscfd": 40104.2,
+    "water_bpd": 44486.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19317.0,
+    "profit_usd_h": 54073.9,
+    "revenue_usd_h": 60201.7,
+    "cost_usd_h": 3753.9,
+    "inventory_usd_h": -33.9,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2938478
+   },
+   "delta_profit": 64825
+  },
+  {
+   "t": 69.000000126,
+   "clock": "Day 3 21:00",
+   "plyxis": {
+    "oil_bpd": 19190.1,
+    "gas_mscfd": 38687.5,
+    "water_bpd": 42483.2,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 20345.3,
+    "profit_usd_h": 53759.3,
+    "revenue_usd_h": 63353.3,
+    "cost_usd_h": 3392.1,
+    "inventory_usd_h": -3225.9,
+    "equipment_usd_h": -2976.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3059534
+   },
+   "legacy": {
+    "oil_bpd": 19334.2,
+    "gas_mscfd": 40256.5,
+    "water_bpd": 44475.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19316.4,
+    "profit_usd_h": 54562.1,
+    "revenue_usd_h": 60344.8,
+    "cost_usd_h": 3425.5,
+    "inventory_usd_h": -17.3,
+    "equipment_usd_h": -2340.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 2996043
+   },
+   "delta_profit": 63491
+  },
+  {
+   "t": 70.000000128,
+   "clock": "Day 3 22:00",
+   "plyxis": {
+    "oil_bpd": 19251.3,
+    "gas_mscfd": 38950.7,
+    "water_bpd": 42397.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22352.2,
+    "profit_usd_h": 54242.4,
+    "revenue_usd_h": 68985.1,
+    "cost_usd_h": 3253.3,
+    "inventory_usd_h": -8525.4,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3107414
+   },
+   "legacy": {
+    "oil_bpd": 19329.1,
+    "gas_mscfd": 40217.6,
+    "water_bpd": 44420.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19312.5,
+    "profit_usd_h": 54328.4,
+    "revenue_usd_h": 59979.3,
+    "cost_usd_h": 3285.1,
+    "inventory_usd_h": -19.8,
+    "equipment_usd_h": -2346.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3044686
+   },
+   "delta_profit": 62728
+  },
+  {
+   "t": 71.00000013,
+   "clock": "Day 3 23:00",
+   "plyxis": {
+    "oil_bpd": 19262.8,
+    "gas_mscfd": 38995.0,
+    "water_bpd": 42412.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22352.2,
+    "profit_usd_h": 54138.4,
+    "revenue_usd_h": 68874.9,
+    "cost_usd_h": 3291.9,
+    "inventory_usd_h": -8480.6,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3160369
+   },
+   "legacy": {
+    "oil_bpd": 19258.0,
+    "gas_mscfd": 40062.8,
+    "water_bpd": 44254.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 19300.8,
+    "profit_usd_h": 54112.0,
+    "revenue_usd_h": 59837.0,
+    "cost_usd_h": 3209.9,
+    "inventory_usd_h": -181.1,
+    "equipment_usd_h": -2334.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3097724
+   },
+   "delta_profit": 62645
+  },
+  {
+   "t": 72.000000132,
+   "clock": "Day 4 00:00",
+   "plyxis": {
+    "oil_bpd": 19289.8,
+    "gas_mscfd": 39159.0,
+    "water_bpd": 42469.3,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 22567.5,
+    "profit_usd_h": 53847.6,
+    "revenue_usd_h": 68889.7,
+    "cost_usd_h": 3116.4,
+    "inventory_usd_h": -8955.6,
+    "equipment_usd_h": -2970.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3207948
+   },
+   "legacy": {
+    "oil_bpd": 19037.3,
+    "gas_mscfd": 39419.1,
+    "water_bpd": 43629.5,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18980.7,
+    "profit_usd_h": 53264.7,
+    "revenue_usd_h": 58293.4,
+    "cost_usd_h": 3118.1,
+    "inventory_usd_h": 99.5,
+    "equipment_usd_h": -2010.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 3144025
+   },
+   "delta_profit": 63923
+  },
+  {
+   "t": 73.000000134,
+   "clock": "Day 4 01:00",
+   "plyxis": {
+    "oil_bpd": 19164.8,
+    "gas_mscfd": 38917.9,
+    "water_bpd": 42447.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21005.4,
+    "profit_usd_h": 53520.8,
+    "revenue_usd_h": 64564.2,
+    "cost_usd_h": 3037.5,
+    "inventory_usd_h": -5041.9,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3264948
+   },
+   "legacy": {
+    "oil_bpd": 19021.1,
+    "gas_mscfd": 39499.3,
+    "water_bpd": 43598.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18988.5,
+    "profit_usd_h": 53569.9,
+    "revenue_usd_h": 58605.0,
+    "cost_usd_h": 3077.5,
+    "inventory_usd_h": 34.5,
+    "equipment_usd_h": -1992.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 3200872
+   },
+   "delta_profit": 64076
+  },
+  {
+   "t": 74.000000136,
+   "clock": "Day 4 02:00",
+   "plyxis": {
+    "oil_bpd": 19194.2,
+    "gas_mscfd": 38972.2,
+    "water_bpd": 42565.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 21005.4,
+    "profit_usd_h": 53301.7,
+    "revenue_usd_h": 64391.4,
+    "cost_usd_h": 3174.2,
+    "inventory_usd_h": -4951.5,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3316615
+   },
+   "legacy": {
+    "oil_bpd": 18441.0,
+    "gas_mscfd": 38193.2,
+    "water_bpd": 41928.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18377.7,
+    "profit_usd_h": 51791.4,
+    "revenue_usd_h": 56560.3,
+    "cost_usd_h": 2989.0,
+    "inventory_usd_h": 140.1,
+    "equipment_usd_h": -1920.0,
+    "emission_t_h": 5.7,
+    "cum_profit": 3251509
+   },
+   "delta_profit": 65106
+  },
+  {
+   "t": 75.000000138,
+   "clock": "Day 4 03:00",
+   "plyxis": {
+    "oil_bpd": 19159.9,
+    "gas_mscfd": 38817.5,
+    "water_bpd": 42545.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17495.5,
+    "profit_usd_h": 52127.0,
+    "revenue_usd_h": 53492.9,
+    "cost_usd_h": 2889.5,
+    "inventory_usd_h": 4487.6,
+    "equipment_usd_h": -2964.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 3362314
+   },
+   "legacy": {
+    "oil_bpd": 18427.6,
+    "gas_mscfd": 38204.4,
+    "water_bpd": 42001.8,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18366.9,
+    "profit_usd_h": 51264.5,
+    "revenue_usd_h": 56018.7,
+    "cost_usd_h": 2976.8,
+    "inventory_usd_h": 130.6,
+    "equipment_usd_h": -1908.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 3295659
+   },
+   "delta_profit": 66656
+  },
+  {
+   "t": 76.00000014,
+   "clock": "Day 4 04:00",
+   "plyxis": {
+    "oil_bpd": 19274.6,
+    "gas_mscfd": 39084.7,
+    "water_bpd": 42481.7,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17081.5,
+    "profit_usd_h": 53049.2,
+    "revenue_usd_h": 52946.7,
+    "cost_usd_h": 2888.7,
+    "inventory_usd_h": 5967.3,
+    "equipment_usd_h": -2976.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3425050
+   },
+   "legacy": {
+    "oil_bpd": 18507.9,
+    "gas_mscfd": 38363.0,
+    "water_bpd": 42081.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18474.3,
+    "profit_usd_h": 52208.7,
+    "revenue_usd_h": 57053.3,
+    "cost_usd_h": 2982.0,
+    "inventory_usd_h": 57.4,
+    "equipment_usd_h": -1920.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 3358027
+   },
+   "delta_profit": 67023
+  },
+  {
+   "t": 77.000000142,
+   "clock": "Day 4 05:00",
+   "plyxis": {
+    "oil_bpd": 19273.3,
+    "gas_mscfd": 39020.6,
+    "water_bpd": 42423.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17081.5,
+    "profit_usd_h": 52990.3,
+    "revenue_usd_h": 52931.7,
+    "cost_usd_h": 2915.8,
+    "inventory_usd_h": 5950.4,
+    "equipment_usd_h": -2976.0,
+    "emission_t_h": 6.2,
+    "cum_profit": 3476265
+   },
+   "legacy": {
+    "oil_bpd": 18533.8,
+    "gas_mscfd": 38354.0,
+    "water_bpd": 42100.1,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18547.4,
+    "profit_usd_h": 52257.7,
+    "revenue_usd_h": 57246.9,
+    "cost_usd_h": 3009.0,
+    "inventory_usd_h": -72.1,
+    "equipment_usd_h": -1908.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 3408456
+   },
+   "delta_profit": 67809
+  },
+  {
+   "t": 78.000000144,
+   "clock": "Day 4 06:00",
+   "plyxis": {
+    "oil_bpd": 19226.1,
+    "gas_mscfd": 38988.8,
+    "water_bpd": 42437.9,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 17538.2,
+    "profit_usd_h": 53184.9,
+    "revenue_usd_h": 54542.9,
+    "cost_usd_h": 2979.0,
+    "inventory_usd_h": 4603.0,
+    "equipment_usd_h": -2982.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 3532677
+   },
+   "legacy": {
+    "oil_bpd": 18581.0,
+    "gas_mscfd": 38501.8,
+    "water_bpd": 42233.6,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 18580.2,
+    "profit_usd_h": 52597.3,
+    "revenue_usd_h": 57622.3,
+    "cost_usd_h": 3077.2,
+    "inventory_usd_h": -33.8,
+    "equipment_usd_h": -1914.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 3464328
+   },
+   "delta_profit": 68349
+  }
+ ],
+ "alerts": [
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P01_W02",
+   "label": "PAD-01 W-02",
+   "tag": "KST.P01.W02.ESP.VIB",
+   "message": "PAD-01 W-02: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.7839
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P01_W08",
+   "label": "PAD-01 W-08",
+   "tag": "KST.P01.W08.ESP.VIB",
+   "message": "PAD-01 W-08: vibration 7.2 above warning level 5.5",
+   "data": {
+    "value": 7.212
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P02_W05",
+   "label": "PAD-02 W-05",
+   "tag": "KST.P02.W05.ESP.VIB",
+   "message": "PAD-02 W-05: vibration 6.1 above warning level 5.5",
+   "data": {
+    "value": 6.134
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P03_W01",
+   "label": "PAD-03 W-01",
+   "tag": "KST.P03.W01.ESP.VIB",
+   "message": "PAD-03 W-01: vibration 5.6 above warning level 5.5",
+   "data": {
+    "value": 5.5875
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W01",
+   "label": "PAD-04 W-01",
+   "tag": "KST.P04.W01.ESP.VIB",
+   "message": "PAD-04 W-01: vibration 6.2 above warning level 5.5",
+   "data": {
+    "value": 6.2109
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W03",
+   "label": "PAD-04 W-03",
+   "tag": "KST.P04.W03.ESP.VIB",
+   "message": "PAD-04 W-03: vibration 5.9 above warning level 5.5",
+   "data": {
+    "value": 5.9291
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W06",
+   "label": "PAD-04 W-06",
+   "tag": "KST.P04.W06.ESP.VIB",
+   "message": "PAD-04 W-06: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5122
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W08",
+   "label": "PAD-04 W-08",
+   "tag": "KST.P04.W08.ESP.VIB",
+   "message": "PAD-04 W-08: vibration 6.8 above warning level 5.5",
+   "data": {
+    "value": 6.7513
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P05_W03",
+   "label": "PAD-05 W-03",
+   "tag": "KST.P05.W03.ESP.VIB",
+   "message": "PAD-05 W-03: vibration 5.7 above warning level 5.5",
+   "data": {
+    "value": 5.6814
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P08_W02",
+   "label": "PAD-08 W-02",
+   "tag": "KST.P08.W02.ESP.VIB",
+   "message": "PAD-08 W-02: vibration 6.1 above warning level 5.5",
+   "data": {
+    "value": 6.0672
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P08_W03",
+   "label": "PAD-08 W-03",
+   "tag": "KST.P08.W03.ESP.VIB",
+   "message": "PAD-08 W-03: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.8067
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P09_W07",
+   "label": "PAD-09 W-07",
+   "tag": "KST.P09.W07.ESP.VIB",
+   "message": "PAD-09 W-07: vibration 5.9 above warning level 5.5",
+   "data": {
+    "value": 5.911
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P09_W09",
+   "label": "PAD-09 W-09",
+   "tag": "KST.P09.W09.ESP.VIB",
+   "message": "PAD-09 W-09: vibration 6.0 above warning level 5.5",
+   "data": {
+    "value": 5.9688
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P10_W05",
+   "label": "PAD-10 W-05",
+   "tag": "KST.P10.W05.ESP.VIB",
+   "message": "PAD-10 W-05: vibration 6.4 above warning level 5.5",
+   "data": {
+    "value": 6.4441
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W04",
+   "label": "PAD-11 W-04",
+   "tag": "KST.P11.W04.ESP.VIB",
+   "message": "PAD-11 W-04: vibration 6.4 above warning level 5.5",
+   "data": {
+    "value": 6.4384
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.0,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W05",
+   "label": "PAD-11 W-05",
+   "tag": "KST.P11.W05.ESP.VIB",
+   "message": "PAD-11 W-05: vibration 5.7 above warning level 5.5",
+   "data": {
+    "value": 5.6773
+   },
+   "clock": "Day 1 06:00"
+  },
+  {
+   "t": 6.166666667,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P03_W06",
+   "label": "PAD-03 W-06",
+   "tag": "KST.P03.W06.ESP.VIB",
+   "message": "PAD-03 W-06: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5247
+   },
+   "clock": "Day 1 06:10"
+  },
+  {
+   "t": 6.333333334,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P08_W04",
+   "label": "PAD-08 W-04",
+   "tag": "KST.P08.W04.FLOW.LIQ",
+   "message": "PAD-08 W-04: measured 585.1 vs twin 413.6 (W04.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 585.058,
+    "twin": 413.59999840086414,
+    "z": 4.02997814124304
+   },
+   "clock": "Day 1 06:20"
+  },
+  {
+   "t": 6.333333334,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P01_W01",
+   "label": "PAD-01 W-01",
+   "tag": "KST.P01.W01.ESP.VIB",
+   "message": "PAD-01 W-01: measured 3.0 vs twin 1.9 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.0156,
+    "twin": 1.8901501761542425,
+    "z": 4.786794349210137
+   },
+   "clock": "Day 1 06:20"
+  },
+  {
+   "t": 6.333333334,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P06_W09",
+   "label": "PAD-06 W-09",
+   "tag": "KST.P06.W09.ESP.VIB",
+   "message": "PAD-06 W-09: measured 2.9 vs twin 1.9 (W09.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.8701,
+    "twin": 1.9171502855088975,
+    "z": 4.223197924195416
+   },
+   "clock": "Day 1 06:20"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P05_W03",
+   "label": "PAD-05 W-03",
+   "tag": "KST.P05.W03.FLOW.LIQ",
+   "message": "PAD-05 W-03: measured 571.0 vs twin 718.7 (W03.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 571.0268,
+    "twin": 718.6540452312491,
+    "z": -4.205715620468251
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P06_W05",
+   "label": "PAD-06 W-05",
+   "tag": "KST.P06.W05.FLOW.LIQ",
+   "message": "PAD-06 W-05: measured 1,870.1 vs twin 1,369.0 (W05.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 1870.0745,
+    "twin": 1368.9999738574434,
+    "z": 4.479772448425125
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W01",
+   "label": "PAD-07 W-01",
+   "tag": "KST.P07.W01.FLOW.LIQ",
+   "message": "PAD-07 W-01: measured 488.1 vs twin 674.7 (W01.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 488.1344,
+    "twin": 674.6999663259764,
+    "z": -5.247017121954061
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W05",
+   "label": "PAD-07 W-05",
+   "tag": "KST.P07.W05.FLOW.LIQ",
+   "message": "PAD-07 W-05: measured 264.9 vs twin 349.3 (W05.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 264.8667,
+    "twin": 349.30000938747617,
+    "z": -4.772621654684032
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P10_W05",
+   "label": "PAD-10 W-05",
+   "tag": "KST.P10.W05.FLOW.LIQ",
+   "message": "PAD-10 W-05: measured 299.5 vs twin 377.1 (W05.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 299.5192,
+    "twin": 377.0992459245363,
+    "z": -4.121505325047363
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P10_W07",
+   "label": "PAD-10 W-07",
+   "tag": "KST.P10.W07.FLOW.LIQ",
+   "message": "PAD-10 W-07: measured 932.9 vs twin 700.7 (W07.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 932.9077,
+    "twin": 700.699997482265,
+    "z": 4.081817043858273
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W07",
+   "label": "PAD-12 W-07",
+   "tag": "KST.P12.W07.FLOW.LIQ",
+   "message": "PAD-12 W-07: measured 886.9 vs twin 1,171.6 (W07.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 886.8753,
+    "twin": 1171.6000318784177,
+    "z": -4.750903939960169
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P03_W07",
+   "label": "PAD-03 W-07",
+   "tag": "KST.P03.W07.ESP.VIB",
+   "message": "PAD-03 W-07: measured 2.5 vs twin 1.8 (W07.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.4816,
+    "twin": 1.8003004127078586,
+    "z": 4.302341516299853
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P04_W05",
+   "label": "PAD-04 W-05",
+   "tag": "KST.P04.W05.ESP.VIB",
+   "message": "PAD-04 W-05: measured 2.7 vs twin 2.0 (W05.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.6559,
+    "twin": 1.953300635019938,
+    "z": 4.082676436539861
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P04_W07",
+   "label": "PAD-04 W-07",
+   "tag": "KST.P04.W07.ESP.VIB",
+   "message": "PAD-04 W-07: measured 2.5 vs twin 1.8 (W07.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.5456,
+    "twin": 1.809300316704644,
+    "z": 4.695637572302403
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P04_W09",
+   "label": "PAD-04 W-09",
+   "tag": "KST.P04.W09.ESP.VIB",
+   "message": "PAD-04 W-09: measured 2.5 vs twin 1.9 (W09.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.5183,
+    "twin": 1.890265941619873,
+    "z": 4.0907986031621
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P09_W07",
+   "label": "PAD-09 W-07",
+   "tag": "KST.P09.W07.ESP.VIB",
+   "message": "PAD-09 W-07: measured 6.0 vs twin 4.6 (W07.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 5.97,
+    "twin": 4.590300454033746,
+    "z": 4.0064257619580985
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P10_W07",
+   "label": "PAD-10 W-07",
+   "tag": "KST.P10.W07.ESP.VIB",
+   "message": "PAD-10 W-07: measured 3.2 vs twin 2.2 (W07.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.1545,
+    "twin": 2.2323001755608454,
+    "z": 4.822402729511898
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.VIB",
+   "message": "PAD-11 W-01: measured 2.6 vs twin 1.8 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.5572,
+    "twin": 1.8000997437371147,
+    "z": 4.66869654176705
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P11_W02",
+   "label": "PAD-11 W-02",
+   "tag": "KST.P11.W02.ESP.VIB",
+   "message": "PAD-11 W-02: measured 2.7 vs twin 1.9 (W02.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.7072,
+    "twin": 1.9083005852169461,
+    "z": 4.460283778948356
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P11_W03",
+   "label": "PAD-11 W-03",
+   "tag": "KST.P11.W03.ESP.VIB",
+   "message": "PAD-11 W-03: measured 2.4 vs twin 1.8 (W03.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.4489,
+    "twin": 1.8092864089541965,
+    "z": 4.020813187491306
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W03",
+   "label": "PAD-12 W-03",
+   "tag": "KST.P12.W03.ESP.VIB",
+   "message": "PAD-12 W-03: measured 3.6 vs twin 2.4 (W03.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.5944,
+    "twin": 2.448294162750244,
+    "z": 5.209614803397688
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.500000001,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W05",
+   "label": "PAD-12 W-05",
+   "tag": "KST.P12.W05.ESP.VIB",
+   "message": "PAD-12 W-05: measured 3.6 vs twin 2.6 (W05.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.5525,
+    "twin": 2.5923003090752497,
+    "z": 4.541190320525349
+   },
+   "clock": "Day 1 06:30"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P03_W06",
+   "label": "PAD-03 W-06",
+   "tag": "KST.P03.W06.FLOW.LIQ",
+   "message": "PAD-03 W-06: measured 1,034.6 vs twin 783.8 (W06.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 1034.6298,
+    "twin": 783.7996690514345,
+    "z": 4.5845665005666785
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W06",
+   "label": "PAD-07 W-06",
+   "tag": "KST.P07.W06.FLOW.LIQ",
+   "message": "PAD-07 W-06: measured 467.3 vs twin 596.6 (W06.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 467.2565,
+    "twin": 596.6468587240494,
+    "z": -4.314771483840383
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P08_W01",
+   "label": "PAD-08 W-01",
+   "tag": "KST.P08.W01.FLOW.LIQ",
+   "message": "PAD-08 W-01: measured 304.0 vs twin 382.6 (W01.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 304.0151,
+    "twin": 382.63704539901323,
+    "z": -4.100934028036432
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P05_W01",
+   "label": "PAD-05 W-01",
+   "tag": "KST.P05.W01.ESP.VIB",
+   "message": "PAD-05 W-01: measured 3.1 vs twin 2.4 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.0584,
+    "twin": 2.3761963844299316,
+    "z": 4.015048825944174
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P06_W03",
+   "label": "PAD-06 W-03",
+   "tag": "KST.P06.W03.ESP.VIB",
+   "message": "PAD-06 W-03: measured 3.7 vs twin 2.9 (W03.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.72,
+    "twin": 2.853450510236952,
+    "z": 4.384228948287291
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W01",
+   "label": "PAD-07 W-01",
+   "tag": "KST.P07.W01.ESP.VIB",
+   "message": "PAD-07 W-01: measured 2.5 vs twin 1.9 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.4727,
+    "twin": 1.8724507755703397,
+    "z": 4.229439218749705
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.666666668,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P08_W05",
+   "label": "PAD-08 W-05",
+   "tag": "KST.P08.W05.ESP.VIB",
+   "message": "PAD-08 W-05: measured 2.9 vs twin 2.2 (W05.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.8713,
+    "twin": 2.187260521782769,
+    "z": 4.504228506225471
+   },
+   "clock": "Day 1 06:40"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P05_W01",
+   "label": "PAD-05 W-01",
+   "tag": "KST.P05.W01.FLOW.LIQ",
+   "message": "PAD-05 W-01: measured 781.4 vs twin 609.0 (W01.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 781.3846,
+    "twin": 609.04701920665,
+    "z": 4.521975930808956
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P05_W07",
+   "label": "PAD-05 W-07",
+   "tag": "KST.P05.W07.FLOW.LIQ",
+   "message": "PAD-05 W-07: measured 1,434.1 vs twin 1,165.3 (W07.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 1434.1111,
+    "twin": 1165.3000237753079,
+    "z": 4.097558028759188
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W03",
+   "label": "PAD-12 W-03",
+   "tag": "KST.P12.W03.FLOW.LIQ",
+   "message": "PAD-12 W-03: measured 814.8 vs twin 652.5 (W03.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 814.8358,
+    "twin": 652.5463210682262,
+    "z": 4.334196043726594
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P02_W02",
+   "label": "PAD-02 W-02",
+   "tag": "KST.P02.W02.ESP.VIB",
+   "message": "PAD-02 W-02: measured 3.2 vs twin 2.6 (W02.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.2171,
+    "twin": 2.5656006071302624,
+    "z": 4.251457081252029
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W03",
+   "label": "PAD-07 W-03",
+   "tag": "KST.P07.W03.ESP.VIB",
+   "message": "PAD-07 W-03: measured 2.3 vs twin 1.8 (W03.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.3091,
+    "twin": 1.8276010619269476,
+    "z": 4.209027695118062
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P09_W08",
+   "label": "PAD-09 W-08",
+   "tag": "KST.P09.W08.ESP.VIB",
+   "message": "PAD-09 W-08: measured 4.0 vs twin 3.3 (W08.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.0456,
+    "twin": 3.276592095692952,
+    "z": 4.196472808107051
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 6.833333335,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P11_W10",
+   "label": "PAD-11 W-10",
+   "tag": "KST.P11.W10.ESP.VIB",
+   "message": "PAD-11 W-10: measured 2.9 vs twin 2.2 (W10.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.8805,
+    "twin": 2.232594225141737,
+    "z": 4.394198982366149
+   },
+   "clock": "Day 1 06:50"
+  },
+  {
+   "t": 7.000000002,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P09_W10",
+   "label": "PAD-09 W-10",
+   "tag": "KST.P09.W10.ESP.VIB",
+   "message": "PAD-09 W-10: measured 4.4 vs twin 3.6 (W10.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.4074,
+    "twin": 3.5827512211269803,
+    "z": 4.090689988944525
+   },
+   "clock": "Day 1 07:00"
+  },
+  {
+   "t": 7.166666669,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P03_W05",
+   "label": "PAD-03 W-05",
+   "tag": "KST.P03.W05.ESP.VIB",
+   "message": "PAD-03 W-05: measured 4.7 vs twin 3.7 (W05.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.6608,
+    "twin": 3.708434634738498,
+    "z": 4.17364261126144
+   },
+   "clock": "Day 1 07:10"
+  },
+  {
+   "t": 7.333333336,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P05_W04",
+   "label": "PAD-05 W-04",
+   "tag": "KST.P05.W04.FLOW.LIQ",
+   "message": "PAD-05 W-04: measured 1,051.7 vs twin 855.2 (W04.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 1051.6883,
+    "twin": 855.2230587926305,
+    "z": 4.00264375031184
+   },
+   "clock": "Day 1 07:20"
+  },
+  {
+   "t": 7.333333336,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P06_W01",
+   "label": "PAD-06 W-01",
+   "tag": "KST.P06.W01.ESP.VIB",
+   "message": "PAD-06 W-01: measured 4.1 vs twin 3.2 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.1146,
+    "twin": 3.223051495022244,
+    "z": 4.317874366277601
+   },
+   "clock": "Day 1 07:20"
+  },
+  {
+   "t": 7.333333336,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P12_W09",
+   "label": "PAD-12 W-09",
+   "tag": "KST.P12.W09.ESP.VIB",
+   "message": "PAD-12 W-09: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5112
+   },
+   "clock": "Day 1 07:20"
+  },
+  {
+   "t": 7.500000003,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P09_W04",
+   "label": "PAD-09 W-04",
+   "tag": "KST.P09.W04.ESP.VIB",
+   "message": "PAD-09 W-04: measured 2.3 vs twin 1.9 (W04.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.2804,
+    "twin": 1.8732017940945096,
+    "z": 4.034813382184218
+   },
+   "clock": "Day 1 07:30"
+  },
+  {
+   "t": 7.500000003,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W06",
+   "label": "PAD-12 W-06",
+   "tag": "KST.P12.W06.ESP.VIB",
+   "message": "PAD-12 W-06: measured 4.7 vs twin 3.8 (W06.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.6654,
+    "twin": 3.8430002000596786,
+    "z": 4.073091637262931
+   },
+   "clock": "Day 1 07:30"
+  },
+  {
+   "t": 7.833333337,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P11_W07",
+   "label": "PAD-11 W-07",
+   "tag": "KST.P11.W07.ESP.VIB",
+   "message": "PAD-11 W-07: measured 2.8 vs twin 2.2 (W07.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.754,
+    "twin": 2.2155021296607122,
+    "z": 4.095249613774924
+   },
+   "clock": "Day 1 07:50"
+  },
+  {
+   "t": 8.000000004,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P10_W03",
+   "label": "PAD-10 W-03",
+   "tag": "KST.P10.W03.ESP.VIB",
+   "message": "PAD-10 W-03: measured 2.3 vs twin 1.8 (W03.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.3212,
+    "twin": 1.8376522594028049,
+    "z": 4.204739280427839
+   },
+   "clock": "Day 1 08:00"
+  },
+  {
+   "t": 8.000000004,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W02",
+   "label": "PAD-12 W-02",
+   "tag": "KST.P12.W02.ESP.VIB",
+   "message": "PAD-12 W-02: measured 4.4 vs twin 3.6 (W02.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.3868,
+    "twin": 3.6196525891621905,
+    "z": 4.09150947044606
+   },
+   "clock": "Day 1 08:00"
+  },
+  {
+   "t": 10.500000009,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W01",
+   "label": "PAD-12 W-01",
+   "tag": "KST.P12.W01.ESP.VIB",
+   "message": "PAD-12 W-01: measured 3.2 vs twin 2.6 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 3.183,
+    "twin": 2.6319053437974715,
+    "z": 4.039175547871675
+   },
+   "clock": "Day 1 10:30"
+  },
+  {
+   "t": 11.833333345,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P01_W06",
+   "label": "PAD-01 W-06",
+   "tag": "KST.P01.W06.ESP.VIB",
+   "message": "PAD-01 W-06: measured 2.2 vs twin 1.8 (W06.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.2316,
+    "twin": 1.805106931262546,
+    "z": 4.039578547204855
+   },
+   "clock": "Day 1 11:50"
+  },
+  {
+   "t": 13.000000014,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "CS1",
+   "label": "CS-1",
+   "tag": "KST.CS1.UNITS.AVAIL",
+   "message": "CS-1: tripped (3 -> 2)",
+   "data": {
+    "from": 3.0,
+    "to": 2.0
+   },
+   "clock": "Day 1 13:00"
+  },
+  {
+   "t": 13.166666681,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "FL2",
+   "label": "Flare CS-2",
+   "tag": "KST.FL2.FLARE.FLOW",
+   "message": "Flare CS-2: measured 62.3 vs twin 0.0 (FLARE.FLOW) - twin recalibration triggered",
+   "data": {
+    "measured": 62.2741,
+    "twin": 0.0,
+    "z": 9.883599576894373
+   },
+   "clock": "Day 1 13:10"
+  },
+  {
+   "t": 14.000000016,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "FL1",
+   "label": "Flare CS-1",
+   "tag": "KST.FL1.FLARE.FLOW",
+   "message": "Flare CS-1: measured -0.0 vs twin 19.6 (FLARE.FLOW) - twin recalibration triggered",
+   "data": {
+    "measured": -0.0016,
+    "twin": 19.621159899916258,
+    "z": -28.573058055138144
+   },
+   "clock": "Day 1 14:00"
+  },
+  {
+   "t": 14.833333351,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P10_W01",
+   "label": "PAD-10 W-01",
+   "tag": "KST.P10.W01.ESP.VIB",
+   "message": "PAD-10 W-01: measured 4.8 vs twin 3.9 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.7837,
+    "twin": 3.8598028818766275,
+    "z": 4.104085053210173
+   },
+   "clock": "Day 1 14:50"
+  },
+  {
+   "t": 16.333333354,
+   "severity": "info",
+   "kind": "status",
+   "asset": "CS1",
+   "label": "CS-1",
+   "tag": "KST.CS1.UNITS.AVAIL",
+   "message": "CS-1: back in service (2 -> 3)",
+   "data": {
+    "from": 2.0,
+    "to": 3.0
+   },
+   "clock": "Day 1 16:20"
+  },
+  {
+   "t": 19.833333361,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P09_W09",
+   "label": "PAD-09 W-09",
+   "tag": "KST.P09.W09.FLOW.LIQ",
+   "message": "PAD-09 W-09: measured 395.7 vs twin 505.2 (W09.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 395.6767,
+    "twin": 505.19999853400344,
+    "z": -4.438536789559448
+   },
+   "clock": "Day 1 19:50"
+  },
+  {
+   "t": 20.166666695,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P02_W07",
+   "label": "PAD-02 W-07",
+   "tag": "KST.P02.W07.ESP.VIB",
+   "message": "PAD-02 W-07: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5195
+   },
+   "clock": "Day 1 20:10"
+  },
+  {
+   "t": 27.833333377,
+   "severity": "warning",
+   "kind": "trend",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.VIB",
+   "message": "PAD-11 W-01: rising vibration - alarm level expected in ~7 h (predictive maintenance)",
+   "data": {
+    "slope_per_h": 0.3958111447192135,
+    "eta_h": 6.672121377161933
+   },
+   "clock": "Day 2 03:50"
+  },
+  {
+   "t": 28.000000044,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "SWD2",
+   "label": "SWD-2",
+   "tag": "KST.SWD2.INJ.PRESS",
+   "message": "SWD-2: measured 2,115.0 vs twin 943.5 (INJ.PRESS) - twin recalibration triggered",
+   "data": {
+    "measured": 2114.9653,
+    "twin": 943.4638269525088,
+    "z": 5.2525369720744495
+   },
+   "clock": "Day 2 04:00"
+  },
+  {
+   "t": 28.166666711,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.VIB",
+   "message": "PAD-11 W-01: vibration 5.6 above warning level 5.5",
+   "data": {
+    "value": 5.5671
+   },
+   "clock": "Day 2 04:10"
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "severity": "warning",
+   "kind": "calibration",
+   "message": "SWD2: inj_cap re-estimated 19,970 -> 17,487 bbl/d",
+   "asset": "SWD2",
+   "data": {}
+  },
+  {
+   "t": 30.500000049,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.RUN",
+   "message": "PAD-11 W-01: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 2 06:30"
+  },
+  {
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "severity": "warning",
+   "kind": "calibration",
+   "message": "SWD2: inj_cap re-estimated 17,487 -> 9,531 bbl/d",
+   "asset": "SWD2",
+   "data": {}
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "severity": "info",
+   "kind": "market",
+   "message": "Pipeline maintenance notice: Waha gas turns negative",
+   "asset": null,
+   "data": {}
+  },
+  {
+   "t": 33.333333388,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P01_W07",
+   "label": "PAD-01 W-07",
+   "tag": "KST.P01.W07.FLOW.LIQ",
+   "message": "PAD-01 W-07: measured 299.2 vs twin 248.7 (W07.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 299.1904,
+    "twin": 248.6726705407273,
+    "z": 4.0013968134699684
+   },
+   "clock": "Day 2 09:20"
+  },
+  {
+   "t": 38.166666731,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W04",
+   "label": "PAD-12 W-04",
+   "tag": "KST.P12.W04.ESP.VIB",
+   "message": "PAD-12 W-04: measured 2.4 vs twin 1.9 (W04.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 2.4145,
+    "twin": 1.9342038366529677,
+    "z": 4.145637684521574
+   },
+   "clock": "Day 2 14:10"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "severity": "info",
+   "kind": "discovery",
+   "message": "new device announced: KST.P07.W11 (esp_well)",
+   "asset": null,
+   "data": {}
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "severity": "warning",
+   "kind": "discovery",
+   "message": "unknown asset P07_W11 on tag KST.P07.W11.FLOW.LIQ - twin update proposed",
+   "asset": "P07_W11",
+   "data": {}
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P01_W02",
+   "label": "PAD-01 W-02",
+   "tag": "KST.P01.W02.ESP.VIB",
+   "message": "PAD-01 W-02: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.8439
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P01_W08",
+   "label": "PAD-01 W-08",
+   "tag": "KST.P01.W08.ESP.VIB",
+   "message": "PAD-01 W-08: vibration 7.2 above warning level 5.5",
+   "data": {
+    "value": 7.2198
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P02_W05",
+   "label": "PAD-02 W-05",
+   "tag": "KST.P02.W05.ESP.VIB",
+   "message": "PAD-02 W-05: vibration 6.2 above warning level 5.5",
+   "data": {
+    "value": 6.2156
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P03_W01",
+   "label": "PAD-03 W-01",
+   "tag": "KST.P03.W01.ESP.VIB",
+   "message": "PAD-03 W-01: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.8471
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W01",
+   "label": "PAD-04 W-01",
+   "tag": "KST.P04.W01.ESP.VIB",
+   "message": "PAD-04 W-01: vibration 6.1 above warning level 5.5",
+   "data": {
+    "value": 6.1301
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W03",
+   "label": "PAD-04 W-03",
+   "tag": "KST.P04.W03.ESP.VIB",
+   "message": "PAD-04 W-03: vibration 6.0 above warning level 5.5",
+   "data": {
+    "value": 6.0346
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W06",
+   "label": "PAD-04 W-06",
+   "tag": "KST.P04.W06.ESP.VIB",
+   "message": "PAD-04 W-06: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.7759
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P04_W08",
+   "label": "PAD-04 W-08",
+   "tag": "KST.P04.W08.ESP.VIB",
+   "message": "PAD-04 W-08: vibration 6.8 above warning level 5.5",
+   "data": {
+    "value": 6.759
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P05_W03",
+   "label": "PAD-05 W-03",
+   "tag": "KST.P05.W03.ESP.VIB",
+   "message": "PAD-05 W-03: vibration 5.9 above warning level 5.5",
+   "data": {
+    "value": 5.8566
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P08_W02",
+   "label": "PAD-08 W-02",
+   "tag": "KST.P08.W02.ESP.VIB",
+   "message": "PAD-08 W-02: vibration 6.1 above warning level 5.5",
+   "data": {
+    "value": 6.0552
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P08_W03",
+   "label": "PAD-08 W-03",
+   "tag": "KST.P08.W03.ESP.VIB",
+   "message": "PAD-08 W-03: vibration 5.9 above warning level 5.5",
+   "data": {
+    "value": 5.8534
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P09_W07",
+   "label": "PAD-09 W-07",
+   "tag": "KST.P09.W07.ESP.VIB",
+   "message": "PAD-09 W-07: vibration 6.0 above warning level 5.5",
+   "data": {
+    "value": 5.988
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P09_W09",
+   "label": "PAD-09 W-09",
+   "tag": "KST.P09.W09.ESP.VIB",
+   "message": "PAD-09 W-09: vibration 5.7 above warning level 5.5",
+   "data": {
+    "value": 5.7398
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P10_W05",
+   "label": "PAD-10 W-05",
+   "tag": "KST.P10.W05.ESP.VIB",
+   "message": "PAD-10 W-05: vibration 6.7 above warning level 5.5",
+   "data": {
+    "value": 6.6504
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.VIB",
+   "message": "PAD-11 W-01: vibration 6.2 above warning level 5.5",
+   "data": {
+    "value": 6.1719
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W04",
+   "label": "PAD-11 W-04",
+   "tag": "KST.P11.W04.ESP.VIB",
+   "message": "PAD-11 W-04: vibration 6.3 above warning level 5.5",
+   "data": {
+    "value": 6.3191
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.000000072,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P11_W05",
+   "label": "PAD-11 W-05",
+   "tag": "KST.P11.W05.ESP.VIB",
+   "message": "PAD-11 W-05: vibration 5.8 above warning level 5.5",
+   "data": {
+    "value": 5.786
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 42.333333406,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W11",
+   "label": "PAD-07 W-11",
+   "tag": "KST.P07.W11.FLOW.LIQ",
+   "message": "PAD-07 W-11: measured 1,044.4 vs twin 629.2 (W11.FLOW.LIQ) - twin recalibration triggered",
+   "data": {
+    "measured": 1044.3573,
+    "twin": 629.1653968305734,
+    "z": 5.477212038694843
+   },
+   "clock": "Day 2 18:20"
+  },
+  {
+   "t": 42.500000073,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P07_W11",
+   "label": "PAD-07 W-11",
+   "tag": "KST.P07.W11.ESP.KW",
+   "message": "PAD-07 W-11: measured 79.6 vs twin 57.9 (W11.ESP.KW) - twin recalibration triggered",
+   "data": {
+    "measured": 79.5747,
+    "twin": 57.92264938354492,
+    "z": 4.65996546868384
+   },
+   "clock": "Day 2 18:30"
+  },
+  {
+   "t": 42.833333407,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P12_W09",
+   "label": "PAD-12 W-09",
+   "tag": "KST.P12.W09.ESP.VIB",
+   "message": "PAD-12 W-09: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5455
+   },
+   "clock": "Day 2 18:50"
+  },
+  {
+   "t": 43.666666742,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P03_W06",
+   "label": "PAD-03 W-06",
+   "tag": "KST.P03.W06.ESP.VIB",
+   "message": "PAD-03 W-06: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.532
+   },
+   "clock": "Day 2 19:40"
+  },
+  {
+   "t": 48.333333418,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P12_W01",
+   "label": "PAD-12 W-01",
+   "tag": "KST.P12.W01.ESP.VIB",
+   "message": "PAD-12 W-01: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5358
+   },
+   "clock": "Day 3 00:20"
+  },
+  {
+   "t": 54.000000096,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P01_W06",
+   "label": "PAD-01 W-06",
+   "tag": "KST.P01.W06.ESP.VIB",
+   "message": "PAD-01 W-06: measured 4.8 vs twin 3.9 (W06.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 4.7888,
+    "twin": 3.8874197006225586,
+    "z": 4.192808692042984
+   },
+   "clock": "Day 3 06:00"
+  },
+  {
+   "t": 54.000000096,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "CS2",
+   "label": "CS-2",
+   "tag": "KST.CS2.UNITS.AVAIL",
+   "message": "CS-2: tripped (2 -> 1)",
+   "data": {
+    "from": 2.0,
+    "to": 1.0
+   },
+   "clock": "Day 3 06:00"
+  },
+  {
+   "t": 54.166666763,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "FL1",
+   "label": "Flare CS-1",
+   "tag": "KST.FL1.FLARE.FLOW",
+   "message": "Flare CS-1: measured 527.9 vs twin 0.0 (FLARE.FLOW) - twin recalibration triggered",
+   "data": {
+    "measured": 527.9365,
+    "twin": 0.0,
+    "z": 9.909892700860887
+   },
+   "clock": "Day 3 06:10"
+  },
+  {
+   "t": 57.000000102,
+   "severity": "warning",
+   "kind": "mismatch",
+   "asset": "P12_W01",
+   "label": "PAD-12 W-01",
+   "tag": "KST.P12.W01.ESP.VIB",
+   "message": "PAD-12 W-01: measured 5.9 vs twin 4.9 (W01.ESP.VIB) - twin recalibration triggered",
+   "data": {
+    "measured": 5.8735,
+    "twin": 4.8970010545518665,
+    "z": 4.015469306001547
+   },
+   "clock": "Day 3 09:00"
+  },
+  {
+   "t": 57.333333436,
+   "severity": "info",
+   "kind": "status",
+   "asset": "CS2",
+   "label": "CS-2",
+   "tag": "KST.CS2.UNITS.AVAIL",
+   "message": "CS-2: back in service (1 -> 2)",
+   "data": {
+    "from": 1.0,
+    "to": 2.0
+   },
+   "clock": "Day 3 09:20"
+  },
+  {
+   "t": 60.500000109,
+   "severity": "info",
+   "kind": "status",
+   "asset": "P11_W01",
+   "label": "PAD-11 W-01",
+   "tag": "KST.P11.W01.ESP.RUN",
+   "message": "PAD-11 W-01: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 3 12:30"
+  },
+  {
+   "t": 64.000000116,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P02_W07",
+   "label": "PAD-02 W-07",
+   "tag": "KST.P02.W07.ESP.VIB",
+   "message": "PAD-02 W-07: vibration 5.6 above warning level 5.5",
+   "data": {
+    "value": 5.5599
+   },
+   "clock": "Day 3 16:00"
+  },
+  {
+   "t": 66.666666788,
+   "severity": "warning",
+   "kind": "threshold",
+   "asset": "P01_W06",
+   "label": "PAD-01 W-06",
+   "tag": "KST.P01.W06.ESP.VIB",
+   "message": "PAD-01 W-06: vibration 5.5 above warning level 5.5",
+   "data": {
+    "value": 5.5369
+   },
+   "clock": "Day 3 18:40"
+  },
+  {
+   "t": 76.166666807,
+   "severity": "warning",
+   "kind": "trend",
+   "asset": "P01_W06",
+   "label": "PAD-01 W-06",
+   "tag": "KST.P01.W06.ESP.VIB",
+   "message": "PAD-01 W-06: rising vibration - alarm level expected in ~14 h (predictive maintenance)",
+   "data": {
+    "slope_per_h": 0.1330848294551926,
+    "eta_h": 14.193202994906043
+   },
+   "clock": "Day 4 04:10"
+  }
+ ],
+ "commits": [
+  {
+   "id": "c0073",
+   "t": 78.000000144,
+   "wall": 1792712552.27308,
+   "author": "auto: estimator",
+   "message": "calibration: 112 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 108,
+    "removed": 110
+   }
+  },
+  {
+   "id": "c0072",
+   "t": 77.000000142,
+   "wall": 1792712550.674901,
+   "author": "auto: estimator",
+   "message": "calibration: 114 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 109,
+    "removed": 105
+   }
+  },
+  {
+   "id": "c0071",
+   "t": 76.00000014,
+   "wall": 1792712549.0569105,
+   "author": "auto: estimator",
+   "message": "calibration: 110 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 106,
+    "removed": 107
+   }
+  },
+  {
+   "id": "c0070",
+   "t": 75.000000138,
+   "wall": 1792712539.3146014,
+   "author": "auto: estimator",
+   "message": "calibration: 111 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 109,
+    "removed": 109
+   }
+  },
+  {
+   "id": "c0069",
+   "t": 74.000000136,
+   "wall": 1792712537.6548693,
+   "author": "auto: estimator",
+   "message": "calibration: 111 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 105,
+    "removed": 101
+   }
+  },
+  {
+   "id": "c0068",
+   "t": 73.000000134,
+   "wall": 1792712536.1590261,
+   "author": "auto: estimator",
+   "message": "calibration: 107 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 104,
+    "removed": 103
+   }
+  },
+  {
+   "id": "c0067",
+   "t": 72.000000132,
+   "wall": 1792712526.9840665,
+   "author": "auto: estimator",
+   "message": "calibration: 106 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 94,
+    "removed": 89
+   }
+  },
+  {
+   "id": "c0066",
+   "t": 71.00000013,
+   "wall": 1792712525.4247952,
+   "author": "auto: estimator",
+   "message": "calibration: 101 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 96,
+    "removed": 98
+   }
+  },
+  {
+   "id": "c0065",
+   "t": 70.000000128,
+   "wall": 1792712523.7341387,
+   "author": "auto: estimator",
+   "message": "calibration: 103 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 96,
+    "removed": 93
+   }
+  },
+  {
+   "id": "c0064",
+   "t": 69.000000126,
+   "wall": 1792712511.0530705,
+   "author": "auto: estimator",
+   "message": "calibration: 100 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 90,
+    "removed": 87
+   }
+  },
+  {
+   "id": "c0063",
+   "t": 68.000000124,
+   "wall": 1792712509.317962,
+   "author": "auto: estimator",
+   "message": "calibration: 97 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 92,
+    "removed": 97
+   }
+  },
+  {
+   "id": "c0062",
+   "t": 67.000000122,
+   "wall": 1792712507.6777978,
+   "author": "auto: estimator",
+   "message": "calibration: 102 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 96,
+    "removed": 98
+   }
+  },
+  {
+   "id": "c0061",
+   "t": 66.00000012,
+   "wall": 1792712498.2376425,
+   "author": "auto: estimator",
+   "message": "calibration: 104 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 95,
+    "removed": 92
+   }
+  },
+  {
+   "id": "c0060",
+   "t": 65.000000118,
+   "wall": 1792712496.6858587,
+   "author": "auto: estimator",
+   "message": "calibration: 101 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 99,
+    "removed": 94
+   }
+  },
+  {
+   "id": "c0059",
+   "t": 64.000000116,
+   "wall": 1792712495.0151327,
+   "author": "auto: estimator",
+   "message": "calibration: 96 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 92,
+    "removed": 88
+   }
+  },
+  {
+   "id": "c0058",
+   "t": 63.000000114,
+   "wall": 1792712485.5049014,
+   "author": "auto: estimator",
+   "message": "calibration: 92 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 91,
+    "removed": 92
+   }
+  },
+  {
+   "id": "c0057",
+   "t": 62.000000112,
+   "wall": 1792712483.788383,
+   "author": "auto: estimator",
+   "message": "calibration: 93 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 90,
+    "removed": 87
+   }
+  },
+  {
+   "id": "c0056",
+   "t": 61.00000011,
+   "wall": 1792712482.0126164,
+   "author": "auto: estimator",
+   "message": "calibration: 90 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 89,
+    "removed": 90
+   }
+  },
+  {
+   "id": "c0055",
+   "t": 60.000000108,
+   "wall": 1792712461.7958903,
+   "author": "auto: estimator",
+   "message": "calibration: 91 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 90,
+    "removed": 93
+   }
+  },
+  {
+   "id": "c0054",
+   "t": 59.000000106,
+   "wall": 1792712460.3778052,
+   "author": "auto: estimator",
+   "message": "calibration: 94 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 93,
+    "removed": 93
+   }
+  },
+  {
+   "id": "c0053",
+   "t": 58.000000104,
+   "wall": 1792712458.9441702,
+   "author": "auto: estimator",
+   "message": "calibration: 94 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 93,
+    "removed": 86
+   }
+  },
+  {
+   "id": "c0052",
+   "t": 57.000000102,
+   "wall": 1792712439.0048838,
+   "author": "auto: estimator",
+   "message": "calibration: 87 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 86,
+    "removed": 83
+   }
+  },
+  {
+   "id": "c0051",
+   "t": 56.0000001,
+   "wall": 1792712437.5810852,
+   "author": "auto: estimator",
+   "message": "calibration: 84 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 83,
+    "removed": 83
+   }
+  },
+  {
+   "id": "c0050",
+   "t": 55.000000098,
+   "wall": 1792712436.1317844,
+   "author": "auto: estimator",
+   "message": "calibration: 84 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 84,
+    "removed": 86
+   }
+  },
+  {
+   "id": "c0049",
+   "t": 54.000000096,
+   "wall": 1792712418.446378,
+   "author": "auto: estimator",
+   "message": "calibration: 86 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 85,
+    "removed": 82
+   }
+  },
+  {
+   "id": "c0048",
+   "t": 53.000000094,
+   "wall": 1792712416.668048,
+   "author": "auto: estimator",
+   "message": "calibration: 83 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 83,
+    "removed": 82
+   }
+  },
+  {
+   "id": "c0047",
+   "t": 52.000000092,
+   "wall": 1792712415.4072196,
+   "author": "auto: estimator",
+   "message": "calibration: 82 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 82,
+    "removed": 80
+   }
+  },
+  {
+   "id": "c0046",
+   "t": 51.00000009,
+   "wall": 1792712403.2452781,
+   "author": "auto: estimator",
+   "message": "calibration: 80 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 80,
+    "removed": 81
+   }
+  },
+  {
+   "id": "c0045",
+   "t": 50.000000088,
+   "wall": 1792712401.5227437,
+   "author": "auto: estimator",
+   "message": "calibration: 81 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 80,
+    "removed": 79
+   }
+  },
+  {
+   "id": "c0044",
+   "t": 49.000000086,
+   "wall": 1792712399.8291469,
+   "author": "auto: estimator",
+   "message": "calibration: 80 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 80,
+    "removed": 75
+   }
+  },
+  {
+   "id": "c0043",
+   "t": 48.000000084,
+   "wall": 1792712390.6396744,
+   "author": "auto: estimator",
+   "message": "calibration: 75 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 75,
+    "removed": 70
+   }
+  },
+  {
+   "id": "c0042",
+   "t": 47.000000082,
+   "wall": 1792712388.9596539,
+   "author": "auto: estimator",
+   "message": "calibration: 70 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 69,
+    "removed": 63
+   }
+  },
+  {
+   "id": "c0041",
+   "t": 46.00000008,
+   "wall": 1792712387.1293745,
+   "author": "auto: estimator",
+   "message": "calibration: 64 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 64,
+    "removed": 59
+   }
+  },
+  {
+   "id": "c0040",
+   "t": 45.000000078,
+   "wall": 1792712377.9337828,
+   "author": "auto: estimator",
+   "message": "calibration: 59 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 59,
+    "removed": 50
+   }
+  },
+  {
+   "id": "c0039",
+   "t": 44.000000076,
+   "wall": 1792712376.425835,
+   "author": "auto: estimator",
+   "message": "calibration: 50 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 50,
+    "removed": 29
+   }
+  },
+  {
+   "id": "c0038",
+   "t": 43.000000074,
+   "wall": 1792712375.018702,
+   "author": "auto: estimator",
+   "message": "calibration: 29 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 141
+   }
+  },
+  {
+   "id": "c0037",
+   "t": 42.000000072,
+   "wall": 1792712365.68984,
+   "author": "auto: discovery",
+   "message": "tie-in of P07_W11 discovered from tag KST.P07.W11.FLOW.LIQ",
+   "files": [
+    "live.plx"
+   ],
+   "stats": {
+    "added": 3,
+    "removed": 1
+   }
+  },
+  {
+   "id": "c0036",
+   "t": 42.000000072,
+   "wall": 1792712365.4314446,
+   "author": "auto: estimator",
+   "message": "calibration: 141 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 137,
+    "removed": 139
+   }
+  },
+  {
+   "id": "c0035",
+   "t": 41.00000007,
+   "wall": 1792712356.541684,
+   "author": "auto: estimator",
+   "message": "calibration: 143 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 143,
+    "removed": 143
+   }
+  },
+  {
+   "id": "c0034",
+   "t": 40.000000068,
+   "wall": 1792712354.8373806,
+   "author": "auto: estimator",
+   "message": "calibration: 143 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 137,
+    "removed": 136
+   }
+  },
+  {
+   "id": "c0033",
+   "t": 39.000000066,
+   "wall": 1792712353.3386137,
+   "author": "auto: estimator",
+   "message": "calibration: 142 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 140,
+    "removed": 141
+   }
+  },
+  {
+   "id": "c0032",
+   "t": 38.000000064,
+   "wall": 1792712344.2630317,
+   "author": "auto: estimator",
+   "message": "calibration: 143 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 143,
+    "removed": 140
+   }
+  },
+  {
+   "id": "c0031",
+   "t": 37.000000062,
+   "wall": 1792712342.6930337,
+   "author": "auto: estimator",
+   "message": "calibration: 140 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 140,
+    "removed": 141
+   }
+  },
+  {
+   "id": "c0030",
+   "t": 36.00000006,
+   "wall": 1792712341.1388302,
+   "author": "auto: estimator",
+   "message": "calibration: 141 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 141,
+    "removed": 139
+   }
+  },
+  {
+   "id": "c0029",
+   "t": 35.000000058,
+   "wall": 1792712328.9447196,
+   "author": "auto: estimator",
+   "message": "calibration: 139 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 138,
+    "removed": 133
+   }
+  },
+  {
+   "id": "c0028",
+   "t": 34.000000056,
+   "wall": 1792712327.4086893,
+   "author": "auto: estimator",
+   "message": "calibration: 134 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 134,
+    "removed": 133
+   }
+  },
+  {
+   "id": "c0027",
+   "t": 33.000000054,
+   "wall": 1792712325.8646195,
+   "author": "auto: estimator",
+   "message": "calibration: 133 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 132,
+    "removed": 131
+   }
+  },
+  {
+   "id": "c0026",
+   "t": 32.000000052,
+   "wall": 1792712316.7145214,
+   "author": "auto: estimator",
+   "message": "calibration: 132 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 129,
+    "removed": 133
+   }
+  },
+  {
+   "id": "c0025",
+   "t": 31.00000005,
+   "wall": 1792712307.519888,
+   "author": "auto: estimator",
+   "message": "calibration: 136 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 135,
+    "removed": 133
+   }
+  },
+  {
+   "id": "c0024",
+   "t": 30.000000048,
+   "wall": 1792712287.772215,
+   "author": "auto: estimator",
+   "message": "calibration: 134 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 133,
+    "removed": 131
+   }
+  }
+ ],
+ "learn": [
+  {
+   "t": 16.333333354,
+   "steps": 20,
+   "examples": 6,
+   "loss": 3.8116884231567383
+  },
+  {
+   "t": 25.333333372,
+   "steps": 20,
+   "examples": 9,
+   "loss": 3.4425594806671143
+  },
+  {
+   "t": 30.666666716,
+   "steps": 20,
+   "examples": 12,
+   "loss": 3.206545114517212
+  },
+  {
+   "t": 35.000000058,
+   "steps": 20,
+   "examples": 15,
+   "loss": 3.1949334144592285
+  },
+  {
+   "t": 51.00000009,
+   "steps": 20,
+   "examples": 4,
+   "loss": 3.3027503490448
+  },
+  {
+   "t": 57.166666769,
+   "steps": 20,
+   "examples": 7,
+   "loss": 3.225337028503418
+  },
+  {
+   "t": 60.500000109,
+   "steps": 20,
+   "examples": 10,
+   "loss": 3.8924098014831543
+  },
+  {
+   "t": 69.500000127,
+   "steps": 20,
+   "examples": 13,
+   "loss": 3.776059627532959
+  }
+ ]
+}

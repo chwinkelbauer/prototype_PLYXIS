@@ -3,7 +3,7 @@
 ##  96 ESP wells on 12 pads, 3 tank batteries, 2 compressor stations, gas plant,
 ##  LACT terminal, 3 salt-water disposal wells, trucking fleet, rigs and crews.
 ##
-##  The whole site is ~150 lines: blueprints come from 'oilgas', the asset register
+##  The whole site is ~120 lines: blueprints come from 'oilgas', the asset register
 ##  (wells.csv / pads.csv) instantiates them. Adding a well = adding a CSV row.
 ## =====================================================================================
 use oilgas;
@@ -15,7 +15,7 @@ define kestrel as env {
     gas_price    = 1.20  [USD/Mscf] input;     ## Waha hub (can turn negative)
     power_price  = 0.055 [USD/kWh]  input;     ## ERCOT West load zone
     grid_co2     = 0.38  [kgCO2e/kWh];
-    carbon_price = 25    [USD/tCO2e];          ## internal carbon price
+    carbon_price = 60    [USD/tCO2e];          ## internal carbon price (EU-ETS level)
     flare_permit = 1500  [Mscf/d];             ## field-wide flaring allowance
 
   contains:
@@ -90,10 +90,14 @@ define kestrel as env {
     }
 
   behavior:
-    constraint soft(40 [USD/Mscf]) flare_permit: sum(flare.burned) <= flare_permit;
-    metric field_oil = sum(esp_well.prod.oil);
-    metric field_gas = sum(esp_well.prod.gas);
-    metric field_water = sum(esp_well.prod.water);
+    ## the permit is a license-to-operate limit, not a price: 500 USD/Mscf makes it binding for planning
+    constraint soft(500 [USD/Mscf]) flare_permit: sum(flare.burned) <= flare_permit;
+    ## zero-routine-flaring policy: flaring is for safety and upsets, never an economic choice -
+    ## 150 USD/Mscf makes the planner start a compressor or choke the gassiest wells before it flares
+    constraint soft(150 [USD/Mscf]) routine_flaring: sum(flare.burned) <= 0 [Mscf/d];
+    metric field_oil = sum(esp_well.prod.oil) [bbl/d];
+    metric field_gas = sum(esp_well.prod.gas) [Mscf/d];
+    metric field_water = sum(esp_well.prod.water) [bbl/d];
 
   discover:
     ## a flowmeter tag from an unknown well on a known pad = a new well being tied in

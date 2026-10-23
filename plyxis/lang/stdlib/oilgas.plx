@@ -28,13 +28,14 @@ define oilgas as pkg {
     geom: point; layer = "wells"; icon = "well";
     properties:
       q_max    = 900  [bbl/d]    calibrate in [30, 5000];   ## liquid rate at 100 % pump speed
-      wc       = 0.70            calibrate in [0, 0.99];    ## water cut
+      wc       = 0.70;                                      ## water cut (updated by well tests)
       gor      = 1.6  [Mscf/bbl] calibrate in [0.05, 30];   ## producing gas-oil ratio
       kw_rated = 130  [kW];                                 ## motor power at full speed
       opex     = 14   [USD/h];                              ## fixed lease operating cost
       restart_cost = 650 [USD];                             ## crew visit + ESP restart wear
-      wear_rate = 0.0008 [1/h];                             ## health loss per hour at full speed
+      wear_rate = 0.0001 [1/h];                             ## health loss per hour at full speed (~14 months life)
       fail_cost = 45000 [USD];                              ## extra cost of an unplanned (vs planned) failure
+      pump_cost = 140000 [USD];                             ## replacement cost of the pump (life consumed)
       vib0     = 1.8  [mm/s];
       vib_gain = 9.0  [mm/s];
     state:
@@ -49,8 +50,10 @@ define oilgas as pkg {
     telemetry:
       liquid   <- "FLOW.LIQ" [bbl/d];
       motor_kw <- "ESP.KW" [kW];
-      vib      <- "ESP.VIB" [mm/s];
+      vib      <- "ESP.VIB" [mm/s] { warn = 5.5; alarm = 8.0; };
       up       <- "ESP.RUN";
+      wc       <- "TEST.WC" { test = true; };              ## well test (test separator)
+      gor      <- "TEST.GOR" [Mscf/bbl] { test = true; };
     behavior:
       run = on * up;
       liquid = q_max * pwl(speed, [0.35, 1.0], [0.22, 1.0]) * run;
@@ -66,8 +69,9 @@ define oilgas as pkg {
       cost lease    = opex * up;
       cost restarts = restart_cost * pos(run - was_on) / dt;
       cost risk     = fail_cost * hazard / 24 [h] * run;
+      cost pump_wear = pump_cost * wear_rate * speed^4 * run;
       emission grid = motor_kw * env.grid_co2;
-      metric oil_rate = prod.oil;
+      metric oil_rate = prod.oil [bbl/d];
   };
 
   ## Rod-pumped (beam) well with pump-off control: runs a duty cycle.
@@ -93,7 +97,7 @@ define oilgas as pkg {
       cost power = kw * duty * up * env.power_price;
       cost lease = opex * up;
       emission grid = kw * duty * up * env.grid_co2;
-      metric oil_rate = prod.oil;
+      metric oil_rate = prod.oil [bbl/d];
   };
 
   # ------------------------------------------------------------------ gathering
@@ -137,8 +141,8 @@ define oilgas as pkg {
       oil_lvl = 0.45 * oil_tank [bbl] in [0, oil_tank];
       wat_lvl = 0.45 * wat_tank [bbl] in [0, wat_tank];
     decision:
-      oil_rate in [0, oil_pump] default 0.17 * oil_pump hold 2;
-      wat_rate in [0, wat_pump] default 0.32 * wat_pump hold 2;
+      oil_rate in [0, oil_pump] [bbl/h] default 0.17 * oil_pump hold 2;
+      wat_rate in [0, wat_pump] [bbl/h] default 0.32 * wat_pump hold 2;
     nodes:
       in  feed    <- oil, gas, water;
       out gas_out <- gas;
@@ -178,6 +182,7 @@ define oilgas as pkg {
       fuel_frac  = 0.012;            ## fuel gas share of compressed gas
       start_cost = 1800 [USD];
       co2e_fuel  = 54 [kgCO2e/Mscf];
+      headroom_cost = 4 [USD/Mscf];   ## expected flaring cost per Mscf/d of throughput in the last 5 % of capacity
     state:
       avail = n_units;               ## units available (trips / maintenance reduce it)
       running_prev = n_units;
@@ -202,6 +207,8 @@ define oilgas as pkg {
       kw = unit_kw * (idle_frac * running + (1 - idle_frac) * compressed / unit_cap);
       cost power  = kw * env.power_price;
       cost starts = start_cost * pos(running - running_prev) / dt;
+      ## robust planning: within 5 % of capacity, forecast error of the gas rate makes flaring likely
+      cost flare_risk = headroom_cost * pos(suction_gas - 0.95 * capacity);
       running_prev <- running;
       emission fuel = compressed * fuel_frac * co2e_fuel;
       emission grid = kw * env.grid_co2;
@@ -210,13 +217,13 @@ define oilgas as pkg {
   ## Flare stack: burns whatever gas cannot be compressed.
   define flare as ent {
     geom: point; layer = "facilities"; icon = "flare";
-    properties: co2e = 62 [kgCO2e/Mscf];
+    properties: co2e = 110 [kgCO2e/Mscf];      ## CO2 + methane slip at real-world combustion efficiency
     nodes: in burn <- gas;
     telemetry: burned <- "FLARE.FLOW" [Mscf/d];
     behavior:
       burned = burn.gas;
       emission flaring = burned * co2e;
-      metric flared = burned;
+      metric flared = burned [Mscf/d];
   };
 
   ## Salt-water disposal well.
@@ -230,9 +237,11 @@ define oilgas as pkg {
     nodes: in inj <- water;
     telemetry:
       injected <- "INJ.FLOW" [bbl/d];
+      p_inj    <- "INJ.PRESS" [psi];
       up       <- "PUMP.RUN";
     behavior:
       injected = inj.water;
+      p_inj = 650 [psi] + 1500 [psi] * (injected / max(inj_cap, 1 [bbl/d]))^2;   ## injectivity curve
       constraint injectivity: injected <= inj_cap * up;
       cost disposal = fee * injected;
       cost pumping  = kwh_per_bbl * injected * env.power_price;
@@ -273,7 +282,7 @@ define oilgas as pkg {
       drop = cargo;
       cost hauling = trucks * cost_h;
       emission diesel = trucks * 38 [kgCO2e/h];
-      metric trucks_busy = trucks;
+      metric trucks_busy = trucks [trucks];
   };
 
   # ------------------------------------------------------------------ markets
@@ -287,7 +296,7 @@ define oilgas as pkg {
       delivered = rec.oil;
       constraint takeaway: delivered <= cap;
       revenue crude = delivered * (env.oil_price + diff);
-      metric oil_sold = delivered;
+      metric oil_sold = delivered [bbl/d];
   };
 
   ## Gas processing plant / sales meter with firm takeaway capacity.
@@ -303,7 +312,7 @@ define oilgas as pkg {
       delivered = rec.gas;
       constraint takeaway: delivered <= cap;
       revenue gas = delivered * (env.gas_price + ngl - fee);
-      metric gas_sold = delivered;
+      metric gas_sold = delivered [Mscf/d];
   };
 
   # ------------------------------------------------------------------ field resources

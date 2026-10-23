@@ -154,10 +154,14 @@ def _bn(x: torch.Tensor, B: int, n: int) -> torch.Tensor:
 
 # ----------------------------------------------------------------------------- network
 class SubSolverNet(nn.Module):
-    def __init__(self, graph: TwinGraph, d: int = 32, rounds: int = 4):
+    def __init__(self, graph: TwinGraph, d: int = 32, rounds: int = 3, slot: int = 4,
+                 base_x: Optional[torch.Tensor] = None):
         super().__init__()
         self.g = graph
-        self.d, self.rounds = d, rounds
+        self.d, self.rounds, self.slot = d, rounds, slot
+        self.S = math.ceil(graph.T / slot)
+        bx = base_x if base_x is not None else graph.space.default_u(1)
+        self.register_buffer("base_logit", torch.logit(bx.clamp(0.02, 0.98)).detach().clone())
         nt = len(graph.type_keys)
         self.type_emb = nn.Embedding(nt, d)
         self.feat_enc = nn.ModuleList([nn.Linear(graph.max_feat, d) for _ in range(nt)])
@@ -177,7 +181,14 @@ class SubSolverNet(nn.Module):
             if key not in self.heads:
                 self.heads[key] = nn.Sequential(nn.Linear(d, d), nn.GELU(), nn.Linear(d, 1))
         self.route_head = nn.Sequential(nn.Linear(2 * d, d), nn.GELU(), nn.Linear(d, 1))
+        for head in list(self.heads.values()) + [self.route_head]:
+            nn.init.zeros_(head[-1].weight)
+            nn.init.zeros_(head[-1].bias)
         self.node_type = graph.node_type()
+
+    def set_base(self, x: torch.Tensor) -> None:
+        """Re-centre the residual policy on a new reference plan (e.g. the latest optimum)."""
+        self.base_logit.copy_(torch.logit(x.detach().clamp(0.02, 0.98)))
 
     def _head_key(self, gid: str, name: str) -> str:
         key = self.g.prog.gmap[gid].key
@@ -186,8 +197,9 @@ class SubSolverNet(nn.Module):
     def forward(self, P: dict, S0: dict, E: dict, t0: float, lam: Optional[dict], B: int) -> torch.Tensor:
         g, d, T, N = self.g, self.d, self.g.T, self.g.N
         X = g.node_features(P, S0, B)                                    # [B, N, F]
-        L = g.price_features(lam, B)                                     # [B, N, T, C]
-        tf = self.time_enc(g.time_features(E, t0, B))                    # [B, T, d]
+        L = _slots(g.price_features(lam, B), self.slot, 2)              # [B, N, S, C]
+        tf = self.time_enc(_slots(g.time_features(E, t0, B), self.slot, 1))   # [B, S, d]
+        T = self.S
         h_static = self.type_emb(self.node_type).unsqueeze(0).expand(B, N, d).clone()
         h_price = torch.zeros(B, N, T, d)
         for ti in range(len(g.type_keys)):
@@ -205,21 +217,42 @@ class SubSolverNet(nn.Module):
             h = h + self.upd[k](self.norm[k](torch.cat([h, m_in, m_out], -1)))
             z = h.reshape(B * N, T, d).transpose(1, 2)
             h = h + self.tconv[k](z).transpose(1, 2).reshape(B, N, T, d)
-        # decode decisions
+        # decode decisions (residual logits on top of the reference plan)
         sp = g.space
+        base = sp.split(self.base_logit.expand(B, -1))
         parts = {}
         for b in sp.blocks:
             grp = g.prog.gmap[b.gid]
             idx = torch.tensor(grp.inst_ids, dtype=torch.long)
-            y = self.heads[self._head_key(b.gid, b.name)](h.index_select(1, idx)).squeeze(-1)   # [B, n, T]
-            y = _pool(y, b.hold, b.H)
-            parts[(b.gid, b.name)] = torch.sigmoid(y)
+            y = self.heads[self._head_key(b.gid, b.name)](h.index_select(1, idx)).squeeze(-1)   # [B, n, S]
+            y = _pool(_unslot(y, self.slot, g.T), b.hold, b.H)
+            parts[(b.gid, b.name)] = torch.sigmoid(base[(b.gid, b.name)] + y)
         if sp.route is not None:
             hs = h.index_select(1, g.route_src)
             hd = h.index_select(1, g.route_dst)
             y = self.route_head(torch.cat([hs, hd], -1)).squeeze(-1)
-            parts["route"] = torch.sigmoid(_pool(y, sp.route.hold, sp.route.H))
+            y = _pool(_unslot(y, self.slot, g.T), sp.route.hold, sp.route.H)
+            parts["route"] = torch.sigmoid(base["route"] + 4.0 * y)
         return sp.join(parts)
+
+
+def _slots(x: torch.Tensor, slot: int, dim: int) -> torch.Tensor:
+    """average consecutive time steps into slots along `dim`."""
+    if slot <= 1:
+        return x
+    T = x.shape[dim]
+    S = math.ceil(T / slot)
+    pad = S * slot - T
+    if pad:
+        tail = x.narrow(dim, T - 1, 1).expand(*[(pad if i == dim else -1) for i in range(x.dim())])
+        x = torch.cat([x, tail], dim)
+    shape = list(x.shape)
+    shape[dim:dim + 1] = [S, slot]
+    return x.reshape(shape).mean(dim + 1)
+
+
+def _unslot(y: torch.Tensor, slot: int, T: int) -> torch.Tensor:
+    return y.repeat_interleave(slot, dim=-1)[..., :T] if slot > 1 else y
 
 
 def _pool(y: torch.Tensor, hold: int, H: int) -> torch.Tensor:
@@ -267,6 +300,64 @@ class ContextSampler:
                 decl = g.ir.type.params.get(pname)
                 if decl is not None and (decl.calibrate is not None or "cap" in pname):
                     self.perturb[(g.gid, pname)] = 0.18 if decl.calibrate is not None else 0.12
+
+    def sample_events(self, B: int, base: Optional[Context] = None) -> Context:
+        """Realistic re-planning situations: mild drift around the current state plus 0-2
+        operational events (unit trip, well failures, injectivity loss, price shocks)."""
+        gen, prog, T = self.gen, self.prog, self.pb.T
+        base_P = base.P if base else self.pb.P
+        base_S = base.S0 if base else self.pb.S0
+        P = {}
+        for gid, d in base_P.items():
+            P[gid] = {}
+            for name, v in d.items():
+                s = self.perturb.get((gid, name))
+                if s is None:
+                    P[gid][name] = v
+                    continue
+                nv = v * torch.exp(torch.randn(B, v.shape[1], 1, generator=gen) * s * 0.3)
+                if "cap" in name and (torch.rand(1, generator=gen).item() < 0.25):
+                    k = int(torch.randint(0, v.shape[1], (1,), generator=gen))
+                    nv[:, k] = nv[:, k] * (0.45 + 0.4 * torch.rand(B, 1, generator=gen))
+                if name == "wc":
+                    nv = nv.clamp(0.0, 0.98)
+                P[gid][name] = nv
+        S0 = {}
+        for g in prog.groups:
+            S0[g.gid] = {}
+            for sname, info in g.ir.states.items():
+                v = base_S[g.gid][sname]
+                v = v.expand(B, v.shape[1]).clone() if v.shape[0] == 1 else v.clone()
+                if info.lo is not None:
+                    bnd = prog._bounds_cache()[g.gid].get(f"bound:{sname}")
+                    if bnd is not None:
+                        lo = torch.as_tensor(bnd[0], dtype=torch.float32).reshape(1, -1).expand(B, v.shape[1])
+                        hi = torch.as_tensor(bnd[1], dtype=torch.float32).reshape(1, -1).expand(B, v.shape[1])
+                        v = (v + (hi - lo) * 0.2 * torch.randn(B, v.shape[1], generator=gen)).clamp(
+                            lo + 0.05 * (hi - lo), hi - 0.05 * (hi - lo))
+                elif not info.has_update and float(v.max()) >= 1.0:
+                    # failures / trips: a few instances lose one unit
+                    p = 0.03 if v.shape[1] > 20 else 0.15
+                    drop = (torch.rand(B, v.shape[1], generator=gen) < p).float()
+                    v = (v - drop).clamp(min=0.0)
+                elif sname == "health":
+                    v = (v - 0.15 * torch.rand(B, v.shape[1], generator=gen)).clamp(0.05, 1.0)
+                S0[g.gid][sname] = v
+        E = {}
+        hours = torch.arange(T, dtype=torch.float32)
+        for k in prog.env_inputs:
+            v0 = float(prog.E0[k])
+            lvl = v0 * torch.exp(torch.randn(B, 1, generator=gen) * 0.1)
+            ser = lvl.expand(B, T).clone()
+            if "power" in k:
+                ph = hours.view(1, -1) % 24
+                ser = lvl * (0.75 + 1.6 * ((ph >= 15) & (ph < 20)).float() + 0.2 * ((ph >= 7) & (ph < 15)).float())
+                ser = ser + (torch.rand(B, T, generator=gen) < 0.02).float() * 5 * v0
+            if "gas" in k and torch.rand(1, generator=gen).item() < 0.25:
+                start = int(torch.randint(0, T // 2, (1,), generator=gen))
+                ser[:, start:start + 24] = -abs(v0) * (0.5 + torch.rand(B, 1, generator=gen))
+            E[k] = ser
+        return Context(P, S0, E, None, float(torch.randint(0, 24, (1,), generator=gen).item()), B)
 
     def sample(self, B: int, with_prices: float = 0.5, base: Optional[Context] = None) -> Context:
         gen, prog, T = self.gen, self.prog, self.pb.T
@@ -353,7 +444,7 @@ def policy_loss(problem: Problem, x: torch.Tensor, ctx: Context, mu: float = 2.0
         h = h if h.dim() == 3 else h.unsqueeze(-1)
         h = h.expand(x.shape[0], *h.shape[1:]) if h.shape[0] == 1 else h
         hp = torch.abs(h) if e.kinds.get(key) == "eq" else torch.relu(h)
-        pen = pen + mu * (hp * hp).sum(dim=(1, 2))
+        pen = pen + mu * (hp * hp).sum(dim=(1, 2)) / problem.T
         if ctx.lam is not None and key in ctx.lam:
             pen = pen + (ctx.lam[key] * h).sum(dim=(1, 2))
     if anneal > 0:
@@ -362,7 +453,7 @@ def policy_loss(problem: Problem, x: torch.Tensor, ctx: Context, mu: float = 2.0
 
 
 def train(problem: Problem, net: SubSolverNet, steps: int = 400, B: int = 8, lr: float = 3e-3, seed: int = 0,
-          callback: Optional[Callable] = None, time_budget: Optional[float] = None, mu: float = 2.0,
+          callback: Optional[Callable] = None, time_budget: Optional[float] = None, mu: float = 20.0,
           experts: Optional[list] = None, imitation: float = 0.0) -> list:
     """Self-supervised training through the differentiable twin.
     `experts` = list of (Context, x*) pairs from previous cascade solves (expert iteration)."""
@@ -374,7 +465,8 @@ def train(problem: Problem, net: SubSolverNet, steps: int = 400, B: int = 8, lr:
     for step in range(steps):
         ctx = sampler.sample(B)
         x = net(ctx.P, ctx.S0, ctx.E, ctx.t0, ctx.lam, B)
-        loss, e = policy_loss(problem, x, ctx, mu=mu, anneal=0.02 * step / max(1, steps))
+        frac = step / max(1, steps - 1)
+        loss, e = policy_loss(problem, x, ctx, mu=mu * (0.05 + 0.95 * frac), anneal=0.02 * frac)
         if experts and imitation > 0:
             ectx, xs = experts[step % len(experts)]
             xe = net(ectx.P, ectx.S0, ectx.E, ectx.t0, ectx.lam, ectx.B)
@@ -392,6 +484,70 @@ def train(problem: Problem, net: SubSolverNet, steps: int = 400, B: int = 8, lr:
                 callback(rec)
         if time_budget is not None and time.perf_counter() - t0 > time_budget:
             break
+    return logs
+
+
+def stack_contexts(ctxs: list) -> Context:
+    """Concatenate single-scenario contexts into one batch."""
+    B = len(ctxs)
+
+    def cat(vals, n_dims):
+        vs = [v if v.shape[0] == 1 else v[:1] for v in vals]
+        return torch.cat(vs, 0)
+    P = {gid: {k: cat([c.P[gid][k] for c in ctxs], 3) for k in ctxs[0].P[gid]} for gid in ctxs[0].P}
+    S0 = {gid: {k: cat([c.S0[gid][k] for c in ctxs], 2) for k in ctxs[0].S0[gid]} for gid in ctxs[0].S0}
+    E = {}
+    for k in ctxs[0].E:
+        vs = [torch.as_tensor(c.E[k], dtype=torch.float32) for c in ctxs]
+        vs = [v.view(1, -1) if v.dim() <= 1 else v[:1].reshape(1, -1) for v in vs]
+        E[k] = torch.cat(vs, 0)
+    return Context(P, S0, E, None, ctxs[0].t0, B)
+
+
+def generate_experts(problem: Problem, n: int, solver_factory: Callable, seed: int = 7,
+                     callback: Optional[Callable] = None, base: Optional[Context] = None) -> list:
+    """Solve n realistic situations with the full cascade -> (context, optimal x) pairs."""
+    sampler = ContextSampler(problem, seed)
+    out = []
+    for i in range(n):
+        ctx = sampler.sample_events(1, base=base)
+        pb = problem.with_context(P=ctx.P, S0=ctx.S0, E=ctx.E, t0=ctx.t0)
+        res = solver_factory(pb).solve()
+        out.append((ctx, res.x.detach().clone(), res.objective))
+        if callback:
+            callback({"stage": "experts", "i": i, "objective": res.objective, "feasible": res.feasible,
+                      "seconds": res.seconds})
+    return out
+
+
+def train_imitation(problem: Problem, net: "SubSolverNet", experts: list, steps: int = 300, B: int = 8,
+                    lr: float = 2e-3, ss_weight: float = 0.05, seed: int = 0,
+                    callback: Optional[Callable] = None) -> list:
+    """Expert iteration: imitate cascade solutions (+ a small self-supervised term)."""
+    g = torch.Generator().manual_seed(seed)
+    opt = torch.optim.AdamW(net.parameters(), lr=lr, weight_decay=1e-5)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=lr, total_steps=max(steps, 2), pct_start=0.1)
+    logs = []
+    t0 = time.perf_counter()
+    for step in range(steps):
+        idx = torch.randint(0, len(experts), (min(B, len(experts)),), generator=g).tolist()
+        ctx = stack_contexts([experts[i][0] for i in idx])
+        target = torch.cat([experts[i][1] for i in idx], 0)
+        x = net(ctx.P, ctx.S0, ctx.E, ctx.t0, None, ctx.B)
+        loss = ((x - target) ** 2).mean() * 100.0
+        if ss_weight > 0:
+            ss, e = policy_loss(problem, x, ctx, mu=5.0)
+            loss = loss + ss_weight * ss
+        opt.zero_grad()
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0)
+        opt.step()
+        sched.step()
+        if step % 10 == 0 or step == steps - 1:
+            rec = {"stage": "imitation", "step": step, "loss": float(loss.detach()), "t": time.perf_counter() - t0}
+            logs.append(rec)
+            if callback:
+                callback(rec)
     return logs
 
 

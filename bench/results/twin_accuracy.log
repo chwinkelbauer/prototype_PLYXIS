@@ -1,0 +1,15 @@
+t=  8.0  q_max 0.043  gor 0.124  wc 0.046  pad gas 0.074/0.18  stations {'CS1': -0.0012, 'CS2': 0.0202}
+t= 10.0  q_max 0.035  gor 0.122  wc 0.045  pad gas 0.077/0.19  stations {'CS1': 0.008, 'CS2': 0.0069}
+t= 12.0  q_max 0.029  gor 0.121  wc 0.044  pad gas 0.080/0.21  stations {'CS1': 0.0035, 'CS2': 0.0052}
+t= 14.0  q_max 0.028  gor 0.119  wc 0.043  pad gas 0.062/0.17  stations {'CS1': -0.0139, 'CS2': 0.0187}
+t= 16.0  q_max 0.027  gor 0.115  wc 0.042  pad gas 0.062/0.20  stations {'CS1': -0.0034, 'CS2': 0.0271}
+t= 18.0  q_max 0.026  gor 0.112  wc 0.042  pad gas 0.064/0.20  stations {'CS1': -0.0101, 'CS2': 0.032}
+t= 20.0  q_max 0.029  gor 0.112  wc 0.040  pad gas 0.062/0.19  stations {'CS1': -0.0148, 'CS2': 0.0165}
+t= 22.0  q_max 0.029  gor 0.110  wc 0.040  pad gas 0.069/0.21  stations {'CS1': -0.0024, 'CS2': 0.0303}
+t= 24.0  q_max 0.026  gor 0.108  wc 0.038  pad gas 0.073/0.20  stations {'CS1': -0.0033, 'CS2': 0.017}
+t= 26.0  q_max 0.023  gor 0.107  wc 0.038  pad gas 0.067/0.19  stations {'CS1': -0.0035, 'CS2': 0.0323}
+t= 28.0  q_max 0.024  gor 0.105  wc 0.037  pad gas 0.071/0.20  stations {'CS1': -0.0027, 'CS2': 0.0343}
+t= 30.0  q_max 0.026  gor 0.104  wc 0.037  pad gas 0.062/0.17  stations {'CS1': -0.0038, 'CS2': 0.0343}
+t= 32.0  q_max 0.028  gor 0.101  wc 0.037  pad gas 0.060/0.17  stations {'CS1': -0.0139, 'CS2': 0.0186}
+t= 34.0  q_max 0.027  gor 0.099  wc 0.036  pad gas 0.053/0.16  stations {'CS1': -0.0023, 'CS2': 0.0271}
+t= 36.0  q_max 0.024  gor 0.098  wc 0.035  pad gas 0.057/0.19  stations {'CS1': 0.0032, 'CS2': 0.0288}
