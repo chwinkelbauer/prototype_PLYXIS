@@ -17,28 +17,39 @@ from .space import DecisionSpace
 @dataclass
 class Evaluation:
     objective: torch.Tensor            # [B] (to maximise, currency)
-    viol: dict                         # (gid, con key) -> scaled violation [B, n, T]
+    _viol: Optional[dict]              # lazily derived from resid (see `viol`)
     totals: dict                       # revenue / cost / emission / named terms
     raw: dict
     x: torch.Tensor
     resid: dict = None                 # (gid, con key) -> scaled signed residual (<=0 feasible)
     kinds: dict = None
+    _flat: Optional[torch.Tensor] = None
+
+    @property
+    def viol(self) -> dict:
+        """(gid, con key) -> scaled violation [B, n, T] (computed on first use)."""
+        if self._viol is None:
+            self._viol = {k: (h.abs() if self.kinds.get(k) == "eq" else torch.relu(h)) for k, h in self.resid.items()}
+        return self._viol
+
+    def _flat_viol(self) -> Optional[torch.Tensor]:
+        if self._flat is None and self.resid:
+            B = self.objective.shape[0]
+            parts = []
+            for k, h in self.resid.items():
+                v = h.abs() if self.kinds.get(k) == "eq" else torch.relu(h)
+                v = v.reshape(v.shape[0], -1)
+                parts.append(v.expand(B, -1) if v.shape[0] != B else v)
+            self._flat = torch.cat(parts, 1)
+        return self._flat
 
     def max_violation(self) -> torch.Tensor:
-        if not self.viol:
-            return torch.zeros_like(self.objective)
-        return torch.stack([v.reshape(v.shape[0], -1).amax(1) if v.shape[0] == self.objective.shape[0]
-                            else v.reshape(v.shape[0], -1).amax(1).expand_as(self.objective)
-                            for v in self.viol.values()], 1).amax(1)
+        f = self._flat_viol()
+        return torch.zeros_like(self.objective) if f is None else f.amax(1)
 
     def sum_violation(self) -> torch.Tensor:
-        if not self.viol:
-            return torch.zeros_like(self.objective)
-        s = 0.0
-        for v in self.viol.values():
-            vv = v.reshape(v.shape[0], -1).sum(1)
-            s = s + (vv if vv.shape[0] == self.objective.shape[0] else vv.expand_as(self.objective))
-        return s
+        f = self._flat_viol()
+        return torch.zeros_like(self.objective) if f is None else f.sum(1)
 
 
 class Problem:
@@ -54,8 +65,24 @@ class Problem:
         self.t0 = t0
         self.n_evals = 0
         self.con_kind = {(c.gid, c.key): c.kind for c in program.cons}
+        self.move_ref: Optional[torch.Tensor] = None     # plan the plant is executing (move suppression)
+        self.move_w: Optional[torch.Tensor] = None
+        self.move_cost = 0.0
         self._inst_maps()
         self.calibrate_scales()
+
+    def set_move_reference(self, x_ref: Optional[torch.Tensor], lock_hours: float = 3.0,
+                           cost_usd: float = 1500.0) -> None:
+        """Move suppression (as in model-predictive control): changing a decision the plant is executing
+        now - any hold block that starts within `lock_hours` - costs `cost_usd` per unit^2 of normalised
+        change. Re-plans then only deviate from the running plan when it is worth it: no set-point churn,
+        no needless restarts, smoother operations. Later blocks stay free."""
+        if x_ref is None or cost_usd <= 0:
+            self.move_ref, self.move_w, self.move_cost = None, None, 0.0
+            return
+        self.move_ref = x_ref.detach().reshape(1, -1).clone()
+        self.move_w = (self.space.block_start_hours() < lock_hours - 1e-9).to(torch.float32)
+        self.move_cost = float(cost_usd)
 
     # ------------------------------------------------------------------ setup
     def _inst_maps(self) -> None:
@@ -105,18 +132,20 @@ class Problem:
         E = E if E is not None else self.E
         D, R = self.space.decode(x, P, relax=relax)
         raw = self.prog.simulate(D, R, P, S0, E, self.T, self.dt, self.t0)
-        ev = self.prog.evaluate(raw, self.dt, E)
+        ev = self.prog.evaluate(raw, self.dt, E, want_hard=False)
         self.n_evals += x.shape[0]
-        viol, resid = {}, {}
-        for key, v in ev["hard"].items():
-            s = self.con_scale.get(key)
-            viol[key] = v / s if s is not None else v
-            h = ev["resid"][key]
+        resid = {}
+        cs = self.con_scale
+        for key, h in ev["resid"].items():
+            s = cs.get(key)
             resid[key] = h / s if s is not None else h
         obj = torch.as_tensor(ev["objective"])
         if obj.dim() == 0:
             obj = obj.expand(x.shape[0])
-        return Evaluation(obj, viol, ev, raw, x, resid, self.con_kind)
+        if self.move_ref is not None:
+            d = x - self.move_ref
+            obj = obj - self.move_cost * (self.move_w * d * d).sum(1)
+        return Evaluation(obj, None, ev, raw, x, resid, self.con_kind)
 
     def fitness(self, x: torch.Tensor, mu: float = 10.0, relax: bool = False) -> torch.Tensor:
         """Scalar penalised fitness for population methods (higher is better)."""

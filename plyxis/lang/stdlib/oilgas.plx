@@ -36,6 +36,7 @@ define oilgas as pkg {
       wear_rate = 0.0001 [1/h];                             ## health loss per hour at full speed (~14 months life)
       fail_cost = 45000 [USD];                              ## extra cost of an unplanned (vs planned) failure
       pump_cost = 140000 [USD];                             ## replacement cost of the pump (life consumed)
+      fail_health = 0.12;                                   ## the pump fails (is pulled) at this health
       vib0     = 1.8  [mm/s];
       vib_gain = 9.0  [mm/s];
     state:
@@ -69,7 +70,7 @@ define oilgas as pkg {
       cost lease    = opex * up;
       cost restarts = restart_cost * pos(run - was_on) / dt;
       cost risk     = fail_cost * hazard / 24 [h] * run;
-      cost pump_wear = pump_cost * wear_rate * speed^4 * run;
+      cost pump_wear = pump_cost * wear_rate * speed^4 * run / (1 - fail_health);   ## life runs from health 1 to fail_health
       emission grid = motor_kw * env.grid_co2;
       metric oil_rate = prod.oil [bbl/d];
   };
@@ -200,6 +201,7 @@ define oilgas as pkg {
       suction_gas = suction.gas;
       running  = min(units, avail);
       capacity = running * unit_cap;
+      tripped  = (n_units - avail) * unit_cap;   ## capacity lost to trips: flaring up to it is upset (non-routine) flaring
       compressed = min(suction_gas, capacity);
       discharge.gas = compressed * (1 - fuel_frac);
       flare.gas = suction_gas - compressed;
@@ -231,7 +233,7 @@ define oilgas as pkg {
     geom: point; layer = "water"; icon = "swd";
     properties:
       inj_cap    = 25000 [bbl/d] calibrate in [500, 90000];
-      fee        = 0.08  [USD/bbl];
+      fee        = 0.45  [USD/bbl];          ## third-party disposal fee (Delaware Basin level)
       kwh_per_bbl = 0.9  [kWh/bbl];
     state: up = 1;
     nodes: in inj <- water;

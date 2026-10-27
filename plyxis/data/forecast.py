@@ -26,11 +26,17 @@ class Forecaster:
     def announce(self, name: str, start: float, end: float, value: float) -> None:
         self.announced.setdefault(name, []).append((start, end, value))
 
+    def _announced_at(self, name: str, t: float) -> bool:
+        return any(s <= t < e for s, e, _ in self.announced.get(name, []))
+
     def forecast(self, t0: float, T: int, dt: float) -> dict:
         out = {}
         hours = torch.tensor([t0 + i * dt for i in range(T)])
         for k in self.inputs:
-            h = self.hist[k]
+            # an announced transient (a negative-price day, a scarcity hour) is not the new normal:
+            # level and profile come from the observations it does not explain
+            h = [(t, v) for t, v in self.hist[k] if not self._announced_at(k, t)] if k in self.announced \
+                else self.hist[k]
             cur = h[-1][1] if h else self.nominal[k]
             if "power" in k and len(h) >= 24:
                 prof = torch.zeros(24)

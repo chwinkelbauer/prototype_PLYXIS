@@ -109,20 +109,27 @@ Details: [DATA_INTEGRATION.md](DATA_INTEGRATION.md).
 ## C. Planning
 
 The planner rolls a 72 h horizon at hourly resolution. Every re-plan (scheduled every 3 h, or
-immediately after a disruption, a twin rewrite or a market notice) runs the cascade on the
-current twin, warm-started from the previous plan shifted in time (and remapped by asset path
-when the twin's structure changed). Details: [OPTIMIZER.md](OPTIMIZER.md).
+immediately after a disruption, a twin rewrite, a midstream or market notice) runs the cascade on
+the current twin, warm-started from the previous plan shifted in time (and remapped by asset path
+when the twin's structure changed). Urgent re-plans first publish a *first response* within 1-2 s
+and then replace it with the full plan (~10 s); near-term decisions pay a move penalty against the
+plan being executed, so set points do not churn between re-plans. Price forecasts layer announced
+events (a negative-price day, a scarcity window) on persistence and a learned daily profile.
+Details: [OPTIMIZER.md](OPTIMIZER.md).
 
 ## D. Runtime and console
 
 * `Engine` runs **two worlds** on the same hidden ground truth, the same events and the same
   noise: one operated by PLYXIS, one by a rule-based model of today's manual operations
   (`scenarios/kestrel/legacy.py`). KPIs are realised accounting (sales minus cash costs plus
-  change in inventory value), not model predictions.
+  change in inventory value and remaining pump life), not model predictions; the value bridge
+  splits the profit difference into these realised terms.
 * Threads: a plant-clock thread advances both plants; the planner solves in its own thread;
-  the asyncio server only serves requests and pushes snapshots. During urgent re-plans the plant
-  clock is held, so compressed demo time does not penalise the planner for wall-clock solve time
-  (the UI shows a banner while the clock is held).
+  moving-horizon estimation runs on a worker thread and is applied at the next plant step; the
+  asyncio server only serves requests and pushes snapshots. After an urgent trigger the plant
+  clock is held until the first response is live (1-2 s), so compressed demo time does not
+  penalise the planner for wall-clock solve time; the full optimisation continues in the
+  background. Headless benchmark runs execute planning and estimation inline (deterministic).
 * The console is a static build served by the API process (`web/dist`). Data arrives via
   REST plus a WebSocket snapshot stream.
 

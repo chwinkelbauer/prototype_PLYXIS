@@ -68,7 +68,7 @@ export function StudioPage() {
             const gen = f === "live.plx" || f === "calibration.plx";
             return (
               <div key={f} onClick={() => setCur(f)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] cursor-pointer ${cur === f ? "bg-[#0f2e2b] text-[#9ff3e6]" : "text-muted hover:text-ink hover:bg-panel2"}`}>
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] cursor-pointer ${cur === f ? "nav-active" : "text-muted hover:text-ink hover:bg-panel2"}`}>
                 {ro ? <Lock size={12} /> : <FileCode2 size={12} />}<span className="truncate flex-1">{f}</span>
                 {dirty.includes(f) && <span className="w-1.5 h-1.5 rounded-full bg-warn" />}
                 {gen && <span className="text-[9px] text-teal border border-teal/40 rounded px-1">auto</span>}
@@ -89,7 +89,7 @@ export function StudioPage() {
           <span className="text-[11.5px] flex items-center gap-1.5">
             {checking ? <span className="text-dim">checking…</span> :
               errs.length ? <span className="text-crit flex items-center gap-1"><AlertCircle size={13} />{errs.length} error(s)</span> :
-                <span className="text-plx flex items-center gap-1"><CheckCircle2 size={13} />compiles</span>}
+                <span className="text-good flex items-center gap-1"><CheckCircle2 size={13} />compiles</span>}
             {warns.length > 0 && <span className="text-warn flex items-center gap-1 ml-2"><TriangleAlert size={13} />{warns.length}</span>}
           </span>
           <input className="inp w-[260px]" placeholder="commit message" value={msg} onChange={(e) => setMsg(e.target.value)} />
@@ -99,7 +99,7 @@ export function StudioPage() {
           <CodeEditor value={text} onChange={onChange} readOnly={isStd} diagnostics={diags} file={cur} revealLine={reveal} />
         </div>
         <div className="h-[150px] shrink-0 border-t border-line overflow-auto bg-panel">
-          <div className="panel-h">Diagnostics {applyRes && (applyRes.ok ? <span className="text-plx normal-case">applied · twin v{applyRes.version} · {applyRes.commit?.id}</span> : <span className="text-crit normal-case">not applied</span>)}</div>
+          <div className="panel-h">Diagnostics {applyRes && (applyRes.ok ? <span className="text-good normal-case">applied · twin v{applyRes.version} · {applyRes.commit?.id}</span> : <span className="text-crit normal-case">not applied</span>)}</div>
           {diags.length === 0 && <div className="px-3 py-2 text-dim text-[12px]">No diagnostics. Edit the code - the PLX compiler checks it as you type (lexer, parser, units, elaboration, scheduling).</div>}
           {diags.map((d, i) => (
             <div key={i} className="px-3 py-1 text-[12px] flex gap-2 cursor-pointer hover:bg-panel2" onClick={() => { const f = d.file.split(/[\\/]/).pop()!; if (fileList.includes(f)) setCur(f); setReveal(d.line); }}>
@@ -122,16 +122,16 @@ export function StudioPage() {
             <div>
               {commits.map((c) => (
                 <div key={c.id} onClick={() => api.commit(c.id).then(setCommit)}
-                  className={`px-3 py-2 border-b border-[#131c26] cursor-pointer hover:bg-panel2 ${commit?.id === c.id ? "bg-panel2" : ""}`}>
+                  className={`px-3 py-2 border-b border-[#1a1a26] cursor-pointer hover:bg-panel2 ${commit?.id === c.id ? "bg-panel2" : ""}`}>
                   <div className="flex items-center gap-1.5 text-[12px]"><GitCommitHorizontal size={12} className={c.author.startsWith("auto") ? "text-teal" : "text-leg"} />
                     <span className="num text-dim">{c.id}</span><span className="truncate">{c.message}</span></div>
                   <div className="text-[10.5px] text-dim num">{c.author} · {fmt.clock(c.t)} · +{c.stats?.added ?? 0} −{c.stats?.removed ?? 0}</div>
                 </div>
               ))}
               {commit && (
-                <pre className="text-[11px] leading-snug p-2 m-2 rounded bg-[#0a1017] border border-line overflow-auto max-h-[420px] num">
+                <pre className="text-[11px] leading-snug p-2 m-2 rounded bg-[#0c0c12] border border-line overflow-auto max-h-[420px] num">
                   {commit.diff.split("\n").map((l: string, i: number) => (
-                    <div key={i} className={l.startsWith("+") && !l.startsWith("+++") ? "text-plx" : l.startsWith("-") && !l.startsWith("---") ? "text-crit" : l.startsWith("@@") ? "text-info" : "text-muted"}>{l || " "}</div>
+                    <div key={i} className={l.startsWith("+") && !l.startsWith("+++") ? "text-good" : l.startsWith("-") && !l.startsWith("---") ? "text-crit" : l.startsWith("@@") ? "text-info" : "text-muted"}>{l || " "}</div>
                   ))}
                 </pre>
               )}
@@ -157,7 +157,7 @@ function LibraryPanel() {
     <div>
       <div className="px-3 py-2 text-[11.5px] text-dim flex items-center gap-1.5"><Library size={13} />Entity blueprints used by this twin (all defined in PLX)</div>
       {lib.map((t) => (
-        <div key={t.qualified} className="border-b border-[#131c26]">
+        <div key={t.qualified} className="border-b border-[#1a1a26]">
           <div className="px-3 py-1.5 flex items-center gap-2 cursor-pointer hover:bg-panel2" onClick={() => setOpen(open === t.qualified ? null : t.qualified)}>
             <span className="text-[12.5px] font-semibold">{t.name}</span><span className="text-[10.5px] text-dim">{t.package}</span>
             <span className="ml-auto num text-[11px] text-muted">×{t.count}</span>

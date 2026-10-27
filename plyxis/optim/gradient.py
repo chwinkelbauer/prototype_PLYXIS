@@ -33,38 +33,86 @@ class ALMResult:
     population: Optional[torch.Tensor] = None
 
 
+class _FlatResiduals:
+    """All constraint residuals of an evaluation as one [B, M] tensor (one op instead of one per constraint)."""
+
+    def __init__(self, e: Evaluation, B: int):
+        self.keys, self.shapes, self.sizes = [], [], []
+        eq = []
+        for key, h in e.resid.items():
+            h = _full(h, B)
+            self.keys.append(key)
+            self.shapes.append(tuple(h.shape[1:]))
+            n = int(h[0].numel())
+            self.sizes.append(n)
+            eq.append(torch.full((n,), e.kinds.get(key) == "eq", dtype=torch.bool))
+        self.eq = torch.cat(eq) if eq else torch.zeros(0, dtype=torch.bool)
+        self.M = int(self.eq.numel())
+
+    def flat(self, e: Evaluation, B: int) -> torch.Tensor:
+        if not self.keys:
+            return torch.zeros(B, 0)
+        return torch.cat([_full(e.resid[k], B).reshape(B, -1) for k in self.keys], 1)
+
+    def from_dict(self, lam: Optional[dict], B: int) -> torch.Tensor:
+        parts = []
+        for k, shape, n in zip(self.keys, self.shapes, self.sizes):
+            v = None if lam is None else lam.get(k)
+            if v is None:
+                parts.append(torch.zeros(B, n))
+                continue
+            v = _full(v.detach(), B)
+            parts.append(v.reshape(B, -1)[:, :n] if v.reshape(B, -1).shape[1] >= n
+                         else v.reshape(B, -1).expand(B, n))
+        return torch.cat(parts, 1) if parts else torch.zeros(B, 0)
+
+    def to_dict(self, flat: torch.Tensor) -> dict:
+        out, i = {}, 0
+        B = flat.shape[0]
+        for k, shape, n in zip(self.keys, self.shapes, self.sizes):
+            out[k] = flat[:, i:i + n].reshape(B, *shape)
+            i += n
+        return out
+
+
 def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, rho: float = 2.0,
         rho_max: float = 1e4, outer: int = 15, mask: Optional[torch.Tensor] = None, relax: bool = True,
         tol: float = 2e-3, callback: Optional[Callable] = None, time_budget: Optional[float] = None,
         lam0: Optional[dict] = None, lr_final: float = 0.2, log_every: int = 5, stage: str = "polish",
-        anneal: float = 0.0) -> ALMResult:
+        anneal: float = 0.0, patience: Optional[int] = None, rtol: float = 2e-4) -> ALMResult:
     """anneal > 0 adds an integrality penalty (ramped up over the run) that drives integer,
-    boolean and exclusive-routing decisions towards integral values before rounding."""
+    boolean and exclusive-routing decisions towards integral values before rounding.
+
+    patience: stop early once the best feasible objective has not improved by more than `rtol`
+    (relative) for `patience` iterations - converged stages do not burn their whole budget."""
     t_start = time.perf_counter()
     x = x0.detach().clone().clamp(0, 1).requires_grad_(True)
     opt = torch.optim.Adam([x], lr=lr, betas=(0.9, 0.99))
     B = x.shape[0]
-    lam: dict = {} if lam0 is None else {k: v.detach().clone() for k, v in lam0.items()}
     hist: list = []
     best_x, best_key = None, None
     last_mv = math.inf
     evals0 = problem.n_evals
+    fr: Optional[_FlatResiduals] = None
+    lam = None
+    best_obj_seen, stall = -math.inf, 0
     for it in range(iters):
         frac = it / max(1, iters - 1)
         for gparam in opt.param_groups:
             gparam["lr"] = lr * (lr_final + (1 - lr_final) * 0.5 * (1 + math.cos(math.pi * frac)))
         e = problem.evaluate(x, relax=relax)
+        if fr is None:
+            fr = _FlatResiduals(e, B)
+            lam = fr.from_dict(lam0, B)
+        h = fr.flat(e, B)
         Jn = e.objective / problem.J_scale
-        pen = torch.zeros(B)
-        for key, h in e.resid.items():
-            h = _full(h, B)
-            if key not in lam:
-                lam[key] = torch.zeros_like(h)
-            if e.kinds.get(key) == "eq":
-                pen = pen + (lam[key] * h).sum(dim=(1, 2)) + 0.5 * rho * (h * h).sum(dim=(1, 2))
-            else:   # Powell-Hestenes-Rockafellar term for h <= 0
-                z = torch.relu(lam[key] + rho * h)
-                pen = pen + ((z * z - lam[key] * lam[key]) / (2 * rho)).sum(dim=(1, 2))
+        if fr.M:
+            z = torch.relu(lam + rho * h)
+            pen_in = (z * z - lam * lam) / (2 * rho)
+            pen_eq = lam * h + 0.5 * rho * h * h
+            pen = torch.where(fr.eq, pen_eq, pen_in).sum(1)
+        else:
+            pen = torch.zeros(B)
         if anneal > 0.0:
             pen = pen + anneal * frac ** 2 * integrality_penalty(problem.space, x)
         loss = (-Jn + pen).sum()
@@ -75,21 +123,16 @@ def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, 
         opt.step()
         with torch.no_grad():
             x.clamp_(0.0, 1.0)
-        with torch.no_grad():
-            mv = e.max_violation()
-            obj = e.objective
-            key_rows = [(bool(mv[b] <= tol), float(obj[b]), -float(mv[b])) for b in range(B)]
+            hd = h.detach()
+            mv = torch.where(fr.eq, hd.abs(), torch.relu(hd)).amax(1) if fr.M else torch.zeros(B)
+            obj = e.objective.detach()
             for b in range(B):
-                k = (key_rows[b][0], key_rows[b][1] if key_rows[b][0] else key_rows[b][2])
+                feas = bool(mv[b] <= tol)
+                k = (feas, float(obj[b]) if feas else -float(mv[b]))
                 if best_key is None or k > best_key:
                     best_key, best_x = k, e.x[b:b + 1].detach().clone()
-            if (it + 1) % outer == 0:
-                for key, h in e.resid.items():
-                    h = _full(h, B).detach()
-                    if e.kinds.get(key) == "eq":
-                        lam[key] = lam[key] + rho * h
-                    else:
-                        lam[key] = torch.relu(lam[key] + rho * h)
+            if (it + 1) % outer == 0 and fr.M:
+                lam = torch.where(fr.eq, lam + rho * hd, torch.relu(lam + rho * hd))
                 cur = float(mv.min())
                 if cur > 0.5 * last_mv and cur > tol:
                     rho = min(rho * 3.0, rho_max)
@@ -101,14 +144,22 @@ def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, 
                 hist.append(rec)
                 if callback:
                     callback(rec)
+            if patience is not None and best_key is not None and best_key[0]:
+                if best_key[1] > best_obj_seen + rtol * max(abs(best_obj_seen), 1.0):
+                    best_obj_seen, stall = best_key[1], 0
+                else:
+                    stall += 1
+                if stall >= patience:
+                    break
         if time_budget is not None and time.perf_counter() - t_start > time_budget:
             break
     # final evaluation of the best iterate
     with torch.no_grad():
         ef = problem.evaluate(best_x, relax=relax)
-    return ALMResult(best_x, float(ef.objective[0]), float(ef.max_violation()[0]),
-                     {k: v[:1].detach() for k, v in lam.items()}, hist, problem.n_evals - evals0,
-                     time.perf_counter() - t_start, float(ef.max_violation()[0]) <= tol, x.detach().clone())
+    mult = fr.to_dict(lam[:1].detach()) if fr is not None and lam is not None else {}
+    return ALMResult(best_x, float(ef.objective[0]), float(ef.max_violation()[0]), mult, hist,
+                     problem.n_evals - evals0, time.perf_counter() - t_start,
+                     float(ef.max_violation()[0]) <= tol, x.detach().clone())
 
 
 def integrality_penalty(space, x: torch.Tensor) -> torch.Tensor:

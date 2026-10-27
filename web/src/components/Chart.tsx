@@ -1,9 +1,16 @@
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 
+/* Chart roles. Categorical slots are validated for the dark surface (dataviz validator: lightness band,
+   chroma, adjacent CVD separation >= 20 dE, contrast): pink, blue, orange, violet, aqua - in this order. */
+export const SERIES = ["#fe0265", "#3987e5", "#c97a14", "#8b5cf6", "#199e70"];
 export const C = {
-  plx: "#34d399", leg: "#f59e0b", teal: "#2dd4bf", opt: "#a78bfa", info: "#38bdf8", crit: "#f43f5e",
-  warn: "#fbbf24", grid: "#1b2632", axis: "#56667a", text: "#8293a6",
+  plx: "#fe0265",            // the PLYXIS world (brand)
+  leg: "#8b93a7",            // manual operations (neutral context)
+  teal: "#fe0265", opt: "#8b5cf6", info: "#3987e5",
+  oil: "#c97a14", gas: "#8b5cf6", water: "#3987e5",
+  good: "#34d399", crit: "#ef4444", warn: "#f59e0b",
+  grid: "#1f1f2e", axis: "#71717a", text: "#a1a1aa", now: "#f59e0b",
 };
 
 export function base(extra: echarts.EChartsOption = {}): echarts.EChartsOption {
@@ -12,9 +19,10 @@ export function base(extra: echarts.EChartsOption = {}): echarts.EChartsOption {
     backgroundColor: "transparent",
     textStyle: { fontFamily: "Inter", color: C.text, fontSize: 11 },
     grid: { left: 52, right: 14, top: 26, bottom: 26 },
+    color: SERIES,
     tooltip: {
-      trigger: "axis", backgroundColor: "#0c131b", borderColor: "#263443", textStyle: { color: "#d7e1eb", fontSize: 11 },
-      axisPointer: { lineStyle: { color: "#34475a" } },
+      trigger: "axis", backgroundColor: "#12121af2", borderColor: "#2e2e44", textStyle: { color: "#f4f4f5", fontSize: 11 },
+      axisPointer: { lineStyle: { color: "#3a3a56" } }, extraCssText: "border-radius:10px;box-shadow:0 8px 28px #000a;",
     },
     legend: { top: 0, right: 8, textStyle: { color: C.text, fontSize: 11 }, itemWidth: 14, itemHeight: 3, icon: "rect" },
     xAxis: { type: "value", axisLine: { lineStyle: { color: C.grid } }, axisLabel: { color: C.axis, fontSize: 10 },

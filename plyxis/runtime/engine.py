@@ -55,6 +55,8 @@ class Engine:
         self._listeners: list = []
         self._lock = threading.RLock()
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="planner")
+        self.est_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="estimator")
+        self._calib_future = None
         self._future = None
         self._urgent = False
         self.hold_on_disruption = True
@@ -96,6 +98,7 @@ class Engine:
         self.alerts: deque = deque(maxlen=400)
         self.timeline: list = []
         self.fired: set = set()
+        self.restores: list = []                # (t_end, event) of temporary capacity changes
         self.jobs: dict = {}                  # id -> {job, status}
         self.latest: dict = {}                # tag -> (value, t)
         self.tag_history: dict = {}
@@ -114,6 +117,7 @@ class Engine:
             self.running = False
             if self._future is not None:
                 self._future.cancel()
+            self._calib_future = None            # results of the previous run must never reach the new twin
             self._build()
             self.emit({"type": "reset"})
 
@@ -164,7 +168,8 @@ class Engine:
     def _forecast(self, T: int, dt: float) -> dict:
         return self.forecaster.forecast(self.t, T, dt)
 
-    URGENT = ("disruption", "twin rewritten", "market notice", "returned to service", "twin edited", "initial")
+    URGENT = ("disruption", "twin rewritten", "market notice", "midstream notice", "returned to service",
+              "twin edited", "initial")
 
     def _replan(self, trigger: str) -> None:
         self._urgent = any(k in trigger for k in self.URGENT)
@@ -181,8 +186,19 @@ class Engine:
             worked = {j["job"]["asset"] for j in self.jobs.values() if j["status"] == "active"}
             predicted = {p: max(0.0, eta - (self.t - t0)) for p, (t0, eta) in self.anomaly.predicted.items()
                          if self.t - t0 < 48.0}
+            def interim(p):
+                # first response is live: release the clock hold, keep refining in the background
+                self._urgent = False
+                self.emit({"type": "plan", "plan": {"id": p.pid, "t": t_solve, "clock": self.clock_str(t_solve),
+                                                    "trigger": p.trigger, "objective": p.objective,
+                                                    "feasible": p.feasible, "seconds": p.solver["seconds"],
+                                                    "variables": p.solver["variables"], "interim": True}})
+                self._timeline("plan", f"First response ({trigger})",
+                               f"set points updated in {p.solver['seconds']:.1f} s - full optimisation continues")
             plan = self.planner.solve(t_solve, E, trigger, busy=busy, callback=cb, worked_assets=worked,
-                                      predicted=predicted)
+                                      predicted=predicted, urgent=self._urgent,
+                                      quick_first=self._urgent and not self.sync_plans and "initial" not in trigger,
+                                      on_interim=interim)
             self.last_plan_t = t_solve
             # merge maintenance jobs: keep active/done, replace scheduled
             with self._lock:
@@ -220,6 +236,10 @@ class Engine:
             if self.sc.start_hour + ev["t"] <= self.t + 1e-9:
                 self.fired.add(i)
                 self._apply_event(ev)
+        # temporary capacity changes end on their own (e.g. a gas-plant upset of 10 h)
+        for item in [r for r in self.restores if r[0] <= self.t + 1e-9]:
+            self.restores.remove(item)
+            self._apply_event(item[1])
 
     def _apply_event(self, ev: dict, manual: bool = False) -> None:
         kind = ev["kind"]
@@ -231,12 +251,21 @@ class Engine:
             u = self.prices.unit(ev["name"])
             v = U.to_canonical(ev["value"], u) if u else ev["value"]
             self.forecaster.announce(ev["name"], s, e, v)
+            if self.legacy_ops is not None and hasattr(self.legacy_ops, "notice"):
+                self.legacy_ops.notice(dict(ev, start=s, end=e), self.t)     # both control rooms get the notice
             self._timeline("market", title, ev.get("narrative", ""))
             self._alert("info", "market", title)
             self.request_replan(f"market notice: {ev['name']}")
             return
+        if kind == "capacity" and ev.get("hours") and not ev.get("restore"):
+            back = dict(ev, factor=1.0 / float(ev.get("factor", 1.0)), restore=True, hours=None,
+                        title=f"{ev.get('restore_title') or 'Capacity restored'}", narrative="")
+            self.restores.append((self.t + float(ev["hours"]), back))
+        # `hours` of a capacity event is handled here (auto-restore); for a price it is the override's duration
+        skip = ("t", "kind", "asset", "title", "narrative", "notice", "restore", "restore_title") + \
+            (("hours",) if kind == "capacity" else ())
         for name, plant in self.plants.items():
-            kw = {k: v for k, v in ev.items() if k not in ("t", "kind", "asset", "title", "narrative")}
+            kw = {k: v for k, v in ev.items() if k not in skip}
             if kind == "price":
                 u = self.prices.unit(ev["name"])
                 kw["value"] = U.to_canonical(ev["value"], u) if u else ev["value"]
@@ -245,6 +274,18 @@ class Engine:
                 birth = plant.births(ev["asset"])
                 self.scada.push([birth])
         self._timeline("event", title, ev.get("narrative", ""), asset=ev.get("asset"), manual=manual)
+        if ev.get("notice") and kind == "capacity":
+            # a notice (e.g. midstream curtailment) is information both control rooms receive at once
+            prog = self.twin.model.program
+            iid = prog.flat.by_path.get(ev["asset"])
+            if iid is not None:
+                gid, li = prog.inst_group[iid]
+                for P in (self.twin.live.P, self.twin.live.anchor_P, self.twin.live.prior_P):
+                    if ev["param"] in P.get(gid, {}):
+                        P[gid][ev["param"]].reshape(-1)[li] *= float(ev.get("factor", 1.0))
+            if self.legacy_ops is not None and hasattr(self.legacy_ops, "notice"):
+                self.legacy_ops.notice(ev, self.t)
+            self.request_replan("midstream notice")
 
     def inject(self, ev: dict) -> dict:
         """Manual event from the GUI (e.g. trip a compressor during a live demo)."""
@@ -277,6 +318,25 @@ class Engine:
                 changed = True
         if changed:
             self.request_replan("asset returned to service")
+
+    def _after_calibration(self, rep: list) -> bool:
+        """Commit calibration results to the twin repository; True if a disruption was detected."""
+        critical = False
+        big = [r for r in rep if r[1] in ("inj_cap", "liq_cap") or
+               (r[1] == "q_max" and abs(r[3] - r[2]) > 0.15 * abs(r[2]))]
+        if rep:
+            commit = self.twin.write_calibration(self.t)
+            self.calib_log.append({"t": self.t, "changes": len(rep), "commit": commit["id"] if commit else None,
+                                   "items": [_calib_item(r) for r in rep[:30]]})
+            if commit:
+                self.emit({"type": "twin", "commit": commit})
+        for r in big:
+            if r[1] in ("inj_cap", "liq_cap") and abs(r[3] - r[2]) > 0.1 * abs(r[2]):
+                self._alert("warning", "calibration",
+                            f"{r[0]}: {r[1]} re-estimated {U.from_canonical(r[2], 'bbl/d'):,.0f} -> "
+                            f"{U.from_canonical(r[3], 'bbl/d'):,.0f} bbl/d", r[0])
+                critical = True
+        return critical
 
     def _close_work_order(self, j: dict, units: bool) -> None:
         """A closed work order is information for the twin (as from SAP PM / Maximo): the asset is back
@@ -364,27 +424,33 @@ class Engine:
                         critical = True
             self.t = round(self.t + dt, 9)
             self.steps += 1
-            # --- calibration
-            if self.t - self.last_calib >= sc.calibrate_every - 1e-9:
+            # --- calibration (headless/deterministic: inline; live: on a worker so the plant clock never stalls)
+            if self._calib_future is not None and self._calib_future.done():
+                fut, self._calib_future = self._calib_future, None
+                try:
+                    res = fut.result()
+                except Exception as ex:  # noqa: BLE001
+                    res = None
+                    self._alert("warning", "calibration", f"estimation failed: {ex}")
+                if res is not None and res.get("version") == self.twin.version:
+                    critical = self._after_calibration(self.twin.estimator.calibrate_apply(res)) or critical
+            if self.t - self.last_calib >= sc.calibrate_every - 1e-9 and self._calib_future is None:
                 self.last_calib = self.t
                 tags = self.twin.tags
-                self.twin.estimator.released = {tags.get(tag).path for (tag, kind) in self.anomaly.active
-                                                 if kind == "mismatch" and tags.get(tag) is not None}
-                rep = self.twin.estimator.calibrate(iters=25)
-                big = [r for r in rep if r[1] in ("inj_cap", "liq_cap") or
-                       (r[1] == "q_max" and abs(r[3] - r[2]) > 0.15 * abs(r[2]))]
-                if rep:
-                    commit = self.twin.write_calibration(self.t)
-                    self.calib_log.append({"t": self.t, "changes": len(rep), "commit": commit["id"] if commit else None,
-                                           "items": [_calib_item(r) for r in rep[:30]]})
-                    if commit:
-                        self.emit({"type": "twin", "commit": commit})
-                for r in big:
-                    if r[1] in ("inj_cap", "liq_cap") and abs(r[3] - r[2]) > 0.1 * abs(r[2]):
-                        self._alert("warning", "calibration",
-                                    f"{r[0]}: {r[1]} re-estimated {U.from_canonical(r[2], 'bbl/d'):,.0f} -> "
-                                    f"{U.from_canonical(r[3], 'bbl/d'):,.0f} bbl/d", r[0])
-                        critical = True
+                est = self.twin.estimator
+                est.released = {tags.get(tag).path for (tag, kind) in self.anomaly.active
+                                if kind == "mismatch" and tags.get(tag) is not None}
+                if self.sync_plans:
+                    critical = self._after_calibration(est.calibrate(iters=25)) or critical
+                else:
+                    version = self.twin.version
+
+                    def job(est=est, version=version):
+                        r = est.calibrate_compute(iters=25)
+                        if r is not None:
+                            r["version"] = version
+                        return r
+                    self._calib_future = self.est_executor.submit(job)
             # --- KPI history (both worlds)
             if self.steps % 3 == 0:
                 self.kpi_history.append(self._kpi_point())
@@ -516,7 +582,8 @@ class Engine:
     def _kpi_point(self) -> dict:
         a, b = self.plants["plyxis"].kpi, self.plants["legacy"].kpi
         return {"t": self.t,
-                "p": {k: round(v, 2) for k, v in a.rate.items()}, "l": {k: round(v, 2) for k, v in b.rate.items()},
+                "p": {k: round(v, 2) for k, v in (a.smooth or a.rate).items()},
+                "l": {k: round(v, 2) for k, v in (b.smooth or b.rate).items()},
                 "pc": round(a.cum["profit"], 0), "lc": round(b.cum["profit"], 0)}
 
     def kpis(self) -> dict:
@@ -532,7 +599,24 @@ class Engine:
             "emission_t": (ca["emission_kg"] - cb["emission_kg"]) / 1000.0,
         }
         return {"plyxis": a, "legacy": b, "delta": delta, "hours": hrs,
-                "value_per_day": delta["profit"] / hrs * 24.0, "carbon_price_usd_t": cprice}
+                "value_per_day": delta["profit"] / hrs * 24.0, "carbon_price_usd_t": cprice,
+                "bridge": self._bridge(ca, cb)}
+
+    BRIDGE_LABELS = {"crude": "Oil sales", "gas": "Gas sales", "power": "Power", "pumping": "Water injection power",
+                     "hauling": "Trucking", "disposal": "Disposal fees", "treating": "Treating",
+                     "lease": "Lease operating cost", "restarts": "Well restarts", "starts": "Compressor starts",
+                     "standby": "Compressor standby", "unplanned_failures": "Unplanned pump failures",
+                     "pump_replacement": "Pump replacements", "inventory_value": "Oil and water in tanks",
+                     "equipment_value": "Pump life consumed"}
+
+    def _bridge(self, ca: dict, cb: dict) -> list:
+        """Operating-profit difference split into realised terms (sums exactly to delta['profit'])."""
+        ka, kb = self.plants["plyxis"].kpi, self.plants["legacy"].kpi
+        rows = [(n, ka.terms.get(n, 0.0) - kb.terms.get(n, 0.0)) for n in set(ka.terms) | set(kb.terms)
+                if n not in ka.EXPECTATION_TERMS]
+        rows += [(n, ca[n] - cb[n]) for n in ("inventory_value", "equipment_value")]
+        return sorted(({"key": n, "label": self.BRIDGE_LABELS.get(n, n.replace("_", " ")), "delta": round(d)}
+                       for n, d in rows if abs(d) >= 1.0), key=lambda r: -abs(r["delta"]))
 
     def snapshot(self, full: bool = False) -> dict:
         plan = self.planner.plan

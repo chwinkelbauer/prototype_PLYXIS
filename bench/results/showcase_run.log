@@ -1,128 +1,38 @@
-Day 1 07:00  oil P  19,774 L  18,526 | flare P      0 L      0 | delta profit      13,133  [   11s]
-Day 1 08:00  oil P  19,848 L  18,566 | flare P      0 L      0 | delta profit      17,620  [   12s]
-Day 1 09:00  oil P  19,479 L  18,542 | flare P      0 L      0 | delta profit      20,746  [   22s]
-Day 1 10:00  oil P  20,122 L  18,504 | flare P      0 L      0 | delta profit      25,289  [   23s]
-Day 1 11:00  oil P  20,088 L  18,494 | flare P      0 L      0 | delta profit      29,683  [   25s]
-Day 1 12:00  oil P  20,051 L  18,449 | flare P      0 L      0 | delta profit      33,087  [   35s]
-Day 1 13:00  oil P  20,001 L  18,471 | flare P      0 L      0 | delta profit      36,350  [   37s]
-Day 1 14:00  oil P  17,517 L  18,431 | flare P     30 L  5,767 | delta profit      35,062  [   47s]
-Day 1 15:00  oil P  17,599 L  18,540 | flare P     50 L  5,958 | delta profit      32,921  [   49s]
-Day 1 16:00  oil P  17,617 L  17,550 | flare P    191 L  4,701 | delta profit      33,848  [   50s]
-Day 1 17:00  oil P  19,979 L  17,540 | flare P      0 L  4,590 | delta profit      34,417  [   76s]
-Day 1 18:00  oil P  19,976 L  17,536 | flare P      0 L  4,518 | delta profit      40,486  [   78s]
-Day 1 19:00  oil P  19,906 L  17,449 | flare P      0 L  4,386 | delta profit      45,845  [   79s]
-Day 1 20:00  oil P  19,573 L  18,436 | flare P      0 L      0 | delta profit      50,656  [   91s]
-Day 1 21:00  oil P  19,573 L  18,439 | flare P      0 L      0 | delta profit      53,895  [   93s]
-Day 1 22:00  oil P  19,604 L  18,452 | flare P      0 L      0 | delta profit      57,009  [   95s]
-Day 1 23:00  oil P  19,759 L  18,369 | flare P      0 L      0 | delta profit      57,701  [  104s]
-Day 2 00:00  oil P  19,749 L  18,313 | flare P      0 L      0 | delta profit      59,066  [  105s]
-Day 2 01:00  oil P  19,872 L  18,348 | flare P      0 L      0 | delta profit      59,571  [  107s]
-Day 2 02:00  oil P  20,068 L  18,371 | flare P      0 L      0 | delta profit      59,401  [  119s]
-Day 2 03:00  oil P  20,047 L  18,357 | flare P      0 L      0 | delta profit      61,097  [  121s]
-Day 2 04:00  oil P  20,104 L  18,386 | flare P      0 L      0 | delta profit      63,148  [  122s]
-Day 2 05:00  oil P  20,221 L  18,381 | flare P      0 L      0 | delta profit      67,616  [  131s]
-Day 2 06:00  oil P  20,193 L  18,325 | flare P      0 L      0 | delta profit      71,948  [  140s]
-Day 2 07:00  oil P  20,004 L  18,376 | flare P      0 L      0 | delta profit      76,552  [  160s]
-Day 2 08:00  oil P  17,717 L  18,329 | flare P      0 L      0 | delta profit      78,581  [  162s]
-Day 2 09:00  oil P  17,933 L  18,328 | flare P      0 L      0 | delta profit      80,282  [  171s]
-Day 2 10:00  oil P  17,940 L  18,306 | flare P      0 L      0 | delta profit      83,002  [  173s]
-Day 2 11:00  oil P  18,008 L  18,390 | flare P      0 L      0 | delta profit      85,879  [  185s]
-Day 2 12:00  oil P  18,063 L  18,412 | flare P      0 L      0 | delta profit      88,358  [  186s]
-Day 2 13:00  oil P  18,073 L  18,419 | flare P      0 L      0 | delta profit      91,484  [  188s]
-Day 2 14:00  oil P  18,052 L  18,420 | flare P      0 L      0 | delta profit      93,873  [  197s]
-Day 2 15:00  oil P  18,570 L  18,413 | flare P      0 L      0 | delta profit      96,147  [  198s]
-Day 2 16:00  oil P  18,591 L  18,463 | flare P      0 L      0 | delta profit      98,312  [  200s]
-Day 2 17:00  oil P  18,538 L  18,416 | flare P      0 L      0 | delta profit     101,651  [  209s]
-Day 2 18:00  oil P  18,533 L  18,409 | flare P      0 L      0 | delta profit     104,988  [  211s]
-Day 2 19:00  oil P  18,778 L  19,033 | flare P      0 L      0 | delta profit     107,381  [  220s]
-Day 2 20:00  oil P  18,877 L  19,020 | flare P      0 L      0 | delta profit     109,080  [  222s]
-Day 2 21:00  oil P  18,869 L  19,049 | flare P      0 L      0 | delta profit     112,134  [  231s]
-Day 2 22:00  oil P  19,003 L  19,057 | flare P      0 L      0 | delta profit     116,142  [  232s]
-Day 2 23:00  oil P  19,032 L  19,055 | flare P      0 L      0 | delta profit     119,346  [  234s]
-Day 3 00:00  oil P  19,096 L  19,120 | flare P      0 L      0 | delta profit     123,405  [  243s]
-Day 3 01:00  oil P  19,025 L  19,113 | flare P      0 L      0 | delta profit     126,756  [  245s]
-Day 3 02:00  oil P  19,047 L  19,286 | flare P      0 L      0 | delta profit     175,802  [  247s]
-Day 3 03:00  oil P  18,961 L  19,282 | flare P      0 L      0 | delta profit     175,047  [  259s]
-Day 3 04:00  oil P  18,959 L  19,322 | flare P      0 L      0 | delta profit     173,956  [  261s]
-Day 3 05:00  oil P  18,871 L  19,316 | flare P      0 L      0 | delta profit     172,215  [  262s]
-Day 3 06:00  oil P  18,860 L  19,283 | flare P      0 L      0 | delta profit     171,896  [  272s]
-Day 3 07:00  oil P  18,270 L  19,208 | flare P    521 L  6,427 | delta profit     166,512  [  281s]
-Day 3 08:00  oil P  18,261 L  19,220 | flare P    564 L  6,469 | delta profit     163,039  [  283s]
-Day 3 09:00  oil P  18,316 L  18,063 | flare P    651 L  4,785 | delta profit     161,765  [  284s]
-Day 3 10:00  oil P  17,335 L  18,135 | flare P      0 L  4,820 | delta profit     156,996  [  304s]
-Day 3 11:00  oil P  17,383 L  18,183 | flare P      0 L  4,800 | delta profit     152,450  [  306s]
-Day 3 12:00  oil P  17,684 L  18,206 | flare P      0 L  4,759 | delta profit     148,714  [  307s]
-Day 3 13:00  oil P  19,049 L  19,438 | flare P      0 L      0 | delta profit      75,457  [  327s]
-Day 3 14:00  oil P  19,054 L  19,398 | flare P      0 L      0 | delta profit      73,679  [  329s]
-Day 3 15:00  oil P  19,119 L  19,405 | flare P      0 L      0 | delta profit      71,812  [  331s]
-Day 3 16:00  oil P  19,167 L  19,402 | flare P      0 L      0 | delta profit      70,025  [  340s]
-Day 3 17:00  oil P  19,169 L  19,334 | flare P      0 L      0 | delta profit      69,101  [  342s]
-Day 3 18:00  oil P  19,044 L  19,240 | flare P      0 L      0 | delta profit      67,989  [  343s]
-Day 3 19:00  oil P  19,062 L  19,246 | flare P      0 L      0 | delta profit      66,530  [  353s]
-Day 3 20:00  oil P  19,171 L  19,329 | flare P      0 L      0 | delta profit      64,825  [  354s]
-Day 3 21:00  oil P  19,190 L  19,334 | flare P      0 L      0 | delta profit      63,491  [  356s]
-Day 3 22:00  oil P  19,251 L  19,329 | flare P      0 L      0 | delta profit      62,728  [  369s]
-Day 3 23:00  oil P  19,263 L  19,258 | flare P      0 L      0 | delta profit      62,645  [  371s]
-Day 4 00:00  oil P  19,290 L  19,037 | flare P      0 L      0 | delta profit      63,923  [  372s]
-Day 4 01:00  oil P  19,165 L  19,021 | flare P      0 L      0 | delta profit      64,076  [  381s]
-Day 4 02:00  oil P  19,194 L  18,441 | flare P      0 L      0 | delta profit      65,106  [  383s]
-Day 4 03:00  oil P  19,160 L  18,428 | flare P      0 L      0 | delta profit      66,656  [  384s]
-Day 4 04:00  oil P  19,275 L  18,508 | flare P      0 L      0 | delta profit      67,023  [  394s]
-Day 4 05:00  oil P  19,273 L  18,534 | flare P      0 L      0 | delta profit      67,809  [  396s]
-Day 4 06:00  oil P  19,226 L  18,581 | flare P      0 L      0 | delta profit      68,349  [  397s]
-{
- "plyxis": {
-  "revenue": 4074404.2915649414,
-  "cost": 400829.7279717922,
-  "emission_kg": 465244.22943115234,
-  "oil_bbl": 57071.119769042925,
-  "gas_mscf": 116867.28470792413,
-  "water_bbl": 129285.66529514664,
-  "flared_mscf": 184.53599989380663,
-  "spilled_bbl": 0.0,
-  "hours": 71.99999999999986,
-  "inventory_value": 54530.2490234375,
-  "equipment_value": -195428.0,
-  "profit": 3532676.8126165867,
-  "carbon_cost": 27914.653765869145,
-  "profit_after_carbon": 3504762.1588507183
- },
- "legacy": {
-  "revenue": 3969442.713256836,
-  "cost": 301477.8499083519,
-  "emission_kg": 714510.8458251953,
-  "oil_bbl": 55997.251189489994,
-  "gas_mscf": 117601.02559089882,
-  "water_bbl": 130820.33012794796,
-  "flared_mscf": 2599.682781856099,
-  "spilled_bbl": 0.0,
-  "hours": 71.99999999999986,
-  "inventory_value": 66156.85498046875,
-  "equipment_value": -269794.0,
-  "profit": 3464327.718328953,
-  "carbon_cost": 42870.65074951171,
-  "profit_after_carbon": 3421457.0675794403
- },
- "delta": {
-  "profit": 68349.0942876339,
-  "profit_after_carbon": 83305.09127127798,
-  "oil_bbl": 1073.868579552931,
-  "flared_mscf": -2415.1467819622926,
-  "emission_t": -249.26661639404296
- },
- "value_per_day": 22783.031429211343
-}
-{
- "q_max": {
-  "engineering": 0.1194,
-  "twin": 0.0244
- },
- "wc": {
-  "engineering": 0.0467,
-  "twin": 0.0209
- },
- "gor": {
-  "engineering": 0.1293,
-  "twin": 0.0538
- }
-}
+Day 1 07:00  oil P  18,538 L  16,352 | flare P      0 L      0 | delta profit      16,164  [   13s]
+Day 1 08:00  oil P  18,544 L  16,362 | flare P      0 L      0 | delta profit      23,204  [   14s]
+Day 1 09:00  oil P  18,552 L  16,364 | flare P      0 L      0 | delta profit      31,002  [   27s]
+Day 1 10:00  oil P  18,648 L  16,354 | flare P      0 L      0 | delta profit      37,027  [   28s]
+Day 1 11:00  oil P  18,683 L  16,355 | flare P      0 L      0 | delta profit      44,322  [   29s]
+Day 1 12:00  oil P  18,688 L  16,342 | flare P      0 L      0 | delta profit      51,003  [   39s]
+Day 1 13:00  oil P  18,307 L  16,338 | flare P      0 L      0 | delta profit      55,060  [   40s]
+Day 1 14:00  oil P  18,172 L  17,359 | flare P    211 L  2,795 | delta profit      57,546  [   50s]
+Day 1 15:00  oil P  18,123 L  17,907 | flare P    166 L  4,286 | delta profit      55,635  [   52s]
+Day 1 16:00  oil P  18,072 L  17,806 | flare P    170 L  4,580 | delta profit      58,029  [   53s]
+Day 1 17:00  oil P  18,053 L  17,676 | flare P    140 L  4,588 | delta profit      56,677  [   74s]
+Day 1 18:00  oil P  18,032 L  17,604 | flare P     72 L  4,562 | delta profit      57,264  [   75s]
+Day 1 19:00  oil P  18,013 L  17,545 | flare P     37 L  4,506 | delta profit      58,090  [   77s]
+Day 1 20:00  oil P  16,528 L  14,657 | flare P     19 L  2,313 | delta profit      67,148  [   87s]
+Day 1 21:00  oil P  15,754 L  13,169 | flare P     10 L  1,188 | delta profit      75,230  [   88s]
+Day 1 22:00  oil P  15,368 L  12,398 | flare P      5 L    610 | delta profit      82,221  [  100s]
+Day 1 23:00  oil P  15,152 L  12,002 | flare P      3 L    313 | delta profit      83,491  [  101s]
+Day 2 00:00  oil P  15,022 L  11,797 | flare P      1 L    161 | delta profit      92,429  [  102s]
+Day 2 01:00  oil P  14,991 L  11,692 | flare P      1 L     83 | delta profit     100,889  [  115s]
+Day 2 02:00  oil P  15,030 L  11,646 | flare P      0 L     42 | delta profit     108,938  [  116s]
+Day 2 03:00  oil P  15,050 L  11,624 | flare P      0 L     22 | delta profit     120,164  [  118s]
+Day 2 04:00  oil P  15,005 L  11,617 | flare P      0 L     11 | delta profit     129,132  [  128s]
+Day 2 05:00  oil P  15,010 L  11,607 | flare P      0 L      6 | delta profit     138,491  [  129s]
+Day 2 06:00  oil P  16,715 L  13,876 | flare P      0 L      3 | delta profit     141,491  [  150s]
+Day 2 07:00  oil P  17,628 L  15,047 | flare P      0 L      2 | delta profit     145,265  [  160s]
+Day 2 08:00  oil P  18,074 L  15,642 | flare P      0 L      1 | delta profit     150,959  [  161s]
+Day 2 09:00  oil P  18,013 L  15,954 | flare P      0 L      0 | delta profit     155,507  [  171s]
+Day 2 10:00  oil P  17,968 L  16,114 | flare P      0 L      0 | delta profit     160,429  [  172s]
+Day 2 11:00  oil P  17,949 L  16,195 | flare P      0 L      0 | delta profit     164,808  [  186s]
+Day 2 12:00  oil P  18,170 L  16,231 | flare P      0 L      0 | delta profit     171,713  [  188s]
+Day 2 13:00  oil P  18,300 L  16,259 | flare P      0 L      0 | delta profit     180,294  [  189s]
+Day 2 14:00  oil P  18,329 L  16,283 | flare P      0 L      0 | delta profit     184,478  [  199s]
+Day 2 15:00  oil P  18,242 L  16,302 | flare P      0 L      0 | delta profit     189,579  [  200s]
+Day 2 16:00  oil P  18,380 L  16,327 | flare P      0 L      0 | delta profit     195,733  [  210s]
+Day 2 17:00  oil P  18,451 L  16,339 | flare P      0 L      0 | delta profit     205,106  [  211s]
+Day 2 18:00  oil P  18,418 L  16,352 | flare P      0 L      0 | delta profit     206,516  [  224s]
+Day 2 19:00  oil P  18,478 L  16,390 | flare P      0 L      0 | delta profit     213,423  [  236s]
+Day 2 20:00  oil P  18,514 L  16,416 | flare P      0 L      0 | delta profit     223,734  [  237s]

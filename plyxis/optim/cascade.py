@@ -28,19 +28,24 @@ from .problem import Problem
 
 @dataclass
 class CascadeConfig:
+    # defaults from the stage ablation (bench notes in docs/OPTIMIZER.md): diverse restarts are almost free
+    # in a batched solve and worth the most, then a longer polish; a bigger discrete search is not
     relax_iters: int = 220
     relax_lr: float = 0.04
     relax_rho: float = 0.05
     anneal: float = 0.05
-    population: int = 16
-    generations: int = 2
-    repair_iters: int = 90
-    polish_iters: int = 60
+    population: int = 12
+    generations: int = 1
+    repair_iters: int = 80
+    polish_iters: int = 120
     neural_iters: int = 8
     use_neural: bool = True
-    multistart: int = 3
+    multistart: int = 8
     seed: int = 0
     time_budget: Optional[float] = None
+    patience: Optional[int] = None        # early stop of repair / polish once converged (None = full budget)
+    warm_relax: float = 1.0               # fraction of relax_iters used when a warm start is given
+    restore_iters: int = 60               # feasibility restoration, only if the polished plan is still infeasible
 
 
 @dataclass
@@ -108,13 +113,19 @@ class Cascade:
             starts.append(eq)
         if len(starts) < cfg.multistart:
             starts.append(x_def)
-        while len(starts) < cfg.multistart:
-            starts.append((starts[0] + 0.15 * (torch.rand(1, sp.N, generator=gen) - 0.5)).clamp(0, 1))
+        base_starts = list(starts)
+        k = 0
+        while len(starts) < cfg.multistart:     # diverse restarts: each base start, growing perturbations
+            b = base_starts[k % len(base_starts)]
+            noise = 0.12 + 0.1 * (k // len(base_starts))
+            starts.append((b + noise * (torch.rand(1, sp.N, generator=gen) - 0.5)).clamp(0, 1))
+            k += 1
         X0 = torch.cat(starts[:max(cfg.multistart, 1)], 0)
 
         # ------------------------------------------------ stage 2: coordinated relaxation
         t = time.perf_counter()
-        rel = alm(pb, X0, iters=cfg.relax_iters, lr=cfg.relax_lr, rho=cfg.relax_rho, outer=10,
+        n_relax = cfg.relax_iters if warm is None else max(40, int(cfg.relax_iters * cfg.warm_relax))
+        rel = alm(pb, X0, iters=n_relax, lr=cfg.relax_lr, rho=cfg.relax_rho, outer=10,
                   anneal=cfg.anneal, stage="relaxation", callback=lambda r: self._emit(callback, r),
                   lam0=_expand_lam(lam0, X0.shape[0]) if lam0 else None)
         stages.append({"stage": "relaxation", "seconds": time.perf_counter() - t, "objective": rel.objective,
@@ -135,7 +146,7 @@ class Cascade:
         for gen_i in range(n_gen):
             rep = alm(pb, pop, iters=cfg.repair_iters, lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
                       stage="discrete", callback=lambda r, g=gen_i: self._emit(callback, dict(r, generation=g)),
-                      lam0=None)
+                      lam0=None, patience=cfg.patience)
             lam_rep = rep.multipliers
             with torch.no_grad():
                 ev = pb.evaluate(rep_population(rep, pop), relax=False)
@@ -163,14 +174,31 @@ class Cascade:
         pol = alm(pb, best_x, iters=cfg.polish_iters + (cfg.repair_iters if n_gen == 0 else 0),
                   lr=0.01 if n_gen else 0.02, rho=1.0, outer=10, mask=~mask, relax=False,
                   stage="polish", callback=lambda r: self._emit(callback, r), lam0=lam_rep and
-                  {k: v[:1] for k, v in lam_rep.items()})
+                  {k: v[:1] for k, v in lam_rep.items()}, patience=cfg.patience)
         x_final = pol.x if (pol.max_violation <= max(best_mv, 2e-3) + 1e-9 and pol.objective >= best_obj - 1) or \
             pol.max_violation < best_mv else best_x
         with torch.no_grad():
             ef = pb.evaluate(x_final, relax=False)
         obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
+        restored = False
+        if mv > 2e-3 and cfg.restore_iters > 0:
+            # restoration: a violation the polish cannot remove usually sits on a discrete decision, so free
+            # the discrete decisions again (relaxed) under a stiff penalty, re-round, polish the rest
+            lam_p = {k: v[:1] for k, v in pol.multipliers.items()} if pol.multipliers else None
+            r1 = alm(pb, x_final, iters=cfg.restore_iters, lr=0.01, rho=10.0, outer=5, relax=True,
+                     stage="polish", callback=lambda r: self._emit(callback, dict(r, restore=True)), lam0=lam_p)
+            r2 = alm(pb, sp.round_discrete(r1.x), iters=cfg.restore_iters, lr=0.01, rho=10.0, outer=5,
+                     mask=~mask, relax=False, stage="polish",
+                     callback=lambda r: self._emit(callback, dict(r, restore=True)), lam0=r1.multipliers)
+            restored = r2.max_violation < mv
+            if restored:
+                x_final, pol = r2.x, r2
+                with torch.no_grad():
+                    ef = pb.evaluate(x_final, relax=False)
+                obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
         prices = shadow_prices(pb, pol.multipliers)
-        stages.append({"stage": "polish", "seconds": time.perf_counter() - t, "objective": obj, "max_violation": mv})
+        stages.append({"stage": "polish", "seconds": time.perf_counter() - t, "objective": obj, "max_violation": mv,
+                       "restored": restored})
         self._emit(callback, {"stage": "done", "objective": obj, "max_violation": mv, "feasible": mv <= 2e-3})
         return CascadeResult(x_final, obj, mv, mv <= 2e-3, prices, pol.multipliers, self._hist, stages,
                              time.perf_counter() - self._t0, pb.n_evals - evals0)

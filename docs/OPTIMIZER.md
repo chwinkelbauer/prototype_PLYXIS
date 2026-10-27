@@ -48,15 +48,25 @@ not as the main engine.
 | 4 Polish & verify | continuous refinement with discrete decisions fixed, exact (non-relaxed) simulation, shadow prices | seconds |
 
 Starts for stage 2 are the previous plan shifted in time (rolling horizon), the neural plan
-and the default plan. When the model has no discrete decisions, stage 3 is skipped and its
-budget goes to the polish.
+and the default plan, plus perturbed copies of them (uniform noise of 12-22 % of each variable's
+range) up to 8 starts. All starts are optimised as one batch, so extra starts cost little wall
+time, and on a non-convex problem they are the cheapest lever there is. When the model has no
+discrete decisions, stage 3 is skipped and its budget goes to the polish.
+
+**Live configuration** (`runtime/planner.py`): relaxation 200 iterations, 8 starts, discrete search
+12 candidates × 1 generation with 80 repair iterations, polish 120 iterations: about 10 s for the
+4,983 decisions of the Kestrel twin on a laptop CPU. The budget was set by an ablation on sampled
+event situations (`bench/solver_budget.py`, results in [BENCHMARKS.md](BENCHMARKS.md)).
 
 ### Augmented Lagrangian (`gradient.py`)
 
 Powell-Hestenes-Rockafellar form on signed, scaled residuals, minimised with projected Adam
 (cosine learning-rate schedule) over a whole batch of starts at once. Every `outer` iterations
 the multipliers are updated (`lambda <- relu(lambda + rho * h)`), and the penalty weight `rho`
-triples only when the worst violation has not at least halved. The multipliers at the optimum are
+triples only when the worst violation has not at least halved. All residuals of a batch are
+flattened into one tensor with an equality mask, so penalty, violation and multiplier update are
+a handful of vectorised operations per iteration, and per-constraint violations are only
+materialised when someone asks for them (reports, explanations). The multipliers at the optimum are
 **shadow prices**: the marginal value of one more unit of each capacity, per hour. They drive
 the bottleneck view and the explanations.
 
@@ -113,6 +123,16 @@ one huge one (cooperative coevolution). The cascade uses this inside stage 3.
   (`worked_assets`).
 * Hold blocks and `route_hold` keep plans executable: no valve chatter, no line-up changes
   every hour.
+* **Anytime planning.** After an urgent trigger (disruption, midstream or market notice, twin
+  rewrite, an asset back in service) the planner first publishes a *first response*: 60
+  augmented-Lagrangian iterations from the shifted previous plan and the neural proposal, with
+  the discrete decisions kept. It is live within 1-2 s and releases the console's clock hold; the
+  full cascade keeps running in the background and replaces it when it is done.
+* **Move suppression.** As in model predictive control, decisions that take effect within the
+  next 3 h are penalised for deviating from the plan being executed (USD 1,500 per full-range
+  change, quadratic, so small corrections are cheap; a quarter of that after an urgent trigger).
+  Without it, two near-equivalent optima could swap at every re-plan and set points would jump
+  for no operational reason.
 
 ## From plan to action
 

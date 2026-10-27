@@ -6,16 +6,11 @@ const SPEEDS = [60, 300, 600, 1800, 3600];
 
 export function Logo() {
   return (
-    <div className="flex items-center gap-2">
-      <svg width="26" height="26" viewBox="0 0 64 64">
-        <rect width="64" height="64" rx="12" fill="#0f1a24" stroke="#1f3a44" />
-        <path d="M18 50V14h17c8 0 13 5 13 12s-5 12-13 12H25" fill="none" stroke="#2dd4bf" strokeWidth="6"
-          strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="25" cy="50" r="4.2" fill="#f59e0b" />
-      </svg>
+    <div className="flex items-center gap-2.5">
+      <img src="/logo.svg" alt="" width={30} height={27} className="block" />
       <div className="leading-none">
-        <div className="text-[14px] font-bold tracking-[0.18em] text-ink">PLYXIS</div>
-        <div className="text-[9.5px] tracking-[0.14em] text-dim uppercase mt-0.5">Operations OS</div>
+        <div className="display text-[16px] font-bold tracking-[0.22em] text-ink">PLYXIS</div>
+        <div className="text-[9px] tracking-[0.16em] text-dim uppercase mt-1">Operating system for industries</div>
       </div>
     </div>
   );
@@ -33,7 +28,8 @@ export function TopBar() {
   const lastStage = optRun?.recs[optRun.recs.length - 1]?.stage;
   const crit = useStore((s) => s.alerts.filter((a) => a.severity === "critical" && snap && snap.t - a.t < 2).length);
   return (
-    <header className="h-12 shrink-0 flex items-center gap-4 px-3 border-b border-line bg-panel">
+    <header className="relative h-12 shrink-0 flex items-center gap-4 px-3 bg-panel">
+      <div className="brand-line absolute left-0 right-0 bottom-0" />
       <Logo />
       <div className="h-6 w-px bg-line" />
       <div className="min-w-0">
@@ -42,14 +38,14 @@ export function TopBar() {
       </div>
       <div className="flex-1" />
       <div className="flex items-center gap-1.5">
-        <div className="num text-[15px] font-semibold text-ink w-[104px] text-right">{snap ? snap.clock : "—"}</div>
+        <div className="display text-[16px] font-semibold text-ink w-[110px] text-right tabular-nums">{snap ? snap.clock : "—"}</div>
         <button className="btn" onClick={() => api.control(running ? "pause" : "play")} title={running ? "Pause" : "Run"}>
           {running ? <Pause size={14} /> : <Play size={14} />}
         </button>
         <div className="flex rounded-md border border-line2 overflow-hidden">
           {SPEEDS.map((s) => (
             <button key={s} onClick={() => api.control("speed", s)}
-              className={`px-2 py-1 text-[11px] num ${snap?.speed === s ? "bg-[#12403b] text-[#9ff3e6]" : "bg-panel2 text-muted hover:text-ink"}`}>
+              className={`px-2 py-1 text-[11px] num ${snap?.speed === s ? "seg-active" : "bg-panel2 text-muted hover:text-ink"}`}>
               {s >= 3600 ? `${s / 3600}h/s` : `${s / 60}m/s`}
             </button>
           ))}
@@ -58,7 +54,7 @@ export function TopBar() {
       </div>
       <div className="h-6 w-px bg-line" />
       <div className="flex items-center gap-1.5">
-        <span className="chip !border-[#1f5f57] !text-[#9ff3e6]"><Zap size={11} />Autonomous</span>
+        <span className="chip !border-brand/50 !text-[#ffd1e3]"><Zap size={11} className="text-brand" />Autonomous</span>
         <button className="chip hover:text-ink" onClick={() => set({ view: "optimizer" })} title="Optimizer">
           <Cpu size={11} className={solving ? "text-opt pulse" : ""} />
           {solving ? <span className="text-opt">solving{lastStage ? ` · ${lastStage}` : ""}</span> : <>plan #{snap?.optimizer.plan_id ?? "–"}</>}
@@ -67,7 +63,7 @@ export function TopBar() {
           <GitCommitHorizontal size={11} />twin v{snap?.twin.version ?? "–"}
         </button>
         <button className="chip hover:text-ink" onClick={() => set({ view: "data" })} title="Data integration">
-          <Database size={11} className={connected ? "text-teal" : "text-crit"} />{connected ? "live" : "offline"}
+          <Database size={11} className={connected ? "text-good" : "text-crit"} />{connected ? "live" : "offline"}
         </button>
         {(snap?.optimizer.neural as any)?.loaded && (
           <span className="chip" title="Neural sub-solvers loaded"><BrainCircuit size={11} className="text-opt" />neural</span>

@@ -43,7 +43,7 @@ export function DemoGuide() {
 
   if (mini) {
     return (
-      <div className="absolute left-3 bottom-3 z-30 panel shadow-xl shadow-black/60 flex items-center gap-2 px-2.5 py-1.5 fade-in" style={{ background: "#0b1219f2" }}>
+      <div className="absolute left-3 bottom-3 z-30 panel shadow-xl shadow-black/60 flex items-center gap-2 px-2.5 py-1.5 fade-in" style={{ background: "#12121af2" }}>
         <button className="text-[11.5px] text-teal font-semibold" onClick={() => setMini(false)} title="Expand">Demo {step + 1}/{steps.length}</button>
         <span className="text-[12px] max-w-[260px] truncate">{cur.title}</span>
         <button className="btn !py-0.5" onClick={go} disabled={seeking !== null}><FastForward size={12} /></button>
@@ -52,7 +52,7 @@ export function DemoGuide() {
     );
   }
   return (
-    <div className="absolute left-3 bottom-3 z-30 w-[420px] panel shadow-2xl shadow-black/60 fade-in" style={{ background: "#0b1219f2" }}>
+    <div className="absolute left-3 bottom-3 z-30 w-[420px] panel shadow-2xl shadow-black/60 fade-in" style={{ background: "#12121af2" }}>
       <div className="panel-h">
         <span className="text-teal">Guided demo · {step + 1}/{steps.length}</span>
         <span className="flex gap-1">
@@ -74,7 +74,7 @@ export function DemoGuide() {
         <div className="flex gap-1 mt-3">
           {steps.map((s, i) => (
             <button key={s.id} onClick={() => set({ demoStep: i })} title={s.title}
-              className={`h-1.5 flex-1 rounded ${i === step ? "bg-teal" : snap && snap.t >= start + s.t ? "bg-[#1f5f57]" : "bg-line2"}`} />
+              className={`h-1.5 flex-1 rounded ${i === step ? "bg-brand" : snap && snap.t >= start + s.t ? "bg-[#7a1a45]" : "bg-line2"}`} />
           ))}
         </div>
       </div>

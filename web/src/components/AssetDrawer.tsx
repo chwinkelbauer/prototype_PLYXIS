@@ -102,7 +102,7 @@ function Live({ d }: { d: any }) {
             <EChart height={90} option={base({
               grid: { left: 44, right: 8, top: 8, bottom: 18 }, legend: { show: false },
               xAxis: { type: "value", min: "dataMin", max: "dataMax", axisLabel: { color: C.axis, fontSize: 9, formatter: (v: number) => fmt.hhmm(v) }, splitLine: { show: false } },
-              series: [{ type: "line", data: h, showSymbol: false, lineStyle: { width: 1.2, color: C.teal }, areaStyle: { color: "#2dd4bf14" } }],
+              series: [{ type: "line", data: h, showSymbol: false, lineStyle: { width: 1.5, color: C.plx }, areaStyle: { color: "#fe026514" } }],
             })} />
           </div>
         );
@@ -111,7 +111,7 @@ function Live({ d }: { d: any }) {
         <div className="panel">
           <div className="panel-h">Alerts</div>
           {d.alerts.slice().reverse().map((a: any, i: number) => (
-            <div key={i} className="px-2.5 py-1.5 border-b border-[#131c26] text-[12px]">
+            <div key={i} className="px-2.5 py-1.5 border-b border-[#1a1a26] text-[12px]">
               <span className={a.severity === "critical" ? "text-crit" : a.severity === "warning" ? "text-warn" : "text-info"}>●</span> {a.message}
               <div className="text-[10.5px] text-dim num">{a.clock}</div>
             </div>
@@ -169,7 +169,7 @@ function Plan({ d, now }: { d: any; now: number }) {
         <div className="panel-h">Operating instructions</div>
         <table className="tbl"><tbody>
           {(d.instructions ?? []).slice(0, 40).map((i: any, k: number) => (
-            <tr key={k} className={i.start <= now && now < i.end ? "bg-[#0f2e2b55]" : ""}>
+            <tr key={k} className={i.start <= now && now < i.end ? "bg-[#fe02651a]" : ""}>
               <td className="num text-dim">{fmt.clock(i.start)}–{fmt.hhmm(i.end)}</td>
               <td className="text-muted">{i.decision}</td><td className="num text-right">{i.display}</td>
             </tr>
@@ -183,8 +183,8 @@ function Plan({ d, now }: { d: any; now: number }) {
             grid: { left: 48, right: 8, top: 6, bottom: 18 }, legend: { show: false },
             xAxis: { type: "value", min: t0, max: t0 + s.values.length * dt, axisLabel: { color: C.axis, fontSize: 9, formatter: (v: number) => fmt.hhmm(v) }, splitLine: { show: false } },
             series: [{ type: "line", step: "end", showSymbol: false, data: s.values.map((v: number, i: number) => [t0 + i * dt, v]),
-              lineStyle: { width: 1.2, color: C.opt }, areaStyle: { color: "#a78bfa12" },
-              markLine: { symbol: "none", silent: true, lineStyle: { color: "#f59e0b", type: "dashed" }, data: [{ xAxis: now }], label: { show: false } } }],
+              lineStyle: { width: 1.5, color: C.opt }, areaStyle: { color: "#8b5cf614" },
+              markLine: { symbol: "none", silent: true, lineStyle: { color: C.now, type: "dashed" }, data: [{ xAxis: now }], label: { show: false } } }],
           })} />
         </div>
       ))}
@@ -224,7 +224,7 @@ function Why({ why, loading, now }: { why: any; loading: boolean; now: number })
                   <div className="flex-1 h-2 bg-panel2 rounded relative overflow-hidden">
                     <div className={`absolute top-0 bottom-0 ${dr.usd_per_h >= 0 ? "bg-plx/70" : "bg-crit/70"}`} style={{ width: `${w}%` }} />
                   </div>
-                  <div className={`num w-[78px] text-right ${dr.usd_per_h >= 0 ? "text-plx" : "text-crit"}`}>{dr.usd_per_h >= 0 ? "+" : "−"}${fmt.n(Math.abs(dr.usd_per_h))}/h</div>
+                  <div className={`num w-[78px] text-right ${dr.usd_per_h >= 0 ? "text-good" : "text-crit"}`}>{dr.usd_per_h >= 0 ? "+" : "−"}${fmt.n(Math.abs(dr.usd_per_h))}/h</div>
                 </div>
               );
             })}

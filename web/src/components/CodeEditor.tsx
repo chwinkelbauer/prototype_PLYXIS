@@ -45,14 +45,15 @@ function register() {
   monaco.editor.defineTheme("plyxis", {
     base: "vs-dark", inherit: true,
     rules: [
-      { token: "comment", foreground: "566677" }, { token: "comment.doc", foreground: "7aa2a0", fontStyle: "italic" },
-      { token: "keyword", foreground: "c792ea" }, { token: "keyword.section", foreground: "2dd4bf", fontStyle: "bold" },
-      { token: "type", foreground: "f59e0b" }, { token: "type.unit", foreground: "8bd5ca" },
-      { token: "predefined", foreground: "82aaff" }, { token: "number", foreground: "f78c6c" },
-      { token: "string", foreground: "c3e88d" }, { token: "operator", foreground: "89ddff" },
+      { token: "comment", foreground: "5c5c70" }, { token: "comment.doc", foreground: "9d93b8", fontStyle: "italic" },
+      { token: "keyword", foreground: "ff5c9a" }, { token: "keyword.section", foreground: "a78bfa", fontStyle: "bold" },
+      { token: "type", foreground: "f5b14a" }, { token: "type.unit", foreground: "7dd3c0" },
+      { token: "predefined", foreground: "7cb3f2" }, { token: "number", foreground: "f0a05a" },
+      { token: "string", foreground: "a3e3b5" }, { token: "operator", foreground: "c4c4d4" },
     ],
-    colors: { "editor.background": "#0a1017", "editor.lineHighlightBackground": "#101a24", "editorGutter.background": "#0a1017",
-      "editorLineNumber.foreground": "#2c3d50", "editor.selectionBackground": "#1f5f5755" },
+    colors: { "editor.background": "#0c0c12", "editor.lineHighlightBackground": "#16161f", "editorGutter.background": "#0c0c12",
+      "editorLineNumber.foreground": "#3a3a52", "editorLineNumber.activeForeground": "#a1a1aa",
+      "editor.selectionBackground": "#fe026540", "editorCursor.foreground": "#fe0265" },
   });
 }
 

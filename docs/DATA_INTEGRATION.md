@@ -92,6 +92,16 @@ min_theta  sum_k huber((y_k(theta) - m_k) / sigma_k)          measurement fit
   the asset's pre-event data are dropped from the estimation window.
 * Solved by L-BFGS with strong-Wolfe line search on the differentiable twin. An estimate that
   does not improve the objective is rejected; the previous estimate is kept.
+* **Off the plant clock.** Calibration is split into *compute* and *apply*. The engine snapshots
+  the window and the parameters and solves the MHE on a background worker while the plant keeps
+  running; the result is applied at the next step. A well test that arrived in the meantime wins
+  over the estimate, and hidden-state estimates (pump health) are shifted by what the twin's own
+  prediction moved since the snapshot (`current + (estimate_end - snapshot)`), with a guard that
+  drops a stale estimate if the state jumped (e.g. a pump was replaced). The console therefore
+  never pauses for estimation; headless benchmark runs keep it inline for determinism.
+* **Prediction between calibrations.** Between solves the twin propagates its unmeasured
+  states with its own model (pump health declines with speed⁴), so trends and maintenance
+  decisions do not wait for the next calibration.
 
 Estimates that move by more than 1 % are written to `calibration.plx` as reviewable code
 (`set kestrel_live.P05_W01.q_max = 982.4 [bbl/d];`) and committed to the twin repository.

@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import dataclasses
 import os
 import threading
 import time
@@ -18,7 +19,8 @@ import torch
 
 from ..optim import maintenance as MAINT
 from ..optim import neural as NN
-from ..optim.cascade import Cascade, CascadeConfig
+from ..optim.cascade import Cascade, CascadeConfig, CascadeResult
+from ..optim.gradient import alm, shadow_prices
 from ..optim.partition import build_partition
 from ..optim.plan import Plan, build_plan
 from ..optim.problem import Problem
@@ -60,13 +62,18 @@ def _route_keys(prog) -> dict:
 
 
 class Planner:
+    # live budget (~10 s for the Kestrel twin on a laptop CPU), set by bench/solver_budget.py
+    LIVE = CascadeConfig(relax_iters=200, population=12, generations=1, repair_iters=80, polish_iters=120,
+                         multistart=8, neural_iters=1)
+
     def __init__(self, twin, cfg: Optional[CascadeConfig] = None, net_path: Optional[str] = None,
                  online_learning: bool = True):
         self.twin = twin
-        self.cfg = cfg or CascadeConfig(relax_iters=160, population=12, generations=1, repair_iters=80,
-                                        polish_iters=50, multistart=3, neural_iters=1)
+        self.cfg = cfg or dataclasses.replace(self.LIVE)
         self.net_path = net_path
         self.online = online_learning
+        self.move_lock_h = 3.0          # move suppression: decisions starting within this window ...
+        self.move_cost = 1500.0         # ... cost USD per unit^2 of normalised change to revise
         self.plan: Optional[Plan] = None
         self.plans: deque = deque(maxlen=50)
         self.runs: deque = deque(maxlen=30)
@@ -118,7 +125,8 @@ class Planner:
     # ------------------------------------------------------------------ solve
     def solve(self, t_clock: float, E: dict, trigger: str, busy: Optional[dict] = None,
               callback: Optional[Callable] = None, worked_assets: Optional[set] = None,
-              predicted: Optional[dict] = None) -> Plan:
+              predicted: Optional[dict] = None, urgent: bool = False, quick_first: bool = False,
+              on_interim: Optional[Callable] = None) -> Plan:
         with self.lock:
             self.running = True
             self.progress = []
@@ -132,14 +140,36 @@ class Planner:
                     if prev_space is not None and prev_space is not pb.space:
                         x = remap_x(prev_space, pb.space, x)
                     warm = pb.space.shift(x, t_clock - self.plan.t0)
+                    # move suppression: keep what the plant executes now unless a change is worth it
+                    # (lighter after disruptions, which need fast reactions)
+                    pb.set_move_reference(warm, lock_hours=self.move_lock_h,
+                                          cost_usd=self.move_cost * (0.25 if urgent else 1.0))
 
                 def cb(rec):
                     self.progress.append(rec)
                     if callback:
                         callback(rec)
                 cfg = self.cfg
+                start = warm
+                if quick_first and warm is not None:
+                    # anytime planning: a first response in about a second, the full cascade continues
+                    q = self._first_response(pb, warm, cb)
+                    if q is not None:
+                        interim = build_plan(pb, q, self.pid + 1, f"{trigger} - first response", t_wall,
+                                             jobs=list(self.plan.jobs) if self.plan is not None else [])
+                        D0, R0 = pb.space.decode(q.x, pb.P, relax=False)
+                        interim.decoded = ({g: {k: v.detach() for k, v in d.items()} for g, d in D0.items()},
+                                           R0.detach() if R0 is not None else None)
+                        interim.problem = pb
+                        interim.interim = True
+                        self.plan = interim
+                        self._plan_space = pb.space
+                        start = q.x
+                        pb.set_move_reference(q.x, lock_hours=self.move_lock_h, cost_usd=self.move_cost * 0.25)
+                        if on_interim:
+                            on_interim(interim)
                 cas = Cascade(pb, net=self.net, partition=self.part, config=cfg)
-                res = cas.solve(warm=warm, callback=cb)
+                res = cas.solve(warm=start, callback=cb)
                 # maintenance: value repairs with the twin, schedule rigs and crews
                 jobs = MAINT.find_jobs(pb, res.x, predicted=predicted)
                 jobs = [j for j in jobs if j.jid not in self.committed_jobs and
@@ -165,6 +195,27 @@ class Planner:
                 return plan
             finally:
                 self.running = False
+
+    def _first_response(self, pb: Problem, warm: torch.Tensor, cb: Optional[Callable] = None) -> Optional[CascadeResult]:
+        """Fast feasible re-plan after a disruption: repair the running plan (and the neural proposal)
+        with a short gradient run on the exact twin, discrete decisions held."""
+        t = time.perf_counter()
+        sp = pb.space
+        mask = sp.discrete_mask()
+        starts = [sp.round_discrete(warm.view(1, -1))]
+        if self.net is not None and self.cfg.use_neural:
+            try:
+                from ..optim.neural import dual_coordination
+                starts.append(sp.round_discrete(dual_coordination(pb, self.net, iters=1).x))
+            except Exception:  # noqa: BLE001 - the neural start is optional
+                pass
+        r = alm(pb, torch.cat(starts, 0), iters=60, lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
+                stage="first response", callback=cb)
+        secs = time.perf_counter() - t
+        return CascadeResult(r.x, r.objective, r.max_violation, r.feasible, shadow_prices(pb, r.multipliers),
+                             r.multipliers, r.history, [{"stage": "first response", "seconds": secs,
+                                                         "objective": r.objective, "max_violation": r.max_violation}],
+                             secs, r.evals)
 
     def learn(self, steps: int = 25) -> Optional[dict]:
         """Online expert iteration on the plans produced so far (runs after a plan is published)."""

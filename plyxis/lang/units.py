@@ -13,6 +13,7 @@ other implicitly).
 """
 from __future__ import annotations
 
+import functools
 import math
 import re
 from typing import Optional
@@ -100,6 +101,7 @@ def _tokens(s: str):
     return out
 
 
+@functools.lru_cache(maxsize=8192)
 def parse_unit(text: str) -> tuple[float, tuple]:
     """Return (factor_to_canonical, dims) for a unit expression like 'bbl/d/psi'."""
     text = text.strip()

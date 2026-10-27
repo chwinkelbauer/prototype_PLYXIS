@@ -22,6 +22,7 @@ def showcase(d) -> None:
     p, l = k["plyxis"], k["legacy"]
     rows = [("Operating profit (USD)", "profit", 1.0), ("Oil produced (bbl)", "oil_bbl", 1.0),
             ("Gas (Mscf)", "gas_mscf", 1.0), ("Flared gas (Mscf)", "flared_mscf", 1.0),
+            ("Flared above permit (Mscf)", "flared_over_permit_mscf", 1.0),
             ("Emissions (t CO2e)", "emission_kg", 1e-3), ("Revenue (USD)", "revenue", 1.0),
             ("Cash cost (USD)", "cost", 1.0), ("Inventory value change (USD)", "inventory_value", 1.0),
             ("Pump life value change (USD)", "equipment_value", 1.0),
@@ -34,6 +35,11 @@ def showcase(d) -> None:
         rel = f"{(a - b) / abs(b) * 100:+.1f} %" if abs(b) > 1e-9 else ""
         print(f"| {label} | {a:,.0f} | {b:,.0f} | {a - b:+,.0f} ({rel}) |")
     print(f"\nValue per day: USD {k['value_per_day']:,.0f}\n")
+    if "bridge" in d:
+        print("| Where the operating-profit difference comes from | USD |\n|---|---|")
+        for r in d["bridge"]:
+            print(f"| {r['label']} | {r['delta']:+,.0f} |")
+        print(f"| **total** | **{sum(r['delta'] for r in d['bridge']):+,.0f}** |\n")
     if "terms" in d:
         tp, tl = d["terms"]["plyxis"], d["terms"]["legacy"]
         print("| Term (USD, + = income) | PLYXIS | manual operations | difference |\n|---|---|---|---|")
@@ -49,9 +55,11 @@ def showcase(d) -> None:
           f"solve time mean {st.mean(x['seconds'] for x in plans):.1f} s, max {max(x['seconds'] for x in plans):.1f} s\n")
     # value by phase from the hourly records
     hourly = d["hourly"]
-    cuts = [("normal operation", None, 13.0), ("CS-1 trip and recovery", 13.0, 20.0), ("night / ESP wear", 20.0, 28.0),
-            ("SWD-2 injectivity loss", 28.0, 36.0), ("negative gas price", 36.0, 54.0),
-            ("CS-2 trip, end of window", 54.0, 60.0), ("recovery to end", 60.0, None)]
+    cuts = [("normal operation", None, 13.0), ("CS-1 trip", 13.0, 19.0),
+            ("gas plant upset (takeaway -1/3, 10 h), ESP wear", 19.0, 28.0),
+            ("SWD-2 injectivity loss, new well", 28.0, 36.0), ("negative gas price", 36.0, 54.0),
+            ("CS-2 trip during negative price", 54.0, 60.0), ("evening, ERCOT cap 17:00-19:00", 60.0, 67.0),
+            ("recovery to end", 67.0, None)]
     print("| Period | delta profit (USD) | PLYXIS flare (Mscf) | manual flare (Mscf) |\n|---|---|---|---|")
     for name, a, b in cuts:
         sel = [h for h in hourly if (a is None or h["t"] > a + 1e-6) and (b is None or h["t"] <= b + 1e-6)]
@@ -62,6 +70,25 @@ def showcase(d) -> None:
         fp = sum(h["plyxis"].get("flare_mscfd", 0) for h in sel) / 24
         fl = sum(h["legacy"].get("flare_mscfd", 0) for h in sel) / 24
         print(f"| {name} | {sel[-1]['delta_profit'] - d0:+,.0f} | {fp:,.0f} | {fl:,.0f} |")
+    print()
+
+
+def variants() -> None:
+    """Full showcase vs. ablation runs (bench.showcase_run --skip-events ... --tag ...)."""
+    names = sorted(n for n in os.listdir(RES) if n.startswith("showcase_run") and n.endswith(".json"))
+    runs = [(n, _load(n)) for n in names]
+    if len(runs) < 2:
+        return
+    print("### Showcase variants (72 h, PLYXIS vs. manual operations)\n")
+    print("| Run | events dropped | operating profit | profit after carbon | oil | flaring |\n|---|---|---|---|---|---|")
+    for n, d in runs:
+        p, l = d["kpis"]["plyxis"], d["kpis"]["legacy"]
+
+        def rel(key):
+            a, b = p.get(key, 0.0), l.get(key, 0.0)
+            return f"{a - b:+,.0f} ({(a - b) / abs(b) * 100:+.1f} %)" if abs(b) > 1e-9 else "-"
+        print(f"| {n} | {', '.join(d.get('skipped_events', [])) or 'none'} | {rel('profit')} | "
+              f"{rel('profit_after_carbon')} | {rel('oil_bbl')} | {rel('flared_mscf')} |")
     print()
 
 
@@ -95,6 +122,19 @@ def solvers(d) -> None:
     print()
 
 
+def budget(d) -> None:
+    n = d["summary"][0]["cases"]
+    print(f"### Solver budget ({n} sampled event situations, {d['variables']:,} variables, warm start = nominal plan)\n")
+    print("| Configuration | relax / starts / discrete / repair / polish | mean objective (USD) | vs previous live "
+          "| feasible | mean seconds |\n|---|---|---|---|---|---|")
+    for s in d["summary"]:
+        k = s["settings"]
+        print(f"| {s['config']} | {k['relax_iters']} / {k['multistart']} / {k['population']}x{k['generations']} / "
+              f"{k['repair_iters']} / {k['polish_iters']} | {s['mean_objective']:,.0f} | {s['vs_previous_pct']:+.1f} % | "
+              f"{s['feasible']}/{s['cases']} | {s['mean_seconds']:.1f} |")
+    print()
+
+
 def scaling(d) -> None:
     print("### Scaling (generated enterprise twins, N Kestrel fields sharing a gas plant and a terminal)\n")
     hdr = ("| Fields | wells | decisions | discrete | compile s | simulate ms (B=1 / 16) | gradient ms | code lines "
@@ -122,10 +162,13 @@ def accuracy(d) -> None:
 
 def main() -> None:
     for name, fn in (("showcase_run.json", showcase), ("neural_ablation.json", neural),
-                     ("solver_comparison.json", solvers), ("scaling.json", scaling), ("twin_accuracy.json", accuracy)):
+                     ("solver_comparison.json", solvers), ("solver_budget.json", budget), ("scaling.json", scaling),
+                     ("twin_accuracy.json", accuracy)):
         d = _load(name)
         if d is not None:
             fn(d)
+        if name == "showcase_run.json":
+            variants()
 
 
 if __name__ == "__main__":

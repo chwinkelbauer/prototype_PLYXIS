@@ -286,9 +286,14 @@ class Estimator:
         return out
 
     # ------------------------------------------------------------------ moving horizon estimation
-    def calibrate(self, iters: int = 30, lr: float = 1.0, min_steps: int = 6, sigma_anchor: float = 0.15,
-                  sigma_step: float = 0.05, sigma_meas: float = 0.05, sigma_tested: float = 0.04,
-                  huber: float = 3.0, huber_released: float = 10.0) -> list:
+    def calibrate(self, iters: int = 30, **kw) -> list:
+        """Estimate and commit (synchronous). See `calibrate_compute` for the method."""
+        res = self.calibrate_compute(iters=iters, **kw)
+        return self.calibrate_apply(res) if res is not None else []
+
+    def calibrate_compute(self, iters: int = 30, lr: float = 1.0, min_steps: int = 6, sigma_anchor: float = 0.15,
+                          sigma_step: float = 0.05, sigma_meas: float = 0.05, sigma_tested: float = 0.04,
+                          huber: float = 3.0, huber_released: float = 10.0) -> Optional[dict]:
         """MAP estimate over the window (L-BFGS on the differentiable physical twin):
 
             min  sum huber((y - m) / sigma)  +  |theta / sigma_anchor|^2 / 2  +  |(theta - theta_prev) / sigma_step|^2 / 2
@@ -300,9 +305,11 @@ class Estimator:
         priors until the mismatch clears - a step change is evidence, not an outlier."""
         buf = list(self.live.buf)
         if len(buf) < min_steps:
-            return []
+            return None
         live, prog = self.live, self.live.phys
         D, R, E, S0, W = self._window(buf)
+        # snapshot of the live parameters: estimation may run on a worker while the plant keeps stepping
+        anchor = {g: {k: v.clone() for k, v in d.items()} for g, d in live.anchor_P.items()}
         t0 = buf[1]["t"] - self.dt
         # parameters to estimate
         # assets with a persistent model mismatch (anomaly detector): their properties may jump
@@ -314,7 +321,7 @@ class Estimator:
                 released.setdefault(g_, set()).add(li_)
         theta, theta_prev, sig_anchor, sig_step, bounds = {}, {}, {}, {}, {}
         for gid, pname, lo, hi in self.calib:
-            prev = torch.log(live.P[gid][pname].clamp(min=1e-12) / live.anchor_P[gid][pname].clamp(min=1e-12))
+            prev = torch.log(live.P[gid][pname].clamp(min=1e-12) / anchor[gid][pname].clamp(min=1e-12))
             theta_prev[(gid, pname)] = prev.detach()
             theta[(gid, pname)] = prev.detach().clone().requires_grad_(True)
             sa = torch.full_like(prev, sigma_anchor)
@@ -332,7 +339,7 @@ class Estimator:
             hstate[(gid, s)] = S0[gid][s].detach().clone().requires_grad_(True)
         params = list(theta.values()) + list(hstate.values())
         if not params:
-            return []
+            return None
         # measurements of replay step j come from record j+1; noise = relative + per-signal floor
         meas_index: dict = {}
         for w, b in enumerate(buf[1:]):
@@ -345,13 +352,13 @@ class Estimator:
             rel = released.get(k[0], ())
             c = torch.tensor([huber_released if r[1] in rel else huber for r in rows])
             meas_t[k] = (torch.tensor([r[0] for r in rows]), torch.tensor([r[1] for r in rows]), m, sig, c)
-        P_base = {g: {k: v for k, v in d.items()} for g, d in live.P.items()}
+        P_base = {g: {k: v.clone() for k, v in d.items()} for g, d in live.P.items()}
 
         def objective():
             P = {g: dict(d) for g, d in P_base.items()}
             for (gid, pname), th in theta.items():
                 lo, hi = bounds[(gid, pname)]
-                P[gid][pname] = torch.clamp(live.anchor_P[gid][pname] * torch.exp(th), lo, hi)
+                P[gid][pname] = torch.clamp(anchor[gid][pname] * torch.exp(th), lo, hi)
             S = {g: dict(d) for g, d in S0.items()}
             for (gid, s), hv in hstate.items():
                 S[gid][s] = hv.clamp(0.0, 1.0)
@@ -397,44 +404,66 @@ class Estimator:
                 for p, s in zip(params, start):
                     p.copy_(s)
         self.last_info = {"objective_before": f0, "objective_after": f1 if ok else f0, "accepted": ok, "window": W}
-        # commit estimates
-        report = []
         with torch.no_grad():
-            for (gid, pname), th in theta.items():
-                lo, hi = bounds[(gid, pname)]
-                newP = torch.clamp(live.anchor_P[gid][pname] * torch.exp(th), lo, hi)
-                old = live.P[gid][pname]
-                rel = (newP - old).abs() / old.abs().clamp(min=1e-9)
-                g = prog.gmap[gid]
-                for li in torch.nonzero(rel.reshape(-1) > 0.01).reshape(-1).tolist():
-                    path = prog.flat.instances[g.inst_ids[li]].path
-                    report.append((path, pname, float(old.reshape(-1)[li]), float(newP.reshape(-1)[li]), "MHE"))
-                live.P[gid][pname] = newP.detach().clone()
-                live.prior_P[gid][pname] = newP.detach().clone()
-                # a step change confirmed under a persistent mismatch becomes the new reference
-                for li in released.get(gid, ()):
-                    if float(rel.reshape(-1)[li]) > 0.05:
-                        live.anchor_P[gid][pname].reshape(-1)[li] = float(newP.reshape(-1)[li])
-            # hidden states: replay to the end of the window with the estimated start
+            newP = {k: torch.clamp(anchor[k[0]][k[1]] * torch.exp(th), *bounds[k]).detach().clone()
+                    for k, th in theta.items()}
+            hidden_end, hidden_ref = {}, {}
             if hstate:
-                P = {g: dict(d) for g, d in live.P.items()}
+                P = {g: dict(d) for g, d in P_base.items()}
+                for (gid, pname), v in newP.items():
+                    P[gid][pname] = v
                 S = {g: dict(d) for g, d in S0.items()}
                 for (gid, s), hv in hstate.items():
                     S[gid][s] = hv.clamp(0.0, 1.0)
                 raw = prog.simulate(D, R, P, S, E, T=W, dt=self.dt, t0=t0)
                 fin = prog.final_states(raw)
                 for (gid, s) in hstate:
-                    old = live.S[gid][s].clone()
-                    live.S[gid][s] = fin[gid][s].detach().clone()
-                    d = (live.S[gid][s] - old).abs()
-                    g = prog.gmap[gid]
-                    for li in torch.nonzero(d.reshape(-1) > 0.03).reshape(-1).tolist():
-                        path = prog.flat.instances[g.inst_ids[li]].path
-                        report.append((path, s, float(old.reshape(-1)[li]), float(live.S[gid][s].reshape(-1)[li]),
-                                       "state estimate"))
-        t = buf[-1]["t"]
+                    hidden_end[(gid, s)] = fin[gid][s].detach().clone()
+                    hidden_ref[(gid, s)] = buf[-1]["S"][gid][s].detach().clone()
+        return {"newP": newP, "anchor": anchor, "released": released, "hidden_end": hidden_end,
+                "hidden_ref": hidden_ref, "t": buf[-1]["t"]}
+
+    @torch.no_grad()
+    def calibrate_apply(self, res: dict) -> list:
+        """Commit an estimate. Safe after concurrent plant steps: a property re-anchored by a well test
+        meanwhile keeps the test value, and hidden states are corrected by the estimated *change* at
+        the end of the window (the live state kept propagating in between)."""
+        live, prog = self.live, self.live.phys
+        report = []
+        released = res["released"]
+        for (gid, pname), newP in res["newP"].items():
+            if gid not in live.P or pname not in live.P[gid]:
+                continue
+            old = live.P[gid][pname]
+            if old.shape != newP.shape:
+                continue
+            fresh_test = (live.anchor_P[gid][pname] - res["anchor"][gid][pname]).abs() > 1e-12
+            newP = torch.where(fresh_test, old, newP)
+            rel = (newP - old).abs() / old.abs().clamp(min=1e-9)
+            g = prog.gmap[gid]
+            for li in torch.nonzero(rel.reshape(-1) > 0.01).reshape(-1).tolist():
+                path = prog.flat.instances[g.inst_ids[li]].path
+                report.append((path, pname, float(old.reshape(-1)[li]), float(newP.reshape(-1)[li]), "MHE"))
+            live.P[gid][pname] = newP.clone()
+            live.prior_P[gid][pname] = newP.clone()
+            # a step change confirmed under a persistent mismatch becomes the new reference
+            for li in released.get(gid, ()):
+                if float(rel.reshape(-1)[li]) > 0.05:
+                    live.anchor_P[gid][pname].reshape(-1)[li] = float(newP.reshape(-1)[li])
+        for (gid, s), end in res["hidden_end"].items():
+            cur = live.S[gid][s]
+            ref = res["hidden_ref"][(gid, s)].reshape(cur.shape)
+            delta = end.reshape(cur.shape) - ref
+            jumped = (cur - ref).abs() > 0.2          # e.g. a pump replaced meanwhile: keep the known state
+            new = torch.where(jumped, cur, (cur + delta).clamp(0.0, 1.0))
+            d = (new - cur).abs()
+            g = prog.gmap[gid]
+            for li in torch.nonzero(d.reshape(-1) > 0.03).reshape(-1).tolist():
+                path = prog.flat.instances[g.inst_ids[li]].path
+                report.append((path, s, float(cur.reshape(-1)[li]), float(new.reshape(-1)[li]), "state estimate"))
+            live.S[gid][s] = new.clone()
         for path, name, old, new, how in report:
-            live.param_history.setdefault((path, name), []).append((t, new))
+            live.param_history.setdefault((path, name), []).append((res["t"], new))
         self.last_report = report
         return report
 

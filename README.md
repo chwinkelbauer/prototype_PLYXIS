@@ -50,9 +50,11 @@ parameters differ from the engineering model by realistic margins; the twin only
 telemetry. Two worlds run on the same truth, the same events and the same noise: one operated by
 PLYXIS, one by a rule-based model of today's manual operations.
 
-Over 72 hours the scenario throws compressor trips, a fast-wearing ESP, an unannounced loss of
-disposal injectivity, a negative gas price, and a new well that appears only as SCADA tags.
-The console has a guided demo (bottom right) that walks through each event.
+Over 72 hours the scenario throws compressor trips, a gas plant upset that cuts the field's
+takeaway by a third for ten hours, a fast-wearing ESP, an unannounced loss of disposal
+injectivity, a day of negative gas prices, two hours of power at ERCOT's 5,000 USD/MWh cap, and a
+new well that appears only as SCADA tags. The console has a guided demo (bottom right) that walks
+through each event.
 
 ### Results at a glance (laptop CPU, all synthetic)
 

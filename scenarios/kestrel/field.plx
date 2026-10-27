@@ -46,8 +46,10 @@ define kestrel as env {
                                      n_units = 2; unit_cap = 8500 [Mscf/d]; unit_kw = 1000 [kW]; };
     init FL1 as flare { at = (31.6510, -103.6230); tag = "KST.FL1"; label = "Flare CS-1"; };
     init FL2 as flare { at = (31.5710, -103.6280); tag = "KST.FL2"; label = "Flare CS-2"; };
+    ## firm takeaway at the processing plant is below what the field can produce - the typical
+    ## Permian situation before new pipelines: gas, not oil, decides how much the field can make
     init GASPLANT as gas_sales { at = (31.6000, -103.5600); tag = "KST.GP"; label = "Gas plant";
-                                 cap = 42000 [Mscf/d]; };
+                                 cap = 36000 [Mscf/d]; };
     connect(CTB_N.gas_out, CS1.suction) via flowline;
     connect(CTB_C.gas_out, CS1.suction) via flowline;
     connect(CTB_C.gas_out, CS2.suction) via flowline;
@@ -92,9 +94,10 @@ define kestrel as env {
   behavior:
     ## the permit is a license-to-operate limit, not a price: 500 USD/Mscf makes it binding for planning
     constraint soft(500 [USD/Mscf]) flare_permit: sum(flare.burned) <= flare_permit;
-    ## zero-routine-flaring policy: flaring is for safety and upsets, never an economic choice -
-    ## 150 USD/Mscf makes the planner start a compressor or choke the gassiest wells before it flares
-    constraint soft(150 [USD/Mscf]) routine_flaring: sum(flare.burned) <= 0 [Mscf/d];
+    ## zero-routine-flaring policy: flaring is for safety and upsets, never an economic choice.
+    ## Flaring within the capacity lost to a compressor trip is upset flaring (carbon cost only);
+    ## anything beyond it costs 150 USD/Mscf, so the planner starts a unit or chokes gassy wells first
+    constraint soft(150 [USD/Mscf]) routine_flaring: sum(flare.burned) <= sum(compressor_station.tripped);
     metric field_oil = sum(esp_well.prod.oil) [bbl/d];
     metric field_gas = sum(esp_well.prod.gas) [Mscf/d];
     metric field_water = sum(esp_well.prod.water) [bbl/d];

@@ -6,7 +6,7 @@ import { Stat } from "../components/Kpi";
 import { useStore } from "../store";
 
 const STAGE_COLOR: Record<string, string> = {
-  neural: "#a78bfa", relaxation: "#38bdf8", discrete: "#f59e0b", polish: "#34d399", done: "#2dd4bf", compile: "#64748b",
+  neural: "#fe0265", relaxation: "#3987e5", discrete: "#c97a14", polish: "#8b5cf6", done: "#199e70", compile: "#71717a",
 };
 const STAGES = [
   { id: "compile", title: "Compile & decompose", text: "PLX netlist → decision space, subsystems, constraint scales" },
@@ -48,7 +48,7 @@ export function OptimizerPage() {
       tooltip: { trigger: "axis" },
       series: [
         ...Object.entries(byStage).map(([st, data]) => ({ name: st, type: "scatter" as const, symbolSize: 4, data, itemStyle: { color: STAGE_COLOR[st] ?? C.teal } })),
-        { name: "max violation", type: "line" as const, yAxisIndex: 1, showSymbol: false, data: viol, lineStyle: { width: 1, color: "#f43f5e", opacity: 0.7 } },
+        { name: "max violation", type: "line" as const, yAxisIndex: 1, showSymbol: false, data: viol, lineStyle: { width: 1, color: "#ef4444", opacity: 0.7 } },
       ],
     });
   }, [recs]);
@@ -128,7 +128,7 @@ export function OptimizerPage() {
             <tbody>
               {(d?.runs ?? []).slice().reverse().map((r: any) => (
                 <tr key={r.id}><td className="num">{r.id}</td><td className="num text-muted">{fmt.clock(r.t)}</td><td>{r.trigger}</td>
-                  <td className="num text-right">{fmt.usd(r.objective)}</td><td>{r.feasible ? <span className="text-plx">yes</span> : <span className="text-warn">soft</span>}</td>
+                  <td className="num text-right">{fmt.usd(r.objective)}</td><td>{r.feasible ? <span className="text-good">yes</span> : <span className="text-warn">soft</span>}</td>
                   <td className="num text-right">{fmt.n(r.seconds, 1)} s</td><td className="num text-right text-muted">{fmt.n(r.evals)}</td>
                   <td className="text-[11px] text-dim">{(r.stages ?? []).map((s: any) => `${s.stage} ${fmt.n(s.seconds, 1)}s`).join(" · ")}</td></tr>
               ))}

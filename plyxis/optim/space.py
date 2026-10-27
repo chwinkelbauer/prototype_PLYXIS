@@ -117,6 +117,18 @@ class DecisionSpace:
             chunks.append(v.reshape(v.shape[0], -1))
         return torch.cat(chunks, 1)
 
+    def block_start_hours(self) -> torch.Tensor:
+        """Start time (hours from the plan start) of the hold block each variable controls: [N]."""
+        if getattr(self, "_starts", None) is None:
+            parts = []
+            for b in self.blocks:
+                parts.append((torch.arange(b.H, dtype=torch.float32) * b.hold * self.dt).repeat(b.n))
+            if self.route is not None:
+                r = self.route
+                parts.append((torch.arange(r.H, dtype=torch.float32) * r.hold * self.dt).repeat(r.E))
+            self._starts = torch.cat(parts) if parts else torch.zeros(0)
+        return self._starts
+
     def discrete_mask(self) -> torch.Tensor:
         if self._discrete_mask is None:
             m = torch.zeros(self.N, dtype=torch.bool)

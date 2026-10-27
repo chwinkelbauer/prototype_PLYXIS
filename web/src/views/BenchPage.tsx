@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { FlaskConical } from "lucide-react";
 import { api, fmt } from "../api";
-import { base, C, EChart } from "../components/Chart";
+import { BridgeChart } from "../components/Bridge";
+import { base, C, EChart, SERIES } from "../components/Chart";
 
 export function BenchPage() {
   const [b, setB] = useState<Record<string, any> | null>(null);
@@ -12,6 +13,8 @@ export function BenchPage() {
   const sol = b.solver_comparison;
   const scl = b.scaling;
   const acc = b.twin_accuracy;
+  const bud = b.solver_budget;
+  const core = b.showcase_run_core;
   return (
     <div className="h-full overflow-auto p-3">
       <div className="text-[12px] text-muted mb-3 flex items-center gap-2"><FlaskConical size={14} className="text-teal" />
@@ -19,7 +22,9 @@ export function BenchPage() {
         system - nothing is hand-entered.</div>
       <div className="grid grid-cols-12 gap-3">
         {show && <AB show={show} />}
+        {show?.bridge && <Bridge show={show} core={core} />}
         {sol && <Solvers sol={sol} />}
+        {bud && <Budget bud={bud} />}
         {abl && <Ablation abl={abl} />}
         {scl && <Scaling scl={scl} />}
         {acc && <Accuracy acc={acc} />}
@@ -37,8 +42,11 @@ function AB({ show }: { show: any }) {
     ["Oil produced", k.plyxis.oil_bbl, k.legacy.oil_bbl, "bbl"],
     ["Gas produced", k.plyxis.gas_mscf, k.legacy.gas_mscf, "Mscf"],
     ["Gas flared", k.plyxis.flared_mscf, k.legacy.flared_mscf, "Mscf"],
+    ["Flared above permit", k.plyxis.flared_over_permit_mscf ?? 0, k.legacy.flared_over_permit_mscf ?? 0, "Mscf"],
     ["Emissions", k.plyxis.emission_kg / 1000, k.legacy.emission_kg / 1000, "tCO2e"],
+    ["Revenue", k.plyxis.revenue, k.legacy.revenue, "USD"],
     ["Cash cost (incl. pump replacements)", k.plyxis.cost, k.legacy.cost, "USD"],
+    ["Cash cost per barrel", k.plyxis.cost / k.plyxis.oil_bbl, k.legacy.cost / k.legacy.oil_bbl, "USD/bbl", 2],
   ];
   return (
     <div className="col-span-6 panel">
@@ -46,9 +54,9 @@ function AB({ show }: { show: any }) {
       <table className="tbl">
         <thead><tr><th>KPI</th><th className="!text-right">PLYXIS</th><th className="!text-right">manual</th><th className="!text-right">difference</th></tr></thead>
         <tbody>
-          {rows.map(([l, p, m, u]: any) => (
-            <tr key={l}><td>{l}</td><td className="num text-right">{fmt.n(p)} <span className="text-dim">{u}</span></td>
-              <td className="num text-right text-muted">{fmt.n(m)}</td>
+          {rows.map(([l, p, m, u, d = 0]: any) => (
+            <tr key={l}><td>{l}</td><td className="num text-right">{fmt.n(p, d)} <span className="text-dim">{u}</span></td>
+              <td className="num text-right text-muted">{fmt.n(m, d)}</td>
               <td className="num text-right">{m ? fmt.pct(((p - m) / Math.abs(m)) * 100) : "–"}</td></tr>
           ))}
         </tbody>
@@ -60,10 +68,51 @@ function AB({ show }: { show: any }) {
   );
 }
 
+function Bridge({ show, core }: { show: any; core?: any }) {
+  const total = (show.bridge ?? []).reduce((s: number, r: any) => s + r.delta, 0);
+  const rel = (d: any) => {
+    const p = d.kpis.plyxis.profit, l = d.kpis.legacy.profit;
+    return Math.abs(l) > 1e-9 ? ((p - l) / Math.abs(l)) * 100 : 0;
+  };
+  return (
+    <div className="col-span-6 panel">
+      <div className="panel-h">Where the value comes from (reference run)<span className="normal-case tracking-normal font-normal text-dim">PLYXIS − manual, USD</span></div>
+      <BridgeChart rows={show.bridge ?? []} height={250} top={9} />
+      <div className="px-3 py-2 text-[11.5px] text-dim">Realised terms only - they add up to the operating-profit difference of{" "}
+        <span className="num text-plx">{fmt.usd(total)}</span>. Planning-only terms (expected failure cost, flaring-risk margin) are not counted.
+        {core && <> Without the two newest scenario events ({(core.skipped_events ?? []).join(", ")}), the same planner gains{" "}
+          <span className="num">{fmt.pct(rel(core))}</span> operating profit (full scenario <span className="num">{fmt.pct(rel(show))}</span>).</>}</div>
+    </div>
+  );
+}
+
+function Budget({ bud }: { bud: any }) {
+  return (
+    <div className="col-span-6 panel">
+      <div className="panel-h">Solver budget: what the live planner's ~10 s buy ({bud.summary?.[0]?.cases} sampled event situations)</div>
+      <table className="tbl">
+        <thead><tr><th>configuration</th><th className="!text-right">relax / starts / polish</th><th className="!text-right">mean objective</th>
+          <th className="!text-right">vs previous</th><th className="!text-right">feasible</th><th className="!text-right">time</th></tr></thead>
+        <tbody>{(bud.summary ?? []).map((r: any) => (
+          <tr key={r.config}><td>{r.config}</td>
+            <td className="num text-right text-muted">{r.settings.relax_iters} / {r.settings.multistart} / {r.settings.polish_iters}</td>
+            <td className="num text-right">{fmt.usd(r.mean_objective)}</td>
+            <td className="num text-right">{fmt.pct(r.vs_previous_pct)}</td>
+            <td className={`num text-right ${r.feasible < r.cases ? "text-crit" : "text-good"}`}>{r.feasible}/{r.cases}</td>
+            <td className="num text-right">{fmt.n(r.mean_seconds, 1)} s</td></tr>))}</tbody>
+      </table>
+      <div className="px-3 py-2 text-[11.5px] text-dim">Re-plans warm-started from the nominal plan, as in live operation. Diverse restarts are optimised as one batch, so they cost little wall time.</div>
+    </div>
+  );
+}
+
 function Solvers({ sol }: { sol: any }) {
   const option = useMemo(() => {
-    const series = Object.entries(sol.curves ?? {}).map(([name, pts]: any) => ({
-      name, type: "line" as const, showSymbol: false, data: pts, lineStyle: { width: 1.5 },
+    // five curves in fixed colour slots (PLYXIS first); every method is in the table below
+    const shown = ["cascade+neural", "cascade", "ga", "de", "pso"];
+    const series = shown.filter((n) => sol.curves?.[n]).map((name, i) => ({
+      name, type: "line" as const, showSymbol: false, data: sol.curves[name],
+      lineStyle: { width: i < 2 ? 2.2 : 1.6, color: SERIES[i] }, itemStyle: { color: SERIES[i] },
     }));
     return base({
       grid: { left: 64, right: 16, top: 30, bottom: 30 },
@@ -80,7 +129,7 @@ function Solvers({ sol }: { sol: any }) {
         <thead><tr><th>method</th><th className="!text-right">best objective</th><th className="!text-right">max violation</th><th className="!text-right">time</th></tr></thead>
         <tbody>{(sol.table ?? []).map((r: any) => (
           <tr key={r.method}><td>{r.method}</td><td className="num text-right">{fmt.usd(r.objective)}</td>
-            <td className={`num text-right ${r.max_violation > 0.005 ? "text-crit" : "text-plx"}`}>{r.max_violation.toFixed(4)}</td>
+            <td className={`num text-right ${r.max_violation > 0.005 ? "text-crit" : "text-good"}`}>{r.max_violation.toFixed(4)}</td>
             <td className="num text-right">{fmt.n(r.seconds, 1)} s</td></tr>))}</tbody>
       </table>
     </div>
@@ -117,7 +166,7 @@ function Scaling({ scl }: { scl: any }) {
     grid: { left: 52, right: 16, top: 30, bottom: 34 },
     xAxis: { type: "value", name: "decisions", nameLocation: "middle", nameGap: 22, axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false } },
     yAxis: { type: "value", name: "seconds", axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { lineStyle: { color: C.grid } } },
-    series: [{ name: "cascade solve time", type: "line", data: rows.map((r: any) => [r.decision_variables, r.solve_s]), lineStyle: { color: C.teal }, itemStyle: { color: C.teal } }],
+    series: [{ name: "cascade solve time", type: "line", data: rows.map((r: any) => [r.decision_variables, r.solve_s]), lineStyle: { color: C.plx, width: 2 }, itemStyle: { color: C.plx }, symbolSize: 8 }],
   }), [scl]);
   return (
     <div className="col-span-6 panel">
@@ -129,7 +178,7 @@ function Scaling({ scl }: { scl: any }) {
         <tbody>{rows.map((r: any) => (
           <tr key={r.fields}><td className="num">{r.fields}</td><td className="num text-right">{fmt.n(r.wells)}</td>
             <td className="num text-right">{fmt.n(r.decision_variables)}</td><td className="num text-right">{fmt.n(r.solve_s, 0)} s</td>
-            <td className={`num text-right ${r.max_violation > 0.005 ? "text-crit" : "text-plx"}`}>{fmt.usd(r.objective)}</td>
+            <td className={`num text-right ${r.max_violation > 0.005 ? "text-crit" : "text-good"}`}>{fmt.usd(r.objective)}</td>
             <td className={`num text-right ${r.ga_max_violation > 0.005 ? "text-crit" : ""}`}>{r.ga_objective === undefined ? "–" : fmt.usd(r.ga_objective) + (r.ga_max_violation > 0.005 ? " ✗" : "")}</td></tr>))}</tbody>
       </table>
       <div className="px-3 py-2 text-[11.5px] text-dim">Same 17 entity groups and the same generated simulator code for every size - adding fields adds tensor rows, not code. ✗ = infeasible.</div>

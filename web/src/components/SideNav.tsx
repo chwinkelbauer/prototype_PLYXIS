@@ -19,7 +19,7 @@ export function SideNav() {
     <nav className="w-[68px] shrink-0 border-r border-line bg-panel flex flex-col items-center py-2 gap-1">
       {ITEMS.map(({ id, label, icon: Icon, hint }) => (
         <button key={id} title={hint} onClick={() => set({ view: id })}
-          className={`w-[60px] py-2 rounded-md flex flex-col items-center gap-1 transition-colors ${view === id ? "bg-[#0f2e2b] text-[#9ff3e6]" : "text-muted hover:text-ink hover:bg-panel2"}`}>
+          className={`w-[60px] py-2 rounded-md flex flex-col items-center gap-1 transition-colors ${view === id ? "nav-active" : "text-muted hover:text-ink hover:bg-panel2"}`}>
           <Icon size={18} strokeWidth={1.7} />
           <span className="text-[9.5px] leading-none">{label}</span>
         </button>

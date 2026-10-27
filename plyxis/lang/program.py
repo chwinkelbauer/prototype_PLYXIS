@@ -187,7 +187,9 @@ class Program:
         S0 = S0 if S0 is not None else self.S0
         Et = self.env_tensors(E, T)
         rt.set_dtype(self.dtype)
-        return self._sim(P, D, S0, Et, R, self.K, B, T, dt, float(t0), want_mag)
+        out = self._sim(P, D, S0, Et, R, self.K, B, T, dt, float(t0), want_mag)
+        out["__T__"] = T                 # horizon length (avoids scanning the tensors later)
+        return out
 
     def node_var(self, gid: str, key: str) -> str:
         return self.comp.nodes[f"{gid}|{key}"].var
@@ -225,7 +227,7 @@ class Program:
         return x
 
     def evaluate(self, raw: dict, dt: Optional[float] = None, E: Optional[dict] = None,
-                 B: Optional[int] = None, include_final: bool = True) -> dict:
+                 B: Optional[int] = None, include_final: bool = True, want_hard: bool = True) -> dict:
         """Objective totals, soft penalties and hard-constraint violations."""
         dt = float(dt if dt is not None else self.dt)
         bnd = self._bounds_cache()
@@ -251,18 +253,18 @@ class Program:
         for cr in self.cons:
             h = raw[self.node_var(cr.gid, cr.key)]
             h = _bnt(h, self.gmap[cr.gid].n)
-            x = torch.abs(h) if cr.kind == "eq" else torch.relu(h)
             if not cr.soft:
                 resid[(cr.gid, cr.key)] = h
-            if cr.soft:
-                w = bnd[cr.gid].get(f"soft:{cr.key}", 0.0)
-                w = _t(w)
-                pen = (x * w).sum(dim=(1, 2)) * dt
-                if x.shape[-1] == 1:
-                    pen = pen * _T_of(raw)
-                soft = soft + pen
-            else:
-                hard[(cr.gid, cr.key)] = x
+                if want_hard:
+                    hard[(cr.gid, cr.key)] = torch.abs(h) if cr.kind == "eq" else torch.relu(h)
+                continue
+            x = torch.abs(h) if cr.kind == "eq" else torch.relu(h)
+            w = bnd[cr.gid].get(f"soft:{cr.key}", 0.0)
+            w = _t(w)
+            pen = (x * w).sum(dim=(1, 2)) * dt
+            if x.shape[-1] == 1:
+                pen = pen * _T_of(raw)
+            soft = soft + pen
         out = dict(totals)
         out["named"] = named
         out["soft_penalty"] = soft
@@ -375,6 +377,9 @@ def _bnt(x, n):
 
 
 def _T_of(raw: dict) -> int:
+    T = raw.get("__T__")
+    if T is not None:
+        return T
     for v in raw.values():
         if isinstance(v, torch.Tensor) and v.dim() == 3 and v.shape[-1] > 1:
             return v.shape[-1]

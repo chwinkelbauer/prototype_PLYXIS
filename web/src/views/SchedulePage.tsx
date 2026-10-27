@@ -12,18 +12,18 @@ const GROUP_TITLES: Record<string, string> = {
 };
 
 function color(row: GanttRow, s: GanttSegment, rowMax: number): string {
-  if (row.kind === "trips") return s.cargo === "water" ? "#1d6fa5" : "#b7791f";
-  if (row.kind === "jobs") return s.status === "done" ? "#1f6f55" : s.status === "active" ? "#1d6fa5" : "#3b4b5e";
+  if (row.kind === "trips") return s.cargo === "water" ? "#3987e5" : "#c97a14";
+  if (row.kind === "jobs") return s.status === "done" ? "#199e70" : s.status === "active" ? "#8b5cf6" : "#3a3a52";
   if (row.kind === "lineup") {
-    const hues = ["#0f766e", "#7c3aed", "#b45309", "#1d4ed8"];
+    const hues = ["#3987e5", "#c97a14", "#8b5cf6", "#199e70"];
     let h = 0;
     for (const ch of s.label) h = (h * 31 + ch.charCodeAt(0)) % 997;
     return hues[h % hues.length];
   }
-  if (row.decision === "on") return s.value >= 0.5 ? "#14532d" : "#7f1d1d";
+  if (row.decision === "on") return s.value >= 0.5 ? "#1f5f4a" : "#6e1b2c";
   const f = rowMax > 0 ? Math.max(0, Math.min(1, s.value / rowMax)) : 0;
   const a = 0.25 + 0.75 * f;
-  return `rgba(45, 212, 191, ${a.toFixed(2)})`;
+  return `rgba(254, 2, 101, ${(a * 0.9).toFixed(2)})`;
 }
 
 export function SchedulePage() {
@@ -100,17 +100,17 @@ export function SchedulePage() {
         onClick={() => setOpen({ ...open, [grp.key]: !isOpen })}>
         {isOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}{grp.title}<span className="text-dim font-normal ml-1">({grp.rows.length})</span>
       </div>);
-    rowsSvg.push(<rect key={`gb-${grp.key}`} x={0} y={y} width={W} height={ROW_H + 4} fill="#101a24" />);
+    rowsSvg.push(<rect key={`gb-${grp.key}`} x={0} y={y} width={W} height={ROW_H + 4} fill="#16161f" />);
     y += ROW_H + 4;
     if (!isOpen) continue;
     for (const row of grp.rows) {
       const rowMax = Math.max(1e-9, ...row.segments.map((s) => s.value));
       labels.push(
-        <div key={`l-${row.asset}-${row.decision}`} style={{ top: y, height: ROW_H }} className="absolute left-0 right-0 flex items-center px-2 pl-6 text-[11.5px] border-b border-[#121b25] hover:bg-panel2 cursor-pointer truncate"
+        <div key={`l-${row.asset}-${row.decision}`} style={{ top: y, height: ROW_H }} className="absolute left-0 right-0 flex items-center px-2 pl-6 text-[11.5px] border-b border-[#1a1a26] hover:bg-panel2 cursor-pointer truncate"
           onClick={() => set({ selected: row.kind === "trips" || row.kind === "jobs" ? null : row.asset })}>
           <span className="truncate">{row.label}</span><span className="ml-auto text-dim text-[10.5px] pl-2">{row.decision.replace(/_/g, " ")}</span>
         </div>);
-      rowsSvg.push(<line key={`rl-${row.asset}-${row.decision}`} x1={0} x2={W} y1={y + ROW_H} y2={y + ROW_H} stroke="#121b25" />);
+      rowsSvg.push(<line key={`rl-${row.asset}-${row.decision}`} x1={0} x2={W} y1={y + ROW_H} y2={y + ROW_H} stroke="#1a1a26" />);
       for (const [i, s] of row.segments.entries()) {
         const xa = Math.max(0, x(s.start)), xb = Math.min(W, x(s.end));
         if (xb <= xa) continue;
@@ -123,7 +123,7 @@ export function SchedulePage() {
             onClick={() => row.kind !== "trips" && set({ selected: row.kind === "jobs" ? null : row.asset })}>
             <rect x={xa + 0.5} y={yy + 3} width={Math.max(1, xb - xa - 1)} height={ROW_H - 6} rx={2} fill={color(row, s, rowMax)} />
             {xb - xa > 34 && (
-              <text x={xa + 4} y={yy + ROW_H / 2 + 3.5} fontSize={10} fill="#e6edf3" fontFamily="JetBrains Mono" pointerEvents="none">
+              <text x={xa + 4} y={yy + ROW_H / 2 + 3.5} fontSize={10} fill="#f4f4f5" fontFamily="JetBrains Mono" pointerEvents="none">
                 {s.label.length * 6 > xb - xa - 6 ? s.label.slice(0, Math.max(2, Math.floor((xb - xa - 8) / 6))) : s.label}
               </text>
             )}
@@ -147,8 +147,8 @@ export function SchedulePage() {
           <div style={{ width: LABEL_W }} className="shrink-0 px-2 text-[10.5px] uppercase tracking-wider text-dim flex items-center">asset · decision</div>
           <svg width={W} height={26} className="shrink-0">
             {ticks.map((t) => (
-              <g key={t}><line x1={x(t)} x2={x(t)} y1={18} y2={26} stroke="#34475a" />
-                <text x={x(t) + 3} y={15} fontSize={10} fill="#8293a6" fontFamily="JetBrains Mono">{fmt.clock(t)}</text></g>
+              <g key={t}><line x1={x(t)} x2={x(t)} y1={18} y2={26} stroke="#3a3a52" />
+                <text x={x(t) + 3} y={15} fontSize={10} fill="#a1a1aa" fontFamily="JetBrains Mono">{fmt.clock(t)}</text></g>
             ))}
           </svg>
         </div>
@@ -156,7 +156,7 @@ export function SchedulePage() {
           <div className="flex relative" style={{ height: H }}>
             <div style={{ width: LABEL_W, height: H }} className="shrink-0 relative border-r border-line">{labels}</div>
             <svg width={W} height={H} className="shrink-0">
-              {ticks.map((t) => <line key={t} x1={x(t)} x2={x(t)} y1={0} y2={H} stroke="#16212c" />)}
+              {ticks.map((t) => <line key={t} x1={x(t)} x2={x(t)} y1={0} y2={H} stroke="#1c1c2a" />)}
               {rowsSvg}
               {now >= t0 && now <= t1 && <line x1={x(now)} x2={x(now)} y1={0} y2={H} stroke="#f59e0b" strokeWidth={1.5} strokeDasharray="4 3" />}
             </svg>
@@ -165,7 +165,7 @@ export function SchedulePage() {
       </div>
       {hover && (
         <div className="fixed z-50 panel px-3 py-2 text-[12px] pointer-events-none max-w-[380px] shadow-xl shadow-black/50"
-          style={{ left: Math.min(hover.x + 14, window.innerWidth - 400), top: hover.y + 14, background: "#0b1219f5" }}>
+          style={{ left: Math.min(hover.x + 14, window.innerWidth - 400), top: hover.y + 14, background: "#12121af5" }}>
           <div className="font-semibold">{hover.row.label} · {hover.row.decision.replace(/_/g, " ")}</div>
           <div className="num text-muted">{fmt.clock(hover.seg.start)} – {fmt.clock(hover.seg.end)} · <span className="text-ink">{hover.seg.label}</span></div>
           {hover.seg.reason && <div className="text-muted mt-1">{hover.seg.reason}</div>}

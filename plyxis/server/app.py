@@ -306,7 +306,8 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
                 with open(f) as fh:
                     d = json.load(fh)
                 if name.startswith("showcase_run"):
-                    d = {k: d[k] for k in ("hours", "kpis", "calibration_error", "runs") if k in d}
+                    d = {k: d[k] for k in ("hours", "kpis", "calibration_error", "runs", "bridge", "skipped_events")
+                         if k in d}
                 out[name] = d
             except Exception:  # noqa: BLE001
                 pass

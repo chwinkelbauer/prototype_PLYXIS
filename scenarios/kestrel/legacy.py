@@ -16,10 +16,15 @@ encode common practice (documented in docs/SHOWCASE.md):
   above 85 %
 * sustained flaring (> 2 h) -> control room curtails the gassiest pads by 20 %
   until flaring stops; curtailment is lifted 2 h after
+* gas takeaway at its limit (> 2 h) -> the same curtailment of the gassiest pads,
+  kept until gas sales are clearly below the limit
 * compressor trips: call-out crew restarts the unit after 6 h
 * pump failures: workover rig scheduled first thing the next morning (07:00),
   first-come-first-served, 30 h job
-* no real-time reaction to power or gas prices (monthly economics)
+* no real-time reaction to power or gas prices (monthly economics), except announced
+  scarcity pricing: on a day-ahead notice above `dr_price` the control room drops every
+  ESP to the pre-agreed demand-response set point (`dr_speed`) for the announced window
+  (the bulk set-point change operators already use for ERCOT 4CP peaks)
 """
 from __future__ import annotations
 
@@ -52,6 +57,24 @@ class LegacyOperators:
         self.gor = {w: self._param(w, "gor") for w in self.wells}
         self.water_div: dict = {}           # battery -> share of its water sent to the home disposal well
         self.wcurtail: dict = {}            # pad -> since (water-constrained curtailment)
+        self.tcurtail: dict = {}            # pad -> since (takeaway-constrained curtailment)
+        self.takeaway_since = None
+        self.gassy = sorted(self.pads, key=lambda p: -sum(self.gor.get(w, 0) for w, pp in self.well_pad.items() if pp == p))
+        self.gas_plant = next((i.path for i in self.flat.instances if i.type.short == "gas_sales"), None)
+        self.dr_windows: list = []          # (start, end) of announced scarcity pricing, plant hours
+
+    def notice(self, ev: dict, t: float) -> None:
+        """Notices reach the control room at the same time as PLYXIS:
+        * a midstream curtailment -> curtail the gassiest pads right away instead of waiting for the
+          takeaway limit to persist;
+        * day-ahead scarcity pricing (`start`/`end` in plant hours) -> demand-response set point for
+          the window."""
+        if ev.get("kind") == "announce":
+            if ev.get("name") == "power_price" and float(ev["value"]) >= self.cfg.get("dr_price", 1.0):
+                self.dr_windows.append((float(ev["start"]), float(ev["end"])))
+            return
+        if ev.get("asset") == self.gas_plant and float(ev.get("factor", 1.0)) < 1.0:
+            self.takeaway_since = t - self.cfg["flare_response_h"]
 
     def _param(self, path, name):
         gid, li = self.emu.path_index[path]
@@ -110,10 +133,24 @@ class LegacyOperators:
         else:
             self.flare_since = None
         if self.flare_since is not None and t - self.flare_since >= c["flare_response_h"]:
-            gassy = sorted(self.pads, key=lambda p: -sum(self.gor.get(w, 0) for w, pp in self.well_pad.items() if pp == p))
-            for p in gassy[:4]:
+            for p in self.gassy[:4]:
                 if p not in self.curtail:
                     self.curtail[p] = (c["curtail"], t)
+        # midstream takeaway at its limit for > 2 h: curtail the gassiest pads the same way, and keep
+        # them curtailed until gas sales are clearly below the limit
+        if self.gas_plant is not None:
+            deliv = self._sig(self.gas_plant, "node:local:delivered")
+            cap = self._param(self.gas_plant, "cap")
+            if deliv >= 0.98 * cap:
+                self.takeaway_since = self.takeaway_since if self.takeaway_since is not None else t
+            elif deliv < 0.90 * cap:
+                self.takeaway_since = None
+            if self.takeaway_since is not None and t - self.takeaway_since >= c["flare_response_h"]:
+                for p in self.gassy[:4]:
+                    self.tcurtail.setdefault(p, t)
+            elif self.takeaway_since is None:
+                for p in [p for p, t0 in self.tcurtail.items() if t - t0 > c["flare_response_h"] + 2.0]:
+                    del self.tcurtail[p]
         if self.flare_since is None:
             for p in list(self.curtail):
                 if t - self.curtail[p][1] > c["flare_response_h"] + 2.0:
@@ -131,13 +168,15 @@ class LegacyOperators:
                     if p in self.wcurtail and t - self.wcurtail[p] > 2.0:
                         del self.wcurtail[p]
         # wells
+        dr = any(s <= t + 1e-9 < e for s, e in self.dr_windows)
         for w in self.wells:
             if w in emu.hidden:
                 continue
             f = self.curtail.get(self.well_pad.get(w), (1.0, 0))[0]
-            if self.well_pad.get(w) in self.wcurtail:
+            if self.well_pad.get(w) in self.wcurtail or self.well_pad.get(w) in self.tcurtail:
                 f = min(f, c["curtail"])
-            vals[(w, "speed")] = max(0.35, c["speed"] * f)
+            sp = max(0.35, c["speed"] * f)
+            vals[(w, "speed")] = min(sp, c.get("dr_speed", 0.75)) if dr else sp
             vals[(w, "on")] = 1.0
         # compressors: all available units
         for inst in self.flat.instances:

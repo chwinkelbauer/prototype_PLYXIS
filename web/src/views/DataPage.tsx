@@ -50,7 +50,7 @@ export function DataPage() {
               <Cable size={18} className="text-teal mt-0.5" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2"><span className="text-[13px] font-semibold">{c.name}</span>
-                  <span className="chip !text-plx !border-plx/40">{c.status}</span></div>
+                  <span className="chip !text-good !border-good/40">{c.status}</span></div>
                 <div className="text-[11.5px] text-dim truncate">{c.description}</div>
                 <div className="num text-[11.5px] text-muted mt-1">{fmt.n(c.messages)} messages · {fmt.n(c.rate_per_s, 1)}/s · {c.kind}</div>
               </div>
@@ -84,7 +84,7 @@ export function DataPage() {
             <EChart height={170} option={base({
               grid: { left: 52, right: 10, top: 10, bottom: 22 }, legend: { show: false },
               xAxis: { type: "value", min: "dataMin", max: "dataMax", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.clock(v) }, splitLine: { show: false } },
-              series: [{ type: "line", showSymbol: false, data: hist, lineStyle: { width: 1.3, color: C.teal }, areaStyle: { color: "#2dd4bf14" } }],
+              series: [{ type: "line", showSymbol: false, data: hist, lineStyle: { width: 1.5, color: C.plx }, areaStyle: { color: "#fe026514" } }],
             })} />
           </div>
           <div className="panel flex-1 min-h-0 flex flex-col">
@@ -92,7 +92,7 @@ export function DataPage() {
             <div className="flex-1 overflow-auto">
               {anomalies.length === 0 && <div className="p-3 text-dim text-[12px]">No anomalies.</div>}
               {anomalies.map((a, i) => (
-                <div key={i} className="px-2.5 py-1.5 border-b border-[#131c26] text-[12px] cursor-pointer hover:bg-panel2" onClick={() => a.asset && set({ selected: a.asset })}>
+                <div key={i} className="px-2.5 py-1.5 border-b border-[#1a1a26] text-[12px] cursor-pointer hover:bg-panel2" onClick={() => a.asset && set({ selected: a.asset })}>
                   <span className={a.kind === "trend" ? "text-opt" : a.severity === "critical" ? "text-crit" : "text-warn"}>{a.kind}</span> · {a.message}
                   <div className="text-[10.5px] text-dim num">{a.clock}</div>
                 </div>
@@ -133,10 +133,10 @@ export function DataPage() {
                 <div className="flex items-center gap-2 px-2.5 py-1.5 border-b border-line">
                   <span className="text-[12.5px] font-semibold">{p.assets.join(", ")}</span>
                   <span className="text-[11px] text-dim">rule {p.rule} · {fmt.clock(p.t)}</span>
-                  <span className={`ml-auto chip ${p.status === "applied" ? "!text-plx !border-plx/40" : p.status === "rejected" ? "!text-crit" : "!text-warn"}`}>{p.status}</span>
+                  <span className={`ml-auto chip ${p.status === "applied" ? "!text-good !border-good/40" : p.status === "rejected" ? "!text-crit" : "!text-warn"}`}>{p.status}</span>
                 </div>
                 <div className="px-2.5 py-1 text-[11px] text-dim">from tag <span className="num">{p.tag}</span></div>
-                <pre className="num text-[11px] leading-snug px-2.5 pb-2 text-[#c3e88d] whitespace-pre-wrap">{p.code}</pre>
+                <pre className="num text-[11px] leading-snug px-2.5 pb-2 text-[#a3e3b5] whitespace-pre-wrap">{p.code}</pre>
                 {p.status === "pending" && (
                   <div className="flex gap-2 px-2.5 pb-2">
                     <button className="btn btn-primary" onClick={() => api.discoveryAction(p.id, "approve")}><Check size={12} />Approve & compile</button>

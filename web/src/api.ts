@@ -6,7 +6,8 @@ export type Rate = Partial<Record<
 
 export interface WorldKpi {
   cum: { revenue: number; cost: number; profit: number; emission_kg: number; oil_bbl: number; gas_mscf: number;
-    water_bbl: number; flared_mscf: number; spilled_bbl: number; hours: number };
+    water_bbl: number; flared_mscf: number; spilled_bbl: number; hours: number; inventory_value?: number;
+    equipment_value?: number; carbon_cost?: number; profit_after_carbon?: number; flared_over_permit_mscf?: number };
   rate: Rate;
 }
 
@@ -17,6 +18,7 @@ export interface Kpis {
   hours: number;
   value_per_day: number;
   carbon_price_usd_t: number;
+  bridge?: { key: string; label: string; delta: number }[];   // operating-profit difference by realised term
 }
 
 export interface Alert {

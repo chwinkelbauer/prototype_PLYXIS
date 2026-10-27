@@ -59,6 +59,8 @@ class PlantEmulator:
         self.gen = torch.Generator().manual_seed(seed)
         self.P = {g: {k: v.clone() for k, v in d.items()} for g, d in self.prog.P0.items()}
         self.P_nominal = {g: {k: v.clone() for k, v in d.items()} for g, d in self.prog.P0.items()}
+        # design wear rate of every pump (a defect raises the actual rate; a new pump restores it)
+        self.wear_design = {g: d["wear_rate"].clone() for g, d in self.P_nominal.items() if "wear_rate" in d}
         self.S = {g: {k: v.clone() for k, v in d.items()} for g, d in self.prog.S0.items()}
         self.prices = defines_prices
         self.overrides: dict = {}          # env input overrides from events: name -> (value, until)
@@ -104,15 +106,24 @@ class PlantEmulator:
 
     def set_controls(self, values: dict, routes: Optional[dict] = None) -> None:
         """values: {(path, decision): canonical value}; routes: {(src, port, dst, dport): split}."""
+        by: dict = {}
+        pidx = self.path_index
         for (path, dname), v in values.items():
-            gi = self.path_index.get(path)
-            if gi is None:
-                continue
-            gid, li = gi
-            if dname not in self.D.get(gid, {}):
+            gi = pidx.get(path)
+            if gi is not None:
+                e = by.get((gi[0], dname))
+                if e is None:
+                    e = by[(gi[0], dname)] = ([], [])
+                e[0].append(gi[1])
+                e[1].append(float(v))
+        for (gid, dname), (lis, vs) in by.items():
+            t = self.D.get(gid, {}).get(dname)
+            if t is None:
                 continue
             lo, hi = self.dec_bounds[(gid, dname)]
-            self.D[gid][dname][0, li, 0] = float(min(max(v, float(lo[0, li, 0])), float(hi[0, li, 0])))
+            idx = torch.tensor(lis, dtype=torch.long)
+            val = torch.tensor(vs, dtype=t.dtype)
+            t[0, idx, 0] = torch.minimum(torch.maximum(val, lo[0, idx, 0]), hi[0, idx, 0])
         if routes:
             touched = set()
             for key, s in routes.items():
@@ -130,10 +141,12 @@ class PlantEmulator:
         """Actual applied controls as the DCS reports them: ({(path, decision): value}, {route key: split})."""
         vals = {}
         for g in self.prog.groups:
+            paths = [self.flat.instances[iid].path for iid in g.inst_ids]
             for dname, t in self.D[g.gid].items():
-                for li, iid in enumerate(g.inst_ids):
-                    vals[(self.flat.instances[iid].path, dname)] = float(t[0, li, 0])
-        routes = {k: float(self.R[0, r, 0]) for k, r in self.route_key.items()}
+                for path, v in zip(paths, t[0, :, 0].tolist()):
+                    vals[(path, dname)] = v
+        Rl = self.R[0, :, 0].tolist()
+        routes = {k: Rl[r] for k, r in self.route_key.items()}
         return vals, routes
 
     def control_value(self, path: str, dname: str) -> Optional[float]:
@@ -145,6 +158,7 @@ class PlantEmulator:
     # ------------------------------------------------------------------ telemetry
     def _build_telemetry(self) -> None:
         self.tele = []
+        self._tele_groups = None
         for g in self.prog.groups:
             if g.is_env:
                 continue
@@ -177,24 +191,43 @@ class PlantEmulator:
             return float(x[0, li if x.shape[1] > 1 else 0, 0])
         return float(x.reshape(-1)[0])
 
+    def _signal_all(self, raw: dict, gid: str, sk: str) -> list:
+        """One signal for every instance of a group (vectorised read)."""
+        kind, _, name = sk.partition(":")
+        if kind == "param":
+            x = self.P[gid][name].reshape(-1)
+        elif kind == "dec":
+            x = self.D[gid][name][0, :, 0]
+        elif kind == "state":
+            x = self.S[gid][name].reshape(-1)
+        else:
+            x = self.prog.signal(raw, gid, sk)
+            x = x.reshape(x.shape[0], -1, x.shape[-1])[0, :, 0] if x.dim() == 3 else x.reshape(-1)
+        return x.tolist()
+
     def telemetry(self, raw: dict) -> list:
         out = []
-        for gid, li, path, tag, sk, unit, opt in self.tele:
-            if path in self.hidden:
-                continue
-            if opt.get("test"):
-                continue
-            v = self._signal(raw, gid, li, sk)
-            if unit:
-                try:
-                    v = U.from_canonical(v, unit)
-                except Exception:  # noqa: BLE001
-                    pass
+        if getattr(self, "_tele_groups", None) is None:
+            groups: dict = {}
+            for gid, li, path, tag, sk, unit, opt in self.tele:
+                if not opt.get("test"):
+                    groups.setdefault((gid, sk, unit), []).append((li, path, tag))
+            self._tele_groups = groups
+        for (gid, sk, unit), items in self._tele_groups.items():
+            vals = self._signal_all(raw, gid, sk)
+            try:
+                f = U.factor(unit) if unit else 1.0
+            except Exception:  # noqa: BLE001
+                f = 1.0
             is_status = sk.endswith(":up") or sk.endswith(":avail") or sk.endswith(":running")
-            if not is_status and self.noise > 0:
-                sigma = 0.015 * abs(v) + 0.002 * (abs(v) + 1.0)
-                v = v + self.rng.gauss(0.0, sigma * self.noise)
-            out.append(Telemetry(tag, round(v, 4), unit, self.t))
+            for li, path, tag in items:
+                if path in self.hidden:
+                    continue
+                v = vals[li if len(vals) > 1 else 0] / f
+                if not is_status and self.noise > 0:
+                    sigma = 0.015 * abs(v) + 0.002 * (abs(v) + 1.0)
+                    v = v + self.rng.gauss(0.0, sigma * self.noise)
+                out.append(Telemetry(tag, round(v, 4), unit, self.t))
         # well tests: one well per hour on the test separator
         tests = [x for x in self.tele if x[6].get("test") and x[2] not in self.hidden]
         if tests and abs((self.t / 1.0) - round(self.t / 1.0)) < 1e-6:
@@ -324,13 +357,18 @@ class PlantEmulator:
                 eps.mul_(0.97).add_(torch.randn(eps.shape, generator=self.gen) * 0.01 * self.noise)
                 d["q_max"] = self.P_nominal[gid]["q_max"] * torch.exp(eps)
 
+    def _fail_health(self, gid: int):
+        """Health at which a pump fails (`fail_health` of the blueprint, 0.12 if it declares none)."""
+        P = self.P.get(gid, {})
+        return P["fail_health"].reshape(-1) if "fail_health" in P else 0.12
+
     def _failures(self) -> list:
         evs = []
         for g in self.prog.groups:
             S = self.S[g.gid]
             if "health" in S and "up" in S:
                 h, up = S["health"], S["up"]
-                failed = (h < 0.12) & (up > 0.5)
+                failed = (h.reshape(-1) < self._fail_health(g.gid)) & (up.reshape(-1) > 0.5)
                 for li in torch.nonzero(failed.reshape(-1)).reshape(-1).tolist():
                     up.reshape(-1)[li] = 0.0
                     if "fail_cost" in self.P[g.gid]:      # extra cost of an unplanned vs a planned replacement
@@ -372,6 +410,10 @@ class PlantEmulator:
                 if "pump_cost" in self.P[gi[0]]:
                     self.kpi.charge("pump_replacement", float(self.P[gi[0]]["pump_cost"].reshape(-1)[gi[1]]))
                 self.S[gi[0]]["health"].reshape(-1)[gi[1]] = 1.0
+                if gi[0] in self.wear_design:                               # the defect left with the old pump
+                    w = float(self.wear_design[gi[0]].reshape(-1)[gi[1]])
+                    self.P_nominal[gi[0]]["wear_rate"].reshape(-1)[gi[1]] = w
+                    self.P[gi[0]]["wear_rate"].reshape(-1)[gi[1]] = w
         elif kind == "capacity" and gi:
             p = kw["param"]
             self.P_nominal[gi[0]][p].reshape(-1)[gi[1]] *= kw.get("factor", 1.0)
@@ -413,10 +455,12 @@ class _Kpi:
         self.cum = {"revenue": 0.0, "cost": 0.0, "emission_kg": 0.0, "oil_bbl": 0.0, "gas_mscf": 0.0,
                     "water_bbl": 0.0, "flared_mscf": 0.0, "spilled_bbl": 0.0, "hours": 0.0,
                     "inventory_value": 0.0, "equipment_value": 0.0, "profit": 0.0,
-                    "carbon_cost": 0.0, "profit_after_carbon": 0.0}
+                    "carbon_cost": 0.0, "profit_after_carbon": 0.0, "flared_over_permit_mscf": 0.0}
         self.terms: dict = {}
         self.term_rate: dict = {}
         self.rate = {}
+        self.smooth: dict = {}
+        self.tau = 1.5                       # hours, smoothing of the displayed rates
         self.history: list = []
         self._inv_last = None
         self._eq_last = None
@@ -442,11 +486,18 @@ class _Kpi:
 
     @staticmethod
     def _equipment(emu, fin) -> float:
+        """Remaining useful life of every pump x pump cost. Life runs from health 1 to the failure
+        threshold (`fail_health`) at the design wear rate; a pump wearing faster (a defect) has proportionally
+        less life left - a pump with a failing bearing is worth almost nothing, whatever its health."""
         v = 0.0
         for g in emu.prog.groups:
             S, P = fin.get(g.gid, {}), emu.P.get(g.gid, {})
             if "health" in S and "pump_cost" in P:
-                v += float((S["health"].reshape(-1) * P["pump_cost"].reshape(-1)).sum())
+                fh = emu._fail_health(g.gid)
+                life = ((S["health"].reshape(-1) - fh) / (1.0 - fh)).clamp(0.0, 1.0)
+                if "wear_rate" in P and g.gid in emu.wear_design:
+                    life = life * (emu.wear_design[g.gid].reshape(-1) / P["wear_rate"].reshape(-1).clamp(min=1e-12)).clamp(max=1.0)
+                v += float((life * P["pump_cost"].reshape(-1)).sum())
         return v
 
     def add(self, emu: PlantEmulator, ev: dict, raw: dict) -> None:
@@ -506,17 +557,28 @@ class _Kpi:
         c["gas_mscf"] += gas
         c["water_bbl"] += wat
         c["flared_mscf"] += fl
+        permit = emu.prog.E0.get("flare_permit")          # compliance: volume flared above the permit
+        if permit is not None:
+            c["flared_over_permit_mscf"] += max(0.0, fl - U.from_canonical(float(permit) * dt, "Mscf"))
         c["spilled_bbl"] += spill
         c["hours"] += dt
         self.rate = {"oil_bpd": oil / dt * 24, "gas_mscfd": gas / dt * 24, "water_bpd": wat / dt * 24,
                      "flare_mscfd": fl / dt * 24, "oil_sold_bpd": sold / dt * 24,
                      "profit_usd_h": (rev - cost + d_inv + d_eq) / dt, "revenue_usd_h": rev / dt, "cost_usd_h": cost / dt,
                      "inventory_usd_h": d_inv / dt, "equipment_usd_h": d_eq / dt, "emission_t_h": em / 1000 / dt}
+        # display rates: exponentially smoothed (operators and executives read trends, not 10-min noise)
+        a = 1.0 - math.exp(-dt / self.tau)
+        if not self.smooth:
+            self.smooth = dict(self.rate)
+        else:
+            for k, v in self.rate.items():
+                self.smooth[k] = self.smooth.get(k, v) + a * (v - self.smooth.get(k, v))
         self.history.append({"t": emu.t, **{k: round(v, 3) for k, v in self.rate.items()},
                              "cum_profit": round(c["profit"], 1)})
         if len(self.history) > 20000:
             self.history = self.history[-20000:]
 
     def now(self) -> dict:
-        return {"cum": dict(self.cum), "rate": dict(self.rate), "terms": {k: round(v, 1) for k, v in self.terms.items()},
+        return {"cum": dict(self.cum), "rate": dict(self.smooth or self.rate), "rate_raw": dict(self.rate),
+                "terms": {k: round(v, 1) for k, v in self.terms.items()},
                 "term_rate": {k: round(v, 1) for k, v in self.term_rate.items()}}

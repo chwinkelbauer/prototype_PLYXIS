@@ -78,6 +78,18 @@
       "narrative": "One of three compressor units at CS-1 trips. Compression capacity drops by a third while the field keeps sending gas."
     },
     {
+      "t": 13.0,
+      "kind": "capacity",
+      "asset": "GASPLANT",
+      "param": "cap",
+      "factor": 0.6667,
+      "hours": 10.0,
+      "notice": true,
+      "title": "Gas plant upset: takeaway cut to 24,000 Mscf/d for 10 hours",
+      "restore_title": "Gas plant back to full takeaway",
+      "narrative": "A compressor failure at the midstream processing plant: producers are told to cut gas deliveries by a third until repairs are done."
+    },
+    {
       "t": 16.0,
       "kind": "wear",
       "asset": "P11_W01",
@@ -114,6 +126,16 @@
       "narrative": "Every Mscf sold now costs money."
     },
     {
+      "t": 33.0,
+      "kind": "announce",
+      "name": "power_price",
+      "start": 59.0,
+      "end": 61.0,
+      "value": 5.0,
+      "title": "ERCOT day-ahead: scarcity pricing tomorrow 17:00-19:00",
+      "narrative": "A heat wave pushes tomorrow evening's power price in the West load zone to the 5,000 USD/MWh cap for two hours - about 90 times the usual price."
+    },
+    {
       "t": 36.0,
       "kind": "commission",
       "asset": "P07_W11",
@@ -127,10 +149,21 @@
       "units": 1,
       "title": "Compressor unit trip at CS-2",
       "narrative": "Second compression event during the negative-price window."
+    },
+    {
+      "t": 59.0,
+      "kind": "price",
+      "name": "power_price",
+      "value": 5.0,
+      "hours": 2.0,
+      "title": "Power at the 5,000 USD/MWh cap",
+      "narrative": "Every running pump and compressor now costs 90 times more per hour."
     }
   ],
   "legacy": {
     "speed": 0.95,
+    "dr_price": 1.0,
+    "dr_speed": 0.75,
     "flare_response_h": 2.0,
     "curtail": 0.8,
     "rig_start_hour": 7.0,
@@ -167,6 +200,13 @@
       "text": "Every decision carries its reasons: marginal oil value, power cost and the shadow price of the binding bottleneck - computed from the model, not generated text."
     },
     {
+      "id": "plant",
+      "t": 13.5,
+      "title": "Midstream cuts takeaway by a third",
+      "view": "overview",
+      "text": "The gas plant has an upset and producers must deliver a third less gas for ten hours. PLYXIS re-selects which wells produce: oil-rich wells keep running, gas-rich ones slow down - the field loses a third of its gas but far less of its oil. The manual control room curtails its gassiest pads by rule and the plant's backpressure throttles everything else."
+    },
+    {
       "id": "predict",
       "t": 24.6,
       "title": "Predictive maintenance",
@@ -193,6 +233,13 @@
       "title": "The twin rewrites itself",
       "view": "studio",
       "text": "Unknown tags from a new well appeared. A discovery rule turned them into PLX code - reviewed, committed and compiled into the live twin in seconds."
+    },
+    {
+      "id": "power",
+      "t": 59.3,
+      "title": "Power at the price cap - for two hours",
+      "view": "overview",
+      "text": "The day-ahead market announced scarcity pricing yesterday, so the plan already accounts for it: PLYXIS slows the pumps with the least oil per kWh and defers water pumping for two hours, then brings everything back. Manual operations keep running at the cap price."
     },
     {
       "id": "value",

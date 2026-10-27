@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 294.51751 264.58333">
+  <title>PLYXIS</title>
+  <defs>
+    <linearGradient id="pm"><stop offset="0" stop-color="#5a2ca0"/><stop offset="1" stop-color="#8f0071"/></linearGradient>
+    <linearGradient id="og"><stop offset="0" stop-color="#de7e19"/><stop offset="1" stop-color="#ba9c17"/></linearGradient>
+    <linearGradient id="mf"><stop offset="0" stop-color="#99007d"/><stop offset="0.42" stop-color="#99007d" stop-opacity="0"/></linearGradient>
+    <linearGradient id="gf"><stop offset="0" stop-color="#bc9d2a"/><stop offset="0.42" stop-color="#bc9d2a" stop-opacity="0"/></linearGradient>
+    <linearGradient id="dg"><stop offset="0" stop-color="#5a2ca0"/><stop offset="0.5" stop-color="#ff0066"/><stop offset="1" stop-color="#d4aa00"/></linearGradient>
+    <linearGradient id="top" xlink:href="#pm" x1="-10.851141" y1="10.583488" x2="116.41666" y2="10.583333" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="bottom" xlink:href="#og" x1="241.34438" y1="253.99998" x2="116.41666" y2="253.99998" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="midtop" xlink:href="#mf" x1="116.41666" y1="21.166666" x2="10.583339" y2="126.99999" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="midbottom" xlink:href="#gf" x1="116.41666" y1="243.41666" x2="222.25" y2="137.58333" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="diag" xlink:href="#dg" x1="-29.934185" y1="0" x2="264.58331" y2="264.58331" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <g transform="translate(29.934185)">
+    <path fill="url(#top)" d="M -29.898019,1.0227478e-4 -8.7312474,21.166873 H 127.90791 L 106.74123,1.9261902e-4 Z"/>
+    <path fill="url(#bottom)" d="m 106.7411,243.41665 21.16681,21.16668 h 136.67532 l -21.16668,-21.16668 z"/>
+    <path fill="url(#midtop)" d="m 127.90791,21.166873 h -21.16668 v 85.574457 l 21.16668,21.16668 z"/>
+    <path fill="url(#midbottom)" d="M 127.90791,243.41666 V 157.8421 l -21.1667,-21.1667 v 106.74126 z"/>
+    <path fill="url(#diag)" d="M -29.934185,0 234.64914,264.58333 h 29.93409 L -2.1133538e-5,1.0227514e-4 Z"/>
+  </g>
+</svg>

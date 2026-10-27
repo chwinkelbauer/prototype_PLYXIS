@@ -20,10 +20,10 @@ function HoldBanner() {
   const last = recs[recs.length - 1];
   return (
     <div className="absolute top-3 left-1/2 -translate-x-1/2 z-40 panel px-4 py-2 flex items-center gap-3 shadow-xl shadow-black/60 fade-in"
-      style={{ background: "#160f2bf2", borderColor: "#4c3a8a" }}>
-      <Loader2 size={15} className="animate-spin text-opt" />
+      style={{ background: "#16101ff2", borderColor: "#fe026566" }}>
+      <Loader2 size={15} className="animate-spin text-brand" />
       <div className="text-[12.5px]">
-        <span className="font-semibold text-opt">Re-planning the whole field</span>
+        <span className="font-semibold text-ink">Re-planning the whole field</span>
         <span className="text-muted"> · {optRun?.trigger ?? "disruption"} · stage {String(last?.stage ?? "…")}</span>
         <div className="text-[11px] text-dim">plant clock held - a {">"}10 s solve is instantaneous for the field, not at 3600x time compression</div>
       </div>
