@@ -65,6 +65,7 @@ class Problem:
         self.t0 = t0
         self.n_evals = 0
         self.con_kind = {(c.gid, c.key): c.kind for c in program.cons}
+        self.S_sched: Optional[dict] = None              # known future of constant states (outage ETAs)
         self.move_ref: Optional[torch.Tensor] = None     # plan the plant is executing (move suppression)
         self.move_w: Optional[torch.Tensor] = None
         self.move_cost = 0.0
@@ -100,7 +101,8 @@ class Problem:
         x = x if x is not None else self.space.default_u(1)
         with torch.no_grad():
             D, R = self.space.decode(x, self.P, relax=True)
-            raw = self.prog.simulate(D, R, self.P, self.S0, self.E, self.T, self.dt, self.t0, want_mag=True)
+            raw = self.prog.simulate(D, R, self.P, self._states(self.S0), self.E, self.T, self.dt, self.t0,
+                                     want_mag=True)
             ev = self.prog.evaluate(raw, self.dt, self.E)
         scale = float(torch.as_tensor(ev["revenue"]).abs().mean() + torch.as_tensor(ev["cost"]).abs().mean())
         self.J_scale = max(scale, 1.0)
@@ -128,7 +130,7 @@ class Problem:
     def evaluate(self, x: torch.Tensor, relax: bool = True, P: Optional[dict] = None,
                  S0: Optional[dict] = None, E: Optional[dict] = None) -> Evaluation:
         P = P if P is not None else self.P
-        S0 = S0 if S0 is not None else self.S0
+        S0 = S0 if S0 is not None else self._states(self.S0)
         E = E if E is not None else self.E
         D, R = self.space.decode(x, P, relax=relax)
         raw = self.prog.simulate(D, R, P, S0, E, self.T, self.dt, self.t0)
@@ -205,12 +207,43 @@ class Problem:
             q.P = P
         if S0 is not None:
             q.S0 = S0
+            q.S_sched = None
         if E is not None:
             q.E = E
         if t0 is not None:
             q.t0 = t0
         q.n_evals = 0
         return q
+
+    def set_state_schedule(self, sched: dict) -> list:
+        """Known future values of constant states, e.g. the crew's estimate when a failed hoist is back:
+        {path: (state, value, hours from t0)}. The state keeps its current value until then. Returns the
+        entries applied (states with their own dynamics cannot be scheduled)."""
+        prog, out, S = self.prog, {}, {}
+        done = []
+        for path, (sname, value, hours) in sched.items():
+            iid = prog.flat.by_path.get(path)
+            if iid is None:
+                continue
+            gid, li = prog.inst_group[iid]
+            st = prog.gmap[gid].ir.states.get(sname)
+            if st is None or st.has_update or sname not in self.S0.get(gid, {}):
+                continue
+            if (gid, sname) not in S:
+                x = torch.as_tensor(self.S0[gid][sname], dtype=torch.float32).reshape(1, -1)
+                S[(gid, sname)] = x.unsqueeze(-1).expand(1, x.shape[1], self.T).clone()
+            k = max(0, min(self.T, int(-(-hours // self.dt))))           # first step at which it is back
+            S[(gid, sname)][0, li, k:] = float(value)
+            done.append(path)
+        for (gid, sname), x in S.items():
+            out.setdefault(gid, {})[sname] = x
+        self.S_sched = out or None
+        return done
+
+    def _states(self, S0: dict) -> dict:
+        if not self.S_sched:
+            return S0
+        return {g: {**d, **self.S_sched.get(g, {})} for g, d in S0.items()}
 
 
 def _ident(s: str) -> str:

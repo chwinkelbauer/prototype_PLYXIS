@@ -1,5 +1,8 @@
 {
   "name": "Kestrel Field - autonomous operations showcase",
+  "title": "Kestrel Field",
+  "region": "Delaware Basin",
+  "subtitle": "synthetic oil field · 96 wells · 3 batteries · 2 compressor stations · 72 h scenario",
   "description": "Synthetic Permian-style oil field (96 ESP wells, 12 pads, 3 tank batteries, 2 compressor stations, gas plant, LACT terminal, 3 SWD wells, 8 trucks, 2 workover rigs). Two identical copies of the field run side by side from the same state with the same events: one operated by PLYXIS, one by typical manual operations.",
   "twin": {
     "files": [

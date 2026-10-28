@@ -9,6 +9,7 @@ import { useStore } from "./store";
 import { BenchPage } from "./views/BenchPage";
 import { DataPage } from "./views/DataPage";
 import { MapPage } from "./views/MapPage";
+import { Mine3DPage } from "./views/Mine3DPage";
 import { OptimizerPage } from "./views/OptimizerPage";
 import { Overview } from "./views/Overview";
 import { SchedulePage } from "./views/SchedulePage";
@@ -76,15 +77,18 @@ export default function App() {
       <TopBar />
       <div className="flex-1 flex min-h-0">
         <SideNav />
-        <main className="flex-1 min-w-0 relative overflow-hidden">
-          {view === "overview" && <Overview />}
-          {view === "map" && <MapPage />}
-          {view === "schedule" && <SchedulePage />}
-          {view === "optimizer" && <OptimizerPage />}
-          {view === "studio" && <StudioPage />}
-          {view === "data" && <DataPage />}
-          {view === "bench" && <BenchPage />}
-          {snap.holding && <HoldBanner />}
+        <main className="flex-1 min-w-0 flex flex-col overflow-hidden">
+          <div className="flex-1 min-h-0 relative overflow-hidden">
+            {view === "overview" && <Overview />}
+            {view === "map" && <MapPage />}
+            {view === "mine3d" && <Mine3DPage />}
+            {view === "schedule" && <SchedulePage />}
+            {view === "optimizer" && <OptimizerPage />}
+            {view === "studio" && <StudioPage />}
+            {view === "data" && <DataPage />}
+            {view === "bench" && <BenchPage />}
+            {snap.holding && <HoldBanner />}
+          </div>
           <DemoGuide />
         </main>
         <AssetDrawer />

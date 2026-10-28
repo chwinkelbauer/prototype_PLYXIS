@@ -1,0 +1,51 @@
+kestrel seed 0 ga                4,270,807 feas True   7.2s
+C:\Users\cwink\OneDrive\Dokumente\.quarries\proto\proto2\plyxis\optim\sections.py:172: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\aten\src\ATen\Context.cpp:855.)
+  A = torch.sparse_coo_tensor(torch.tensor(np.stack([rows, cols])), torch.tensor(vals, dtype=torch.float32), (n, n)).coalesce()
+C:\Users\cwink\OneDrive\Dokumente\.quarries\proto\proto2\plyxis\optim\sections.py:277: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  return net, {"mse": float(loss), "spearman": rank, "pairs": int(len(pairs))}
+kestrel seed 0 ga+sections       4,263,976 feas True  10.6s
+kestrel seed 1 ga                4,201,536 feas True   6.0s
+kestrel seed 1 ga+sections       4,201,536 feas True   8.5s
+kestrel seed 2 ga                4,148,732 feas True   5.8s
+kestrel seed 2 ga+sections       4,151,186 feas True   8.5s
+{
+ "ga": {
+  "mean_objective": 4207025.0,
+  "feasible": 3,
+  "runs": 3,
+  "mean_seconds": 6.30732539999993
+ },
+ "ga+sections": {
+  "mean_objective": 4205566.25,
+  "feasible": 3,
+  "runs": 3,
+  "mean_seconds": 9.203969600000013,
+  "vs_ga_pct": -0.03467414621971583
+ }
+} {'sections': 76, 'largest_section': 3, 'colours': 8, 'discrete_units': 624, 'filter_spearman': 0.727, 'filter_pairs': 400, 'setup_s': 1.96} probe 0.4s filter 1.4ms {'native': 1.0875559000000976, 'numpy': 1.1492102000001978}
+corvus seed 0 ga                7,281,090 feas True  41.1s
+corvus seed 0 ga+sections       7,281,090 feas True  53.5s
+corvus seed 1 ga                7,278,283 feas True  38.7s
+corvus seed 1 ga+sections       7,196,890 feas True  45.4s
+corvus seed 2 ga                7,265,960 feas True  36.6s
+corvus seed 2 ga+sections       7,265,960 feas True  45.5s
+{
+ "ga": {
+  "mean_objective": 7275111.166666667,
+  "feasible": 3,
+  "runs": 3,
+  "mean_seconds": 38.82012990000006
+ },
+ "ga+sections": {
+  "mean_objective": 7247980.333333333,
+  "feasible": 3,
+  "runs": 3,
+  "mean_seconds": 48.120958066666844,
+  "vs_ga_pct": -0.3729267183935671
+ }
+} {'sections': 46, 'largest_section': 6, 'colours': 10, 'discrete_units': 744, 'filter_spearman': 0.033, 'filter_pairs': 400, 'setup_s': 3.4} probe 1.1s filter 2.1ms {'native': 2.337345099999766, 'numpy': 2.3844378000003417}
+scaling {'fields': 1, 'variables': 4983, 'discrete_units': 624, 'sections': 76, 'largest_section': 3, 'colours': 8, 'setup_s': 1.9113538999999946, 'sweep_s': 0.9315795000002254, 'simulate_s': 0.008718399999906978, 'evals': 425}
+scaling {'fields': 2, 'variables': 9966, 'discrete_units': 1248, 'sections': 152, 'largest_section': 3, 'colours': 8, 'setup_s': 2.9280179000002136, 'sweep_s': 1.5221484999997301, 'simulate_s': 0.011716400000295835, 'evals': 425}
+scaling {'fields': 4, 'variables': 19932, 'discrete_units': 2496, 'sections': 304, 'largest_section': 3, 'colours': 8, 'setup_s': 4.7134556000000885, 'sweep_s': 2.9478282000000036, 'simulate_s': 0.016232899999977235, 'evals': 425}
+scaling {'fields': 8, 'variables': 39864, 'discrete_units': 4992, 'sections': 688, 'largest_section': 3, 'colours': 9, 'setup_s': 9.02952490000007, 'sweep_s': 3.2356636999998045, 'simulate_s': 0.0284244999998009, 'evals': 189}

@@ -26,10 +26,12 @@ def calibration_error(eng, base) -> dict:
     engineering model (field.plx as delivered) vs the live twin after the run."""
     live, prog, pp = eng.twin.live, eng.twin.model.program, eng.plants["plyxis"]
     out = {}
-    for param in ("q_max", "wc", "gor"):
+    kind = "esp_well" if any(g.ir.type.short == "esp_well" for g in prog.groups) else "stope"
+    params = ("q_max", "wc", "gor") if kind == "esp_well" else ("grade", "rate_max")
+    for param in params:
         e0, e1 = [], []
         for g in prog.groups:
-            if g.is_env or g.ir.type.short != "esp_well":
+            if g.is_env or g.ir.type.short != kind:
                 continue
             for li, iid in enumerate(g.inst_ids):
                 path = prog.flat.instances[iid].path
@@ -41,20 +43,24 @@ def calibration_error(eng, base) -> dict:
                 truth = float(pp.P[gp][param].reshape(-1)[lp])
                 e0.append(abs(float(base.program.P0[bg][param].reshape(-1)[bl]) - truth) / abs(truth))
                 e1.append(abs(float(live.P[g.gid][param].reshape(-1)[li]) - truth) / abs(truth))
-        out[param] = {"engineering": round(statistics.mean(e0), 4), "twin": round(statistics.mean(e1), 4)}
+        if e0:
+            out[param] = {"engineering": round(statistics.mean(e0), 4), "twin": round(statistics.mean(e1), 4)}
     return out
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--hours", type=float, default=72.0)
+    ap.add_argument("--hours", type=float, default=None)
+    ap.add_argument("--scenario", default="kestrel")
     ap.add_argument("--no-neural", action="store_true")
     ap.add_argument("--skip-events", default="", help="comma list of assets / price names whose events are dropped "
                                                         "(ablation of scenario events), e.g. GASPLANT,power_price")
     ap.add_argument("--tag", default="", help="suffix of the result file, e.g. 'core' -> showcase_run_core.json")
     args = ap.parse_args()
     t0 = time.perf_counter()
-    eng = Engine(os.path.join(ROOT, "scenarios", "kestrel"), sync_plans=True, use_neural=not args.no_neural)
+    sdir = os.path.join(ROOT, "scenarios", args.scenario)
+    eng = Engine(sdir, sync_plans=True, use_neural=not args.no_neural)
+    args.hours = args.hours or eng.sc.end_hour
     skip = {s for s in args.skip_events.split(",") if s}
     if skip:
         eng.sc.events = [e for e in eng.sc.events if e.get("asset") not in skip and e.get("name") not in skip]
@@ -71,19 +77,20 @@ def main() -> None:
                # USD/h of every model term in the last step (+ = income), to see what each world did and when
                "terms_h": {w: {n: round(v, 1) for n, v in e.plants[w].kpi.term_rate.items()} for w in ("plyxis", "legacy")}}
         hourly.append(rec)
-        print(f"{rec['clock']}  oil P {p['rate'].get('oil_bpd', 0):7,.0f} L {l['rate'].get('oil_bpd', 0):7,.0f} | "
-              f"flare P {p['rate'].get('flare_mscfd', 0):6,.0f} L {l['rate'].get('flare_mscfd', 0):6,.0f} | "
-              f"delta profit {k['delta']['profit']:11,.0f}  [{time.perf_counter() - t0:5.0f}s]", flush=True)
+        main = [m for m in p["rate"] if m.startswith("m_")][:3] or ["oil_bpd", "flare_mscfd"]
+        print(f"{rec['clock']}  " + " | ".join(f"{m} P {p['rate'].get(m, 0):8,.0f} L {l['rate'].get(m, 0):8,.0f}" for m in main)
+              + f" | delta profit {k['delta']['profit']:11,.0f}  [{time.perf_counter() - t0:5.0f}s]", flush=True)
     eng.run_headless(args.hours, progress=progress)
     k = eng.kpis()
     out = {
-        "hours": args.hours, "wall_seconds": time.perf_counter() - t0, "neural": not args.no_neural,
+        "scenario": args.scenario, "hours": args.hours, "wall_seconds": time.perf_counter() - t0, "neural": not args.no_neural,
         "skipped_events": sorted(skip),
         "kpis": {"plyxis": k["plyxis"]["cum"], "legacy": k["legacy"]["cum"], "delta": k["delta"],
                  "value_per_day": k["value_per_day"]},
         "terms": {w: dict(eng.plants[w].kpi.terms) for w in ("plyxis", "legacy")},
+        "inventory_terms": {w: dict(eng.plants[w].kpi.inv_terms) for w in ("plyxis", "legacy")},
         "bridge": k["bridge"],
-        "calibration_error": calibration_error(eng, compile_model([os.path.join(ROOT, "scenarios", "kestrel", "field.plx")])),
+        "calibration_error": calibration_error(eng, compile_model(eng.sc.twin_files, env=eng.sc.twin_env)),
         "plans": list(eng.plan_events),
         "runs": [{kk: v for kk, v in r.items() if kk != "history"} for r in eng.planner.runs],
         "timeline": eng.timeline, "hourly": hourly,
@@ -92,7 +99,8 @@ def main() -> None:
         "learn": eng.learn_log,
     }
     os.makedirs(os.path.join(ROOT, "bench", "results"), exist_ok=True)
-    name = "showcase_run" + ("_noneural" if args.no_neural else "") + (f"_{args.tag}" if args.tag else "") + ".json"
+    name = "showcase_run" + ("" if args.scenario == "kestrel" else f"_{args.scenario}") + \
+        ("_noneural" if args.no_neural else "") + (f"_{args.tag}" if args.tag else "") + ".json"
     with open(os.path.join(ROOT, "bench", "results", name), "w") as fh:
         json.dump(out, fh, indent=1, default=str)
     print(json.dumps(out["kpis"], indent=1, default=str))

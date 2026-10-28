@@ -1,0 +1,2002 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.793554,
+-30.942993,
+-380
+],
+[
+136.793554,
+-30.942993,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_N1",
+"kind": "orepass",
+"label": "OP_N1 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.793443,
+-30.942737,
+-620
+],
+[
+136.793443,
+-30.942737,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_N2",
+"kind": "orepass",
+"label": "OP_N2 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79403,
+-30.944418,
+-380
+],
+[
+136.792354,
+-30.941928,
+-380
+]
+]
+},
+"properties": {
+"name": "DRIVE_N380",
+"kind": "drive",
+"label": "North 380 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-372
+],
+[
+136.793192,
+-30.943173,
+-380
+]
+]
+},
+"properties": {
+"name": "ACCESS_N380",
+"kind": "access",
+"label": "North 380 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.794147,
+-30.944593,
+-440
+],
+[
+136.792236,
+-30.941753,
+-440
+]
+]
+},
+"properties": {
+"name": "DRIVE_N440",
+"kind": "drive",
+"label": "North 440 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-432
+],
+[
+136.793192,
+-30.943173,
+-440
+]
+]
+},
+"properties": {
+"name": "ACCESS_N440",
+"kind": "access",
+"label": "North 440 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.794265,
+-30.944768,
+-500
+],
+[
+136.792118,
+-30.941578,
+-500
+]
+]
+},
+"properties": {
+"name": "DRIVE_N500",
+"kind": "drive",
+"label": "North 500 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-492
+],
+[
+136.793192,
+-30.943173,
+-500
+]
+]
+},
+"properties": {
+"name": "ACCESS_N500",
+"kind": "access",
+"label": "North 500 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.794265,
+-30.944768,
+-560
+],
+[
+136.792118,
+-30.941578,
+-560
+]
+]
+},
+"properties": {
+"name": "DRIVE_N560",
+"kind": "drive",
+"label": "North 560 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-552
+],
+[
+136.793192,
+-30.943173,
+-560
+]
+]
+},
+"properties": {
+"name": "ACCESS_N560",
+"kind": "access",
+"label": "North 560 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.794265,
+-30.944768,
+-620
+],
+[
+136.792118,
+-30.941578,
+-620
+]
+]
+},
+"properties": {
+"name": "DRIVE_N620",
+"kind": "drive",
+"label": "North 620 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-612
+],
+[
+136.793192,
+-30.943173,
+-620
+]
+]
+},
+"properties": {
+"name": "ACCESS_N620",
+"kind": "access",
+"label": "North 620 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.794147,
+-30.944593,
+-680
+],
+[
+136.792236,
+-30.941753,
+-680
+]
+]
+},
+"properties": {
+"name": "DRIVE_N680",
+"kind": "drive",
+"label": "North 680 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-672
+],
+[
+136.793192,
+-30.943173,
+-680
+]
+]
+},
+"properties": {
+"name": "ACCESS_N680",
+"kind": "access",
+"label": "North 680 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79403,
+-30.944418,
+-740
+],
+[
+136.792354,
+-30.941928,
+-740
+]
+]
+},
+"properties": {
+"name": "DRIVE_N740",
+"kind": "drive",
+"label": "North 740 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.79428,
+-30.942634,
+-732
+],
+[
+136.793192,
+-30.943173,
+-740
+]
+]
+},
+"properties": {
+"name": "ACCESS_N740",
+"kind": "access",
+"label": "North 740 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80033,
+-30.949779,
+-440
+],
+[
+136.80033,
+-30.949779,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_C1",
+"kind": "orepass",
+"label": "OP_C1 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.800178,
+-30.949539,
+-740
+],
+[
+136.800178,
+-30.949539,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_C2",
+"kind": "orepass",
+"label": "OP_C2 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801032,
+-30.951133,
+-440
+],
+[
+136.798968,
+-30.948867,
+-440
+]
+]
+},
+"properties": {
+"name": "DRIVE_C440",
+"kind": "drive",
+"label": "Central 440 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-432
+],
+[
+136.8,
+-30.95,
+-440
+]
+]
+},
+"properties": {
+"name": "ACCESS_C440",
+"kind": "access",
+"label": "Central 440 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801177,
+-30.951292,
+-500
+],
+[
+136.798823,
+-30.948708,
+-500
+]
+]
+},
+"properties": {
+"name": "DRIVE_C500",
+"kind": "drive",
+"label": "Central 500 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-492
+],
+[
+136.8,
+-30.95,
+-500
+]
+]
+},
+"properties": {
+"name": "ACCESS_C500",
+"kind": "access",
+"label": "Central 500 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801322,
+-30.951451,
+-560
+],
+[
+136.798678,
+-30.948549,
+-560
+]
+]
+},
+"properties": {
+"name": "DRIVE_C560",
+"kind": "drive",
+"label": "Central 560 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-552
+],
+[
+136.8,
+-30.95,
+-560
+]
+]
+},
+"properties": {
+"name": "ACCESS_C560",
+"kind": "access",
+"label": "Central 560 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801177,
+-30.951292,
+-620
+],
+[
+136.798823,
+-30.948708,
+-620
+]
+]
+},
+"properties": {
+"name": "DRIVE_C620",
+"kind": "drive",
+"label": "Central 620 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-612
+],
+[
+136.8,
+-30.95,
+-620
+]
+]
+},
+"properties": {
+"name": "ACCESS_C620",
+"kind": "access",
+"label": "Central 620 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801322,
+-30.951451,
+-680
+],
+[
+136.798678,
+-30.948549,
+-680
+]
+]
+},
+"properties": {
+"name": "DRIVE_C680",
+"kind": "drive",
+"label": "Central 680 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-672
+],
+[
+136.8,
+-30.95,
+-680
+]
+]
+},
+"properties": {
+"name": "ACCESS_C680",
+"kind": "access",
+"label": "Central 680 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801177,
+-30.951292,
+-740
+],
+[
+136.798823,
+-30.948708,
+-740
+]
+]
+},
+"properties": {
+"name": "DRIVE_C740",
+"kind": "drive",
+"label": "Central 740 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-732
+],
+[
+136.8,
+-30.95,
+-740
+]
+]
+},
+"properties": {
+"name": "ACCESS_C740",
+"kind": "access",
+"label": "Central 740 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801177,
+-30.951292,
+-800
+],
+[
+136.798823,
+-30.948708,
+-800
+]
+]
+},
+"properties": {
+"name": "DRIVE_C800",
+"kind": "drive",
+"label": "Central 800 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-792
+],
+[
+136.8,
+-30.95,
+-800
+]
+]
+},
+"properties": {
+"name": "ACCESS_C800",
+"kind": "access",
+"label": "Central 800 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801177,
+-30.951292,
+-860
+],
+[
+136.798823,
+-30.948708,
+-860
+]
+]
+},
+"properties": {
+"name": "DRIVE_C860",
+"kind": "drive",
+"label": "Central 860 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-852
+],
+[
+136.8,
+-30.95,
+-860
+]
+]
+},
+"properties": {
+"name": "ACCESS_C860",
+"kind": "access",
+"label": "Central 860 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.801032,
+-30.951133,
+-920
+],
+[
+136.798968,
+-30.948867,
+-920
+]
+]
+},
+"properties": {
+"name": "DRIVE_C920",
+"kind": "drive",
+"label": "Central 920 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80099,
+-30.949336,
+-912
+],
+[
+136.8,
+-30.95,
+-920
+]
+]
+},
+"properties": {
+"name": "ACCESS_C920",
+"kind": "access",
+"label": "Central 920 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.806667,
+-30.95704,
+-560
+],
+[
+136.806667,
+-30.95704,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_S1",
+"kind": "orepass",
+"label": "OP_S1 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.806587,
+-30.956776,
+-800
+],
+[
+136.806587,
+-30.956776,
+-985.0
+]
+]
+},
+"properties": {
+"name": "RAISE_OP_S2",
+"kind": "orepass",
+"label": "OP_S2 raise"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807062,
+-30.958684,
+-560
+],
+[
+136.805507,
+-30.955689,
+-560
+]
+]
+},
+"properties": {
+"name": "DRIVE_S560",
+"kind": "drive",
+"label": "South 560 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-552
+],
+[
+136.806285,
+-30.957186,
+-560
+]
+]
+},
+"properties": {
+"name": "ACCESS_S560",
+"kind": "access",
+"label": "South 560 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807062,
+-30.958684,
+-620
+],
+[
+136.805507,
+-30.955689,
+-620
+]
+]
+},
+"properties": {
+"name": "DRIVE_S620",
+"kind": "drive",
+"label": "South 620 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-612
+],
+[
+136.806285,
+-30.957186,
+-620
+]
+]
+},
+"properties": {
+"name": "ACCESS_S620",
+"kind": "access",
+"label": "South 620 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807158,
+-30.958869,
+-680
+],
+[
+136.805411,
+-30.955504,
+-680
+]
+]
+},
+"properties": {
+"name": "DRIVE_S680",
+"kind": "drive",
+"label": "South 680 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-672
+],
+[
+136.806285,
+-30.957186,
+-680
+]
+]
+},
+"properties": {
+"name": "ACCESS_S680",
+"kind": "access",
+"label": "South 680 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807158,
+-30.958869,
+-740
+],
+[
+136.805411,
+-30.955504,
+-740
+]
+]
+},
+"properties": {
+"name": "DRIVE_S740",
+"kind": "drive",
+"label": "South 740 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-732
+],
+[
+136.806285,
+-30.957186,
+-740
+]
+]
+},
+"properties": {
+"name": "ACCESS_S740",
+"kind": "access",
+"label": "South 740 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807062,
+-30.958684,
+-800
+],
+[
+136.805507,
+-30.955689,
+-800
+]
+]
+},
+"properties": {
+"name": "DRIVE_S800",
+"kind": "drive",
+"label": "South 800 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-792
+],
+[
+136.806285,
+-30.957186,
+-800
+]
+]
+},
+"properties": {
+"name": "ACCESS_S800",
+"kind": "access",
+"label": "South 800 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807062,
+-30.958684,
+-860
+],
+[
+136.805507,
+-30.955689,
+-860
+]
+]
+},
+"properties": {
+"name": "DRIVE_S860",
+"kind": "drive",
+"label": "South 860 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-852
+],
+[
+136.806285,
+-30.957186,
+-860
+]
+]
+},
+"properties": {
+"name": "ACCESS_S860",
+"kind": "access",
+"label": "South 860 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.806966,
+-30.9585,
+-920
+],
+[
+136.805603,
+-30.955873,
+-920
+]
+]
+},
+"properties": {
+"name": "DRIVE_S920",
+"kind": "drive",
+"label": "South 920 ore drive"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.807433,
+-30.956748,
+-912
+],
+[
+136.806285,
+-30.957186,
+-920
+]
+]
+},
+"properties": {
+"name": "ACCESS_S920",
+"kind": "access",
+"label": "South 920 access"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.802723,
+-30.948563,
+140.0
+],
+[
+136.802723,
+-30.948563,
+-1040.0
+]
+]
+},
+"properties": {
+"name": "SHAFT_PS",
+"kind": "shaft",
+"label": "Production shaft"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.803666,
+-30.949192,
+140.0
+],
+[
+136.803666,
+-30.949192,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "SHAFT_SV",
+"kind": "shaft",
+"label": "Service shaft (fresh air)"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.789735,
+-30.940568,
+140.0
+],
+[
+136.789735,
+-30.940568,
+-760
+]
+]
+},
+"properties": {
+"name": "RAISE_FAN_N",
+"kind": "raise",
+"label": "Exhaust raise N"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.796648,
+-30.947664,
+140.0
+],
+[
+136.796648,
+-30.947664,
+-940
+]
+]
+},
+"properties": {
+"name": "RAISE_FAN_C",
+"kind": "raise",
+"label": "Exhaust raise C"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.810265,
+-30.960331,
+140.0
+],
+[
+136.810265,
+-30.960331,
+-940
+]
+]
+},
+"properties": {
+"name": "RAISE_FAN_S",
+"kind": "raise",
+"label": "Exhaust raise S"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.810893,
+-30.946227,
+140.0
+],
+[
+136.810697,
+-30.945598,
+129.5
+],
+[
+136.81016,
+-30.945138,
+119.1
+],
+[
+136.809427,
+-30.944969,
+108.6
+],
+[
+136.808694,
+-30.945138,
+98.1
+],
+[
+136.808157,
+-30.945598,
+87.6
+],
+[
+136.807961,
+-30.946227,
+77.2
+],
+[
+136.808157,
+-30.946856,
+66.7
+],
+[
+136.808694,
+-30.947316,
+56.2
+],
+[
+136.809427,
+-30.947485,
+45.8
+],
+[
+136.81016,
+-30.947316,
+35.3
+],
+[
+136.810697,
+-30.946856,
+24.8
+],
+[
+136.810893,
+-30.946227,
+14.3
+],
+[
+136.810697,
+-30.945598,
+3.9
+],
+[
+136.81016,
+-30.945138,
+-6.6
+],
+[
+136.809427,
+-30.944969,
+-17.1
+],
+[
+136.808694,
+-30.945138,
+-27.6
+],
+[
+136.808157,
+-30.945598,
+-38.0
+],
+[
+136.807961,
+-30.946227,
+-48.5
+],
+[
+136.808157,
+-30.946856,
+-59.0
+],
+[
+136.808694,
+-30.947316,
+-69.4
+],
+[
+136.809427,
+-30.947485,
+-79.9
+],
+[
+136.81016,
+-30.947316,
+-90.4
+],
+[
+136.810697,
+-30.946856,
+-100.9
+],
+[
+136.810893,
+-30.946227,
+-111.3
+],
+[
+136.810697,
+-30.945598,
+-121.8
+],
+[
+136.81016,
+-30.945138,
+-132.3
+],
+[
+136.809427,
+-30.944969,
+-142.7
+],
+[
+136.808694,
+-30.945138,
+-153.2
+],
+[
+136.808157,
+-30.945598,
+-163.7
+],
+[
+136.807961,
+-30.946227,
+-174.2
+],
+[
+136.808157,
+-30.946856,
+-184.6
+],
+[
+136.808694,
+-30.947316,
+-195.1
+],
+[
+136.809427,
+-30.947485,
+-205.6
+],
+[
+136.81016,
+-30.947316,
+-216.0
+],
+[
+136.810697,
+-30.946856,
+-226.5
+],
+[
+136.810893,
+-30.946227,
+-237.0
+],
+[
+136.810697,
+-30.945598,
+-247.5
+],
+[
+136.81016,
+-30.945138,
+-257.9
+],
+[
+136.809427,
+-30.944969,
+-268.4
+],
+[
+136.808694,
+-30.945138,
+-278.9
+],
+[
+136.808157,
+-30.945598,
+-289.4
+],
+[
+136.807961,
+-30.946227,
+-299.8
+],
+[
+136.808157,
+-30.946856,
+-310.3
+],
+[
+136.808694,
+-30.947316,
+-320.8
+],
+[
+136.809427,
+-30.947485,
+-331.2
+],
+[
+136.81016,
+-30.947316,
+-341.7
+],
+[
+136.810697,
+-30.946856,
+-352.2
+],
+[
+136.810893,
+-30.946227,
+-362.7
+],
+[
+136.810697,
+-30.945598,
+-373.1
+],
+[
+136.81016,
+-30.945138,
+-383.6
+],
+[
+136.809427,
+-30.944969,
+-394.1
+],
+[
+136.808694,
+-30.945138,
+-404.5
+],
+[
+136.808157,
+-30.945598,
+-415.0
+],
+[
+136.807961,
+-30.946227,
+-425.5
+],
+[
+136.808157,
+-30.946856,
+-436.0
+],
+[
+136.808694,
+-30.947316,
+-446.4
+],
+[
+136.809427,
+-30.947485,
+-456.9
+],
+[
+136.81016,
+-30.947316,
+-467.4
+],
+[
+136.810697,
+-30.946856,
+-477.8
+],
+[
+136.810893,
+-30.946227,
+-488.3
+],
+[
+136.810697,
+-30.945598,
+-498.8
+],
+[
+136.81016,
+-30.945138,
+-509.3
+],
+[
+136.809427,
+-30.944969,
+-519.7
+],
+[
+136.808694,
+-30.945138,
+-530.2
+],
+[
+136.808157,
+-30.945598,
+-540.7
+],
+[
+136.807961,
+-30.946227,
+-551.2
+],
+[
+136.808157,
+-30.946856,
+-561.6
+],
+[
+136.808694,
+-30.947316,
+-572.1
+],
+[
+136.809427,
+-30.947485,
+-582.6
+],
+[
+136.81016,
+-30.947316,
+-593.0
+],
+[
+136.810697,
+-30.946856,
+-603.5
+],
+[
+136.810893,
+-30.946227,
+-614.0
+],
+[
+136.810697,
+-30.945598,
+-624.5
+],
+[
+136.81016,
+-30.945138,
+-634.9
+],
+[
+136.809427,
+-30.944969,
+-645.4
+],
+[
+136.808694,
+-30.945138,
+-655.9
+],
+[
+136.808157,
+-30.945598,
+-666.3
+],
+[
+136.807961,
+-30.946227,
+-676.8
+],
+[
+136.808157,
+-30.946856,
+-687.3
+],
+[
+136.808694,
+-30.947316,
+-697.8
+],
+[
+136.809427,
+-30.947485,
+-708.2
+],
+[
+136.81016,
+-30.947316,
+-718.7
+],
+[
+136.810697,
+-30.946856,
+-729.2
+],
+[
+136.810893,
+-30.946227,
+-739.6
+],
+[
+136.810697,
+-30.945598,
+-750.1
+],
+[
+136.81016,
+-30.945138,
+-760.6
+],
+[
+136.809427,
+-30.944969,
+-771.1
+],
+[
+136.808694,
+-30.945138,
+-781.5
+],
+[
+136.808157,
+-30.945598,
+-792.0
+],
+[
+136.807961,
+-30.946227,
+-802.5
+],
+[
+136.808157,
+-30.946856,
+-812.9
+],
+[
+136.808694,
+-30.947316,
+-823.4
+],
+[
+136.809427,
+-30.947485,
+-833.9
+],
+[
+136.81016,
+-30.947316,
+-844.4
+],
+[
+136.810697,
+-30.946856,
+-854.8
+],
+[
+136.810893,
+-30.946227,
+-865.3
+],
+[
+136.810697,
+-30.945598,
+-875.8
+],
+[
+136.81016,
+-30.945138,
+-886.3
+],
+[
+136.809427,
+-30.944969,
+-896.7
+],
+[
+136.808694,
+-30.945138,
+-907.2
+],
+[
+136.808157,
+-30.945598,
+-917.7
+],
+[
+136.807961,
+-30.946227,
+-928.1
+],
+[
+136.808157,
+-30.946856,
+-938.6
+],
+[
+136.808694,
+-30.947316,
+-949.1
+],
+[
+136.809427,
+-30.947485,
+-959.6
+],
+[
+136.81016,
+-30.947316,
+-970.0
+]
+]
+},
+"properties": {
+"name": "DECLINE",
+"kind": "decline",
+"label": "Main decline"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.793554,
+-30.942993,
+-1000.0
+],
+[
+136.798743,
+-30.946586,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_N1",
+"kind": "haulage",
+"label": "Haulage OP_N1 - CR_N"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.793443,
+-30.942737,
+-1000.0
+],
+[
+136.798743,
+-30.946586,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_N2",
+"kind": "haulage",
+"label": "Haulage OP_N2 - CR_N"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.80033,
+-30.949779,
+-1000.0
+],
+[
+136.798743,
+-30.946586,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_C1",
+"kind": "haulage",
+"label": "Haulage OP_C1 - CR_N"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.800178,
+-30.949539,
+-1000.0
+],
+[
+136.804399,
+-30.952964,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_C2",
+"kind": "haulage",
+"label": "Haulage OP_C2 - CR_S"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.806667,
+-30.95704,
+-1000.0
+],
+[
+136.804399,
+-30.952964,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_S1",
+"kind": "haulage",
+"label": "Haulage OP_S1 - CR_S"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+136.806587,
+-30.956776,
+-1000.0
+],
+[
+136.804399,
+-30.952964,
+-1000.0
+]
+]
+},
+"properties": {
+"name": "HAUL_OP_S2",
+"kind": "haulage",
+"label": "Haulage OP_S2 - CR_S"
+}
+}
+]
+}

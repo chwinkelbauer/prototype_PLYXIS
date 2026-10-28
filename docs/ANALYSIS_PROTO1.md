@@ -55,8 +55,9 @@ backed by working technology.
 | AI dependency | n/a | none: no external AI model or service; all learning happens locally on the twin |
 
 The deck's value assumptions should be re-framed with what the showcase measures against a
-competent baseline: +2 % operating profit (+2.4 % after carbon cost), -93 % flaring, -35 % emissions
-and no unplanned pump failures over 72 hours on the synthetic field. Upside of that order is
-typical for production optimisation and is very large in absolute terms (about USD 8 M per year on a
-20,000 bbl/d field), but the "OPEX -7 to -13 %" headline needs real pilot data - see
-[PILOT_PLAN_OIL_GAS.md](PILOT_PLAN_OIL_GAS.md).
+competent baseline over 72 hours on the synthetic field: +13.7 % operating profit (+14.3 % after carbon
+cost), -9.3 % cash operating cost, +10 % oil, -82 % flaring, -31 % emissions and no unplanned pump failure.
+The scenario is deliberately dense in events (two compressor trips, a gas plant upset, an injectivity loss,
+a negative-price day and a power price cap in three days), so these figures must not be annualised
+linearly; the cash-cost effect is consistent with the deck's "OPEX -7 to -13 %", but a headline for
+customers needs real pilot data - see [PILOT_PLAN_OIL_GAS.md](PILOT_PLAN_OIL_GAS.md).

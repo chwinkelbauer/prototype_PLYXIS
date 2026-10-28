@@ -54,7 +54,7 @@ export interface Snapshot {
 
 export interface Asset {
   path: string; label: string; type: string; kind: "point" | "line"; layer: string; icon: string;
-  at: [number, number] | null; line: [number, number][] | null; tag: string; parent: string | null;
+  at: [number, number] | [number, number, number] | null; line: number[][] | null; tag: string; parent: string | null;
   is_link: boolean; subsystem: number | null; doc: string; resources?: string[];
   params: Record<string, { value: number; engineering: number; unit: string; calibrated: boolean; doc: string }>;
 }
@@ -77,10 +77,17 @@ export interface Structure {
 
 export interface DemoStep { id: string; t: number; title: string; view: string; text: string }
 
+export interface KpiMetric { key: string; metric: string; unit: string; rate_unit: string; label: string; better?: "higher" | "lower" }
+export interface KpiConfig { metrics: KpiMetric[]; primary: string; product?: string; secondary?: string; plan_series?: string;
+  unit_cost_label?: string }
+
 export interface Meta {
+  id?: string; title?: string; region?: string; subtitle?: string; kpi?: KpiConfig | null;
   name: string; description: string; start_hour: number; events: Record<string, unknown>[]; demo: DemoStep[];
   speed: number; dt_emulator_h: number; replan_every_h: number;
 }
+
+export interface ScenarioInfo { id: string; name: string; title: string; region: string; subtitle: string; active: boolean }
 
 export interface GanttSegment { start: number; end: number; value: number; label: string; status?: string;
   reason?: string; kind?: string; cargo?: string; shares?: Record<string, number> }
@@ -103,6 +110,8 @@ const post = <T>(url: string, body: unknown) =>
 export const api = {
   health: () => j<{ ok: boolean; booting: boolean; message: string }>("/api/health"),
   meta: () => j<Meta>("/api/meta"),
+  scenarios: () => j<ScenarioInfo[]>("/api/scenarios"),
+  selectScenario: (id: string) => post<{ ok: boolean }>("/api/scenario", { id }),
   structure: () => j<Structure>("/api/structure"),
   snapshot: (full = false) => j<Snapshot>(`/api/snapshot?full=${full ? 1 : 0}`),
   control: (action: string, value?: number) => post<{ running: boolean; speed: number; t: number }>("/api/control", { action, value }),

@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Any, Optional
 
 from . import ast as A
-from .consteval import (Canon, EvalError, MISSING, Scope, const_eval, haversine_km, interp_str, is_canon,
+from .consteval import (Canon, EvalError, MISSING, Scope, const_eval, dist3_km, geo_point, haversine_km, interp_str, is_canon,
                         template_str)
 from .errors import Diagnostics, Loc, NOLOC, suggest
 from .library import JUNCTION, EntityType, Library
@@ -120,6 +120,8 @@ class _InstRef:
     def lookup_attr(self, attr: str, loc=None):
         if attr in ("lat", "lon") and self.inst.at:
             return self.inst.at[0] if attr == "lat" else self.inst.at[1]
+        if attr in ("z", "elev") and self.inst.at:
+            return self.inst.at[2] if len(self.inst.at) > 2 else 0.0
         if attr == "at":
             return self.inst.at
         if attr in self.inst.type.params:
@@ -351,15 +353,15 @@ class Elaborator:
                 if isinstance(val, _InstRef):
                     inst.at = val.inst.at
                 elif isinstance(val, (tuple, list)) and len(val) >= 2:
-                    inst.at = (float(val[0]), float(val[1]))
+                    inst.at = geo_point(val)
                 else:
-                    self.diags.error("'at' must be a (lat, lon) pair", oloc, "E-GEO")
+                    self.diags.error("'at' must be (lat, lon) or (lat, lon, z)", oloc, "E-GEO")
             elif key == "tag":
                 inst.tag = str(val)
             elif key in ("label", "name"):
                 inst.label = str(val)
             elif key == "path":
-                inst.line = [(float(p[0]), float(p[1])) for p in val]
+                inst.line = [geo_point(p) for p in val]
             elif key in ("polygon", "area"):
                 inst.polygon = [(float(p[0]), float(p[1])) for p in val]
             elif key in ("layer", "icon", "color"):
@@ -395,7 +397,7 @@ class Elaborator:
         if "at" in ov:
             v = ov["at"][0]
             if isinstance(v, (tuple, list)) and len(v) >= 2:
-                comp_at = (float(v[0]), float(v[1]))
+                comp_at = geo_point(v)
         aliases = {}
         for pname, pdecl in typ.ports.items():
             jpath = f"{path}.#{pname}"
@@ -550,7 +552,7 @@ class Elaborator:
             link.line = [a.at, b.at]
         if link.at is None and link.line:
             mid = link.line[len(link.line) // 2] if len(link.line) > 2 else \
-                ((link.line[0][0] + link.line[-1][0]) / 2, (link.line[0][1] + link.line[-1][1]) / 2)
+                tuple((u + v) / 2 for u, v in zip(link.line[0], link.line[-1]))
             link.at = mid
         self._add_edge(sp, self.flat.ports[link.ports[ins[0]]], st.loc)
         self._add_edge(self.flat.ports[link.ports[outs[0]]], dp, st.loc)
@@ -643,13 +645,13 @@ class Elaborator:
 
     def _auto_value(self, inst: Instance, name: str, p: A.ParamDecl) -> float:
         if inst.line and len(inst.line) >= 2:
-            km = sum(haversine_km(a[0], a[1], b[0], b[1]) for a, b in zip(inst.line, inst.line[1:]))
+            km = sum(dist3_km(a, b) for a, b in zip(inst.line, inst.line[1:]))
             return km * 1000.0            # canonical length: m
         raise EvalError(f"'{name} = auto' needs a line geometry (use the entity with 'via' or give 'path')", p.loc)
 
     def _distance(self, a, b):
         if isinstance(a, _InstRef) and isinstance(b, _InstRef) and a.inst.at and b.inst.at:
-            return Canon(haversine_km(a.inst.at[0], a.inst.at[1], b.inst.at[0], b.inst.at[1]) * 1000.0)
+            return Canon(dist3_km(a.inst.at, b.inst.at) * 1000.0)
         raise EvalError("distance(a, b) needs two instances with 'at' coordinates")
 
     def _eval_params(self, inst: Instance) -> None:

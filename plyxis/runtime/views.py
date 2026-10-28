@@ -111,7 +111,16 @@ def gantt(engine) -> dict:
     by_asset: dict = {}
     for ins in plan.instructions:
         by_asset.setdefault((ins["type"], ins["asset"], ins["label"]), []).append(ins)
-    order = {"compressor_station": 0, "battery": 1, "pad": 2, "esp_well": 3, "truck_lane": 4}
+    order = {"compressor_station": 0, "battery": 1, "pad": 2, "esp_well": 3, "truck_lane": 4,
+             "main_fan": 0, "skip_hoist": 1, "stockpile": 2, "vent_district": 3, "orepass": 4, "pump_station": 5,
+             "stope": 6}
+    per_type: dict = {}
+    peak: dict = {}                      # (type, decision) -> largest |value| over all assets of the type
+    for (typ, _, _), items in by_asset.items():
+        per_type[typ] = per_type.get(typ, 0) + 1
+        for it in items:
+            k = (typ, it["decision"])
+            peak[k] = max(peak.get(k, 0.0), abs(float(it["value"])))
 
     def seg_list(items, decision):
         return [{"start": s["start"], "end": s["end"], "value": s["value"], "label": s["display"]}
@@ -119,8 +128,12 @@ def gantt(engine) -> dict:
     for (typ, path, label), items in sorted(by_asset.items(), key=lambda kv: (order.get(kv[0][0], 9), kv[0][1])):
         decisions = sorted({s["decision"] for s in items})
         for d in decisions:
+            segs = seg_list(items, d)
+            # large asset classes (e.g. 186 stopes): only rows with something material planned
+            if per_type[typ] > 50 and max((abs(float(x["value"])) for x in segs), default=0.0) < 0.02 * peak.get((typ, d), 0.0):
+                continue
             rows.append({"group": typ, "asset": path, "label": label, "decision": d, "kind": "setpoint",
-                         "segments": seg_list(items, d)})
+                         "segments": segs})
     for lu in _merge_lineups(plan.lineups):
         rows.append(lu)
     trucks: dict = {}

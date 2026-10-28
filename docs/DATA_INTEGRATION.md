@@ -55,11 +55,15 @@ everything else is a measurement for estimation and anomaly detection.
 
 ## Estimation (`plyxis/data/estimation.py`)
 
-**Direct assimilation.** Measured states (tank levels, run status, available compressor units)
-overwrite the twin state each step.
+**Direct assimilation.** Measured states (tank levels, run status, available compressor units, ore-pass
+and sump levels, broken stock from cavity surveys) overwrite the twin state each step, clamped to the
+state's declared physical limits: a noisy level reading of an empty bin is not a negative stock (negative
+stocks would turn into negative flows and blow up flow-weighted attributes such as ore grade).
 
 **Well tests.** A direct measurement of a property (GOR, water cut on the test separator, one
-well per hour in the showcase) re-anchors that property for that well.
+well per hour in the showcase) re-anchors that property for that well. The same mechanism serves other
+industries: in the mine, muck-pile grab-sample assays (`ASSAY.CU`, rotating through the stopes) re-anchor
+stope grades, while the mill's on-stream analyser (`OSA.HEAD`) constrains the blend.
 
 **Moving-horizon estimation (MHE)** every hour over the last 3 hours of data:
 

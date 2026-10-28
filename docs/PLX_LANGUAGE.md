@@ -82,7 +82,9 @@ define battery as ent {
 | `cost / revenue / emission / metric name = e;` | objective / KPI terms (per hour); `final` = terminal term |
 
 In-port flows are the sum of the incoming edges; an out-port with several edges is split by **routing
-decisions** generated automatically by the compiler. State limits (`in [lo, hi]`) are *constraints* for the
+decisions** generated automatically by the compiler. An in-port attribute is the flow-weighted mean of the
+incoming edges, and 0 when nothing flows - so a window on a blended quality is written per unit of flow
+(`throughput * g <= throughput * grade_max`), not as `g <= grade_max`, which an idle consumer would violate. State limits (`in [lo, hi]`) are *constraints* for the
 planner and *saturations* in the plant emulator (physical mode). Every feedback path must pass through a state
 or `delay()` — exactly like combinational loops in hardware design.
 
@@ -129,6 +131,18 @@ define kestrel as env {
 
 * `via T` inserts a link entity (pipeline, truck lane, conveyor) between two ports; `length = auto` takes the
   GIS length of the link.
+* **Geometry is 2D or 3D.** `at = (lat, lon)` or `at = (lat, lon, z)` with `z` the elevation in metres
+  (negative underground); `path = [(lat, lon, z), ...]` gives lines (drifts, shafts, raises). Distances,
+  `distance(a, b)` and `length = auto` include the vertical component, and elaboration expressions can read
+  `inst.z`. `table("design.geojson")` / `geojson("design.geojson")` read GeoJSON exports of a mine or plant
+  design: points become `lat`, `lon`, `z` fields, LineStrings a 3D `path` (GeoJSON positions are
+  lon, lat, elevation). The Corvus mine (`scenarios/corvus`) instantiates its 64 openings this way:
+
+  ```plx
+  for g in geojson("openings.geojson") {
+    init {g.name} as opening { path = g.path; label = g.label; layer = g.kind; };
+  }
+  ```
 * Composite entities (an `ent` with `contains:`) are flattened; their ports become implicit junctions.
 * Ports declared `<- *` adapt to whatever is connected (the type is specialised per signature).
 * `{expr}` inside names interpolates loop variables or table fields (`w{i}`, `{r.name}`). Inside string

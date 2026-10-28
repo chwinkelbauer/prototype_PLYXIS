@@ -41,14 +41,15 @@ platform.
 | Package | Purpose | Key modules |
 |---|---|---|
 | `plyxis/lang` | PLX language, compiler, runtime library | `lexer`, `parser` (recursive descent + Pratt, error recovery), `library` (packages, inheritance), `elaborate` (instances, `for`/`if` generation, tables, GIS, flat netlist), `behavior` (typed IR, units), `compiler` (signal graph, SCC scheduling, code generation), `program` (compiled simulator API), `interp` (reference interpreter), `units`, `printer` |
-| `plyxis/lang/stdlib` | Standard packages written in PLX | `core.plx`, `oilgas.plx` (wells, batteries, compression, flares, SWD, trucking, sales, rigs, crews), `mining.plx` |
-| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `explain`, `dispatch`, `maintenance`, `plan` |
+| `plyxis/lang/stdlib` | Standard packages written in PLX | `core.plx`, `oilgas.plx` (wells, batteries, compression, flares, SWD, trucking, sales, rigs, crews), `mining.plx` (open pit; underground: stopes, ore passes, loader fleets, main fans, ventilation districts, crushers, conveyors, skip hoist, pump stations; processing) |
+| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `sections` (graph filter network, deterministic sections, exact section search), `explain`, `dispatch`, `maintenance`, `plan` |
+| `plyxis/native` | C++ kernels | `sections.cpp` (C++17 + OpenMP: budgeted union-find clustering, section scoring, exact argmax, Viterbi DP), ctypes wrapper with NumPy reference implementations; built with g++ / MinGW-w64 |
 | `plyxis/data` | Data integration | `connectors`, `emulator` (synthetic "real" plant), `estimation` (TagMap, LiveTwin, MHE), `anomaly`, `discovery`, `repo` (versioned twin source), `forecast` |
 | `plyxis/runtime` | Live operation | `engine` (two worlds, plant clock, events, KPIs), `planner` (rolling horizon, warm starts, online learning), `twin_manager` (code generation, hot swap), `scenario`, `views` |
-| `plyxis/server` | API | FastAPI REST + WebSocket push; serves the built console |
-| `web/` | Console | Vite, React 18, TypeScript, Tailwind, MapLibre, ECharts, Monaco (PLX syntax) |
-| `scenarios/` | Twins | `kestrel/` (96-well Permian field, showcase), `mining_demo/` (copper pit), `enterprise/` (generated multi-field company) |
-| `bench/` | Evidence | neural ablation, solver comparison, scaling, full showcase run |
+| `plyxis/server` | API | FastAPI REST + WebSocket push; serves the built console; lists case studies and switches between them (stops the running engine, boots the selected one) |
+| `web/` | Console | Vite, React 18, TypeScript, Tailwind, MapLibre (2D GIS), three.js (3D twin), ECharts, Monaco (PLX syntax) |
+| `scenarios/` | Twins | `kestrel/` (96-well Permian field, case study 1), `corvus/` (underground copper mine in 3D, case study 2), `mining_demo/` (copper pit), `enterprise/` (generated multi-field company) |
+| `bench/` | Evidence | showcase runs (both case studies), neural ablation, solver comparison and budget, deterministic sections, scaling, twin accuracy |
 
 ## A. From PLX source to a simulator
 

@@ -24,7 +24,9 @@ export function base(extra: echarts.EChartsOption = {}): echarts.EChartsOption {
       trigger: "axis", backgroundColor: "#12121af2", borderColor: "#2e2e44", textStyle: { color: "#f4f4f5", fontSize: 11 },
       axisPointer: { lineStyle: { color: "#3a3a56" } }, extraCssText: "border-radius:10px;box-shadow:0 8px 28px #000a;",
     },
-    legend: { top: 0, right: 8, textStyle: { color: C.text, fontSize: 11 }, itemWidth: 14, itemHeight: 3, icon: "rect" },
+    // legend top-left, one row, scrolls instead of colliding with axis names or the panel edge
+    legend: { type: "scroll", top: 0, left: 8, right: 8, itemGap: 14, textStyle: { color: C.text, fontSize: 11 }, itemWidth: 14,
+      itemHeight: 3, icon: "rect", pageIconColor: C.text, pageIconInactiveColor: "#3a3a56", pageTextStyle: { color: C.axis } },
     xAxis: { type: "value", axisLine: { lineStyle: { color: C.grid } }, axisLabel: { color: C.axis, fontSize: 10 },
       splitLine: { show: false } },
     yAxis: { type: "value", axisLine: { show: false }, axisLabel: { color: C.axis, fontSize: 10 },

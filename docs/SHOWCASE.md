@@ -1,4 +1,12 @@
-# Showcase: Kestrel field - demo script and assumptions
+# Showcase: demo scripts and assumptions
+
+Two case studies run on the same platform; pick one with the title in the top bar (the console stops the
+running twin, compiles the other one and starts it - about 20 s for the mine):
+
+* **Kestrel Field** - 96-well Permian oil field, 72 h scenario (this page, first part).
+* **Corvus Mine** - large underground copper mine in 3D, 48 h scenario (second part, below).
+
+# Case study 1: Kestrel field
 
 ## Setup
 
@@ -101,7 +109,7 @@ binding constraint (Waha has traded negative repeatedly since 2019 because pipel
 
 `python -m bench.showcase_run --hours 72` (headless, deterministic plans) writes
 `bench/results/showcase_run.json`. Results of the reference run are in
-[BENCHMARKS.md](BENCHMARKS.md#showcase-run-72-h).
+[BENCHMARKS.md](BENCHMARKS.md#kestrel-showcase-run-72-h).
 
 ## Assumptions behind "manual operations"
 
@@ -153,3 +161,74 @@ with the same protection layer.
 * **Is this "AI"?** No external AI model or service is involved. The neural sub-solvers are
   small graph networks trained by the platform on the twin itself; every plan they propose is
   checked and refined by exact optimisation.
+
+# Case study 2: Corvus underground mine
+
+A synthetic sublevel-stoping copper mine in the Gawler Craton style, built to stress the platform: far more
+assets than the oil field, real 3D geometry, and an operating cost of about USD 580 M per year.
+
+| | |
+|---|---|
+| Ore body | three lenses (North, Central, South), 23 production levels 520-1,060 m below surface |
+| Assets in the twin | 392 instances (393 in the plant, incl. a stope still in development): 186 stopes, 23 ventilation districts, 6 ore-pass systems, 8 haul routes, 2 crushers, 2 conveyors, skip hoist, 3 main fans, 10 pump stations, 3 loader fleets (27 LHDs), 16 trucks, ROM pad, concentrator, rail load-out, 79 individual mobile units, 64 mine openings |
+| Geometry | every point has an elevation; shafts, raises, the decline spiral, ore and haulage drives come from a 3D GeoJSON export (`openings.geojson`) |
+| Planning problem | 48 h at hourly resolution: ~5,000 decisions, 744 of them discrete (ring firing per stope and shift) |
+| Throughput | ~12 Mt/a (1,450-1,600 t/h milled), Cu-equivalent head grade ~1.2 % |
+| Operating cost | labour, G&A, mining consumables, explosives, loader/truck operation and ownership, power (fans, hoist, pumps, mill), mill consumables - about USD 580 M/a with the mill at nameplate (measured for the baseline, see BENCHMARKS.md) |
+
+Everything is in `scenarios/corvus`: `generate.py` writes the asset register (CSV), the 3D openings and the
+hidden truth (stope grades ±12 % vs. the block model, upper South zone 22 % lower - the reconciliation
+surprise, productivity and water inflows off by realistic margins); `make_scenario.py` writes
+`scenario.json`; `field.plx` is the twin (135 lines of PLX plus the tables).
+
+## Events (plant time; Day 1 06:00 = start)
+
+| Time | Event | What it tests |
+|---|---|---|
+| Day 1 10:00 | central main fan trips for 6 h | ventilation on demand: air is the binding constraint for every diesel loader |
+| Day 1 15:00 | seismic event closes the North 560 level for 20 h | re-allocation of loaders and air, blast re-sequencing |
+| Day 1 21:00 | skip hoist stopped 5 h (rope inspection finding) | buffer management: ore passes, shaft bin, ROM pad |
+| Day 2 03:00 | market forecast: 1,500 USD/MWh tomorrow 16:00-19:00 | load shifting with a day of warning (pumps, hoist, fans) |
+| Day 2 08:00 | three Central loaders down for 10 h | loader dispatch by value, not by broken stock |
+| Day 2 12:00 | a new stope is handed over; only its tags appear | discovery: the twin rewrites its own code |
+| Day 2 16:00 | power at 1,500 USD/MWh for 3 h | demand response |
+| Day 2 22:00 | South 930 pump station fails for 8 h | unannounced: the twin sees the sump rise |
+| throughout | grab-sample assays and the mill's on-stream analyser reveal the diluted upper South zone | estimation of stope grades |
+
+## Demo script (about 12 minutes)
+
+1. **One operating system for the whole mine** (Overview): tonnes, metal, cost per tonne, site power - both worlds.
+2. **The twin is three-dimensional** (3D twin): rotate, zoom, click a stope; colour by activity, grade or broken stock.
+3. **Main fan trip** (3D twin): PLYXIS re-balances the remaining fans and regulators within one plan;
+   conventional control withdraws equipment from the affected districts.
+4. **Why this stope?** (Schedule): decisions with their reasons (grade, tram distance, loader hours, the
+   shadow prices of air and hoisting).
+5. **Seismic closure, hoist stop, loaders down, the price peak** - the Overview's value bridge shows what
+   each event is worth.
+6. **The twin rewrites itself** (Twin Studio): the discovered stope becomes PLX code, committed and compiled.
+
+## Assumptions behind "conventional mine control"
+
+`scenarios/corvus/legacy.py` encodes competent short-interval control:
+
+| Area | Rule |
+|---|---|
+| Loaders | every 4 h and at shift change the shift boss assigns each zone's available loaders to the stopes with the largest broken stocks (1.3 working places per loader), mucking at standard productivity (85 % utilisation) up to the drawpoint limit; grade control keeps the expected blend within 0.05 % of the plan grade using the block model; a place is only assigned where its level's design air still covers its loader's statutory air, and each level's loaders are kept within that air every step (the ventilation officer's air budget); the shift's tonnes target is the mill rate (+15 % while the ore passes are below 40 % full, -10 % above 60 %) |
+| Blasting | at shift change, if a zone's broken stock is below 5 days of its share of the mill rate, up to two of its stopes below 15 % broken stock are fired (a broken-stock buffer, not firing every empty stope) |
+| Ventilation | main fans at design speed (90 %); regulators set by design (each fan's air shared by its levels, half share where it is the secondary raise) |
+| Fan trip | diesel equipment withdrawn from the districts that fan ventilates until it runs again; the other fans run at full speed |
+| Ore passes, trucks | level control towards 50 % full; trucks in proportion to the draws |
+| Hoist | full speed while the shaft bin is above 15 % |
+| Dewatering | pumps start at 70 % sump level, stop at 30 % |
+| Concentrator | runs at 1,580 t/h (99 % of nameplate) from the ROM pad whenever the pad holds ore |
+| Announced price peak | hoisting and pumping deferred during the window when bins and sumps allow; the mill keeps running while the pad holds ore (its margin of ~110 USD/t at plan grade is three times the peak power cost of 36 USD/t) |
+| Outages | both control rooms get the crew's estimate of when a failed hoist, fan, pump, loader or closed level is back; the rules above need no forecast, PLYXIS plans the asset back at that time |
+
+Results of the reference run (48 h) are in [BENCHMARKS.md](BENCHMARKS.md#corvus-mine-showcase-run-48-h):
++12.3 % operating profit at equal mill throughput and equal cash cost, from head grade inside the mine
+plan's window (1.449 % vs. 1.368 %): 7.1 % more copper, 7.4 % lower production cost per tonne of copper.
+Present it as grade control with an assay-calibrated twin; at site level cash cost is the same.
+
+What PLYXIS adds: it plans all of this jointly over 48 h - which stopes to muck and fire, how many loader
+hours and how much air each gets, fan speeds, regulator settings, ore-pass draws, hoisting and pumping
+against the time-of-use price - and re-plans after every event.

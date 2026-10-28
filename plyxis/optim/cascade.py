@@ -46,6 +46,11 @@ class CascadeConfig:
     patience: Optional[int] = None        # early stop of repair / polish once converged (None = full budget)
     warm_relax: float = 1.0               # fraction of relax_iters used when a warm start is given
     restore_iters: int = 60               # feasibility restoration, only if the polished plan is still infeasible
+    discrete: str = "ga"                  # discrete stage: "ga" (memetic, randomised roundings) or "sections"
+                                          # (learned graph filter + exact enumeration per section, sections.py)
+    section_sweeps: int = 2
+    section_window_h: float = 12.0
+    section_budget: int = 64
 
 
 @dataclass
@@ -143,6 +148,10 @@ class Cascade:
                 e_rel = pb.evaluate(rel.x, relax=False)
             best_x, best_obj, best_mv = rel.x.clone(), float(e_rel.objective[0]), float(e_rel.max_violation()[0])
             lam_rep = rel.multipliers
+        method = {"method": "ga", "population": cfg.population, "generations": cfg.generations}
+        if cfg.discrete == "sections" and int(mask.sum()) > 0:
+            n_gen = 0
+            best_x, best_obj, best_mv, lam_rep, method = self._sections_stage(rel, mask, callback)
         for gen_i in range(n_gen):
             rep = alm(pb, pop, iters=cfg.repair_iters, lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
                       stage="discrete", callback=lambda r, g=gen_i: self._emit(callback, dict(r, generation=g)),
@@ -166,8 +175,26 @@ class Cascade:
                 children = randomized_roundings(sp, ev.x[i:i + 1], cfg.population - 2, gen, flip=0.08)
                 pop = torch.cat([ev.x[i:i + 1], coop, children], 0)
                 pop = sp.round_discrete(pop)
+        if cfg.discrete == "ga+sections" and best_x is not None and int(mask.sum()) > 0:
+            # exact large-neighbourhood search on the GA's best plan: accepted only if the penalised score improves
+            from . import sections as SX
+            dx, info = SX.cached_solver(pb, window_h=cfg.section_window_h, budget=cfg.section_budget)
+            cb = lambda r: self._emit(callback, dict(r, stage="discrete", method="sections"))  # noqa: E731
+            xs = dx.solve(best_x, sweeps=cfg.section_sweeps, callback=cb).x
+            rep = alm(pb, xs, iters=max(10, cfg.repair_iters // 2), lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
+                      stage="discrete", callback=cb, lam0=lam_rep and {k: v[:1] for k, v in lam_rep.items()},
+                      patience=cfg.patience)
+            with torch.no_grad():
+                ev = pb.evaluate(torch.cat([best_x, xs[:1], rep.x[:1]], 0), relax=False)
+            sc = _score(pb, ev)
+            k = int(sc.argmax())                       # GA plan, section plan, or section plan after repair
+            gain = float(ev.objective[k] - ev.objective[0])
+            if k > 0:
+                best_x, best_obj, best_mv = ev.x[k:k + 1].clone(), float(ev.objective[k]), float(ev.max_violation()[k])
+                lam_rep = rep.multipliers
+            method = {"method": "ga+sections", **method, **info, "sections_gain": round(gain), "sections_accepted": k > 0}
         stages.append({"stage": "discrete", "seconds": time.perf_counter() - t, "objective": best_obj,
-                       "max_violation": best_mv, "population": cfg.population, "generations": cfg.generations})
+                       "max_violation": best_mv, **method})
 
         # ------------------------------------------------ stage 4: polish & verify
         t = time.perf_counter()
@@ -202,6 +229,27 @@ class Cascade:
         self._emit(callback, {"stage": "done", "objective": obj, "max_violation": mv, "feasible": mv <= 2e-3})
         return CascadeResult(x_final, obj, mv, mv <= 2e-3, prices, pol.multipliers, self._hist, stages,
                              time.perf_counter() - self._t0, pb.n_evals - evals0)
+
+
+    def _sections_stage(self, rel, mask, callback):
+        """Deterministic sections: continuous repair and exact section sweeps alternate (sections.py)."""
+        from . import sections as SX
+        pb, cfg = self.pb, self.cfg
+        dx, info = SX.cached_solver(pb, window_h=cfg.section_window_h, budget=cfg.section_budget)
+        x = pb.space.round_discrete(rel.x[:1])
+        lam = None
+        cb = lambda r: self._emit(callback, dict(r, stage="discrete", method="sections"))  # noqa: E731
+        for _ in range(max(1, cfg.section_sweeps)):
+            rep = alm(pb, x, iters=max(10, cfg.repair_iters // 2), lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
+                      stage="discrete", callback=cb, lam0=lam, patience=cfg.patience)
+            lam = rep.multipliers
+            x = dx.solve(rep.x, sweeps=1, callback=cb).x
+        rep = alm(pb, x, iters=max(10, cfg.repair_iters // 2), lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
+                  stage="discrete", callback=cb, lam0=lam, patience=cfg.patience)
+        with torch.no_grad():
+            ev = pb.evaluate(rep.x, relax=False)
+        return (rep.x[:1].clone(), float(ev.objective[0]), float(ev.max_violation()[0]), rep.multipliers,
+                {"method": "sections", **info})
 
 
 # ----------------------------------------------------------------------------- helpers

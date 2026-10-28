@@ -14,6 +14,7 @@ the difference in realised KPIs is the value of autonomous operations.
 """
 from __future__ import annotations
 
+import dataclasses
 import math
 import os
 import threading
@@ -71,11 +72,12 @@ class Engine:
         self.t = sc.start_hour
         self.prices = PriceModel(sc.prices, seed=11 + self.seed)
         pf = lambda name, clock: self.prices.canonical(name, clock)  # noqa: E731
+        metrics = sc.raw.get("kpi", {}).get("metrics")
         self.plants = {
             "plyxis": PlantEmulator(sc.truth_files, sc.truth_env, dt=sc.dt_emu, seed=self.seed, name="plyxis",
-                                    hidden=list(sc.hidden), defines_prices=pf),
+                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics),
             "legacy": PlantEmulator(sc.truth_files, sc.truth_env, dt=sc.dt_emu, seed=self.seed, name="legacy",
-                                    hidden=list(sc.hidden), defines_prices=pf),
+                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics),
         }
         for p in self.plants.values():
             p.t = self.t
@@ -83,12 +85,15 @@ class Engine:
         self.legacy_ops = Legacy(self.plants["legacy"], sc.legacy_cfg) if Legacy else None
         self.twin = TwinManager(sc.twin_files, sc.twin_env, sc.twin_sim, dt_data=sc.dt_emu)
         net_path = os.path.join(sc.root, "models", "subsolver.pt")
-        self.planner = Planner(self.twin, net_path=net_path if self.use_neural else None,
+        cfg = dataclasses.replace(Planner.LIVE, **sc.raw["planner"]) if sc.raw.get("planner") else None
+        self.planner = Planner(self.twin, cfg=cfg, net_path=net_path if self.use_neural else None,
                                online_learning=self.online_learning)
-        self.scada = EmulatorConnector("SCADA gateway - Kestrel", "OPC UA / MQTT Sparkplug B gateway (emulated)")
+        site = sc.raw.get("title", sc.name.split(" - ")[0])
+        self.scada = EmulatorConnector(f"SCADA gateway - {site}", "OPC UA / MQTT Sparkplug B gateway (emulated)")
+        tags = sc.raw.get("market_tags", MARKET_TAGS)
         self.market = MarketConnector("Market data", lambda n, c: self.prices.display(n, c),
-                                      {k: v for k, v in MARKET_TAGS.items() if k in self.twin.model.program.env_inputs},
-                                      "WTI, Waha hub, ERCOT West (synthetic)")
+                                      {k: v for k, v in tags.items() if k in self.twin.model.program.env_inputs},
+                                      sc.raw.get("market_desc", "WTI, Waha hub, ERCOT West (synthetic)"))
         self.http = HttpPushConnector()
         self.connectors = [self.scada, self.market, self.http]
         prog = self.twin.model.program
@@ -99,6 +104,7 @@ class Engine:
         self.timeline: list = []
         self.fired: set = set()
         self.restores: list = []                # (t_end, event) of temporary capacity changes
+        self.outages: dict = {}                 # path -> (state, value when back, estimated t back): crew estimates
         self.jobs: dict = {}                  # id -> {job, status}
         self.latest: dict = {}                # tag -> (value, t)
         self.tag_history: dict = {}
@@ -195,8 +201,9 @@ class Engine:
                                                     "variables": p.solver["variables"], "interim": True}})
                 self._timeline("plan", f"First response ({trigger})",
                                f"set points updated in {p.solver['seconds']:.1f} s - full optimisation continues")
+            outages = {p: o for p, o in self.outages.items() if o[2] > t_solve}
             plan = self.planner.solve(t_solve, E, trigger, busy=busy, callback=cb, worked_assets=worked,
-                                      predicted=predicted, urgent=self._urgent,
+                                      predicted=predicted, urgent=self._urgent, outages=outages,
                                       quick_first=self._urgent and not self.sync_plans and "initial" not in trigger,
                                       on_interim=interim)
             self.last_plan_t = t_solve
@@ -241,9 +248,27 @@ class Engine:
             self.restores.remove(item)
             self._apply_event(item[1])
 
+    def _note_outage(self, ev: dict, asset: str) -> None:
+        """Crew estimate of an outage with a known duration (`eta_hours`, default `hours`; `eta: false` = no
+        estimate): the twin plans the asset back at that time instead of assuming it stays down."""
+        if not ev.get("hours") or ev.get("eta", True) is False:
+            return
+        back = self.t + float(ev.get("eta_hours", ev["hours"]))
+        if ev["kind"] == "fail":
+            self.outages[asset] = ("up", 1.0, back)
+            return
+        prog = self.twin.model.program
+        iid = prog.flat.by_path.get(asset)
+        n = self.twin.live.P[prog.inst_group[iid][0]].get("n_units") if iid is not None else None
+        if n is not None:
+            self.outages[asset] = ("avail", float(n.reshape(-1)[prog.inst_group[iid][1]]), back)
+
     def _apply_event(self, ev: dict, manual: bool = False) -> None:
         kind = ev["kind"]
         title = ev.get("title", kind)
+        if kind in ("repair", "restore_units"):
+            for a in ev.get("assets") or [ev.get("asset")]:
+                self.outages.pop(a, None)
         if kind == "announce":
             s, e = self.sc.start_hour + ev["start"], self.sc.start_hour + ev["end"]
             if ev.get("relative", True) is False:
@@ -257,13 +282,34 @@ class Engine:
             self._alert("info", "market", title)
             self.request_replan(f"market notice: {ev['name']}")
             return
+        if ev.get("assets"):                    # one event on several assets (e.g. a level closed by seismicity)
+            for a in ev["assets"]:
+                self._apply_event({k: v for k, v in ev.items() if k not in ("assets", "hours", "title", "narrative")}
+                                  | {"asset": a, "quiet": True}, manual)
+            if ev.get("hours") and not ev.get("restore"):
+                back = {"kind": "repair" if kind == "fail" else "restore_units", "assets": ev["assets"], "restore": True,
+                        "replace": False, "title": ev.get("restore_title") or "Back in service", "narrative": ""}
+                self.restores.append((self.t + float(ev["hours"]), back))
+                if kind in ("fail", "trip"):
+                    for a in ev["assets"]:
+                        self._note_outage(ev, a)
+            self._timeline("event", title, ev.get("narrative", ""), asset=ev["assets"][0], manual=manual)
+            if self.legacy_ops is not None and hasattr(self.legacy_ops, "notice"):
+                self.legacy_ops.notice(ev, self.t)
+            return
         if kind == "capacity" and ev.get("hours") and not ev.get("restore"):
             back = dict(ev, factor=1.0 / float(ev.get("factor", 1.0)), restore=True, hours=None,
                         title=f"{ev.get('restore_title') or 'Capacity restored'}", narrative="")
             self.restores.append((self.t + float(ev["hours"]), back))
+        if kind in ("fail", "trip") and ev.get("hours") and not ev.get("restore"):
+            # an outage with a known duration (crew estimate): the asset comes back on its own
+            back = {"kind": "repair" if kind == "fail" else "restore_units", "asset": ev["asset"], "restore": True,
+                    "replace": False, "title": ev.get("restore_title") or f"{ev['asset']} back in service", "narrative": ""}
+            self.restores.append((self.t + float(ev["hours"]), back))
+            self._note_outage(ev, ev["asset"])
         # `hours` of a capacity event is handled here (auto-restore); for a price it is the override's duration
-        skip = ("t", "kind", "asset", "title", "narrative", "notice", "restore", "restore_title") + \
-            (("hours",) if kind == "capacity" else ())
+        skip = ("t", "kind", "asset", "title", "narrative", "notice", "restore", "restore_title", "quiet") + \
+            (("hours",) if kind in ("capacity", "fail", "trip") else ())
         for name, plant in self.plants.items():
             kw = {k: v for k, v in ev.items() if k not in skip}
             if kind == "price":
@@ -273,7 +319,8 @@ class Engine:
             if kind == "commission" and name == "plyxis":
                 birth = plant.births(ev["asset"])
                 self.scada.push([birth])
-        self._timeline("event", title, ev.get("narrative", ""), asset=ev.get("asset"), manual=manual)
+        if not ev.get("quiet"):
+            self._timeline("event", title, ev.get("narrative", ""), asset=ev.get("asset"), manual=manual)
         if ev.get("notice") and kind == "capacity":
             # a notice (e.g. midstream curtailment) is information both control rooms receive at once
             prog = self.twin.model.program
@@ -597,6 +644,7 @@ class Engine:
             "oil_bbl": ca["oil_bbl"] - cb["oil_bbl"],
             "flared_mscf": ca["flared_mscf"] - cb["flared_mscf"],
             "emission_t": (ca["emission_kg"] - cb["emission_kg"]) / 1000.0,
+            **{k: ca[k] - cb.get(k, 0.0) for k in ca if k.startswith("m_")},
         }
         return {"plyxis": a, "legacy": b, "delta": delta, "hours": hrs,
                 "value_per_day": delta["profit"] / hrs * 24.0, "carbon_price_usd_t": cprice,
@@ -606,8 +654,12 @@ class Engine:
                      "hauling": "Trucking", "disposal": "Disposal fees", "treating": "Treating",
                      "lease": "Lease operating cost", "restarts": "Well restarts", "starts": "Compressor starts",
                      "standby": "Compressor standby", "unplanned_failures": "Unplanned pump failures",
-                     "pump_replacement": "Pump replacements", "inventory_value": "Oil and water in tanks",
-                     "equipment_value": "Pump life consumed"}
+                     "pump_replacement": "Pump replacements", "inventory_value": "Inventories (tanks, bins, stockpiles)",
+                     "equipment_value": "Pump life consumed", "metal": "Copper sales", "mining": "Mining consumables",
+                     "loading": "Loader operating cost", "blasting": "Explosives and charging",
+                     "ownership": "Fleet ownership", "labour": "Labour", "overhead": "G&A and camp",
+                     "energy": "Mill power", "consumables": "Mill consumables", "wear": "Crusher wear",
+                     "overflow": "Sump overflow (clean-up)"}
 
     def _bridge(self, ca: dict, cb: dict) -> list:
         """Operating-profit difference split into realised terms (sums exactly to delta['profit'])."""

@@ -1,0 +1,19 @@
+nominal 4,377,350 feasible True (12.0 s)
+case 0 previous live     4,103,596  viol 0.0017    6.8 s
+case 0 live              4,181,192  viol 0.0013   10.2 s
+case 0 large             4,260,487  viol 0.0013   34.6 s
+case 1 previous live     5,169,094  viol 0.0000    7.8 s
+case 1 live              5,240,388  viol 0.0000   10.6 s
+case 1 large             5,265,882  viol 0.0000   34.6 s
+case 2 previous live     3,103,432  viol 0.0009    7.2 s
+case 2 live              3,285,429  viol 0.0004   10.1 s
+case 2 large             3,297,144  viol 0.0010   34.2 s
+case 3 previous live     4,072,582  viol 0.0009    6.9 s
+case 3 live              4,265,946  viol 0.0019   10.1 s
+case 3 large             4,232,878  viol 0.0008   34.2 s
+case 4 previous live     4,825,455  viol 0.0009    6.9 s
+case 4 live              4,860,830  viol 0.0012   10.2 s
+case 4 large             4,828,287  viol 0.0004   33.8 s
+previous live  mean    4,254,832 (+0.0 %)  feasible 5/5  7.1 s
+live           mean    4,366,757 (+2.6 %)  feasible 5/5  10.2 s
+large          mean    4,376,936 (+2.9 %)  feasible 5/5  34.3 s

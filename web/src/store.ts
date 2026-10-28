@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { Alert, KpiPoint, Meta, Snapshot, Structure, TimelineEvent } from "./api";
 
-export type View = "overview" | "map" | "schedule" | "optimizer" | "studio" | "data" | "bench";
+export type View = "overview" | "map" | "mine3d" | "schedule" | "optimizer" | "studio" | "data" | "bench";
 
 export interface OptRec { stage: string; iter?: number; objective?: number; max_violation?: number; t?: number;
   t_total?: number; event?: string; generation?: number; [k: string]: unknown }
@@ -38,7 +38,7 @@ export const useStore = create<State>((set, get) => ({
   optRun: null,
   planVersion: 0,
   structureVersion: 0,
-  view: (["overview", "map", "schedule", "optimizer", "studio", "data", "bench"].includes(location.hash.slice(1)) ?
+  view: (["overview", "map", "mine3d", "schedule", "optimizer", "studio", "data", "bench"].includes(location.hash.slice(1)) ?
     location.hash.slice(1) : "overview") as View,
   selected: null,
   demoOpen: true,

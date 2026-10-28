@@ -76,7 +76,7 @@ def showcase(d) -> None:
 def variants() -> None:
     """Full showcase vs. ablation runs (bench.showcase_run --skip-events ... --tag ...)."""
     names = sorted(n for n in os.listdir(RES) if n.startswith("showcase_run") and n.endswith(".json"))
-    runs = [(n, _load(n)) for n in names]
+    runs = [(n, d) for n in names if (d := _load(n)) and d.get("scenario", "kestrel") == "kestrel"]
     if len(runs) < 2:
         return
     print("### Showcase variants (72 h, PLYXIS vs. manual operations)\n")
@@ -89,6 +89,94 @@ def variants() -> None:
             return f"{a - b:+,.0f} ({(a - b) / abs(b) * 100:+.1f} %)" if abs(b) > 1e-9 else "-"
         print(f"| {n} | {', '.join(d.get('skipped_events', [])) or 'none'} | {rel('profit')} | "
               f"{rel('profit_after_carbon')} | {rel('oil_bbl')} | {rel('flared_mscf')} |")
+    print()
+
+
+def _head_grade(copper_t: float, milled_t: float) -> float:
+    """Head grade (%) behind copper in concentrate = milled x g / 100 x recovery(g), with the concentrator's
+    recovery curve (stdlib mining.plx: pwl(g, [0.3, 0.8, 1.5], [0.70, 0.88, 0.92])); bisection."""
+    def rec(g):
+        xs, ys = (0.3, 0.8, 1.5), (0.70, 0.88, 0.92)
+        if g <= xs[0]:
+            return ys[0]
+        if g >= xs[-1]:
+            return ys[-1]
+        i = 0 if g < xs[1] else 1
+        return ys[i] + (g - xs[i]) / (xs[i + 1] - xs[i]) * (ys[i + 1] - ys[i])
+    target, lo, hi = copper_t / max(milled_t, 1e-9) * 100.0, 0.0, 10.0
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        lo, hi = (mid, hi) if mid * rec(mid) < target else (lo, mid)
+    return 0.5 * (lo + hi)
+
+
+def mine(d) -> None:
+    """Showcase A/B of the Corvus underground mine (generic production metrics m_*)."""
+    k = d["kpis"]
+    p, l = k["plyxis"], k["legacy"]
+    print(f"### Corvus mine showcase ({d['hours']:.0f} h, wall {d['wall_seconds']:.0f} s)\n")
+    print("| KPI | PLYXIS | manual operations | difference |\n|---|---|---|---|")
+    rows = [("Operating profit (USD)", "profit"), ("Profit after carbon cost (USD)", "profit_after_carbon"),
+            ("Revenue (USD)", "revenue"), ("Cash operating cost (USD)", "cost"),
+            ("Inventory value change (USD)", "inventory_value")]
+    rows += [(f"{key[2:]} ({'t' if key != 'm_power' else 'MWh'})", key) for key in p if key.startswith("m_")]
+    rows += [("Emissions (t CO2e)", "emission_kg")]
+    if "overflow_m3" in p or "overflow_m3" in l:
+        rows += [("Sump overflow (m3)", "overflow_m3")]
+    for label, key in rows:
+        f = 1e-3 if key == "emission_kg" else 1.0
+        a, b = p.get(key, 0) * f, l.get(key, 0) * f
+        rel = f"{(a - b) / abs(b) * 100:+.1f} %" if abs(b) > 1e-9 else ""
+        print(f"| {label} | {a:,.0f} | {b:,.0f} | {a - b:+,.0f} ({rel}) |")
+    for w, lab in ((p, "PLYXIS"), (l, "manual")):
+        if w.get("m_milled"):
+            print(f"\n{lab}: cash cost per tonne milled USD {w['cost'] / w['m_milled']:.2f}, "
+                  f"annualised cash cost USD {w['cost'] / d['hours'] * 8760 / 1e6:,.0f} M")
+        if w.get("m_copper"):
+            print(f"{lab}: mean head grade {_head_grade(w['m_copper'], w['m_milled']):.3f} % Cu")
+            # unit cost of production (C1 style): cash cost plus ore inventories drawn down (at cost), per t of copper
+            prod = w["cost"] - w.get("inventory_value", 0.0)
+            print(f"{lab}: production cost USD {prod:,.0f} = USD {prod / w['m_copper']:,.0f} per t copper "
+                  f"(cash cost USD {w['cost'] / w['m_copper']:,.0f} per t)")
+    if "bridge" in d:
+        print("\n| Where the operating-profit difference comes from | USD |\n|---|---|")
+        for r in d["bridge"]:
+            print(f"| {r['label']} | {r['delta']:+,.0f} |")
+    inv = d.get("inventory_terms")
+    if inv:
+        print("\n| Inventory change by item (at cost) | PLYXIS | manual operations | difference |\n|---|---|---|---|")
+        for n in sorted(set(inv["plyxis"]) | set(inv["legacy"])):
+            a, b = inv["plyxis"].get(n, 0.0), inv["legacy"].get(n, 0.0)
+            print(f"| {n} | {a:+,.0f} | {b:+,.0f} | {a - b:+,.0f} |")
+    plans = d["plans"]
+    print(f"\nPlans: {len(plans)}, feasible {sum(1 for x in plans if x['feasible'])}, solve time mean "
+          f"{st.mean(x['seconds'] for x in plans):.1f} s, max {max(x['seconds'] for x in plans):.1f} s")
+    for prm, v in d.get("calibration_error", {}).items():
+        print(f"- {prm}: engineering model {v['engineering'] * 100:.1f} % -> live twin {v['twin'] * 100:.1f} %")
+    print()
+
+
+def decomposition(d) -> None:
+    print(f"### Deterministic sections (native kernels available: {d['native']})\n")
+    print("| Case study | decisions (discrete) | method | mean objective (USD) | vs GA | feasible | mean seconds |"
+          "\n|---|---|---|---|---|---|---|")
+    for scen, r in d["scenarios"].items():
+        for m, v in r["summary"].items():
+            print(f"| {scen} | {r['variables']:,} ({r['discrete']:,}) | {m} | {v['mean_objective']:,.0f} | "
+                  f"{v.get('vs_ga_pct', 0):+.1f} % | {v['feasible']}/{v['runs']} | {v['mean_seconds']:.1f} |")
+    print("\n| Case study | sections (largest) | colours | filter Spearman | filter forward | probing all couplings "
+          "| section sweep native / NumPy |\n|---|---|---|---|---|---|---|")
+    for scen, r in d["scenarios"].items():
+        sx, k = r["sections"], r["section_sweep_s"]
+        print(f"| {scen} | {sx['sections']} ({sx['largest_section']}) | {sx['colours']} | {sx['filter_spearman']:.2f} | "
+              f"{r['filter_forward_ms']:.1f} ms | {r['probe_all_couplings_s']:.1f} s ({r['candidate_couplings']} pairs) | "
+              f"{k['native']:.2f} s / {k['numpy']:.2f} s |")
+    if d.get("scaling"):
+        print("\n| Enterprise twin | decisions | discrete units | sections (largest) | colours | one exact section sweep "
+              "| one simulation |\n|---|---|---|---|---|---|---|")
+        for r in d["scaling"]:
+            print(f"| {r['fields']} field(s) | {r['variables']:,} | {r['discrete_units']:,} | {r['sections']} "
+                  f"({r['largest_section']}) | {r['colours']} | {r['sweep_s']:.1f} s | {r['simulate_s'] * 1000:.0f} ms |")
     print()
 
 
@@ -161,7 +249,8 @@ def accuracy(d) -> None:
 
 
 def main() -> None:
-    for name, fn in (("showcase_run.json", showcase), ("neural_ablation.json", neural),
+    for name, fn in (("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
+                     ("decomposition.json", decomposition), ("neural_ablation.json", neural),
                      ("solver_comparison.json", solvers), ("solver_budget.json", budget), ("scaling.json", scaling),
                      ("twin_accuracy.json", accuracy)):
         d = _load(name)

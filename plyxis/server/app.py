@@ -41,7 +41,8 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
 
     app = FastAPI(title="PLYXIS", version="0.2", lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-    state = {"engine": None, "clients": set(), "loop": None, "booting": True, "boot_msg": "starting"}
+    state = {"engine": None, "clients": set(), "loop": None, "booting": True, "boot_msg": "starting",
+             "scenario_dir": scenario_dir}
 
     def eng() -> Engine:
         e = state["engine"]
@@ -78,7 +79,8 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
     async def boot():
         loop = asyncio.get_running_loop()
         state["boot_msg"] = "compiling twin, emulators and loading neural sub-solvers"
-        e = await loop.run_in_executor(None, lambda: Engine(scenario_dir, speed=speed, use_neural=use_neural))
+        sdir = state["scenario_dir"]
+        e = await loop.run_in_executor(None, lambda: Engine(sdir, speed=speed, use_neural=use_neural))
         e.subscribe(push)
         state["engine"] = e
         state["boot_msg"] = "computing initial plan"
@@ -96,11 +98,44 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
     def health():
         return {"ok": True, "booting": state["booting"], "message": state["boot_msg"]}
 
+    @app.get("/api/scenarios")
+    def scenarios():
+        out = []
+        for f in sorted(glob.glob(os.path.join(ROOT, "scenarios", "*", "scenario.json"))):
+            d = os.path.dirname(f)
+            with open(f, encoding="utf-8") as fh:
+                raw = json.load(fh)
+            out.append({"id": os.path.basename(d), "name": raw.get("name"), "title": raw.get("title", raw.get("name")),
+                        "region": raw.get("region", ""), "subtitle": raw.get("subtitle", ""),
+                        "active": os.path.abspath(d) == os.path.abspath(state["scenario_dir"])})
+        return out
+
+    @app.post("/api/scenario")
+    async def select_scenario(body: dict = Body(...)):
+        d = os.path.join(ROOT, "scenarios", os.path.basename(str(body.get("id", ""))))
+        if not os.path.exists(os.path.join(d, "scenario.json")):
+            raise HTTPException(404, "unknown scenario")
+        if state["booting"]:
+            raise HTTPException(409, "a scenario is still starting")
+        old, state["engine"] = state["engine"], None
+        state["booting"], state["boot_msg"], state["scenario_dir"] = True, "switching scenario", d
+        if old is not None:                       # the old engine must not push into the new session
+            old.unsubscribe(push)
+            old.running = False
+            await asyncio.get_running_loop().run_in_executor(None, old.stop)
+            for ex in (old.executor, old.est_executor):
+                ex.shutdown(wait=False, cancel_futures=True)
+        push({"type": "booting", "message": "switching scenario"})
+        asyncio.create_task(boot())
+        return {"ok": True, "id": os.path.basename(d)}
+
     @app.get("/api/meta")
     def meta():
         e = eng()
         sc = e.sc
-        return {"name": sc.name, "description": sc.description, "start_hour": sc.start_hour,
+        return {"id": os.path.basename(sc.root), "title": sc.raw.get("title", sc.name), "region": sc.raw.get("region", ""),
+                "subtitle": sc.raw.get("subtitle", ""), "kpi": sc.raw.get("kpi"),
+                "name": sc.name, "description": sc.description, "start_hour": sc.start_hour,
                 "events": sc.events, "demo": sc.demo, "speed": e.speed, "dt_emulator_h": sc.dt_emu,
                 "replan_every_h": sc.replan_every, "prices": {k: {"unit": v.get("unit")} for k, v in sc.prices.items()}}
 

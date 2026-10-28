@@ -1,7 +1,7 @@
 {
  "hours": 30.0,
  "full_planner": true,
- "wall_seconds": 181.19008770000073,
+ "wall_seconds": 193.25300810000044,
  "rows": [
   {
    "t": 6.33,
@@ -12,251 +12,251 @@
    "gor_max": 0.4841,
    "wc_max": 0.1488,
    "gor_bias": -0.032,
-   "pad_gas_mae": 0.0919,
-   "pad_gas_max": 0.3263,
+   "pad_gas_mae": 0.0772,
+   "pad_gas_max": 0.3171,
    "station_gas": {
-    "CS1": 0.0102,
-    "CS2": 0.0315
+    "CS1": 0.0357,
+    "CS2": 0.0292
    }
   },
   {
    "t": 8.0,
-   "q_max_mae": 0.0434,
-   "gor_mae": 0.1243,
+   "q_max_mae": 0.0398,
+   "gor_mae": 0.1217,
    "wc_mae": 0.046,
-   "q_max_max": 0.2552,
-   "gor_max": 0.4804,
+   "q_max_max": 0.1321,
+   "gor_max": 0.4861,
    "wc_max": 0.1488,
-   "gor_bias": -0.0247,
-   "pad_gas_mae": 0.0744,
-   "pad_gas_max": 0.1768,
+   "gor_bias": -0.0208,
+   "pad_gas_mae": 0.0645,
+   "pad_gas_max": 0.1985,
    "station_gas": {
-    "CS1": -0.0012,
-    "CS2": 0.0202
+    "CS1": 0.0096,
+    "CS2": 0.0211
    }
   },
   {
    "t": 10.0,
-   "q_max_mae": 0.0346,
-   "gor_mae": 0.1219,
+   "q_max_mae": 0.0296,
+   "gor_mae": 0.1208,
    "wc_mae": 0.0451,
-   "q_max_max": 0.2966,
-   "gor_max": 0.481,
+   "q_max_max": 0.118,
+   "gor_max": 0.4877,
    "wc_max": 0.1488,
-   "gor_bias": -0.025,
-   "pad_gas_mae": 0.0769,
-   "pad_gas_max": 0.1871,
+   "gor_bias": -0.0176,
+   "pad_gas_mae": 0.0579,
+   "pad_gas_max": 0.1913,
    "station_gas": {
-    "CS1": 0.008,
-    "CS2": 0.0069
+    "CS1": 0.0043,
+    "CS2": 0.0126
    }
   },
   {
    "t": 12.0,
-   "q_max_mae": 0.0293,
-   "gor_mae": 0.1215,
+   "q_max_mae": 0.0246,
+   "gor_mae": 0.1204,
    "wc_mae": 0.0444,
-   "q_max_max": 0.3163,
-   "gor_max": 0.4815,
+   "q_max_max": 0.1374,
+   "gor_max": 0.4882,
    "wc_max": 0.1488,
-   "gor_bias": -0.0251,
-   "pad_gas_mae": 0.0804,
-   "pad_gas_max": 0.2093,
+   "gor_bias": -0.0154,
+   "pad_gas_mae": 0.0647,
+   "pad_gas_max": 0.2023,
    "station_gas": {
-    "CS1": 0.0035,
-    "CS2": 0.0052
+    "CS1": 0.0033,
+    "CS2": 0.0074
    }
   },
   {
    "t": 14.0,
-   "q_max_mae": 0.0276,
-   "gor_mae": 0.1188,
+   "q_max_mae": 0.0245,
+   "gor_mae": 0.1175,
    "wc_mae": 0.0431,
-   "q_max_max": 0.1088,
-   "gor_max": 0.4819,
+   "q_max_max": 0.1573,
+   "gor_max": 0.4893,
    "wc_max": 0.1488,
-   "gor_bias": -0.0276,
-   "pad_gas_mae": 0.0624,
-   "pad_gas_max": 0.1675,
+   "gor_bias": -0.0155,
+   "pad_gas_mae": 0.0547,
+   "pad_gas_max": 0.1718,
    "station_gas": {
-    "CS1": -0.0139,
-    "CS2": 0.0187
+    "CS1": -0.0002,
+    "CS2": -0.002
    }
   },
   {
    "t": 16.0,
-   "q_max_mae": 0.0271,
-   "gor_mae": 0.115,
+   "q_max_mae": 0.023,
+   "gor_mae": 0.1167,
    "wc_mae": 0.0422,
-   "q_max_max": 0.1039,
-   "gor_max": 0.4822,
+   "q_max_max": 0.102,
+   "gor_max": 0.4883,
    "wc_max": 0.1488,
-   "gor_bias": -0.0241,
-   "pad_gas_mae": 0.0617,
-   "pad_gas_max": 0.1954,
+   "gor_bias": -0.0099,
+   "pad_gas_mae": 0.0469,
+   "pad_gas_max": 0.123,
    "station_gas": {
-    "CS1": -0.0034,
-    "CS2": 0.0271
+    "CS1": -0.0017,
+    "CS2": -0.0019
    }
   },
   {
    "t": 18.0,
-   "q_max_mae": 0.0257,
-   "gor_mae": 0.1122,
+   "q_max_mae": 0.0236,
+   "gor_mae": 0.1119,
    "wc_mae": 0.0417,
-   "q_max_max": 0.1048,
-   "gor_max": 0.4822,
+   "q_max_max": 0.0996,
+   "gor_max": 0.4872,
    "wc_max": 0.1488,
-   "gor_bias": -0.0217,
-   "pad_gas_mae": 0.0639,
-   "pad_gas_max": 0.1956,
+   "gor_bias": -0.0089,
+   "pad_gas_mae": 0.044,
+   "pad_gas_max": 0.1474,
    "station_gas": {
-    "CS1": -0.0101,
-    "CS2": 0.032
+    "CS1": -0.0065,
+    "CS2": 0.0045
    }
   },
   {
    "t": 20.0,
-   "q_max_mae": 0.0295,
-   "gor_mae": 0.112,
+   "q_max_mae": 0.026,
+   "gor_mae": 0.1115,
    "wc_mae": 0.0404,
-   "q_max_max": 0.1041,
-   "gor_max": 0.4824,
+   "q_max_max": 0.101,
+   "gor_max": 0.4856,
    "wc_max": 0.1488,
-   "gor_bias": -0.0218,
-   "pad_gas_mae": 0.0624,
-   "pad_gas_max": 0.1945,
+   "gor_bias": -0.0098,
+   "pad_gas_mae": 0.0493,
+   "pad_gas_max": 0.1462,
    "station_gas": {
-    "CS1": -0.0148,
-    "CS2": 0.0165
+    "CS1": 0.0068,
+    "CS2": 0.0096
    }
   },
   {
    "t": 22.0,
-   "q_max_mae": 0.0295,
-   "gor_mae": 0.1095,
+   "q_max_mae": 0.0247,
+   "gor_mae": 0.1096,
    "wc_mae": 0.0397,
-   "q_max_max": 0.1144,
-   "gor_max": 0.4825,
+   "q_max_max": 0.0918,
+   "gor_max": 0.4857,
    "wc_max": 0.1488,
-   "gor_bias": -0.0236,
-   "pad_gas_mae": 0.069,
-   "pad_gas_max": 0.2087,
+   "gor_bias": -0.0104,
+   "pad_gas_mae": 0.0508,
+   "pad_gas_max": 0.1548,
    "station_gas": {
-    "CS1": -0.0024,
-    "CS2": 0.0303
+    "CS1": 0.0078,
+    "CS2": 0.0146
    }
   },
   {
    "t": 24.0,
-   "q_max_mae": 0.0263,
-   "gor_mae": 0.1079,
+   "q_max_mae": 0.0246,
+   "gor_mae": 0.108,
    "wc_mae": 0.0385,
-   "q_max_max": 0.1074,
-   "gor_max": 0.4826,
+   "q_max_max": 0.0851,
+   "gor_max": 0.4863,
    "wc_max": 0.1488,
-   "gor_bias": -0.0231,
-   "pad_gas_mae": 0.0735,
-   "pad_gas_max": 0.1989,
+   "gor_bias": -0.0102,
+   "pad_gas_mae": 0.0527,
+   "pad_gas_max": 0.1434,
    "station_gas": {
-    "CS1": -0.0033,
-    "CS2": 0.017
+    "CS1": 0.0006,
+    "CS2": 0.0111
    }
   },
   {
    "t": 26.0,
-   "q_max_mae": 0.0232,
+   "q_max_mae": 0.023,
    "gor_mae": 0.1067,
    "wc_mae": 0.0378,
-   "q_max_max": 0.1381,
-   "gor_max": 0.4828,
+   "q_max_max": 0.1007,
+   "gor_max": 0.4884,
    "wc_max": 0.1488,
-   "gor_bias": -0.0218,
-   "pad_gas_mae": 0.0667,
-   "pad_gas_max": 0.1928,
+   "gor_bias": -0.0084,
+   "pad_gas_mae": 0.0554,
+   "pad_gas_max": 0.1545,
    "station_gas": {
-    "CS1": -0.0035,
-    "CS2": 0.0323
+    "CS1": 0.0041,
+    "CS2": 0.0218
    }
   },
   {
    "t": 28.0,
-   "q_max_mae": 0.024,
-   "gor_mae": 0.1048,
+   "q_max_mae": 0.0236,
+   "gor_mae": 0.106,
    "wc_mae": 0.0372,
-   "q_max_max": 0.1152,
-   "gor_max": 0.4829,
+   "q_max_max": 0.1795,
+   "gor_max": 0.4903,
    "wc_max": 0.1488,
-   "gor_bias": -0.0223,
-   "pad_gas_mae": 0.0708,
-   "pad_gas_max": 0.195,
+   "gor_bias": -0.0066,
+   "pad_gas_mae": 0.0518,
+   "pad_gas_max": 0.1628,
    "station_gas": {
-    "CS1": -0.0027,
-    "CS2": 0.0343
+    "CS1": 0.0032,
+    "CS2": 0.0094
    }
   },
   {
    "t": 30.0,
-   "q_max_mae": 0.0264,
-   "gor_mae": 0.1041,
+   "q_max_mae": 0.0238,
+   "gor_mae": 0.1055,
    "wc_mae": 0.0368,
-   "q_max_max": 0.0902,
-   "gor_max": 0.483,
+   "q_max_max": 0.1159,
+   "gor_max": 0.4883,
    "wc_max": 0.1488,
-   "gor_bias": -0.0226,
-   "pad_gas_mae": 0.0622,
-   "pad_gas_max": 0.1741,
+   "gor_bias": -0.0076,
+   "pad_gas_mae": 0.056,
+   "pad_gas_max": 0.157,
    "station_gas": {
-    "CS1": -0.0038,
-    "CS2": 0.0343
+    "CS1": -0.0179,
+    "CS2": 0.0004
    }
   },
   {
    "t": 32.0,
-   "q_max_mae": 0.0275,
-   "gor_mae": 0.1011,
+   "q_max_mae": 0.0242,
+   "gor_mae": 0.1017,
    "wc_mae": 0.0367,
-   "q_max_max": 0.1372,
-   "gor_max": 0.4831,
+   "q_max_max": 0.1314,
+   "gor_max": 0.486,
    "wc_max": 0.1488,
-   "gor_bias": -0.0256,
-   "pad_gas_mae": 0.0596,
-   "pad_gas_max": 0.1718,
+   "gor_bias": -0.0127,
+   "pad_gas_mae": 0.0452,
+   "pad_gas_max": 0.1214,
    "station_gas": {
-    "CS1": -0.0139,
-    "CS2": 0.0186
+    "CS1": -0.004,
+    "CS2": -0.0024
    }
   },
   {
    "t": 34.0,
-   "q_max_mae": 0.0267,
-   "gor_mae": 0.0987,
+   "q_max_mae": 0.023,
+   "gor_mae": 0.1,
    "wc_mae": 0.0357,
-   "q_max_max": 0.0893,
-   "gor_max": 0.4831,
+   "q_max_max": 0.0679,
+   "gor_max": 0.4869,
    "wc_max": 0.1488,
-   "gor_bias": -0.0281,
-   "pad_gas_mae": 0.0526,
-   "pad_gas_max": 0.1595,
+   "gor_bias": -0.0133,
+   "pad_gas_mae": 0.0352,
+   "pad_gas_max": 0.1135,
    "station_gas": {
-    "CS1": -0.0023,
-    "CS2": 0.0271
+    "CS1": 0.0024,
+    "CS2": 0.0032
    }
   },
   {
    "t": 36.0,
-   "q_max_mae": 0.024,
-   "gor_mae": 0.0979,
+   "q_max_mae": 0.0222,
+   "gor_mae": 0.0985,
    "wc_mae": 0.0349,
-   "q_max_max": 0.1084,
-   "gor_max": 0.4832,
+   "q_max_max": 0.0858,
+   "gor_max": 0.4888,
    "wc_max": 0.1488,
-   "gor_bias": -0.0285,
-   "pad_gas_mae": 0.0566,
-   "pad_gas_max": 0.1861,
+   "gor_bias": -0.0141,
+   "pad_gas_mae": 0.0379,
+   "pad_gas_max": 0.117,
    "station_gas": {
-    "CS1": 0.0032,
-    "CS2": 0.0288
+    "CS1": 0.0088,
+    "CS2": 0.0075
    }
   }
  ]

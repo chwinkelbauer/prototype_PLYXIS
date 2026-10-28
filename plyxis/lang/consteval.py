@@ -88,12 +88,15 @@ def load_geojson(path: str) -> list:
     for f in data.get("features", []):
         row = dict(f.get("properties") or {})
         g = f.get("geometry") or {}
+        # GeoJSON positions are (lon, lat[, elevation]); PLX points are (lat, lon[, z])
         if g.get("type") == "Point":
-            lon, lat = g["coordinates"][:2]
-            row.setdefault("lat", lat)
-            row.setdefault("lon", lon)
+            c = g["coordinates"]
+            row.setdefault("lat", c[1])
+            row.setdefault("lon", c[0])
+            if len(c) > 2:
+                row.setdefault("z", c[2])
         elif g.get("type") == "LineString":
-            row["path"] = tuple((c[1], c[0]) for c in g["coordinates"])
+            row["path"] = tuple((c[1], c[0], *c[2:3]) for c in g["coordinates"])
         elif g.get("type") == "Polygon":
             row["polygon"] = tuple((c[1], c[0]) for c in g["coordinates"][0])
         out.append(row)
@@ -106,6 +109,19 @@ def haversine_km(lat1, lon1, lat2, lon2) -> float:
     dp, dl = p2 - p1, math.radians(lon2 - lon1)
     a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
     return 2 * r * math.asin(min(1.0, math.sqrt(a)))
+
+
+def geo_point(v) -> tuple:
+    """(lat, lon) or (lat, lon, z): z = elevation in metres above datum (negative underground)."""
+    return tuple(float(x) for x in v[:3])
+
+
+def dist3_km(a, b) -> float:
+    """Distance between two (lat, lon[, z]) points: great circle plus the vertical difference."""
+    h = haversine_km(a[0], a[1], b[0], b[1])
+    if len(a) > 2 and len(b) > 2:
+        return math.hypot(h, (b[2] - a[2]) / 1000.0)
+    return h
 
 
 class Scope:
@@ -285,7 +301,7 @@ def const_eval(e: A.Expr, scope, *, base_dir: str = ".", extra: Optional[dict] =
             return ev(e.args[1]) if bool(ev(e.args[0])) else ev(e.args[2])
         if f == "table":
             path = _resolve_path(str(ev(e.args[0])), base_dir)
-            rows = load_table(path)
+            rows = load_geojson(path) if path.lower().endswith((".geojson", ".json")) else load_table(path)
             where = e.kwargs.get("where")
             if where is not None:
                 rows = [r for r in rows if const_eval(where, scope.child(dict(r)) if isinstance(scope, Scope) else r,

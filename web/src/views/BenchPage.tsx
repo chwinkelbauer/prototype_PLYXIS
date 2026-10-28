@@ -115,9 +115,9 @@ function Solvers({ sol }: { sol: any }) {
       lineStyle: { width: i < 2 ? 2.2 : 1.6, color: SERIES[i] }, itemStyle: { color: SERIES[i] },
     }));
     return base({
-      grid: { left: 64, right: 16, top: 30, bottom: 30 },
+      grid: { left: 78, right: 24, top: 30, bottom: 30 },
       xAxis: { type: "value", name: "seconds", axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false } },
-      yAxis: { type: "value", scale: true, name: "penalised objective (72 h)", nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
+      yAxis: { type: "value", scale: true, name: "penalised objective (72 h)", nameLocation: "middle", nameGap: 58, nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
       series,
     });
   }, [sol]);
@@ -163,9 +163,9 @@ function Ablation({ abl }: { abl: any }) {
 function Scaling({ scl }: { scl: any }) {
   const rows = scl.rows ?? [];
   const option = useMemo(() => base({
-    grid: { left: 52, right: 16, top: 30, bottom: 34 },
+    grid: { left: 58, right: 16, top: 30, bottom: 34 },
     xAxis: { type: "value", name: "decisions", nameLocation: "middle", nameGap: 22, axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false } },
-    yAxis: { type: "value", name: "seconds", axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { lineStyle: { color: C.grid } } },
+    yAxis: { type: "value", name: "seconds", nameLocation: "middle", nameGap: 36, nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { lineStyle: { color: C.grid } } },
     series: [{ name: "cascade solve time", type: "line", data: rows.map((r: any) => [r.decision_variables, r.solve_s]), lineStyle: { color: C.plx, width: 2 }, itemStyle: { color: C.plx }, symbolSize: 8 }],
   }), [scl]);
   return (
@@ -189,9 +189,9 @@ function Scaling({ scl }: { scl: any }) {
 function Accuracy({ acc }: { acc: any }) {
   const rows = acc.rows ?? [];
   const option = useMemo(() => base({
-    grid: { left: 44, right: 16, top: 30, bottom: 30 },
+    grid: { left: 58, right: 16, top: 30, bottom: 30 },
     xAxis: { type: "value", name: "plant time (h)", nameLocation: "middle", nameGap: 20, min: "dataMin", axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false } },
-    yAxis: { type: "value", name: "mean abs. error", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => `${(v * 100).toFixed(0)} %` }, splitLine: { lineStyle: { color: C.grid } } },
+    yAxis: { type: "value", name: "mean abs. error", nameLocation: "middle", nameGap: 40, nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => `${(v * 100).toFixed(0)} %` }, splitLine: { lineStyle: { color: C.grid } } },
     series: [
       { name: "deliverability q_max", type: "line", showSymbol: false, data: rows.map((r: any) => [r.t, r.q_max_mae]) },
       { name: "GOR", type: "line", showSymbol: false, data: rows.map((r: any) => [r.t, r.gor_mae]) },

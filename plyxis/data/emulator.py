@@ -46,7 +46,8 @@ class Birth:
 
 class PlantEmulator:
     def __init__(self, files: list, env: str, dt: float = 1.0 / 6.0, seed: int = 0, name: str = "plant",
-                 hidden: Optional[list] = None, noise: float = 1.0, defines_prices: Optional[Callable] = None):
+                 hidden: Optional[list] = None, noise: float = 1.0, defines_prices: Optional[Callable] = None,
+                 kpi_metrics: Optional[list] = None):
         m = compile_model(files, env=env, physical=True)
         self.model = m
         self.prog = m.physical
@@ -69,7 +70,7 @@ class PlantEmulator:
         self._build_controls()
         self._build_routes()
         self._build_telemetry()
-        self.kpi = _Kpi()
+        self.kpi = _Kpi(kpi_metrics)
         self.events: list = []
         self.last_raw: Optional[dict] = None
         self.ar_noise = {gid: torch.zeros_like(v) for gid, d in self.P.items() for k, v in d.items() if k == "q_max"}
@@ -440,18 +441,21 @@ class _Kpi:
 
     Realised operating result = sales - cash costs + change in asset value, identical for every world:
 
-    * inventories are valued exactly like the planner's terminal value - the model's `final` terms
-      (oil in tanks at 90 % of the price, water in tanks as a disposal liability);
+    * inventories are valued like the planner's terminal value - the model's `final` terms (oil in tanks
+      at 90 % of the price, water in tanks as a disposal liability, ore in bins and on the pad at cost);
     * equipment: the remaining life of every pump (health x pump cost); a pump replacement is charged
       at the pump cost when it happens;
-    * expectation terms that exist only for planning (expected failure cost, flaring-risk margin,
-      nominal pump wear) are excluded - their real consequences show up directly here;
+    * terms that exist only for planning (expected failure cost, flaring-risk margin, nominal pump wear,
+      `value_to_go` terminal adjustments such as broken ore at half its cost) are excluded - their real
+      consequences show up directly here;
     * the carbon cost at the model's internal carbon price is reported separately
       (`profit_after_carbon`), because it is a decision price, not a cash flow.
     """
-    EXPECTATION_TERMS = {"risk", "flare_risk", "pump_wear"}
+    EXPECTATION_TERMS = {"risk", "flare_risk", "pump_wear", "value_to_go"}
 
-    def __init__(self):
+    def __init__(self, metrics: Optional[list] = None):
+        # scenario production metrics (model metric -> cumulative 'm_<key>' in `unit`, rate 'm_<key>' in `rate_unit`)
+        self.metrics = list(metrics or [])
         self.cum = {"revenue": 0.0, "cost": 0.0, "emission_kg": 0.0, "oil_bbl": 0.0, "gas_mscf": 0.0,
                     "water_bbl": 0.0, "flared_mscf": 0.0, "spilled_bbl": 0.0, "hours": 0.0,
                     "inventory_value": 0.0, "equipment_value": 0.0, "profit": 0.0,
@@ -464,6 +468,8 @@ class _Kpi:
         self.history: list = []
         self._inv_last = None
         self._eq_last = None
+        self.inv_terms: dict = {}            # change of each inventory (final term) since the start, USD
+        self._inv_terms_last: Optional[dict] = None
 
     def charge(self, name: str, usd: float) -> None:
         """A one-off cash cost outside the model's running terms (e.g. a replaced pump)."""
@@ -474,15 +480,20 @@ class _Kpi:
         self.cum["profit_after_carbon"] -= usd
 
     @staticmethod
-    def _inventory(emu, raw) -> float:
-        v = 0.0
+    def _inventory_terms(emu, raw) -> dict:
+        """Value of every inventory (realised `final` term) by name, USD."""
+        v: dict = {}
         for tr in emu.prog.terms:
-            if tr.final and tr.kind in ("revenue", "cost"):
+            if tr.final and tr.kind in ("revenue", "cost") and tr.name not in _Kpi.EXPECTATION_TERMS:
                 x = raw.get(f"F_{tr.gid}_{_ident(tr.key)}")
                 if x is not None:
                     s = float(torch.as_tensor(x).sum())
-                    v += s if tr.kind == "revenue" else -s
+                    v[tr.name] = v.get(tr.name, 0.0) + (s if tr.kind == "revenue" else -s)
         return v
+
+    @staticmethod
+    def _inventory(emu, raw) -> float:
+        return sum(_Kpi._inventory_terms(emu, raw).values())
 
     @staticmethod
     def _equipment(emu, fin) -> float:
@@ -524,9 +535,30 @@ class _Kpi:
                 rev += v
             else:
                 cost += v
+        # water a sump could not hold (the plant saturates `level`; the twin plans it as a hard limit) is a
+        # clean-up cost at the model's `overflow_cost`, in every world
+        ovf_m3, ovf_usd = 0.0, 0.0
+        for g in emu.prog.groups:
+            oc = emu.P.get(g.gid, {}).get("overflow_cost")
+            clip = raw.get(emu.prog.node_var(g.gid, "state:level") + "_clip") if oc is not None else None
+            if clip is None:
+                continue
+            vol = torch.relu(torch.as_tensor(clip)).reshape(-1, g.n, torch.as_tensor(clip).shape[-1])[0].sum(-1)
+            ovf_m3 += float(vol.sum())
+            ovf_usd += float((vol * torch.as_tensor(oc).reshape(-1)).sum())
+        if ovf_m3 > 0.0 or "overflow" in self.terms:
+            self.terms["overflow"] = self.terms.get("overflow", 0.0) - ovf_usd
+            self.term_rate["overflow"] = -ovf_usd / dt
+            self.cum["overflow_m3"] = self.cum.get("overflow_m3", 0.0) + ovf_m3
+            cost += ovf_usd
         em = float(torch.as_tensor(ev["emission"]).reshape(-1)[0])
         # asset value at the end of the step, valued like the planner's terminal value
-        inv_value = self._inventory(emu, raw)
+        inv_by = self._inventory_terms(emu, raw)
+        inv_value = sum(inv_by.values())
+        if self._inv_terms_last is not None:
+            for n, v in inv_by.items():
+                self.inv_terms[n] = self.inv_terms.get(n, 0.0) + v - self._inv_terms_last.get(n, v)
+        self._inv_terms_last = inv_by
         eq_value = self._equipment(emu, emu.prog.final_states(raw))
         if self._inv_last is None:
             self._inv_last, self._eq_last = inv_value, eq_value
@@ -562,7 +594,12 @@ class _Kpi:
             c["flared_over_permit_mscf"] += max(0.0, fl - U.from_canonical(float(permit) * dt, "Mscf"))
         c["spilled_bbl"] += spill
         c["hours"] += dt
-        self.rate = {"oil_bpd": oil / dt * 24, "gas_mscfd": gas / dt * 24, "water_bpd": wat / dt * 24,
+        mrate = {}
+        for m in self.metrics:
+            v = nv(m["metric"])
+            c["m_" + m["key"]] = c.get("m_" + m["key"], 0.0) + U.from_canonical(v, m["unit"])
+            mrate["m_" + m["key"]] = U.from_canonical(v / dt, m["rate_unit"])
+        self.rate = {**mrate, "oil_bpd": oil / dt * 24, "gas_mscfd": gas / dt * 24, "water_bpd": wat / dt * 24,
                      "flare_mscfd": fl / dt * 24, "oil_sold_bpd": sold / dt * 24,
                      "profit_usd_h": (rev - cost + d_inv + d_eq) / dt, "revenue_usd_h": rev / dt, "cost_usd_h": cost / dt,
                      "inventory_usd_h": d_inv / dt, "equipment_usd_h": d_eq / dt, "emission_t_h": em / 1000 / dt}

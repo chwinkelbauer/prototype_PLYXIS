@@ -80,3 +80,58 @@ def test_forecast_does_not_extrapolate_announced_transients():
     assert p[0] == pytest.approx(5.0) and max(p[2:]) < 0.1                # spike only inside its window
     g = [float(v) for v in f.forecast(50.0, 14, 1.0)["gas_price"]]
     assert g[0] == pytest.approx(-2.5) and g[-1] == pytest.approx(1.2)      # back to normal after the notice
+
+
+def test_outage_with_crew_estimate_is_planned_back(eng):
+    import torch
+    eng._apply_event({"kind": "fail", "asset": "P02_W03", "hours": 2.0, "title": "test outage"})
+    state, value, back = eng.outages["P02_W03"]
+    assert (state, value) == ("up", 1.0) and back == pytest.approx(eng.t + 2.0)
+    pb = eng.planner.problem(eng.t, eng._forecast(eng.twin.model.program.T, eng.twin.model.program.dt))
+    prog = pb.prog
+    gid, li = prog.inst_group[prog.flat.by_path["P02_W03"]]
+    pb.S0[gid]["up"].reshape(-1)[li] = 0.0                    # the twin has seen the trip
+    assert pb.set_state_schedule({"P02_W03": (state, value, back - eng.t)}) == ["P02_W03"]
+    e = pb.evaluate(pb.space.default_u(1), relax=False)
+    up = torch.as_tensor(e.raw[prog.node_var(gid, "state:up")]).expand(1, -1, pb.T)[0, li]
+    k = int(round(2.0 / pb.dt))
+    assert float(up[:k].max()) == 0.0 and float(up[k:].min()) == 1.0
+    eng._apply_event(eng.restores[-1][1])                      # back in service: the estimate is cleared
+    assert "P02_W03" not in eng.outages
+
+
+def test_idle_mill_is_not_off_spec_and_value_to_go_is_planning_only():
+    import os
+
+    import torch
+
+    from conftest import ROOT
+    from plyxis.data.emulator import _Kpi
+    from plyxis.lang import compile_model
+    from plyxis.optim.problem import Problem
+    m = compile_model([os.path.join(ROOT, "scenarios", "corvus", "field.plx")], env="corvus")
+    pb = Problem(m.program)
+    D, R = pb.space.decode(pb.space.default_u(1), pb.P, relax=False)
+    gid = m.program.inst_group[m.program.flat.by_path["ROM"]][0]
+    D[gid]["reclaim"] = torch.zeros_like(D[gid]["reclaim"])           # mill stands for the whole horizon
+    raw = m.program.simulate(D, R, pb.P, pb.S0, pb.E, pb.T, pb.dt, pb.t0)
+    gm = m.program.inst_group[m.program.flat.by_path["MILL"]][0]
+    for con in ("con:grade_low", "con:grade_high"):                  # no head grade, nothing off-spec
+        assert float(torch.relu(torch.as_tensor(raw[m.program.node_var(gm, con)])).max()) == 0.0
+    final = {tr.name for tr in m.program.terms if tr.final}
+    assert "value_to_go" in final and "value_to_go" in _Kpi.EXPECTATION_TERMS
+
+
+def test_sump_overflow_is_charged_in_the_kpi():
+    import os
+
+    from conftest import ROOT
+    from plyxis.data.emulator import PlantEmulator
+    pp = PlantEmulator([os.path.join(ROOT, "scenarios", "corvus", "field.plx")], "corvus", noise=0.0)
+    g, li = pp.path_index["PS_S3"]
+    pp.S[g]["level"].reshape(-1)[li] = float(pp.P[g]["sump"].reshape(-1)[li])     # full sump ...
+    pp.S[g]["up"].reshape(-1)[li] = 0.0                                          # ... and the pump failed
+    pp.step()
+    inflow = float(pp.P[g]["inflow"].reshape(-1)[li])                            # m3/h (canonical)
+    assert pp.kpi.cum["overflow_m3"] == pytest.approx(inflow * pp.dt, rel=1e-3)
+    assert pp.kpi.terms["overflow"] == pytest.approx(-60.0 * inflow * pp.dt, rel=1e-3)

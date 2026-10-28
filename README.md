@@ -9,8 +9,8 @@ PLYXIS has four parts, all in this repository:
 |---|---|---|
 | A | **PLX language + compiler** (`plyxis/lang`) | Sites are written as code: entities with properties, states, decisions, flows, behaviour, constraints, costs and GIS geometry - nothing is predefined. The compiler turns a model into a batched, differentiable, time-vectorised simulator. |
 | B | **Data integration** (`plyxis/data`) | Connectors, tag mapping from the model, moving-horizon estimation, anomaly detection and discovery. The twin recalibrates itself and *rewrites its own code* when new assets appear. |
-| C | **Optimizer** (`plyxis/optim`) | Decomposes the twin, uses neural sub-solvers trained on the twin as fast subfunctions, then augmented-Lagrangian optimisation, memetic discrete search and an exact polish. 40,000 decisions in under a minute on a laptop CPU. |
-| D | **Console** (`web/`, `plyxis/server`) | Live operations view for field staff and executives: map, schedule with reasons, optimizer, twin studio (code editor), data integration, benchmarks. |
+| C | **Optimizer** (`plyxis/optim`, `plyxis/native`) | Decomposes the twin, uses neural sub-solvers trained on the twin as fast subfunctions, then augmented-Lagrangian optimisation, memetic discrete search, an exact section search (a learned graph filter cuts the site into small sections whose discrete decisions are enumerated exactly; C++/OpenMP kernels) and an exact polish. 40,000 decisions in under a minute on a laptop CPU. |
+| D | **Console** (`web/`, `plyxis/server`) | Live operations view for field staff and executives: map, 3D twin, schedule with reasons, optimizer, twin studio (code editor), data integration, benchmarks. Switch between case studies in the top bar. |
 
 **No AI wrapper.** PLYXIS does not call any external AI model or service. Every learned
 component (the neural sub-solvers) is trained locally from the twin by the platform itself;
@@ -41,6 +41,16 @@ python -m plyxis run --hours 24                                    # headless A/
 python -m pytest tests -q                                          # test-suite
 ```
 
+## Case studies
+
+| | Kestrel Field (oil & gas) | Corvus Mine (underground copper) |
+|---|---|---|
+| Site | 96 ESP wells, 12 pads, 3 tank batteries, 2 compressor stations, gas plant, trucking, SWD | 186 stopes on 23 levels (520-1,060 m deep), ore passes, trucks, 2 crushers, skip hoist, 3 main fans, 10 pump stations, concentrator |
+| Twin | 2D GIS, 123 lines of PLX + asset register | 3D (elevation on every asset, openings from a 3D GeoJSON design export), 135 lines of PLX + register, 392 instances |
+| Planning problem | 72 h hourly, 4,983 decisions | 48 h hourly, ~5,000 decisions (744 discrete ring firings) |
+| Scenario | 72 h: compressor trips, gas plant upset, ESP wear, injectivity loss, negative gas price, ERCOT price cap, new well | 48 h: main fan trip, seismic level closure, hoist stop, loader breakdowns, critical-peak power, pump failure, new stope |
+| Scale | ~18,000 bopd | ~14 Mt/a milled, operating cost ~USD 580 M/a (baseline, measured) |
+
 ## The showcase: Kestrel field
 
 A synthetic 96-well Permian (Delaware Basin) field: 12 pads, 3 tank batteries, 2 compressor
@@ -60,11 +70,13 @@ through each event.
 
 | | |
 |---|---|
-| A/B over 72 h vs. competent manual operations | profit after carbon +2.4 % (operating profit +2.0 %), flaring -93 %, CO2e -35 %, no unplanned pump failure (baseline: 1) |
+| Kestrel A/B, 72 h vs. competent manual operations | operating profit +13.7 % (+USD 385 k), after carbon +14.3 %, oil +10 %, cash operating cost -9.3 %, flaring -82 %, CO2e -31 %, no unplanned pump failure (baseline: 1); all 32 plans feasible |
+| Corvus mine A/B, 48 h vs. competent mine control | operating profit +12.3 % (+USD 647 k) at equal mill throughput and equal cash cost - from head grade inside the mine plan's window (assay-calibrated twin 1.449 % vs. block-model grade control 1.368 %, window 1.35-1.45 %): copper +7.1 %, production cost per t of copper -7.4 %. Baseline operating cost USD 581 M/a |
 | Twin accuracy | well deliverability error 11.9 % → 2.4 %; SWD-2 injectivity loss re-estimated within 3 h to within 1 % |
-| Solver, 4,983 decisions | cascade + neural sub-solvers: feasible plan in 14 s, 8.7 % better than the best metaheuristic (GA) after 60 s |
-| Neural sub-solvers | better re-plans in 7 of 8 held-out disruptions (median +2.5 %), 20 ms per proposal |
-| Scale, 768 wells / 39,864 decisions | feasible in 55 s; same 429 lines of generated simulator code as one field; GA infeasible at equal time |
+| Solver, 4,983 decisions | cascade + neural sub-solvers: feasible plan in 10.5 s, 5.6 % better than the best metaheuristic (GA) after 60 s |
+| Neural sub-solvers | better re-plans in 5 of 8 held-out disruptions (2 ties, median +3.0 %), 20 ms per proposal |
+| Deterministic sections | graph filter + exact section enumeration: sections stay at ≤ 3 assets while their number grows 76 → 688 (1 → 8 fields); one exact sweep 0.9 s → 3.2 s; no measurable plan gain yet (oil field -0.0 %, mine -0.4 %, within run-to-run noise) |
+| Scale, 768 wells / 39,864 decisions | feasible in 38 s; same 432 lines of generated simulator code as one field; GA infeasible at equal time |
 
 Method, caveats and how the A/B is valued: [docs/BENCHMARKS.md](docs/BENCHMARKS.md) and
 [docs/SHOWCASE.md](docs/SHOWCASE.md).

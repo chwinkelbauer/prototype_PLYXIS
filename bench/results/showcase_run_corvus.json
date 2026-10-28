@@ -1,0 +1,5937 @@
+{
+ "scenario": "corvus",
+ "hours": 48.0,
+ "wall_seconds": 1001.2899146,
+ "neural": true,
+ "skipped_events": [],
+ "kpis": {
+  "plyxis": {
+   "revenue": 9356066.775390625,
+   "cost": 3158574.174057007,
+   "emission_kg": 387383.01446533203,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 47.99999999999986,
+   "inventory_value": -303348.185546875,
+   "equipment_value": 0.0,
+   "profit": 5894144.415786743,
+   "carbon_cost": 17432.235650939976,
+   "profit_after_carbon": 5876712.1801358005,
+   "flared_over_permit_mscf": 0.0,
+   "m_ore": 64996.64144531253,
+   "m_hoisted": 71187.93350000006,
+   "m_milled": 76292.33264062504,
+   "m_copper": 1014.0799829101564,
+   "m_power": 2927.826430664059
+  },
+  "legacy": {
+   "revenue": 8736485.720703125,
+   "cost": 3184662.425201242,
+   "emission_kg": 391108.7175292969,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 47.99999999999986,
+   "inventory_value": -304770.06640625,
+   "equipment_value": 0.0,
+   "profit": 5247053.229095634,
+   "carbon_cost": 17599.892288818362,
+   "profit_after_carbon": 5229453.336806815,
+   "flared_over_permit_mscf": 0.0,
+   "m_ore": 71685.38116406224,
+   "m_hoisted": 66873.74810156263,
+   "m_milled": 75840.00299999953,
+   "m_copper": 947.0138408203115,
+   "m_power": 2917.4456875000005
+  },
+  "delta": {
+   "profit": 647091.1866911091,
+   "profit_after_carbon": 647258.8433289854,
+   "oil_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "emission_t": -3.725703063964844,
+   "m_ore": -6688.739718749712,
+   "m_hoisted": 4314.185398437432,
+   "m_milled": 452.32964062551036,
+   "m_copper": 67.0661420898449,
+   "m_power": 10.380743164058458
+  },
+  "value_per_day": 323545.5933455555
+ },
+ "terms": {
+  "plyxis": {
+   "metal": 9356066.775390625,
+   "ownership": -207600.01171875,
+   "power": -208992.6559906006,
+   "labour": -648000.0,
+   "overhead": -288000.0,
+   "mining": -649904.0457763672,
+   "loading": -54491.52338409424,
+   "blasting": -50000.000244140625,
+   "hauling": -36258.44882965088,
+   "wear": -25086.86880493164,
+   "energy": -379901.93717956543,
+   "consumables": -610338.6821289062
+  },
+  "legacy": {
+   "metal": 8736485.720703125,
+   "ownership": -207600.01171875,
+   "power": -222947.5701599121,
+   "labour": -648000.0,
+   "overhead": -288000.0,
+   "mining": -715127.3234863281,
+   "loading": -60492.09843444824,
+   "blasting": 0.0,
+   "hauling": -35813.904136146535,
+   "wear": -23931.529228547122,
+   "energy": -376029.8942871094,
+   "consumables": -606720.09375
+  }
+ },
+ "inventory_terms": {
+  "plyxis": {
+   "broken_value": -170007.75,
+   "stock_value": -74810.8515625,
+   "bin_value": 6050.791015625,
+   "inventory": -64580.375
+  },
+  "legacy": {
+   "broken_value": -246508.625,
+   "stock_value": 34472.21875,
+   "bin_value": 21497.26953125,
+   "inventory": -114230.9296875
+  }
+ },
+ "bridge": [
+  {
+   "key": "metal",
+   "label": "Copper sales",
+   "delta": 619581
+  },
+  {
+   "key": "mining",
+   "label": "Mining consumables",
+   "delta": 65223
+  },
+  {
+   "key": "blasting",
+   "label": "Explosives and charging",
+   "delta": -50000
+  },
+  {
+   "key": "power",
+   "label": "Power",
+   "delta": 13955
+  },
+  {
+   "key": "loading",
+   "label": "Loader operating cost",
+   "delta": 6001
+  },
+  {
+   "key": "energy",
+   "label": "Mill power",
+   "delta": -3872
+  },
+  {
+   "key": "consumables",
+   "label": "Mill consumables",
+   "delta": -3619
+  },
+  {
+   "key": "inventory_value",
+   "label": "Inventories (tanks, bins, stockpiles)",
+   "delta": 1422
+  },
+  {
+   "key": "wear",
+   "label": "Crusher wear",
+   "delta": -1155
+  },
+  {
+   "key": "hauling",
+   "label": "Trucking",
+   "delta": -445
+  }
+ ],
+ "calibration_error": {
+  "grade": {
+   "engineering": 0.1184,
+   "twin": 0.0988
+  },
+  "rate_max": {
+   "engineering": 0.0892,
+   "twin": 0.079
+  }
+ },
+ "plans": [
+  {
+   "id": 1,
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "trigger": "initial plan",
+   "objective": 7268348.5,
+   "feasible": true,
+   "seconds": 60.22099380000009,
+   "variables": 4992
+  },
+  {
+   "id": 2,
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "trigger": "rolling horizon",
+   "objective": 7313421.0,
+   "feasible": true,
+   "seconds": 45.72328020000009,
+   "variables": 4992
+  },
+  {
+   "id": 3,
+   "t": 10.166666675,
+   "clock": "Day 1 10:10",
+   "trigger": "disruption detected",
+   "objective": 7326427.5,
+   "feasible": true,
+   "seconds": 44.706851700000016,
+   "variables": 4992
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "trigger": "rolling horizon",
+   "objective": 7282051.0,
+   "feasible": true,
+   "seconds": 45.26975659999994,
+   "variables": 4992
+  },
+  {
+   "id": 5,
+   "t": 15.166666685,
+   "clock": "Day 1 15:10",
+   "trigger": "disruption detected",
+   "objective": 7279338.5,
+   "feasible": true,
+   "seconds": 45.66840509999997,
+   "variables": 4992
+  },
+  {
+   "id": 6,
+   "t": 18.166666691,
+   "clock": "Day 1 18:10",
+   "trigger": "rolling horizon",
+   "objective": 7158337.0,
+   "feasible": false,
+   "seconds": 61.351634900000136,
+   "variables": 4992
+  },
+  {
+   "id": 7,
+   "t": 21.166666697,
+   "clock": "Day 1 21:10",
+   "trigger": "disruption detected",
+   "objective": 7018060.0,
+   "feasible": true,
+   "seconds": 62.62588740000001,
+   "variables": 4992
+  },
+  {
+   "id": 8,
+   "t": 24.166666703,
+   "clock": "Day 2 00:10",
+   "trigger": "rolling horizon",
+   "objective": 7100242.0,
+   "feasible": true,
+   "seconds": 45.49594430000002,
+   "variables": 4992
+  },
+  {
+   "id": 9,
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "trigger": "market notice: power_price",
+   "objective": 6761028.5,
+   "feasible": true,
+   "seconds": 45.83705080000004,
+   "variables": 4992
+  },
+  {
+   "id": 10,
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "trigger": "rolling horizon",
+   "objective": 6848344.0,
+   "feasible": false,
+   "seconds": 61.62134260000016,
+   "variables": 4992
+  },
+  {
+   "id": 11,
+   "t": 32.166666719,
+   "clock": "Day 2 08:10",
+   "trigger": "disruption detected",
+   "objective": 6793545.0,
+   "feasible": true,
+   "seconds": 45.95346960000006,
+   "variables": 4992
+  },
+  {
+   "id": 12,
+   "t": 35.166666725,
+   "clock": "Day 2 11:10",
+   "trigger": "rolling horizon",
+   "objective": 6852508.0,
+   "feasible": true,
+   "seconds": 45.73357510000005,
+   "variables": 4992
+  },
+  {
+   "id": 13,
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "trigger": "twin rewritten (new asset)",
+   "objective": 6251394.0,
+   "feasible": true,
+   "seconds": 47.34173609999971,
+   "variables": 5008
+  },
+  {
+   "id": 14,
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "trigger": "rolling horizon",
+   "objective": 6922096.0,
+   "feasible": true,
+   "seconds": 44.619061599999895,
+   "variables": 5008
+  },
+  {
+   "id": 15,
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "trigger": "rolling horizon",
+   "objective": 7094589.5,
+   "feasible": true,
+   "seconds": 45.636289099999885,
+   "variables": 5008
+  },
+  {
+   "id": 16,
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "trigger": "rolling horizon",
+   "objective": 7194921.5,
+   "feasible": true,
+   "seconds": 45.55966230000013,
+   "variables": 5008
+  },
+  {
+   "id": 17,
+   "t": 46.166666747,
+   "clock": "Day 2 22:10",
+   "trigger": "disruption detected",
+   "objective": 7191807.5,
+   "feasible": true,
+   "seconds": 45.45611539999982,
+   "variables": 5008
+  },
+  {
+   "id": 18,
+   "t": 49.166666753,
+   "clock": "Day 3 01:10",
+   "trigger": "rolling horizon",
+   "objective": 7204064.5,
+   "feasible": true,
+   "seconds": 44.49139689999993,
+   "variables": 5008
+  },
+  {
+   "id": 19,
+   "t": 52.166666759,
+   "clock": "Day 3 04:10",
+   "trigger": "rolling horizon",
+   "objective": 7197986.0,
+   "feasible": true,
+   "seconds": 45.208548800000244,
+   "variables": 5008
+  }
+ ],
+ "runs": [
+  {
+   "id": 1,
+   "t": 6.0,
+   "trigger": "initial plan",
+   "objective": 7268348.5,
+   "feasible": true,
+   "seconds": 60.22099380000009,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 24.57048020000002,
+     "objective": 5265097.5,
+     "max_violation": 0.003048396436497569,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 24.539951599999995,
+     "objective": 7145077.0,
+     "max_violation": 0.0019913280848413706,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 11.109483200000113,
+     "objective": 7268348.5,
+     "max_violation": 0.0006839843699708581,
+     "restored": false
+    }
+   ],
+   "evals": 2216
+  },
+  {
+   "id": 2,
+   "t": 9.000000006,
+   "trigger": "rolling horizon",
+   "objective": 7313421.0,
+   "feasible": true,
+   "seconds": 45.72328020000009,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 17.70052610000016,
+     "objective": 7201167.5,
+     "max_violation": 0.0028720644768327475,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.515132499999936,
+     "objective": 7217890.0,
+     "max_violation": 0.0008945312583819032,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.506313500000033,
+     "objective": 7313421.0,
+     "max_violation": 0.0017890625167638063,
+     "restored": false
+    }
+   ],
+   "evals": 1691
+  },
+  {
+   "id": 3,
+   "t": 10.166666675,
+   "trigger": "disruption detected",
+   "objective": 7326427.5,
+   "feasible": true,
+   "seconds": 44.706851700000016,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.778544499999953,
+     "objective": 7103510.5,
+     "max_violation": 0.003364062402397394,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.437641499999927,
+     "objective": 7305265.5,
+     "max_violation": 0.0011535156518220901,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.48980000000006,
+     "objective": 7326427.5,
+     "max_violation": 0.0006671548471786082,
+     "restored": false
+    }
+   ],
+   "evals": 1699
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "trigger": "rolling horizon",
+   "objective": 7282051.0,
+   "feasible": true,
+   "seconds": 45.26975659999994,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.285622500000045,
+     "objective": 5251677.0,
+     "max_violation": 0.0018136719008907676,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.281198700000004,
+     "objective": 7239565.0,
+     "max_violation": 0.003994753584265709,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": -16500,
+     "sections_accepted": true
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.701683800000183,
+     "objective": 7282051.0,
+     "max_violation": 0.0007960447110235691,
+     "restored": false
+    }
+   ],
+   "evals": 1700
+  },
+  {
+   "id": 5,
+   "t": 15.166666685,
+   "trigger": "disruption detected",
+   "objective": 7279338.5,
+   "feasible": true,
+   "seconds": 45.66840509999997,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.845056399999976,
+     "objective": 5012554.0,
+     "max_violation": 0.004274657927453518,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.03715269999998,
+     "objective": 7245759.5,
+     "max_violation": 0.0011536231031641364,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 14625,
+     "sections_accepted": true
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.784842499999968,
+     "objective": 7279338.5,
+     "max_violation": 0.0004469531122595072,
+     "restored": false
+    }
+   ],
+   "evals": 1700
+  },
+  {
+   "id": 6,
+   "t": 18.166666691,
+   "trigger": "rolling horizon",
+   "objective": 7158337.0,
+   "feasible": false,
+   "seconds": 61.351634900000136,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.846045000000004,
+     "objective": 4782078.5,
+     "max_violation": 0.004667187575250864,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.073214400000097,
+     "objective": 7197646.0,
+     "max_violation": 0.002437109360471368,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 26.43102850000014,
+     "objective": 7158337.0,
+     "max_violation": 0.002326640533283353,
+     "restored": true
+    }
+   ],
+   "evals": 1822
+  },
+  {
+   "id": 7,
+   "t": 21.166666697,
+   "trigger": "disruption detected",
+   "objective": 7018060.0,
+   "feasible": true,
+   "seconds": 62.62588740000001,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.706862900000033,
+     "objective": 2374436.25,
+     "max_violation": 0.0007783726905472577,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.46900370000003,
+     "objective": 6824711.0,
+     "max_violation": 0.011950199492275715,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 27.44870650000007,
+     "objective": 7018060.0,
+     "max_violation": 0.001888230093754828,
+     "restored": true
+    }
+   ],
+   "evals": 1822
+  },
+  {
+   "id": 8,
+   "t": 24.166666703,
+   "trigger": "rolling horizon",
+   "objective": 7100242.0,
+   "feasible": true,
+   "seconds": 45.49594430000002,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 17.245786599999974,
+     "objective": 4764661.0,
+     "max_violation": 0.0044664060696959496,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.695989599999848,
+     "objective": 7073139.0,
+     "max_violation": 0.0028700781986117363,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.552869399999963,
+     "objective": 7100242.0,
+     "max_violation": 0.0007234375225380063,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 9,
+   "t": 27.000000042,
+   "trigger": "market notice: power_price",
+   "objective": 6761028.5,
+   "feasible": true,
+   "seconds": 45.83705080000004,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 17.316392199999882,
+     "objective": 6558940.5,
+     "max_violation": 0.012839660048484802,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.06511579999983,
+     "objective": 6723638.5,
+     "max_violation": 0.003599375020712614,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 45118,
+     "sections_accepted": true
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.454254900000024,
+     "objective": 6761028.5,
+     "max_violation": 0.0016336719272658229,
+     "restored": false
+    }
+   ],
+   "evals": 1710
+  },
+  {
+   "id": 10,
+   "t": 30.000000048,
+   "trigger": "rolling horizon",
+   "objective": 6848344.0,
+   "feasible": false,
+   "seconds": 61.62134260000016,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.940385099999958,
+     "objective": 4241823.0,
+     "max_violation": 0.0,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.680120800000168,
+     "objective": 6823862.0,
+     "max_violation": 0.0026182811707258224,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 81000,
+     "sections_accepted": true
+    },
+    {
+     "stage": "polish",
+     "seconds": 25.99953400000004,
+     "objective": 6848344.0,
+     "max_violation": 0.0021276562474668026,
+     "restored": false
+    }
+   ],
+   "evals": 1833
+  },
+  {
+   "id": 11,
+   "t": 32.166666719,
+   "trigger": "disruption detected",
+   "objective": 6793545.0,
+   "feasible": true,
+   "seconds": 45.95346960000006,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.95498509999993,
+     "objective": 6421306.5,
+     "max_violation": 0.013278692029416561,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.46358220000002,
+     "objective": 6793545.0,
+     "max_violation": 0.0010939843486994505,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.533592899999803,
+     "objective": 6793545.0,
+     "max_violation": 0.0010939843486994505,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 12,
+   "t": 35.166666725,
+   "trigger": "rolling horizon",
+   "objective": 6852508.0,
+   "feasible": true,
+   "seconds": 45.73357510000005,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 383
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.711620200000198,
+     "objective": 4147541.0,
+     "max_violation": 0.00444179680198431,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.433823200000006,
+     "objective": 6802411.5,
+     "max_violation": 0.0006176562746986747,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.033,
+     "filter_pairs": 400,
+     "setup_s": 4.23,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.586789599999975,
+     "objective": 6852508.0,
+     "max_violation": 0.0006992187700234354,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 13,
+   "t": 36.00000006,
+   "trigger": "twin rewritten (new asset)",
+   "objective": 6251394.0,
+   "feasible": true,
+   "seconds": 47.34173609999971,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.811754300000302,
+     "objective": 4117992.0,
+     "max_violation": 0.0,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 20.09279340000012,
+     "objective": 6251394.0,
+     "max_violation": 0.0013500781496986747,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.436229099999764,
+     "objective": 6251394.0,
+     "max_violation": 0.0013500781496986747,
+     "restored": false
+    }
+   ],
+   "evals": 2278
+  },
+  {
+   "id": 14,
+   "t": 39.000000066,
+   "trigger": "rolling horizon",
+   "objective": 6922096.0,
+   "feasible": true,
+   "seconds": 44.619061599999895,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.856016300000192,
+     "objective": 6695334.0,
+     "max_violation": 0.0032819530460983515,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.328622099999848,
+     "objective": 6882796.5,
+     "max_violation": 0.0006326562725007534,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.43315709999979,
+     "objective": 6922096.0,
+     "max_violation": 0.0015818750252947211,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 15,
+   "t": 42.000000072,
+   "trigger": "rolling horizon",
+   "objective": 7094589.5,
+   "feasible": true,
+   "seconds": 45.636289099999885,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.992529800000284,
+     "objective": 6765177.0,
+     "max_violation": 0.0028871875256299973,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.11850259999983,
+     "objective": 7071510.5,
+     "max_violation": 0.001678203116171062,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.52390779999996,
+     "objective": 7094589.5,
+     "max_violation": 0.0018776562064886093,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 16,
+   "t": 45.000000078,
+   "trigger": "rolling horizon",
+   "objective": 7194921.5,
+   "feasible": true,
+   "seconds": 45.55966230000013,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 17.081352499999866,
+     "objective": 4429803.0,
+     "max_violation": 0.00023878400679677725,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.789899700000205,
+     "objective": 7163540.5,
+     "max_violation": 0.0013110155705362558,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.687065000000075,
+     "objective": 7194921.5,
+     "max_violation": 0.0014036719221621752,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 17,
+   "t": 46.166666747,
+   "trigger": "disruption detected",
+   "objective": 7191807.5,
+   "feasible": true,
+   "seconds": 45.45611539999982,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 17.15015369999992,
+     "objective": 6839751.5,
+     "max_violation": 0.0033748438581824303,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.513539799999762,
+     "objective": 7154025.0,
+     "max_violation": 0.0008179687429219484,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.791151899999932,
+     "objective": 7191807.5,
+     "max_violation": 0.001493437448516488,
+     "restored": false
+    }
+   ],
+   "evals": 1699
+  },
+  {
+   "id": 18,
+   "t": 49.166666753,
+   "trigger": "rolling horizon",
+   "objective": 7204064.5,
+   "feasible": true,
+   "seconds": 44.49139689999993,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.211797200000092,
+     "objective": 6850957.0,
+     "max_violation": 0.0019424520432949066,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 17.988548900000296,
+     "objective": 7161725.0,
+     "max_violation": 0.001467656227760017,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.28977040000018,
+     "objective": 7204064.5,
+     "max_violation": 0.0016768750501796603,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  },
+  {
+   "id": 19,
+   "t": 52.166666759,
+   "trigger": "rolling horizon",
+   "objective": 7197986.0,
+   "feasible": true,
+   "seconds": 45.208548800000244,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 384
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 16.45169040000019,
+     "objective": 7048338.5,
+     "max_violation": 0.009443206712603569,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 18.317343600000186,
+     "objective": 7166274.0,
+     "max_violation": 0.0016104687238112092,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 748,
+     "filter_spearman": 0.112,
+     "filter_pairs": 400,
+     "setup_s": 2.39,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 10.438200800000232,
+     "objective": 7197986.0,
+     "max_violation": 0.0006715625058859587,
+     "restored": false
+    }
+   ],
+   "evals": 1707
+  }
+ ],
+ "timeline": [
+  {
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "kind": "plan",
+   "title": "Re-plan #1 (initial plan)",
+   "text": "4,992 decisions optimised in 60.2 s"
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "kind": "plan",
+   "title": "Re-plan #2 (rolling horizon)",
+   "text": "4,992 decisions optimised in 45.7 s"
+  },
+  {
+   "t": 10.000000008,
+   "clock": "Day 1 10:00",
+   "kind": "event",
+   "title": "Main fan VR2 trips",
+   "text": "Motor protection trips the central exhaust fan. A third of the mine's air is gone for six hours.",
+   "asset": "FAN_C",
+   "manual": false
+  },
+  {
+   "t": 10.166666675,
+   "clock": "Day 1 10:10",
+   "kind": "plan",
+   "title": "Re-plan #3 (disruption detected)",
+   "text": "4,992 decisions optimised in 44.7 s"
+  },
+  {
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "kind": "plan",
+   "title": "Re-plan #4 (rolling horizon)",
+   "text": "4,992 decisions optimised in 45.3 s"
+  },
+  {
+   "t": 15.000000018,
+   "clock": "Day 1 15:00",
+   "kind": "event",
+   "title": "Seismic event closes North 560 level",
+   "text": "A magnitude 1.6 event on North 560. The level is barricaded until the geotechnical inspection.",
+   "asset": "ST_N560_01",
+   "manual": false
+  },
+  {
+   "t": 15.166666685,
+   "clock": "Day 1 15:10",
+   "kind": "plan",
+   "title": "Re-plan #5 (disruption detected)",
+   "text": "4,992 decisions optimised in 45.7 s"
+  },
+  {
+   "t": 16.00000002,
+   "clock": "Day 1 16:00",
+   "kind": "event",
+   "title": "Main fan VR2 back in service",
+   "text": "",
+   "asset": "FAN_C",
+   "manual": false
+  },
+  {
+   "t": 18.166666691,
+   "clock": "Day 1 18:10",
+   "kind": "plan",
+   "title": "Re-plan #6 (rolling horizon)",
+   "text": "4,992 decisions optimised in 61.4 s"
+  },
+  {
+   "t": 21.00000003,
+   "clock": "Day 1 21:00",
+   "kind": "event",
+   "title": "Skip hoist stopped: rope inspection finding",
+   "text": "The rope inspection finds broken wires. Five hours without hoisting - every bin and ore pass now matters.",
+   "asset": "SH1",
+   "manual": false
+  },
+  {
+   "t": 21.166666697,
+   "clock": "Day 1 21:10",
+   "kind": "plan",
+   "title": "Re-plan #7 (disruption detected)",
+   "text": "4,992 decisions optimised in 62.6 s"
+  },
+  {
+   "t": 24.166666703,
+   "clock": "Day 2 00:10",
+   "kind": "plan",
+   "title": "Re-plan #8 (rolling horizon)",
+   "text": "4,992 decisions optimised in 45.5 s"
+  },
+  {
+   "t": 26.00000004,
+   "clock": "Day 2 02:00",
+   "kind": "event",
+   "title": "Skip hoist back in service",
+   "text": "",
+   "asset": "SH1",
+   "manual": false
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "kind": "market",
+   "title": "NEM forecast: critical peak tomorrow 16:00-19:00",
+   "text": "Heat wave in South Australia: the market operator forecasts 1,500 USD/MWh for three hours tomorrow evening."
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "kind": "plan",
+   "title": "Re-plan #9 (market notice: power_price)",
+   "text": "4,992 decisions optimised in 45.8 s"
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "kind": "plan",
+   "title": "Re-plan #10 (rolling horizon)",
+   "text": "4,992 decisions optimised in 61.6 s"
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "kind": "event",
+   "title": "Three Central loaders down",
+   "text": "Two transmission failures and a tyre change: the Central zone loses three of eleven loaders for ten hours.",
+   "asset": "LHD_C",
+   "manual": false
+  },
+  {
+   "t": 32.166666719,
+   "clock": "Day 2 08:10",
+   "kind": "plan",
+   "title": "Re-plan #11 (disruption detected)",
+   "text": "4,992 decisions optimised in 46.0 s"
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "kind": "event",
+   "title": "North 560 level re-opened after inspection",
+   "text": "",
+   "asset": "ST_N560_01",
+   "manual": false
+  },
+  {
+   "t": 35.166666725,
+   "clock": "Day 2 11:10",
+   "kind": "plan",
+   "title": "Re-plan #12 (rolling horizon)",
+   "text": "4,992 decisions optimised in 45.7 s"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "event",
+   "title": "New stope handed over on Central 560",
+   "text": "Development completed a new stope. It is not in the mine plan database yet - only its tags appear.",
+   "asset": "ST_C560_10",
+   "manual": false
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "twin",
+   "title": "Discovery: ST_C560_10",
+   "text": "    ## discovered from tag COR.C560.ST10.LHD.TPH (rule 'new_stope')\n    init ST_C560_10 as stope { tag = \"COR.C560.ST10\"; label = \"Stope C560-10\"; at = (-30.948774, 136.798937); };\n    connect(ST_C560_10.ore_out, OP_C1.feed);\n    connect(ST_C560_10.lhd_req, LHD_C.requests);\n    connect(ST_C560_10.air_req, VD_C560.demand);"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "twin",
+   "title": "Twin rewritten (v2): ST_C560_10 added",
+   "text": "commit c0028"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "plan",
+   "title": "Re-plan #13 (twin rewritten (new asset))",
+   "text": "5,008 decisions optimised in 47.3 s"
+  },
+  {
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "kind": "plan",
+   "title": "Re-plan #14 (rolling horizon)",
+   "text": "5,008 decisions optimised in 44.6 s"
+  },
+  {
+   "t": 40.000000068,
+   "clock": "Day 2 16:00",
+   "kind": "event",
+   "title": "Power at 1,500 USD/MWh",
+   "text": "Every fan, pump and the hoist now costs twelve times more per hour.",
+   "asset": null,
+   "manual": false
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "plan",
+   "title": "Re-plan #15 (rolling horizon)",
+   "text": "5,008 decisions optimised in 45.6 s"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "event",
+   "title": "Central loaders back from the workshop",
+   "text": "",
+   "asset": "LHD_C",
+   "manual": false
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "kind": "plan",
+   "title": "Re-plan #16 (rolling horizon)",
+   "text": "5,008 decisions optimised in 45.6 s"
+  },
+  {
+   "t": 46.00000008,
+   "clock": "Day 2 22:00",
+   "kind": "event",
+   "title": "Pump station South 930 fails",
+   "text": "A pump seal fails. The sump keeps filling - nobody announced it, the twin sees the level rise.",
+   "asset": "PS_S3",
+   "manual": false
+  },
+  {
+   "t": 46.166666747,
+   "clock": "Day 2 22:10",
+   "kind": "plan",
+   "title": "Re-plan #17 (disruption detected)",
+   "text": "5,008 decisions optimised in 45.5 s"
+  },
+  {
+   "t": 49.166666753,
+   "clock": "Day 3 01:10",
+   "kind": "plan",
+   "title": "Re-plan #18 (rolling horizon)",
+   "text": "5,008 decisions optimised in 44.5 s"
+  },
+  {
+   "t": 52.166666759,
+   "clock": "Day 3 04:10",
+   "kind": "plan",
+   "title": "Re-plan #19 (rolling horizon)",
+   "text": "5,008 decisions optimised in 45.2 s"
+  }
+ ],
+ "hourly": [
+  {
+   "t": 7.000000002,
+   "clock": "Day 1 07:00",
+   "plyxis": {
+    "m_ore": 1437.1,
+    "m_hoisted": 1483.4,
+    "m_milled": 1599.6,
+    "m_copper": 491.4,
+    "m_power": 64.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122229.7,
+    "revenue_usd_h": 188242.6,
+    "cost_usd_h": 63046.2,
+    "inventory_usd_h": -2966.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 119398
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 485.4,
+    "m_power": 56.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120905.2,
+    "revenue_usd_h": 185935.1,
+    "cost_usd_h": 62266.4,
+    "inventory_usd_h": -2763.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.0,
+    "cum_profit": 118165
+   },
+   "delta_profit": 1232,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188253.8,
+     "ownership": -4325.0,
+     "power": -3870.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -14371.4,
+     "loading": -1261.3,
+     "blasting": -0.0,
+     "hauling": -716.1,
+     "wear": -504.2,
+     "energy": -5700.9,
+     "consumables": -12796.7
+    },
+    "legacy": {
+     "metal": 185934.9,
+     "ownership": -4325.0,
+     "power": -2793.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1344.4,
+     "blasting": -0.0,
+     "hauling": -299.4,
+     "wear": -197.4,
+     "energy": -5631.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 8.000000004,
+   "clock": "Day 1 08:00",
+   "plyxis": {
+    "m_ore": 1437.1,
+    "m_hoisted": 1481.9,
+    "m_milled": 1599.6,
+    "m_copper": 491.5,
+    "m_power": 64.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120039.7,
+    "revenue_usd_h": 188300.0,
+    "cost_usd_h": 63349.8,
+    "inventory_usd_h": -4910.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.2,
+    "cum_profit": 237116
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1354.1,
+    "m_milled": 1580.0,
+    "m_copper": 485.4,
+    "m_power": 55.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 118770.7,
+    "revenue_usd_h": 185941.3,
+    "cost_usd_h": 62573.2,
+    "inventory_usd_h": -4597.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.5,
+    "cum_profit": 234681
+   },
+   "delta_profit": 2435,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188439.5,
+     "ownership": -4325.0,
+     "power": -4072.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -14371.4,
+     "loading": -1261.3,
+     "blasting": -0.0,
+     "hauling": -716.1,
+     "wear": -504.2,
+     "energy": -6123.2,
+     "consumables": -12796.7
+    },
+    "legacy": {
+     "metal": 185942.4,
+     "ownership": -4325.0,
+     "power": -2537.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1345.0,
+     "blasting": -0.0,
+     "hauling": -473.3,
+     "wear": -317.6,
+     "energy": -6048.2,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "plyxis": {
+    "m_ore": 1437.1,
+    "m_hoisted": 1480.7,
+    "m_milled": 1599.7,
+    "m_copper": 492.1,
+    "m_power": 63.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120152.3,
+    "revenue_usd_h": 188683.7,
+    "cost_usd_h": 62611.1,
+    "inventory_usd_h": -5920.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.1,
+    "cum_profit": 357362
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1214.3,
+    "m_milled": 1580.0,
+    "m_copper": 485.3,
+    "m_power": 55.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 118448.6,
+    "revenue_usd_h": 186100.1,
+    "cost_usd_h": 62273.3,
+    "inventory_usd_h": -5378.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.6,
+    "cum_profit": 352817
+   },
+   "delta_profit": 4545,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189273.8,
+     "ownership": -4325.0,
+     "power": -3307.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -14371.4,
+     "loading": -1261.3,
+     "blasting": -0.0,
+     "hauling": -702.0,
+     "wear": -497.1,
+     "energy": -5068.3,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 186243.8,
+     "ownership": -4325.0,
+     "power": -2684.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1344.7,
+     "blasting": -0.0,
+     "hauling": -602.1,
+     "wear": -404.4,
+     "energy": -5005.4,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 10.000000008,
+   "clock": "Day 1 10:00",
+   "plyxis": {
+    "m_ore": 1471.7,
+    "m_hoisted": 1536.1,
+    "m_milled": 1599.8,
+    "m_copper": 493.2,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122101.3,
+    "revenue_usd_h": 189248.0,
+    "cost_usd_h": 61058.7,
+    "inventory_usd_h": -6088.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.8,
+    "cum_profit": 481475
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1242.4,
+    "m_milled": 1580.0,
+    "m_copper": 485.2,
+    "m_power": 57.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 119547.4,
+    "revenue_usd_h": 186182.9,
+    "cost_usd_h": 61005.7,
+    "inventory_usd_h": -5629.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.3,
+    "cum_profit": 473530
+   },
+   "delta_profit": 7945,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190159.6,
+     "ownership": -4325.0,
+     "power": -1992.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15080.8,
+     "loading": -1314.4,
+     "blasting": -0.0,
+     "hauling": -727.3,
+     "wear": -514.1,
+     "energy": -3167.7,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 186234.2,
+     "ownership": -4325.0,
+     "power": -1904.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1344.7,
+     "blasting": -0.0,
+     "hauling": -688.5,
+     "wear": -464.8,
+     "energy": -3128.4,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 11.00000001,
+   "clock": "Day 1 11:00",
+   "plyxis": {
+    "m_ore": 980.5,
+    "m_hoisted": 1600.9,
+    "m_milled": 1599.8,
+    "m_copper": 495.0,
+    "m_power": 62.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125946.7,
+    "revenue_usd_h": 189944.4,
+    "cost_usd_h": 53900.2,
+    "inventory_usd_h": -10097.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 611424
+   },
+   "legacy": {
+    "m_ore": 1157.2,
+    "m_hoisted": 938.5,
+    "m_milled": 1580.0,
+    "m_copper": 485.0,
+    "m_power": 58.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121906.3,
+    "revenue_usd_h": 186103.0,
+    "cost_usd_h": 54697.2,
+    "inventory_usd_h": -9499.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.6,
+    "cum_profit": 597942
+   },
+   "delta_profit": 13482,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191101.5,
+     "ownership": -4325.0,
+     "power": -1266.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4660.3,
+     "loading": -431.6,
+     "blasting": -0.0,
+     "hauling": -774.3,
+     "wear": -547.6,
+     "energy": -2111.8,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 185978.7,
+     "ownership": -4325.0,
+     "power": -1246.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7179.9,
+     "loading": -619.7,
+     "blasting": -0.0,
+     "hauling": -335.4,
+     "wear": -220.9,
+     "energy": -2085.6,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 12.000000012,
+   "clock": "Day 1 12:00",
+   "plyxis": {
+    "m_ore": 734.2,
+    "m_hoisted": 1636.1,
+    "m_milled": 1599.8,
+    "m_copper": 497.5,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 128521.3,
+    "revenue_usd_h": 190595.6,
+    "cost_usd_h": 49970.8,
+    "inventory_usd_h": -12103.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.0,
+    "cum_profit": 742595
+   },
+   "legacy": {
+    "m_ore": 973.5,
+    "m_hoisted": 838.2,
+    "m_milled": 1580.0,
+    "m_copper": 484.7,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122968.0,
+    "revenue_usd_h": 185680.8,
+    "cost_usd_h": 51569.2,
+    "inventory_usd_h": -11143.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 722055
+   },
+   "delta_profit": 20540,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191754.8,
+     "ownership": -4325.0,
+     "power": -1005.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4767.2,
+     "loading": -440.5,
+     "blasting": -0.0,
+     "hauling": -774.3,
+     "wear": -547.6,
+     "energy": -1689.4,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 185134.4,
+     "ownership": -4325.0,
+     "power": -1019.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7881.1,
+     "loading": -680.0,
+     "blasting": -0.0,
+     "hauling": -398.7,
+     "wear": -259.1,
+     "energy": -1668.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 13.000000014,
+   "clock": "Day 1 13:00",
+   "plyxis": {
+    "m_ore": 609.0,
+    "m_hoisted": 1652.5,
+    "m_milled": 1599.8,
+    "m_copper": 500.5,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 130599.0,
+    "revenue_usd_h": 191536.3,
+    "cost_usd_h": 47812.2,
+    "inventory_usd_h": -13125.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 875317
+   },
+   "legacy": {
+    "m_ore": 931.7,
+    "m_hoisted": 843.4,
+    "m_milled": 1580.0,
+    "m_copper": 484.1,
+    "m_power": 61.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123336.0,
+    "revenue_usd_h": 185269.8,
+    "cost_usd_h": 50439.4,
+    "inventory_usd_h": -11494.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 845827
+   },
+   "delta_profit": 29489,
+   "terms_h": {
+    "plyxis": {
+     "metal": 192998.6,
+     "ownership": -4325.0,
+     "power": -892.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4768.1,
+     "loading": -440.5,
+     "blasting": -0.0,
+     "hauling": -786.5,
+     "wear": -547.9,
+     "energy": -1478.3,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 184687.0,
+     "ownership": -4325.0,
+     "power": -946.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9581.8,
+     "loading": -822.8,
+     "blasting": -0.0,
+     "hauling": -494.9,
+     "wear": -322.0,
+     "energy": -1459.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 14.000000016,
+   "clock": "Day 1 14:00",
+   "plyxis": {
+    "m_ore": 529.2,
+    "m_hoisted": 1675.7,
+    "m_milled": 1599.8,
+    "m_copper": 503.6,
+    "m_power": 61.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132045.2,
+    "revenue_usd_h": 192345.0,
+    "cost_usd_h": 47503.9,
+    "inventory_usd_h": -12795.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 1008821
+   },
+   "legacy": {
+    "m_ore": 958.6,
+    "m_hoisted": 907.8,
+    "m_milled": 1580.0,
+    "m_copper": 483.2,
+    "m_power": 61.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122939.0,
+    "revenue_usd_h": 184566.7,
+    "cost_usd_h": 50422.8,
+    "inventory_usd_h": -11204.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 968382
+   },
+   "delta_profit": 40439,
+   "terms_h": {
+    "plyxis": {
+     "metal": 193603.2,
+     "ownership": -4325.0,
+     "power": -885.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4406.6,
+     "loading": -377.5,
+     "blasting": -2500.0,
+     "hauling": -673.5,
+     "wear": -467.5,
+     "energy": -1478.3,
+     "consumables": -12798.8
+    },
+    "legacy": {
+     "metal": 183616.8,
+     "ownership": -4325.0,
+     "power": -855.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -10025.4,
+     "loading": -860.8,
+     "blasting": -0.0,
+     "hauling": -544.8,
+     "wear": -354.0,
+     "energy": -1459.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 15.000000018,
+   "clock": "Day 1 15:00",
+   "plyxis": {
+    "m_ore": 486.1,
+    "m_hoisted": 1664.9,
+    "m_milled": 1599.8,
+    "m_copper": 506.4,
+    "m_power": 61.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133131.2,
+    "revenue_usd_h": 193332.5,
+    "cost_usd_h": 47683.5,
+    "inventory_usd_h": -12517.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.8,
+    "cum_profit": 1143054
+   },
+   "legacy": {
+    "m_ore": 983.8,
+    "m_hoisted": 954.2,
+    "m_milled": 1580.0,
+    "m_copper": 481.9,
+    "m_power": 60.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122315.5,
+    "revenue_usd_h": 183995.0,
+    "cost_usd_h": 50739.5,
+    "inventory_usd_h": -10940.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 1090063
+   },
+   "delta_profit": 52991,
+   "terms_h": {
+    "plyxis": {
+     "metal": 194666.8,
+     "ownership": -4325.0,
+     "power": -1048.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4406.6,
+     "loading": -377.5,
+     "blasting": -2500.0,
+     "hauling": -673.5,
+     "wear": -467.5,
+     "energy": -1773.9,
+     "consumables": -12798.8
+    },
+    "legacy": {
+     "metal": 183164.1,
+     "ownership": -4325.0,
+     "power": -975.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9954.1,
+     "loading": -854.3,
+     "blasting": -0.0,
+     "hauling": -539.9,
+     "wear": -348.6,
+     "energy": -1751.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 16.00000002,
+   "clock": "Day 1 16:00",
+   "plyxis": {
+    "m_ore": 485.4,
+    "m_hoisted": 1577.7,
+    "m_milled": 1599.8,
+    "m_copper": 508.7,
+    "m_power": 61.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133679.4,
+    "revenue_usd_h": 194491.3,
+    "cost_usd_h": 47542.2,
+    "inventory_usd_h": -13269.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 1277292
+   },
+   "legacy": {
+    "m_ore": 976.6,
+    "m_hoisted": 956.6,
+    "m_milled": 1580.0,
+    "m_copper": 480.5,
+    "m_power": 59.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121462.8,
+    "revenue_usd_h": 183698.7,
+    "cost_usd_h": 51208.3,
+    "inventory_usd_h": -11027.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 1210667
+   },
+   "delta_profit": 66625,
+   "terms_h": {
+    "plyxis": {
+     "metal": 195894.1,
+     "ownership": -4325.0,
+     "power": -1461.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4927.4,
+     "loading": -416.9,
+     "blasting": -0.0,
+     "hauling": -715.8,
+     "wear": -494.3,
+     "energy": -2534.1,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 183137.6,
+     "ownership": -4325.0,
+     "power": -1381.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9807.6,
+     "loading": -822.4,
+     "blasting": -0.0,
+     "hauling": -513.5,
+     "wear": -335.4,
+     "energy": -2502.7,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 17.000000022,
+   "clock": "Day 1 17:00",
+   "plyxis": {
+    "m_ore": 489.0,
+    "m_hoisted": 1495.3,
+    "m_milled": 1599.8,
+    "m_copper": 510.4,
+    "m_power": 61.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121494.6,
+    "revenue_usd_h": 195103.7,
+    "cost_usd_h": 59820.8,
+    "inventory_usd_h": -13788.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 1385914
+   },
+   "legacy": {
+    "m_ore": 1270.2,
+    "m_hoisted": 1252.0,
+    "m_milled": 1580.0,
+    "m_copper": 478.5,
+    "m_power": 61.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 106818.8,
+    "revenue_usd_h": 182880.9,
+    "cost_usd_h": 67740.3,
+    "inventory_usd_h": -8321.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 1302090
+   },
+   "delta_profit": 83824,
+   "terms_h": {
+    "plyxis": {
+     "metal": 195851.6,
+     "ownership": -4325.0,
+     "power": -11011.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4927.4,
+     "loading": -416.9,
+     "blasting": -0.0,
+     "hauling": -715.8,
+     "wear": -494.3,
+     "energy": -18583.7,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 181480.3,
+     "ownership": -4325.0,
+     "power": -11522.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1313.8,
+     "blasting": -0.0,
+     "hauling": -840.6,
+     "wear": -548.3,
+     "energy": -18353.3,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 18.000000024,
+   "clock": "Day 1 18:00",
+   "plyxis": {
+    "m_ore": 490.8,
+    "m_hoisted": 1478.9,
+    "m_milled": 1599.9,
+    "m_copper": 511.6,
+    "m_power": 60.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124011.3,
+    "revenue_usd_h": 196156.2,
+    "cost_usd_h": 58146.3,
+    "inventory_usd_h": -13998.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.5,
+    "cum_profit": 1512552
+   },
+   "legacy": {
+    "m_ore": 1420.9,
+    "m_hoisted": 1406.9,
+    "m_milled": 1580.0,
+    "m_copper": 475.4,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 107115.9,
+    "revenue_usd_h": 182268.0,
+    "cost_usd_h": 68222.5,
+    "inventory_usd_h": -6929.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 1409625
+   },
+   "delta_profit": 102927,
+   "terms_h": {
+    "plyxis": {
+     "metal": 197340.6,
+     "ownership": -4325.0,
+     "power": -4625.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -4927.4,
+     "loading": -416.9,
+     "blasting": -0.0,
+     "hauling": -772.2,
+     "wear": -530.1,
+     "energy": -8447.7,
+     "consumables": -12799.6
+    },
+    "legacy": {
+     "metal": 181021.4,
+     "ownership": -4325.0,
+     "power": -5483.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1312.6,
+     "blasting": -0.0,
+     "hauling": -844.0,
+     "wear": -550.2,
+     "energy": -8342.4,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 19.000000026,
+   "clock": "Day 1 19:00",
+   "plyxis": {
+    "m_ore": 599.1,
+    "m_hoisted": 1549.2,
+    "m_milled": 1599.9,
+    "m_copper": 512.5,
+    "m_power": 60.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123118.1,
+    "revenue_usd_h": 196735.3,
+    "cost_usd_h": 60380.4,
+    "inventory_usd_h": -13236.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.4,
+    "cum_profit": 1634746
+   },
+   "legacy": {
+    "m_ore": 1498.3,
+    "m_hoisted": 1488.3,
+    "m_milled": 1580.0,
+    "m_copper": 471.7,
+    "m_power": 61.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 104604.8,
+    "revenue_usd_h": 181082.6,
+    "cost_usd_h": 70262.9,
+    "inventory_usd_h": -6214.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 1511595
+   },
+   "delta_profit": 123151,
+   "terms_h": {
+    "plyxis": {
+     "metal": 197461.0,
+     "ownership": -4325.0,
+     "power": -6143.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7445.0,
+     "loading": -633.0,
+     "blasting": -0.0,
+     "hauling": -746.8,
+     "wear": -512.7,
+     "energy": -10982.2,
+     "consumables": -12799.8
+    },
+    "legacy": {
+     "metal": 179234.2,
+     "ownership": -4325.0,
+     "power": -6091.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1310.9,
+     "blasting": -0.0,
+     "hauling": -848.1,
+     "wear": -551.4,
+     "energy": -10845.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 20.000000028,
+   "clock": "Day 1 20:00",
+   "plyxis": {
+    "m_ore": 669.8,
+    "m_hoisted": 1608.1,
+    "m_milled": 1600.0,
+    "m_copper": 513.5,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123379.0,
+    "revenue_usd_h": 196825.6,
+    "cost_usd_h": 60729.0,
+    "inventory_usd_h": -12717.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.4,
+    "cum_profit": 1758371
+   },
+   "legacy": {
+    "m_ore": 1538.1,
+    "m_hoisted": 1491.0,
+    "m_milled": 1580.0,
+    "m_copper": 468.0,
+    "m_power": 60.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 103298.8,
+    "revenue_usd_h": 179398.2,
+    "cost_usd_h": 70184.9,
+    "inventory_usd_h": -5914.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 1613602
+   },
+   "delta_profit": 144769,
+   "terms_h": {
+    "plyxis": {
+     "metal": 197116.6,
+     "ownership": -4325.0,
+     "power": -5417.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7445.0,
+     "loading": -633.0,
+     "blasting": -0.0,
+     "hauling": -746.8,
+     "wear": -512.7,
+     "energy": -9715.1,
+     "consumables": -12799.8
+    },
+    "legacy": {
+     "metal": 177256.4,
+     "ownership": -4325.0,
+     "power": -5743.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1323.2,
+     "blasting": -0.0,
+     "hauling": -783.0,
+     "wear": -528.3,
+     "energy": -9593.8,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 21.00000003,
+   "clock": "Day 1 21:00",
+   "plyxis": {
+    "m_ore": 706.2,
+    "m_hoisted": 1642.9,
+    "m_milled": 1591.2,
+    "m_copper": 511.9,
+    "m_power": 60.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125132.8,
+    "revenue_usd_h": 196185.1,
+    "cost_usd_h": 58709.2,
+    "inventory_usd_h": -12343.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 1885424
+   },
+   "legacy": {
+    "m_ore": 1558.5,
+    "m_hoisted": 1509.4,
+    "m_milled": 1580.0,
+    "m_copper": 465.2,
+    "m_power": 61.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 104529.4,
+    "revenue_usd_h": 178269.9,
+    "cost_usd_h": 68008.8,
+    "inventory_usd_h": -5731.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 1719467
+   },
+   "delta_profit": 165958,
+   "terms_h": {
+    "plyxis": {
+     "metal": 195411.1,
+     "ownership": -4325.0,
+     "power": -4128.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7445.3,
+     "loading": -633.0,
+     "blasting": -0.0,
+     "hauling": -744.3,
+     "wear": -507.9,
+     "energy": -6671.3,
+     "consumables": -12635.1
+    },
+    "legacy": {
+     "metal": 176892.1,
+     "ownership": -4325.0,
+     "power": -4093.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1325.5,
+     "blasting": -0.0,
+     "hauling": -795.1,
+     "wear": -538.4,
+     "energy": -6673.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 22.000000032,
+   "clock": "Day 1 22:00",
+   "plyxis": {
+    "m_ore": 739.3,
+    "m_hoisted": 843.5,
+    "m_milled": 1574.0,
+    "m_copper": 507.4,
+    "m_power": 56.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126003.7,
+    "revenue_usd_h": 194269.8,
+    "cost_usd_h": 55717.1,
+    "inventory_usd_h": -12549.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.4,
+    "cum_profit": 2012453
+   },
+   "legacy": {
+    "m_ore": 1568.9,
+    "m_hoisted": 775.0,
+    "m_milled": 1580.0,
+    "m_copper": 463.4,
+    "m_power": 58.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 106081.9,
+    "revenue_usd_h": 177405.0,
+    "cost_usd_h": 65321.6,
+    "inventory_usd_h": -6001.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.2,
+    "cum_profit": 1827187
+   },
+   "delta_profit": 185266,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191838.3,
+     "ownership": -4325.0,
+     "power": -1951.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7784.8,
+     "loading": -670.8,
+     "blasting": -0.0,
+     "hauling": -407.3,
+     "wear": -272.5,
+     "energy": -5123.5,
+     "consumables": -12420.7
+    },
+    "legacy": {
+     "metal": 176492.3,
+     "ownership": -4325.0,
+     "power": -2339.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1322.6,
+     "blasting": -0.0,
+     "hauling": -806.5,
+     "wear": -544.3,
+     "energy": -5214.0,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 23.000000034,
+   "clock": "Day 1 23:00",
+   "plyxis": {
+    "m_ore": 758.4,
+    "m_hoisted": 433.1,
+    "m_milled": 1563.6,
+    "m_copper": 504.6,
+    "m_power": 53.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126757.3,
+    "revenue_usd_h": 193126.1,
+    "cost_usd_h": 53713.4,
+    "inventory_usd_h": -12655.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.7,
+    "cum_profit": 2140005
+   },
+   "legacy": {
+    "m_ore": 1574.3,
+    "m_hoisted": 397.9,
+    "m_milled": 1580.0,
+    "m_copper": 462.4,
+    "m_power": 56.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 107410.7,
+    "revenue_usd_h": 176997.1,
+    "cost_usd_h": 63450.3,
+    "inventory_usd_h": -6136.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.5,
+    "cum_profit": 1935994
+   },
+   "delta_profit": 204011,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191919.2,
+     "ownership": -4325.0,
+     "power": -1708.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7784.8,
+     "loading": -670.8,
+     "blasting": -0.0,
+     "hauling": -407.3,
+     "wear": -272.5,
+     "energy": -4508.7,
+     "consumables": -12420.7
+    },
+    "legacy": {
+     "metal": 176566.7,
+     "ownership": -4325.0,
+     "power": -1927.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1322.3,
+     "blasting": -0.0,
+     "hauling": -811.1,
+     "wear": -547.8,
+     "energy": -4588.3,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 24.000000036,
+   "clock": "Day 2 00:00",
+   "plyxis": {
+    "m_ore": 768.2,
+    "m_hoisted": 222.3,
+    "m_milled": 1556.8,
+    "m_copper": 502.7,
+    "m_power": 53.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 127530.1,
+    "revenue_usd_h": 192677.3,
+    "cost_usd_h": 52505.3,
+    "inventory_usd_h": -12641.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.6,
+    "cum_profit": 2268371
+   },
+   "legacy": {
+    "m_ore": 1577.1,
+    "m_hoisted": 204.3,
+    "m_milled": 1580.0,
+    "m_copper": 462.0,
+    "m_power": 55.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 108665.3,
+    "revenue_usd_h": 177078.2,
+    "cost_usd_h": 62192.6,
+    "inventory_usd_h": -6220.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2045983
+   },
+   "delta_profit": 222388,
+   "terms_h": {
+    "plyxis": {
+     "metal": 192152.3,
+     "ownership": -4325.0,
+     "power": -1721.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -7784.8,
+     "loading": -670.8,
+     "blasting": -0.0,
+     "hauling": -459.5,
+     "wear": -313.4,
+     "energy": -4090.0,
+     "consumables": -12393.8
+    },
+    "legacy": {
+     "metal": 177163.8,
+     "ownership": -4325.0,
+     "power": -1752.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1312.4,
+     "blasting": -0.0,
+     "hauling": -816.8,
+     "wear": -549.9,
+     "energy": -4171.2,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 25.000000038,
+   "clock": "Day 2 01:00",
+   "plyxis": {
+    "m_ore": 841.2,
+    "m_hoisted": 114.2,
+    "m_milled": 1574.7,
+    "m_copper": 508.6,
+    "m_power": 53.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 130515.1,
+    "revenue_usd_h": 195530.9,
+    "cost_usd_h": 52723.2,
+    "inventory_usd_h": -12292.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.5,
+    "cum_profit": 2401830
+   },
+   "legacy": {
+    "m_ore": 1578.5,
+    "m_hoisted": 104.9,
+    "m_milled": 1580.0,
+    "m_copper": 461.7,
+    "m_power": 53.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 109814.5,
+    "revenue_usd_h": 177502.4,
+    "cost_usd_h": 60840.1,
+    "inventory_usd_h": -6847.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.9,
+    "cum_profit": 2157012
+   },
+   "delta_profit": 244818,
+   "terms_h": {
+    "plyxis": {
+     "metal": 199325.7,
+     "ownership": -4325.0,
+     "power": -1549.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9381.4,
+     "loading": -823.5,
+     "blasting": -0.0,
+     "hauling": -498.2,
+     "wear": -343.9,
+     "energy": -4012.7,
+     "consumables": -12799.7
+    },
+    "legacy": {
+     "metal": 177949.9,
+     "ownership": -4325.0,
+     "power": -1499.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1314.3,
+     "blasting": -0.0,
+     "hauling": -0.0,
+     "wear": -0.0,
+     "energy": -3962.6,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 26.00000004,
+   "clock": "Day 2 02:00",
+   "plyxis": {
+    "m_ore": 888.4,
+    "m_hoisted": 58.6,
+    "m_milled": 1587.0,
+    "m_copper": 512.6,
+    "m_power": 53.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132324.9,
+    "revenue_usd_h": 197220.2,
+    "cost_usd_h": 52828.9,
+    "inventory_usd_h": -12066.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.4,
+    "cum_profit": 2536064
+   },
+   "legacy": {
+    "m_ore": 1579.2,
+    "m_hoisted": 53.8,
+    "m_milled": 1580.0,
+    "m_copper": 461.6,
+    "m_power": 52.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 110425.6,
+    "revenue_usd_h": 177579.9,
+    "cost_usd_h": 59803.8,
+    "inventory_usd_h": -7350.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.7,
+    "cum_profit": 2268074
+   },
+   "delta_profit": 267990,
+   "terms_h": {
+    "plyxis": {
+     "metal": 199002.7,
+     "ownership": -4325.0,
+     "power": -1467.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9381.4,
+     "loading": -823.5,
+     "blasting": -0.0,
+     "hauling": -498.2,
+     "wear": -343.9,
+     "energy": -3801.5,
+     "consumables": -12799.7
+    },
+    "legacy": {
+     "metal": 177661.6,
+     "ownership": -4325.0,
+     "power": -1318.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1312.3,
+     "blasting": -0.0,
+     "hauling": -0.0,
+     "wear": -0.0,
+     "energy": -3754.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "plyxis": {
+    "m_ore": 912.6,
+    "m_hoisted": 876.5,
+    "m_milled": 1593.2,
+    "m_copper": 515.1,
+    "m_power": 57.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133824.6,
+    "revenue_usd_h": 198439.9,
+    "cost_usd_h": 53154.3,
+    "inventory_usd_h": -11461.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.7,
+    "cum_profit": 2671435
+   },
+   "legacy": {
+    "m_ore": 1579.6,
+    "m_hoisted": 879.2,
+    "m_milled": 1580.0,
+    "m_copper": 461.3,
+    "m_power": 56.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111108.4,
+    "revenue_usd_h": 177722.7,
+    "cost_usd_h": 60285.2,
+    "inventory_usd_h": -6329.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.9,
+    "cum_profit": 2379930
+   },
+   "delta_profit": 291505,
+   "terms_h": {
+    "plyxis": {
+     "metal": 199992.1,
+     "ownership": -4325.0,
+     "power": -2151.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -9381.4,
+     "loading": -823.5,
+     "blasting": -0.0,
+     "hauling": -564.3,
+     "wear": -396.2,
+     "energy": -3589.5,
+     "consumables": -12796.8
+    },
+    "legacy": {
+     "metal": 177784.3,
+     "ownership": -4325.0,
+     "power": -2199.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1313.1,
+     "blasting": -0.0,
+     "hauling": -909.8,
+     "wear": -612.5,
+     "energy": -3545.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 28.000000044,
+   "clock": "Day 2 04:00",
+   "plyxis": {
+    "m_ore": 1080.0,
+    "m_hoisted": 1301.6,
+    "m_milled": 1596.4,
+    "m_copper": 517.3,
+    "m_power": 59.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134178.7,
+    "revenue_usd_h": 199149.9,
+    "cost_usd_h": 62441.4,
+    "inventory_usd_h": -2529.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.5,
+    "cum_profit": 2805948
+   },
+   "legacy": {
+    "m_ore": 1579.8,
+    "m_hoisted": 1302.9,
+    "m_milled": 1580.0,
+    "m_copper": 461.0,
+    "m_power": 60.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111005.5,
+    "revenue_usd_h": 177475.3,
+    "cost_usd_h": 60652.8,
+    "inventory_usd_h": -5817.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 2490836
+   },
+   "delta_profit": 315112,
+   "terms_h": {
+    "plyxis": {
+     "metal": 200175.1,
+     "ownership": -4325.0,
+     "power": -2221.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -12572.7,
+     "loading": -1096.7,
+     "blasting": -15000.0,
+     "hauling": -672.2,
+     "wear": -469.9,
+     "energy": -3590.0,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 177206.6,
+     "ownership": -4325.0,
+     "power": -2378.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1314.4,
+     "blasting": -0.0,
+     "hauling": -909.1,
+     "wear": -612.5,
+     "energy": -3545.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 29.000000046,
+   "clock": "Day 2 05:00",
+   "plyxis": {
+    "m_ore": 1166.3,
+    "m_hoisted": 1519.8,
+    "m_milled": 1598.1,
+    "m_copper": 519.5,
+    "m_power": 60.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134885.9,
+    "revenue_usd_h": 200179.1,
+    "cost_usd_h": 67350.9,
+    "inventory_usd_h": 2057.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 2941533
+   },
+   "legacy": {
+    "m_ore": 1579.9,
+    "m_hoisted": 1520.5,
+    "m_milled": 1580.0,
+    "m_copper": 460.9,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111034.1,
+    "revenue_usd_h": 177598.8,
+    "cost_usd_h": 61009.4,
+    "inventory_usd_h": -5555.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 2601899
+   },
+   "delta_profit": 339634,
+   "terms_h": {
+    "plyxis": {
+     "metal": 201593.4,
+     "ownership": -4325.0,
+     "power": -2294.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -12572.7,
+     "loading": -1096.7,
+     "blasting": -15000.0,
+     "hauling": -672.2,
+     "wear": -469.9,
+     "energy": -3801.2,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 177767.0,
+     "ownership": -4325.0,
+     "power": -2578.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1311.2,
+     "blasting": -0.0,
+     "hauling": -911.3,
+     "wear": -612.5,
+     "energy": -3754.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "plyxis": {
+    "m_ore": 1210.5,
+    "m_hoisted": 1631.8,
+    "m_milled": 1599.0,
+    "m_copper": 521.7,
+    "m_power": 61.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 135021.3,
+    "revenue_usd_h": 200983.3,
+    "cost_usd_h": 70465.4,
+    "inventory_usd_h": 4503.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 3076658
+   },
+   "legacy": {
+    "m_ore": 1579.9,
+    "m_hoisted": 1632.1,
+    "m_milled": 1580.0,
+    "m_copper": 461.0,
+    "m_power": 62.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 110436.5,
+    "revenue_usd_h": 177599.2,
+    "cost_usd_h": 61741.4,
+    "inventory_usd_h": -5421.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 2711701
+   },
+   "delta_profit": 364956,
+   "terms_h": {
+    "plyxis": {
+     "metal": 202071.5,
+     "ownership": -4325.0,
+     "power": -2719.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -12572.7,
+     "loading": -1096.7,
+     "blasting": -15000.0,
+     "hauling": -767.6,
+     "wear": -535.4,
+     "energy": -4435.1,
+     "consumables": -12799.6
+    },
+    "legacy": {
+     "metal": 177666.3,
+     "ownership": -4325.0,
+     "power": -3129.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1311.9,
+     "blasting": -0.0,
+     "hauling": -910.0,
+     "wear": -612.5,
+     "energy": -4379.8,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "plyxis": {
+    "m_ore": 1339.7,
+    "m_hoisted": 1689.3,
+    "m_milled": 1599.2,
+    "m_copper": 523.3,
+    "m_power": 62.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134078.2,
+    "revenue_usd_h": 201761.5,
+    "cost_usd_h": 66964.3,
+    "inventory_usd_h": -719.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 3209733
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1689.5,
+    "m_milled": 1580.0,
+    "m_copper": 461.4,
+    "m_power": 64.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 109270.7,
+    "revenue_usd_h": 177873.3,
+    "cost_usd_h": 63248.4,
+    "inventory_usd_h": -5354.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 2819733
+   },
+   "delta_profit": 390000,
+   "terms_h": {
+    "plyxis": {
+     "metal": 202605.8,
+     "ownership": -4325.0,
+     "power": -3632.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -14760.7,
+     "loading": -1274.8,
+     "blasting": -0.0,
+     "hauling": -758.7,
+     "wear": -522.4,
+     "energy": -5700.3,
+     "consumables": -12795.4
+    },
+    "legacy": {
+     "metal": 178251.5,
+     "ownership": -4325.0,
+     "power": -4121.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1311.5,
+     "blasting": -0.0,
+     "hauling": -908.8,
+     "wear": -611.0,
+     "energy": -5631.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "plyxis": {
+    "m_ore": 1406.1,
+    "m_hoisted": 1718.8,
+    "m_milled": 1599.3,
+    "m_copper": 523.9,
+    "m_power": 62.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133355.4,
+    "revenue_usd_h": 202260.9,
+    "cost_usd_h": 65505.3,
+    "inventory_usd_h": -3400.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 3342348
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1718.9,
+    "m_milled": 1580.0,
+    "m_copper": 461.8,
+    "m_power": 64.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 108742.7,
+    "revenue_usd_h": 178303.5,
+    "cost_usd_h": 64275.7,
+    "inventory_usd_h": -5285.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 2927894
+   },
+   "delta_profit": 414454,
+   "terms_h": {
+    "plyxis": {
+     "metal": 202618.3,
+     "ownership": -4325.0,
+     "power": -3906.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -14760.7,
+     "loading": -1274.8,
+     "blasting": -0.0,
+     "hauling": -758.7,
+     "wear": -522.4,
+     "energy": -6122.6,
+     "consumables": -12795.4
+    },
+    "legacy": {
+     "metal": 178854.7,
+     "ownership": -4325.0,
+     "power": -4270.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1325.3,
+     "blasting": -0.0,
+     "hauling": -911.9,
+     "wear": -611.8,
+     "energy": -6048.2,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 33.000000054,
+   "clock": "Day 2 09:00",
+   "plyxis": {
+    "m_ore": 1483.8,
+    "m_hoisted": 1732.2,
+    "m_milled": 1599.5,
+    "m_copper": 523.6,
+    "m_power": 63.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133495.2,
+    "revenue_usd_h": 202443.1,
+    "cost_usd_h": 64515.2,
+    "inventory_usd_h": -4432.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.0,
+    "cum_profit": 3476039
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1734.1,
+    "m_milled": 1580.0,
+    "m_copper": 462.4,
+    "m_power": 64.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 109589.9,
+    "revenue_usd_h": 178809.1,
+    "cost_usd_h": 63970.6,
+    "inventory_usd_h": -5248.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.4,
+    "cum_profit": 3038363
+   },
+   "delta_profit": 437675,
+   "terms_h": {
+    "plyxis": {
+     "metal": 202442.7,
+     "ownership": -4325.0,
+     "power": -3504.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15798.7,
+     "loading": -1368.9,
+     "blasting": -0.0,
+     "hauling": -737.1,
+     "wear": -507.3,
+     "energy": -5068.3,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 179441.0,
+     "ownership": -4325.0,
+     "power": -3533.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1325.1,
+     "blasting": -0.0,
+     "hauling": -907.8,
+     "wear": -608.5,
+     "energy": -5005.4,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 34.000000056,
+   "clock": "Day 2 10:00",
+   "plyxis": {
+    "m_ore": 1529.7,
+    "m_hoisted": 1738.4,
+    "m_milled": 1599.7,
+    "m_copper": 522.8,
+    "m_power": 64.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134628.1,
+    "revenue_usd_h": 202071.0,
+    "cost_usd_h": 62510.1,
+    "inventory_usd_h": -4932.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 3611888
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1741.8,
+    "m_milled": 1580.0,
+    "m_copper": 463.1,
+    "m_power": 64.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111518.5,
+    "revenue_usd_h": 179003.5,
+    "cost_usd_h": 62259.6,
+    "inventory_usd_h": -5225.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.4,
+    "cum_profit": 3151902
+   },
+   "delta_profit": 459986,
+   "terms_h": {
+    "plyxis": {
+     "metal": 201507.5,
+     "ownership": -4325.0,
+     "power": -2213.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15771.8,
+     "loading": -1366.7,
+     "blasting": -0.0,
+     "hauling": -737.1,
+     "wear": -507.3,
+     "energy": -3167.7,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 179308.4,
+     "ownership": -4325.0,
+     "power": -2208.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1324.2,
+     "blasting": -0.0,
+     "hauling": -912.5,
+     "wear": -611.8,
+     "energy": -3128.4,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "plyxis": {
+    "m_ore": 1554.0,
+    "m_hoisted": 1741.1,
+    "m_milled": 1599.8,
+    "m_copper": 521.8,
+    "m_power": 65.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 135704.1,
+    "revenue_usd_h": 201516.8,
+    "cost_usd_h": 60660.3,
+    "inventory_usd_h": -5152.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.5,
+    "cum_profit": 3748756
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1745.8,
+    "m_milled": 1580.0,
+    "m_copper": 463.8,
+    "m_power": 64.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 113409.5,
+    "revenue_usd_h": 179118.9,
+    "cost_usd_h": 60498.1,
+    "inventory_usd_h": -5211.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 3267288
+   },
+   "delta_profit": 481468,
+   "terms_h": {
+    "plyxis": {
+     "metal": 200745.4,
+     "ownership": -4325.0,
+     "power": -1516.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15798.7,
+     "loading": -1368.9,
+     "blasting": -0.0,
+     "hauling": -770.4,
+     "wear": -532.9,
+     "energy": -2111.8,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 179340.7,
+     "ownership": -4325.0,
+     "power": -1411.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1324.7,
+     "blasting": -0.0,
+     "hauling": -916.3,
+     "wear": -615.1,
+     "energy": -2085.6,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "plyxis": {
+    "m_ore": 1657.7,
+    "m_hoisted": 1745.0,
+    "m_milled": 1599.5,
+    "m_copper": 520.4,
+    "m_power": 65.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 135861.1,
+    "revenue_usd_h": 200743.5,
+    "cost_usd_h": 60393.0,
+    "inventory_usd_h": -4489.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.7,
+    "cum_profit": 3884834
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1747.8,
+    "m_milled": 1580.0,
+    "m_copper": 464.5,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114747.5,
+    "revenue_usd_h": 179151.5,
+    "cost_usd_h": 59210.5,
+    "inventory_usd_h": -5193.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 3383430
+   },
+   "delta_profit": 501405,
+   "terms_h": {
+    "plyxis": {
+     "metal": 199734.8,
+     "ownership": -4325.0,
+     "power": -1208.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -17878.1,
+     "loading": -1547.4,
+     "blasting": -0.0,
+     "hauling": -829.5,
+     "wear": -576.8,
+     "energy": -1688.6,
+     "consumables": -12792.6
+    },
+    "legacy": {
+     "metal": 179294.1,
+     "ownership": -4325.0,
+     "power": -990.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1349.2,
+     "blasting": -0.0,
+     "hauling": -904.1,
+     "wear": -604.6,
+     "energy": -1668.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 37.000000062,
+   "clock": "Day 2 13:00",
+   "plyxis": {
+    "m_ore": 1637.0,
+    "m_hoisted": 1548.0,
+    "m_milled": 1555.3,
+    "m_copper": 505.0,
+    "m_power": 63.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131090.5,
+    "revenue_usd_h": 194338.1,
+    "cost_usd_h": 58686.3,
+    "inventory_usd_h": -4561.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.5,
+    "cum_profit": 4011364
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1748.9,
+    "m_milled": 1580.0,
+    "m_copper": 465.2,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 115473.8,
+    "revenue_usd_h": 179014.5,
+    "cost_usd_h": 58351.9,
+    "inventory_usd_h": -5188.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 3499652
+   },
+   "delta_profit": 511712,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185899.4,
+     "ownership": -4325.0,
+     "power": -989.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15998.5,
+     "loading": -1323.4,
+     "blasting": -0.0,
+     "hauling": -634.3,
+     "wear": -442.1,
+     "energy": -1382.1,
+     "consumables": -11966.6
+    },
+    "legacy": {
+     "metal": 178997.7,
+     "ownership": -4325.0,
+     "power": -865.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1352.1,
+     "blasting": -0.0,
+     "hauling": -895.6,
+     "wear": -599.5,
+     "energy": -1459.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 38.000000064,
+   "clock": "Day 2 14:00",
+   "plyxis": {
+    "m_ore": 1619.1,
+    "m_hoisted": 1413.4,
+    "m_milled": 1526.3,
+    "m_copper": 494.9,
+    "m_power": 62.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 128319.9,
+    "revenue_usd_h": 190598.4,
+    "cost_usd_h": 57646.4,
+    "inventory_usd_h": -4632.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 4136765
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.4,
+    "m_milled": 1580.0,
+    "m_copper": 466.1,
+    "m_power": 60.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116443.3,
+    "revenue_usd_h": 179529.9,
+    "cost_usd_h": 57878.8,
+    "inventory_usd_h": -5207.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 3617092
+   },
+   "delta_profit": 519673,
+   "terms_h": {
+    "plyxis": {
+     "metal": 186630.2,
+     "ownership": -4325.0,
+     "power": -977.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15998.5,
+     "loading": -1323.4,
+     "blasting": -0.0,
+     "hauling": -634.3,
+     "wear": -442.1,
+     "energy": -1382.1,
+     "consumables": -11966.6
+    },
+    "legacy": {
+     "metal": 180243.5,
+     "ownership": -4325.0,
+     "power": -823.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1352.7,
+     "blasting": -0.0,
+     "hauling": -862.1,
+     "wear": -575.3,
+     "energy": -1459.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "plyxis": {
+    "m_ore": 1609.8,
+    "m_hoisted": 1339.5,
+    "m_milled": 1494.3,
+    "m_copper": 484.1,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125493.3,
+    "revenue_usd_h": 187136.3,
+    "cost_usd_h": 57226.9,
+    "inventory_usd_h": -4416.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.2,
+    "cum_profit": 4259276
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.7,
+    "m_milled": 1580.0,
+    "m_copper": 467.2,
+    "m_power": 60.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117561.7,
+    "revenue_usd_h": 180642.5,
+    "cost_usd_h": 57841.8,
+    "inventory_usd_h": -5238.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 3735807
+   },
+   "delta_profit": 523469,
+   "terms_h": {
+    "plyxis": {
+     "metal": 183477.2,
+     "ownership": -4325.0,
+     "power": -1186.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15999.0,
+     "loading": -1323.5,
+     "blasting": -0.0,
+     "hauling": -678.4,
+     "wear": -468.3,
+     "energy": -1619.5,
+     "consumables": -11684.4
+    },
+    "legacy": {
+     "metal": 182017.7,
+     "ownership": -4325.0,
+     "power": -1030.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15800.0,
+     "loading": -1350.4,
+     "blasting": -0.0,
+     "hauling": -856.9,
+     "wear": -571.6,
+     "energy": -1751.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 40.000000068,
+   "clock": "Day 2 16:00",
+   "plyxis": {
+    "m_ore": 1806.1,
+    "m_hoisted": 1539.3,
+    "m_milled": 1545.6,
+    "m_copper": 500.2,
+    "m_power": 62.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 129719.7,
+    "revenue_usd_h": 193538.0,
+    "cost_usd_h": 60562.4,
+    "inventory_usd_h": -3255.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.0,
+    "cum_profit": 4393479
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.9,
+    "m_milled": 1580.0,
+    "m_copper": 468.5,
+    "m_power": 60.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117670.2,
+    "revenue_usd_h": 181269.8,
+    "cost_usd_h": 58354.2,
+    "inventory_usd_h": -5245.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 3853558
+   },
+   "delta_profit": 539921,
+   "terms_h": {
+    "plyxis": {
+     "metal": 200095.5,
+     "ownership": -4325.0,
+     "power": -1618.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20129.9,
+     "loading": -1657.3,
+     "blasting": -0.0,
+     "hauling": -903.6,
+     "wear": -615.9,
+     "energy": -2533.9,
+     "consumables": -12797.6
+    },
+    "legacy": {
+     "metal": 182144.9,
+     "ownership": -4325.0,
+     "power": -1433.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15682.3,
+     "loading": -1341.5,
+     "blasting": -0.0,
+     "hauling": -864.7,
+     "wear": -579.4,
+     "energy": -2502.7,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 41.00000007,
+   "clock": "Day 2 17:00",
+   "plyxis": {
+    "m_ore": 1906.8,
+    "m_hoisted": 1641.8,
+    "m_milled": 1571.9,
+    "m_copper": 507.5,
+    "m_power": 60.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 91092.7,
+    "revenue_usd_h": 196582.0,
+    "cost_usd_h": 102829.0,
+    "inventory_usd_h": -2660.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 4443868
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.9,
+    "m_milled": 1580.0,
+    "m_copper": 469.9,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 76339.9,
+    "revenue_usd_h": 182012.6,
+    "cost_usd_h": 100414.2,
+    "inventory_usd_h": -5258.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 3886416
+   },
+   "delta_profit": 557451,
+   "terms_h": {
+    "plyxis": {
+     "metal": 199421.7,
+     "ownership": -4325.0,
+     "power": -29908.3,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20129.9,
+     "loading": -1657.3,
+     "blasting": -0.0,
+     "hauling": -903.6,
+     "wear": -615.9,
+     "energy": -57589.1,
+     "consumables": -12797.6
+    },
+    "legacy": {
+     "metal": 183021.6,
+     "ownership": -4325.0,
+     "power": -33720.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15685.1,
+     "loading": -1341.8,
+     "blasting": -0.0,
+     "hauling": -851.6,
+     "wear": -569.5,
+     "energy": -56880.0,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "plyxis": {
+    "m_ore": 1958.4,
+    "m_hoisted": 1682.9,
+    "m_milled": 1585.5,
+    "m_copper": 510.0,
+    "m_power": 58.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 71366.0,
+    "revenue_usd_h": 197388.2,
+    "cost_usd_h": 123586.1,
+    "inventory_usd_h": -2436.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.5,
+    "cum_profit": 4494469
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 471.4,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 55096.8,
+    "revenue_usd_h": 182448.7,
+    "cost_usd_h": 122078.8,
+    "inventory_usd_h": -5273.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 3918937
+   },
+   "delta_profit": 575532,
+   "terms_h": {
+    "plyxis": {
+     "metal": 197914.1,
+     "ownership": -4325.0,
+     "power": -28102.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20113.5,
+     "loading": -1655.9,
+     "blasting": -0.0,
+     "hauling": -822.0,
+     "wear": -563.1,
+     "energy": -57594.2,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 183139.4,
+     "ownership": -4325.0,
+     "power": -31140.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15682.4,
+     "loading": -1342.6,
+     "blasting": -0.0,
+     "hauling": -844.5,
+     "wear": -564.9,
+     "energy": -56880.0,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 43.000000074,
+   "clock": "Day 2 19:00",
+   "plyxis": {
+    "m_ore": 1974.8,
+    "m_hoisted": 1677.7,
+    "m_milled": 1592.5,
+    "m_copper": 510.4,
+    "m_power": 57.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 60841.0,
+    "revenue_usd_h": 197248.4,
+    "cost_usd_h": 134026.1,
+    "inventory_usd_h": -2381.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.1,
+    "cum_profit": 4544238
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 473.0,
+    "m_power": 59.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 45059.9,
+    "revenue_usd_h": 182815.0,
+    "cost_usd_h": 132478.2,
+    "inventory_usd_h": -5276.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 3953431
+   },
+   "delta_profit": 590806,
+   "terms_h": {
+    "plyxis": {
+     "metal": 196885.2,
+     "ownership": -4325.0,
+     "power": -27767.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19919.3,
+     "loading": -1623.9,
+     "blasting": -0.0,
+     "hauling": -897.7,
+     "wear": -615.4,
+     "energy": -57594.0,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 183440.2,
+     "ownership": -4325.0,
+     "power": -31821.7,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15688.8,
+     "loading": -1341.5,
+     "blasting": -0.0,
+     "hauling": -854.1,
+     "wear": -571.1,
+     "energy": -56880.0,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 44.000000076,
+   "clock": "Day 2 20:00",
+   "plyxis": {
+    "m_ore": 1983.2,
+    "m_hoisted": 1712.9,
+    "m_milled": 1596.1,
+    "m_copper": 509.9,
+    "m_power": 59.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 89184.5,
+    "revenue_usd_h": 196769.7,
+    "cost_usd_h": 105251.0,
+    "inventory_usd_h": -2334.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.5,
+    "cum_profit": 4663354
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 474.7,
+    "m_power": 60.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 75520.1,
+    "revenue_usd_h": 183180.0,
+    "cost_usd_h": 102345.2,
+    "inventory_usd_h": -5314.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 4061130
+   },
+   "delta_profit": 602224,
+   "terms_h": {
+    "plyxis": {
+     "metal": 196103.9,
+     "ownership": -4325.0,
+     "power": -5494.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19919.3,
+     "loading": -1623.9,
+     "blasting": -0.0,
+     "hauling": -897.7,
+     "wear": -615.4,
+     "energy": -9714.2,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 183799.3,
+     "ownership": -4325.0,
+     "power": -6497.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15690.7,
+     "loading": -1339.9,
+     "blasting": -0.0,
+     "hauling": -853.0,
+     "wear": -571.0,
+     "energy": -9593.8,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "plyxis": {
+    "m_ore": 1987.5,
+    "m_hoisted": 1730.9,
+    "m_milled": 1597.9,
+    "m_copper": 509.1,
+    "m_power": 60.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 105374.0,
+    "revenue_usd_h": 196057.7,
+    "cost_usd_h": 88478.1,
+    "inventory_usd_h": -2205.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 4785837
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 476.3,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 93201.3,
+    "revenue_usd_h": 183446.9,
+    "cost_usd_h": 84915.6,
+    "inventory_usd_h": -5329.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.0,
+    "cum_profit": 4172988
+   },
+   "delta_profit": 612850,
+   "terms_h": {
+    "plyxis": {
+     "metal": 195107.6,
+     "ownership": -4325.0,
+     "power": -4161.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19919.3,
+     "loading": -1623.9,
+     "blasting": -0.0,
+     "hauling": -1004.0,
+     "wear": -690.5,
+     "energy": -6757.7,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 183961.5,
+     "ownership": -4325.0,
+     "power": -5051.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15687.0,
+     "loading": -1339.3,
+     "blasting": -0.0,
+     "hauling": -855.8,
+     "wear": -573.8,
+     "energy": -6673.9,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 46.00000008,
+   "clock": "Day 2 22:00",
+   "plyxis": {
+    "m_ore": 2010.3,
+    "m_hoisted": 1740.2,
+    "m_milled": 1598.8,
+    "m_copper": 507.8,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114987.2,
+    "revenue_usd_h": 196008.7,
+    "cost_usd_h": 79015.1,
+    "inventory_usd_h": -2006.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 4911005
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 478.0,
+    "m_power": 64.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 104363.9,
+    "revenue_usd_h": 184482.1,
+    "cost_usd_h": 74775.9,
+    "inventory_usd_h": -5342.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.6,
+    "cum_profit": 4289096
+   },
+   "delta_profit": 621910,
+   "terms_h": {
+    "plyxis": {
+     "metal": 195701.4,
+     "ownership": -4325.0,
+     "power": -3489.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20339.9,
+     "loading": -1634.7,
+     "blasting": -0.0,
+     "hauling": -985.2,
+     "wear": -677.8,
+     "energy": -5279.5,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 185806.6,
+     "ownership": -4325.0,
+     "power": -3944.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15687.6,
+     "loading": -1340.2,
+     "blasting": -0.0,
+     "hauling": -850.3,
+     "wear": -569.7,
+     "energy": -5214.0,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 47.000000082,
+   "clock": "Day 2 23:00",
+   "plyxis": {
+    "m_ore": 2017.9,
+    "m_hoisted": 1745.0,
+    "m_milled": 1599.3,
+    "m_copper": 506.3,
+    "m_power": 62.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120123.7,
+    "revenue_usd_h": 195612.8,
+    "cost_usd_h": 73520.5,
+    "inventory_usd_h": -1968.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 5036584
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 479.6,
+    "m_power": 65.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 110958.6,
+    "revenue_usd_h": 185305.0,
+    "cost_usd_h": 68990.9,
+    "inventory_usd_h": -5355.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.7,
+    "cum_profit": 4406978
+   },
+   "delta_profit": 629606,
+   "terms_h": {
+    "plyxis": {
+     "metal": 194935.6,
+     "ownership": -4325.0,
+     "power": -2932.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20242.2,
+     "loading": -1620.5,
+     "blasting": -0.0,
+     "hauling": -962.8,
+     "wear": -666.3,
+     "energy": -4645.9,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 186403.7,
+     "ownership": -4325.0,
+     "power": -3396.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15682.7,
+     "loading": -1340.4,
+     "blasting": -0.0,
+     "hauling": -846.4,
+     "wear": -567.7,
+     "energy": -4588.3,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 48.000000084,
+   "clock": "Day 3 00:00",
+   "plyxis": {
+    "m_ore": 2021.3,
+    "m_hoisted": 1741.5,
+    "m_milled": 1599.6,
+    "m_copper": 504.6,
+    "m_power": 62.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122799.6,
+    "revenue_usd_h": 195092.2,
+    "cost_usd_h": 70331.5,
+    "inventory_usd_h": -1961.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 5162243
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 481.3,
+    "m_power": 65.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 115048.3,
+    "revenue_usd_h": 186060.8,
+    "cost_usd_h": 65703.1,
+    "inventory_usd_h": -5309.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.9,
+    "cum_profit": 4526313
+   },
+   "delta_profit": 635930,
+   "terms_h": {
+    "plyxis": {
+     "metal": 194287.2,
+     "ownership": -4325.0,
+     "power": -2622.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20242.2,
+     "loading": -1620.5,
+     "blasting": -0.0,
+     "hauling": -962.8,
+     "wear": -666.3,
+     "energy": -4223.6,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 187087.8,
+     "ownership": -4325.0,
+     "power": -3159.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15686.5,
+     "loading": -1348.3,
+     "blasting": -0.0,
+     "hauling": -870.8,
+     "wear": -584.5,
+     "energy": -4171.2,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 49.000000086,
+   "clock": "Day 3 01:00",
+   "plyxis": {
+    "m_ore": 2023.0,
+    "m_hoisted": 1733.4,
+    "m_milled": 1599.7,
+    "m_copper": 502.9,
+    "m_power": 62.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123860.8,
+    "revenue_usd_h": 194371.4,
+    "cost_usd_h": 68524.0,
+    "inventory_usd_h": -1986.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 5287262
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 482.9,
+    "m_power": 65.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117584.7,
+    "revenue_usd_h": 186644.2,
+    "cost_usd_h": 63773.7,
+    "inventory_usd_h": -5285.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.7,
+    "cum_profit": 4646520
+   },
+   "delta_profit": 640742,
+   "terms_h": {
+    "plyxis": {
+     "metal": 193374.8,
+     "ownership": -4325.0,
+     "power": -2538.9,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20242.2,
+     "loading": -1620.5,
+     "blasting": -0.0,
+     "hauling": -935.4,
+     "wear": -645.7,
+     "energy": -4012.4,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 187482.9,
+     "ownership": -4325.0,
+     "power": -2707.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15688.9,
+     "loading": -1348.2,
+     "blasting": -0.0,
+     "hauling": -862.2,
+     "wear": -577.9,
+     "energy": -3962.6,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 50.000000088,
+   "clock": "Day 3 02:00",
+   "plyxis": {
+    "m_ore": 1996.1,
+    "m_hoisted": 1738.2,
+    "m_milled": 1599.8,
+    "m_copper": 501.3,
+    "m_power": 62.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123784.5,
+    "revenue_usd_h": 193157.2,
+    "cost_usd_h": 67112.9,
+    "inventory_usd_h": -2259.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.7,
+    "cum_profit": 5410988
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 484.5,
+    "m_power": 63.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 118944.8,
+    "revenue_usd_h": 186690.7,
+    "cost_usd_h": 62459.2,
+    "inventory_usd_h": -5286.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.2,
+    "cum_profit": 4766862
+   },
+   "delta_profit": 644125,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191698.7,
+     "ownership": -4325.0,
+     "power": -2433.0,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19592.1,
+     "loading": -1576.1,
+     "blasting": -0.0,
+     "hauling": -890.4,
+     "wear": -615.6,
+     "energy": -3801.2,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 186951.8,
+     "ownership": -4325.0,
+     "power": -2368.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15685.2,
+     "loading": -1349.5,
+     "blasting": -0.0,
+     "hauling": -847.9,
+     "wear": -567.8,
+     "energy": -3754.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 51.00000009,
+   "clock": "Day 3 03:00",
+   "plyxis": {
+    "m_ore": 1978.3,
+    "m_hoisted": 1742.1,
+    "m_milled": 1599.8,
+    "m_copper": 499.9,
+    "m_power": 62.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123330.9,
+    "revenue_usd_h": 191930.8,
+    "cost_usd_h": 66163.4,
+    "inventory_usd_h": -2436.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.7,
+    "cum_profit": 5533859
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 486.1,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 119719.0,
+    "revenue_usd_h": 186614.2,
+    "cost_usd_h": 61596.9,
+    "inventory_usd_h": -5298.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 4887368
+   },
+   "delta_profit": 646492,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190500.3,
+     "ownership": -4325.0,
+     "power": -2270.2,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19592.1,
+     "loading": -1576.1,
+     "blasting": -0.0,
+     "hauling": -890.4,
+     "wear": -615.6,
+     "energy": -3590.0,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 186741.8,
+     "ownership": -4325.0,
+     "power": -2235.8,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15684.4,
+     "loading": -1350.1,
+     "blasting": -0.0,
+     "hauling": -837.7,
+     "wear": -561.8,
+     "energy": -3545.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 52.000000092,
+   "clock": "Day 3 04:00",
+   "plyxis": {
+    "m_ore": 1969.2,
+    "m_hoisted": 1743.7,
+    "m_milled": 1599.8,
+    "m_copper": 498.7,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122863.8,
+    "revenue_usd_h": 191116.2,
+    "cost_usd_h": 65691.7,
+    "inventory_usd_h": -2560.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 5656254
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 487.6,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120394.0,
+    "revenue_usd_h": 186840.2,
+    "cost_usd_h": 61113.3,
+    "inventory_usd_h": -5332.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 5008440
+   },
+   "delta_profit": 647815,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190125.5,
+     "ownership": -4325.0,
+     "power": -2380.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -19592.1,
+     "loading": -1576.1,
+     "blasting": -0.0,
+     "hauling": -848.2,
+     "wear": -588.3,
+     "energy": -3590.0,
+     "consumables": -12798.7
+    },
+    "legacy": {
+     "metal": 187273.7,
+     "ownership": -4325.0,
+     "power": -2176.1,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15679.3,
+     "loading": -1332.6,
+     "blasting": -0.0,
+     "hauling": -829.5,
+     "wear": -558.2,
+     "energy": -3545.5,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 53.000000094,
+   "clock": "Day 3 05:00",
+   "plyxis": {
+    "m_ore": 1998.0,
+    "m_hoisted": 1746.5,
+    "m_milled": 1599.3,
+    "m_copper": 497.5,
+    "m_power": 63.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121429.2,
+    "revenue_usd_h": 189710.6,
+    "cost_usd_h": 65970.2,
+    "inventory_usd_h": -2311.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.8,
+    "cum_profit": 5776201
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 489.0,
+    "m_power": 61.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120118.6,
+    "revenue_usd_h": 186475.3,
+    "cost_usd_h": 61003.0,
+    "inventory_usd_h": -5353.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 5128236
+   },
+   "delta_profit": 647965,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188063.4,
+     "ownership": -4325.0,
+     "power": -2414.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20380.3,
+     "loading": -1626.2,
+     "blasting": -0.0,
+     "hauling": -905.4,
+     "wear": -627.6,
+     "energy": -3798.0,
+     "consumables": -12788.0
+    },
+    "legacy": {
+     "metal": 186255.0,
+     "ownership": -4325.0,
+     "power": -2161.5,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15679.3,
+     "loading": -1332.6,
+     "blasting": -0.0,
+     "hauling": -826.0,
+     "wear": -556.1,
+     "energy": -3754.1,
+     "consumables": -12640.0
+    }
+   }
+  },
+  {
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "plyxis": {
+    "m_ore": 2017.5,
+    "m_hoisted": 1748.2,
+    "m_milled": 1598.9,
+    "m_copper": 496.3,
+    "m_power": 62.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 119722.6,
+    "revenue_usd_h": 188524.5,
+    "cost_usd_h": 66660.3,
+    "inventory_usd_h": -2141.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.8,
+    "cum_profit": 5894144
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 490.3,
+    "m_power": 60.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 119494.4,
+    "revenue_usd_h": 186240.8,
+    "cost_usd_h": 61381.1,
+    "inventory_usd_h": -5365.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 5247053
+   },
+   "delta_profit": 647091,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187122.8,
+     "ownership": -4325.0,
+     "power": -2809.6,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -20380.3,
+     "loading": -1626.2,
+     "blasting": -0.0,
+     "hauling": -895.3,
+     "wear": -621.4,
+     "energy": -4431.1,
+     "consumables": -12788.0
+    },
+    "legacy": {
+     "metal": 186136.9,
+     "ownership": -4325.0,
+     "power": -2542.4,
+     "labour": -13500.0,
+     "overhead": -6000.0,
+     "mining": -15680.0,
+     "loading": -1333.5,
+     "blasting": -0.0,
+     "hauling": -825.5,
+     "wear": -554.8,
+     "energy": -4379.8,
+     "consumables": -12640.0
+    }
+   }
+  }
+ ],
+ "alerts": [
+  {
+   "t": 10.000000008,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "FAN_C",
+   "label": "Main fan Central (VR2)",
+   "tag": "COR.FANC.FAN.RUN",
+   "message": "Main fan Central (VR2): stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 10:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_02",
+   "label": "North 560 stope 2",
+   "tag": "COR.N560.ST02.STOPE.OPEN",
+   "message": "North 560 stope 2: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_03",
+   "label": "North 560 stope 3",
+   "tag": "COR.N560.ST03.STOPE.OPEN",
+   "message": "North 560 stope 3: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_04",
+   "label": "North 560 stope 4",
+   "tag": "COR.N560.ST04.STOPE.OPEN",
+   "message": "North 560 stope 4: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_05",
+   "label": "North 560 stope 5",
+   "tag": "COR.N560.ST05.STOPE.OPEN",
+   "message": "North 560 stope 5: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_06",
+   "label": "North 560 stope 6",
+   "tag": "COR.N560.ST06.STOPE.OPEN",
+   "message": "North 560 stope 6: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_08",
+   "label": "North 560 stope 8",
+   "tag": "COR.N560.ST08.STOPE.OPEN",
+   "message": "North 560 stope 8: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 15.000000018,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "ST_N560_09",
+   "label": "North 560 stope 9",
+   "tag": "COR.N560.ST09.STOPE.OPEN",
+   "message": "North 560 stope 9: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 15:00"
+  },
+  {
+   "t": 16.00000002,
+   "severity": "info",
+   "kind": "status",
+   "asset": "FAN_C",
+   "label": "Main fan Central (VR2)",
+   "tag": "COR.FANC.FAN.RUN",
+   "message": "Main fan Central (VR2): back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 1 16:00"
+  },
+  {
+   "t": 21.00000003,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "SH1",
+   "label": "Production shaft hoist",
+   "tag": "COR.SH1.HOIST.RUN",
+   "message": "Production shaft hoist: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 1 21:00"
+  },
+  {
+   "t": 26.00000004,
+   "severity": "info",
+   "kind": "status",
+   "asset": "SH1",
+   "label": "Production shaft hoist",
+   "tag": "COR.SH1.HOIST.RUN",
+   "message": "Production shaft hoist: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 02:00"
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "severity": "info",
+   "kind": "market",
+   "message": "NEM forecast: critical peak tomorrow 16:00-19:00",
+   "asset": null,
+   "data": {}
+  },
+  {
+   "t": 32.000000052,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "LHD_C",
+   "label": "Loader fleet Central",
+   "tag": "COR.LHDC.FLEET.AVAIL",
+   "message": "Loader fleet Central: tripped (11 -> 8)",
+   "data": {
+    "from": 11.0,
+    "to": 8.0
+   },
+   "clock": "Day 2 08:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_01",
+   "label": "North 560 stope 1",
+   "tag": "COR.N560.ST01.STOPE.OPEN",
+   "message": "North 560 stope 1: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_02",
+   "label": "North 560 stope 2",
+   "tag": "COR.N560.ST02.STOPE.OPEN",
+   "message": "North 560 stope 2: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_03",
+   "label": "North 560 stope 3",
+   "tag": "COR.N560.ST03.STOPE.OPEN",
+   "message": "North 560 stope 3: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_04",
+   "label": "North 560 stope 4",
+   "tag": "COR.N560.ST04.STOPE.OPEN",
+   "message": "North 560 stope 4: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_05",
+   "label": "North 560 stope 5",
+   "tag": "COR.N560.ST05.STOPE.OPEN",
+   "message": "North 560 stope 5: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_06",
+   "label": "North 560 stope 6",
+   "tag": "COR.N560.ST06.STOPE.OPEN",
+   "message": "North 560 stope 6: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_07",
+   "label": "North 560 stope 7",
+   "tag": "COR.N560.ST07.STOPE.OPEN",
+   "message": "North 560 stope 7: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_08",
+   "label": "North 560 stope 8",
+   "tag": "COR.N560.ST08.STOPE.OPEN",
+   "message": "North 560 stope 8: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 35.000000058,
+   "severity": "info",
+   "kind": "status",
+   "asset": "ST_N560_09",
+   "label": "North 560 stope 9",
+   "tag": "COR.N560.ST09.STOPE.OPEN",
+   "message": "North 560 stope 9: back in service (0 -> 1)",
+   "data": {
+    "from": 0.0,
+    "to": 1.0
+   },
+   "clock": "Day 2 11:00"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "severity": "info",
+   "kind": "discovery",
+   "message": "new device announced: COR.C560.ST10 (stope)",
+   "asset": null,
+   "data": {}
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "severity": "warning",
+   "kind": "discovery",
+   "message": "unknown asset ST_C560_10 on tag COR.C560.ST10.LHD.TPH - twin update proposed",
+   "asset": "ST_C560_10",
+   "data": {}
+  },
+  {
+   "t": 42.000000072,
+   "severity": "info",
+   "kind": "status",
+   "asset": "LHD_C",
+   "label": "Loader fleet Central",
+   "tag": "COR.LHDC.FLEET.AVAIL",
+   "message": "Loader fleet Central: back in service (8 -> 11)",
+   "data": {
+    "from": 8.0,
+    "to": 11.0
+   },
+   "clock": "Day 2 18:00"
+  },
+  {
+   "t": 46.00000008,
+   "severity": "critical",
+   "kind": "status",
+   "asset": "PS_S3",
+   "label": "Pump station South 930",
+   "tag": "COR.PSS3.PUMP.RUN",
+   "message": "Pump station South 930: stopped / failed (1 -> 0)",
+   "data": {
+    "from": 1.0,
+    "to": 0.0
+   },
+   "clock": "Day 2 22:00"
+  }
+ ],
+ "commits": [
+  {
+   "id": "c0035",
+   "t": 45.000000078,
+   "wall": 1793211153.2732742,
+   "author": "auto: estimator",
+   "message": "calibration: 19 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 13,
+    "removed": 12
+   }
+  },
+  {
+   "id": "c0034",
+   "t": 44.000000076,
+   "wall": 1793211151.651833,
+   "author": "auto: estimator",
+   "message": "calibration: 18 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 13,
+    "removed": 14
+   }
+  },
+  {
+   "id": "c0033",
+   "t": 43.000000074,
+   "wall": 1793211150.28697,
+   "author": "auto: estimator",
+   "message": "calibration: 19 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 15,
+    "removed": 15
+   }
+  },
+  {
+   "id": "c0032",
+   "t": 42.000000072,
+   "wall": 1793211103.3046741,
+   "author": "auto: estimator",
+   "message": "calibration: 19 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 17,
+    "removed": 14
+   }
+  },
+  {
+   "id": "c0031",
+   "t": 39.000000066,
+   "wall": 1793211055.115602,
+   "author": "auto: estimator",
+   "message": "calibration: 16 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 15,
+    "removed": 12
+   }
+  },
+  {
+   "id": "c0030",
+   "t": 38.000000064,
+   "wall": 1793211053.928186,
+   "author": "auto: estimator",
+   "message": "calibration: 13 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 13,
+    "removed": 7
+   }
+  },
+  {
+   "id": "c0029",
+   "t": 37.000000062,
+   "wall": 1793211052.8953302,
+   "author": "auto: estimator",
+   "message": "calibration: 7 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 7,
+    "removed": 57
+   }
+  },
+  {
+   "id": "c0028",
+   "t": 36.00000006,
+   "wall": 1793211004.1218884,
+   "author": "auto: discovery",
+   "message": "tie-in of ST_C560_10 discovered from tag COR.C560.ST10.LHD.TPH",
+   "files": [
+    "live.plx"
+   ],
+   "stats": {
+    "added": 5,
+    "removed": 1
+   }
+  },
+  {
+   "id": "c0027",
+   "t": 36.00000006,
+   "wall": 1793211003.875931,
+   "author": "auto: estimator",
+   "message": "calibration: 57 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 33,
+    "removed": 31
+   }
+  },
+  {
+   "id": "c0026",
+   "t": 35.000000058,
+   "wall": 1793210956.5409162,
+   "author": "auto: estimator",
+   "message": "calibration: 55 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 31,
+    "removed": 30
+   }
+  },
+  {
+   "id": "c0025",
+   "t": 34.000000056,
+   "wall": 1793210954.9673986,
+   "author": "auto: estimator",
+   "message": "calibration: 54 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 31,
+    "removed": 32
+   }
+  },
+  {
+   "id": "c0024",
+   "t": 33.000000054,
+   "wall": 1793210953.4500868,
+   "author": "auto: estimator",
+   "message": "calibration: 55 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 34,
+    "removed": 32
+   }
+  },
+  {
+   "id": "c0023",
+   "t": 32.000000052,
+   "wall": 1793210905.8236525,
+   "author": "auto: estimator",
+   "message": "calibration: 53 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 32,
+    "removed": 31
+   }
+  },
+  {
+   "id": "c0022",
+   "t": 31.00000005,
+   "wall": 1793210904.3621206,
+   "author": "auto: estimator",
+   "message": "calibration: 52 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 31,
+    "removed": 28
+   }
+  },
+  {
+   "id": "c0021",
+   "t": 30.000000048,
+   "wall": 1793210841.275663,
+   "author": "auto: estimator",
+   "message": "calibration: 49 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 30
+   }
+  },
+  {
+   "id": "c0020",
+   "t": 29.000000046,
+   "wall": 1793210839.8704398,
+   "author": "auto: estimator",
+   "message": "calibration: 50 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 30,
+    "removed": 28
+   }
+  },
+  {
+   "id": "c0019",
+   "t": 28.000000044,
+   "wall": 1793210838.435951,
+   "author": "auto: estimator",
+   "message": "calibration: 48 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 28,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0018",
+   "t": 27.000000042,
+   "wall": 1793210791.0005784,
+   "author": "auto: estimator",
+   "message": "calibration: 47 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 28
+   }
+  },
+  {
+   "id": "c0017",
+   "t": 25.000000038,
+   "wall": 1793210788.0306962,
+   "author": "auto: estimator",
+   "message": "calibration: 46 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0016",
+   "t": 24.000000036,
+   "wall": 1793210741.0967708,
+   "author": "auto: estimator",
+   "message": "calibration: 44 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 27,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0015",
+   "t": 23.000000034,
+   "wall": 1793210739.978693,
+   "author": "auto: estimator",
+   "message": "calibration: 44 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 28,
+    "removed": 28
+   }
+  },
+  {
+   "id": "c0014",
+   "t": 22.000000032,
+   "wall": 1793210738.563078,
+   "author": "auto: estimator",
+   "message": "calibration: 44 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0013",
+   "t": 21.00000003,
+   "wall": 1793210674.2606204,
+   "author": "auto: estimator",
+   "message": "calibration: 42 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 28,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0012",
+   "t": 20.000000028,
+   "wall": 1793210672.769212,
+   "author": "auto: estimator",
+   "message": "calibration: 41 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 24
+   }
+  },
+  {
+   "id": "c0011",
+   "t": 18.000000024,
+   "wall": 1793210608.497997,
+   "author": "auto: estimator",
+   "message": "calibration: 36 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 25,
+    "removed": 25
+   }
+  },
+  {
+   "id": "c0010",
+   "t": 17.000000022,
+   "wall": 1793210607.1343963,
+   "author": "auto: estimator",
+   "message": "calibration: 36 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 26,
+    "removed": 26
+   }
+  },
+  {
+   "id": "c0009",
+   "t": 16.00000002,
+   "wall": 1793210605.3884475,
+   "author": "auto: estimator",
+   "message": "calibration: 36 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 27,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0008",
+   "t": 15.000000018,
+   "wall": 1793210557.9532232,
+   "author": "auto: estimator",
+   "message": "calibration: 36 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 28,
+    "removed": 25
+   }
+  },
+  {
+   "id": "c0007",
+   "t": 14.000000016,
+   "wall": 1793210556.3044872,
+   "author": "auto: estimator",
+   "message": "calibration: 33 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 26,
+    "removed": 20
+   }
+  },
+  {
+   "id": "c0006",
+   "t": 13.000000014,
+   "wall": 1793210509.1986682,
+   "author": "auto: estimator",
+   "message": "calibration: 27 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 21,
+    "removed": 18
+   }
+  },
+  {
+   "id": "c0005",
+   "t": 12.000000012,
+   "wall": 1793210507.6576738,
+   "author": "auto: estimator",
+   "message": "calibration: 24 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 20,
+    "removed": 17
+   }
+  },
+  {
+   "id": "c0004",
+   "t": 10.000000008,
+   "wall": 1793210459.6550138,
+   "author": "auto: estimator",
+   "message": "calibration: 21 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 18,
+    "removed": 17
+   }
+  },
+  {
+   "id": "c0003",
+   "t": 9.000000006,
+   "wall": 1793210412.4003654,
+   "author": "auto: estimator",
+   "message": "calibration: 20 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 18,
+    "removed": 17
+   }
+  },
+  {
+   "id": "c0002",
+   "t": 8.000000004,
+   "wall": 1793210410.8608449,
+   "author": "auto: estimator",
+   "message": "calibration: 19 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 18,
+    "removed": 13
+   }
+  },
+  {
+   "id": "c0001",
+   "t": 7.000000002,
+   "wall": 1793210409.5417876,
+   "author": "auto: estimator",
+   "message": "calibration: 14 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 14,
+    "removed": 0
+   }
+  },
+  {
+   "id": "c0000",
+   "t": 0.0,
+   "wall": 1793210348.220631,
+   "author": "engineering",
+   "message": "initial twin",
+   "files": [
+    "field.plx",
+    "live.plx",
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 0,
+    "removed": 0
+   }
+  }
+ ],
+ "learn": []
+}

@@ -126,13 +126,16 @@ class Planner:
     def solve(self, t_clock: float, E: dict, trigger: str, busy: Optional[dict] = None,
               callback: Optional[Callable] = None, worked_assets: Optional[set] = None,
               predicted: Optional[dict] = None, urgent: bool = False, quick_first: bool = False,
-              on_interim: Optional[Callable] = None) -> Plan:
+              on_interim: Optional[Callable] = None, outages: Optional[dict] = None) -> Plan:
         with self.lock:
             self.running = True
             self.progress = []
             t_wall = time.time()
             try:
                 pb = self.problem(t_clock, E)
+                if outages:
+                    # outages with a crew estimate: the asset is planned back at the estimated time
+                    pb.set_state_schedule({p: (s, v, until - t_clock) for p, (s, v, until) in outages.items()})
                 warm = None
                 if self.plan is not None:
                     prev_space = getattr(self, "_plan_space", None)

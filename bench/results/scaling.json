@@ -9,14 +9,14 @@
    "decision_variables": 4983,
    "discrete": 1272,
    "constraint_signals": 7344,
-   "compile_s": 0.2224560000031488,
-   "simulate_ms_B1": 10.054799999731282,
-   "simulate_ms_B16": 15.765966665640008,
-   "gradient_ms": 20.029966666091543,
-   "generated_code_lines": 429,
-   "solve_s": 16.72118230000342,
-   "objective": 4271659.0,
-   "max_violation": 0.00024600711185485125,
+   "compile_s": 0.15033709999988787,
+   "simulate_ms_B1": 9.776299998823864,
+   "simulate_ms_B16": 12.631533335176451,
+   "gradient_ms": 14.926400001665266,
+   "generated_code_lines": 432,
+   "solve_s": 12.145472500000324,
+   "objective": 4398701.5,
+   "max_violation": 0.0013944695238023996,
    "feasible": true,
    "stages": [
     {
@@ -28,29 +28,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 8.178954499999236,
-     "objective": 3979556.0,
-     "max_violation": 0.0009237098856829107,
-     "starts": 3
+     "seconds": 7.377017799997702,
+     "objective": 4324735.5,
+     "max_violation": 0.01619170978665352,
+     "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 7.066758000000846,
-     "objective": 4045111.5,
-     "max_violation": 0.0020841530058532953,
-     "population": 16,
-     "generations": 2
+     "seconds": 2.430805899995903,
+     "objective": 4398701.5,
+     "max_violation": 0.0013944695238023996,
+     "method": "ga",
+     "population": 12,
+     "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 1.471749100004672,
-     "objective": 4271659.0,
-     "max_violation": 0.00024600711185485125
+     "seconds": 2.3340956999963964,
+     "objective": 4398701.5,
+     "max_violation": 0.0013944695238023996,
+     "restored": false
     }
    ],
-   "ga_seconds": 16.72118230000342,
-   "ga_objective": 4014503.0,
-   "ga_max_violation": 0.08222173899412155
+   "ga_seconds": 12.145472500000324,
+   "ga_objective": 3981420.75,
+   "ga_max_violation": 0.5634146928787231
   },
   {
    "fields": 2,
@@ -61,14 +63,14 @@
    "decision_variables": 9966,
    "discrete": 2544,
    "constraint_signals": 14400,
-   "compile_s": 0.18983660000230884,
-   "simulate_ms_B1": 9.256200001497442,
-   "simulate_ms_B16": 21.301433332458448,
-   "gradient_ms": 20.235200000267167,
-   "generated_code_lines": 429,
-   "solve_s": 17.550682300003245,
-   "objective": 8275568.5,
-   "max_violation": 0.0011440480593591928,
+   "compile_s": 0.17169940000167117,
+   "simulate_ms_B1": 8.709666666012103,
+   "simulate_ms_B16": 20.33029999923504,
+   "gradient_ms": 18.112233335462708,
+   "generated_code_lines": 432,
+   "solve_s": 13.228088500000013,
+   "objective": 8308219.0,
+   "max_violation": 0.0006272951723076403,
    "feasible": true,
    "stages": [
     {
@@ -80,29 +82,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 6.366807400001562,
-     "objective": 7770501.5,
-     "max_violation": 0.0002278059982927516,
-     "starts": 3
+     "seconds": 7.288569700001972,
+     "objective": 8138219.5,
+     "max_violation": 0.0018173258285969496,
+     "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 9.505316199996741,
-     "objective": 7991523.5,
-     "max_violation": 0.001793548814021051,
-     "population": 16,
-     "generations": 2
+     "seconds": 3.2974866000004113,
+     "objective": 8204840.5,
+     "max_violation": 0.001290593994781375,
+     "method": "ga",
+     "population": 12,
+     "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 1.671904300004826,
-     "objective": 8275568.5,
-     "max_violation": 0.0011440480593591928
+     "seconds": 2.637144799999078,
+     "objective": 8308219.0,
+     "max_violation": 0.0006272951723076403,
+     "restored": false
     }
    ],
-   "ga_seconds": 17.550682300003245,
-   "ga_objective": 8216627.5,
-   "ga_max_violation": 1.0873594284057617
+   "ga_seconds": 13.228088500000013,
+   "ga_objective": 8099721.5,
+   "ga_max_violation": 1.2443971633911133
   },
   {
    "fields": 4,
@@ -113,14 +117,14 @@
    "decision_variables": 19932,
    "discrete": 5088,
    "constraint_signals": 28512,
-   "compile_s": 0.2770676000000094,
-   "simulate_ms_B1": 10.917766667262185,
-   "simulate_ms_B16": 57.82136666675797,
-   "gradient_ms": 22.929733332906228,
-   "generated_code_lines": 429,
-   "solve_s": 26.072106799998437,
-   "objective": 15017674.0,
-   "max_violation": 0.00013774463150184602,
+   "compile_s": 0.24190500000258908,
+   "simulate_ms_B1": 9.803000000829343,
+   "simulate_ms_B16": 33.800666666744895,
+   "gradient_ms": 18.592133332276717,
+   "generated_code_lines": 432,
+   "solve_s": 18.87969709999743,
+   "objective": 16447144.0,
+   "max_violation": 4.9017493438441306e-05,
    "feasible": true,
    "stages": [
     {
@@ -132,29 +136,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 7.437422200004221,
-     "objective": 14436719.0,
-     "max_violation": 0.24113859236240387,
-     "starts": 3
+     "seconds": 10.13571619999857,
+     "objective": 15324287.0,
+     "max_violation": 0.002127315616235137,
+     "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 16.753022999997484,
-     "objective": 14750435.0,
-     "max_violation": 0.0015759076923131943,
-     "population": 16,
-     "generations": 2
+     "seconds": 5.460395800000697,
+     "objective": 15492836.0,
+     "max_violation": 0.000596557161770761,
+     "method": "ga",
+     "population": 12,
+     "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 1.8721289999957662,
-     "objective": 15017674.0,
-     "max_violation": 0.00013774463150184602
+     "seconds": 3.272893399996974,
+     "objective": 16447144.0,
+     "max_violation": 4.9017493438441306e-05,
+     "restored": false
     }
    ],
-   "ga_seconds": 26.072106799998437,
-   "ga_objective": 15933037.0,
-   "ga_max_violation": 2.250218152999878
+   "ga_seconds": 18.87969709999743,
+   "ga_objective": 15662726.0,
+   "ga_max_violation": 2.2773590087890625
   },
   {
    "fields": 8,
@@ -165,14 +171,14 @@
    "decision_variables": 39864,
    "discrete": 10176,
    "constraint_signals": 56736,
-   "compile_s": 0.4957116000005044,
-   "simulate_ms_B1": 16.03940000010577,
-   "simulate_ms_B16": 76.49309999881855,
-   "gradient_ms": 26.00666666694451,
-   "generated_code_lines": 429,
-   "solve_s": 55.31433079999988,
-   "objective": 29984712.0,
-   "max_violation": 0.0009261960512958467,
+   "compile_s": 0.324865000002319,
+   "simulate_ms_B1": 15.803233332311112,
+   "simulate_ms_B16": 87.46913333258514,
+   "gradient_ms": 30.965366665138088,
+   "generated_code_lines": 432,
+   "solve_s": 38.30324829999881,
+   "objective": 30278620.0,
+   "max_violation": 0.00033847149461507797,
    "feasible": true,
    "stages": [
     {
@@ -184,29 +190,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 9.98881160000019,
-     "objective": 28701212.0,
-     "max_violation": 0.003979844972491264,
-     "starts": 3
+     "seconds": 18.944096100000024,
+     "objective": 28867916.0,
+     "max_violation": 0.002116924384608865,
+     "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 42.73586060000525,
-     "objective": 29598204.0,
-     "max_violation": 0.0015995559515431523,
-     "population": 16,
-     "generations": 2
+     "seconds": 14.609541899997566,
+     "objective": 29400664.0,
+     "max_violation": 0.0026853138115257025,
+     "method": "ga",
+     "population": 12,
+     "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 2.5679438000006485,
-     "objective": 29984712.0,
-     "max_violation": 0.0009261960512958467
+     "seconds": 4.7255934000058915,
+     "objective": 30278620.0,
+     "max_violation": 0.00033847149461507797,
+     "restored": false
     }
    ],
-   "ga_seconds": 55.31433079999988,
-   "ga_objective": 32906622.0,
-   "ga_max_violation": 2.3743791580200195
+   "ga_seconds": 38.30324829999881,
+   "ga_objective": 32348718.0,
+   "ga_max_violation": 2.4346537590026855
   }
  ]
 }

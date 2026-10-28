@@ -1,0 +1,7 @@
+name,zone,lat,lon,z,z_bottom,cap,draw_max,crusher,haul_km,alt_crusher,alt_km,label,tag
+OP_N1,N,-30.942993,136.793554,-380,-985.0,5000,900,CR_N,1.1,CR_S,2.2,Ore pass North upper,COR.OPN1
+OP_N2,N,-30.942737,136.793443,-620,-985.0,5000,900,CR_N,1.13,CR_S,2.23,Ore pass North lower,COR.OPN2
+OP_C1,C,-30.949779,136.80033,-440,-985.0,6500,900,CR_N,0.78,CR_S,0.96,Ore pass Central upper,COR.OPC1
+OP_C2,C,-30.949539,136.800178,-740,-985.0,6500,900,CR_S,0.99,CR_N,0.75,Ore pass Central lower,COR.OPC2
+OP_S1,S,-30.95704,136.806667,-560,-985.0,5000,900,CR_S,0.93,CR_N,2.04,Ore pass South upper,COR.OPS1
+OP_S2,S,-30.956776,136.806587,-800,-985.0,5000,900,CR_S,0.89,CR_N,2.0,Ore pass South lower,COR.OPS2

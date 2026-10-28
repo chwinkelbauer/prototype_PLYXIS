@@ -38,17 +38,22 @@ export function OptimizerPage() {
       (byStage[r.stage] ??= []).push([r.t_total as number, r.objective as number]);
       if (r.max_violation !== undefined) viol.push([r.t_total as number, Math.max(1e-5, r.max_violation as number)]);
     }
+    // two aligned panels on one time axis (objective above, constraint violation below) - never two y-scales on one plot
+    const x = (gridIndex: number, show: boolean) => ({ type: "value" as const, gridIndex, min: 0, name: show ? "seconds" : "", nameLocation: "end" as const,
+      nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10, show }, splitLine: { show: false } });
     return base({
-      grid: { left: 64, right: 56, top: 30, bottom: 30 },
-      xAxis: { type: "value", name: "seconds", nameLocation: "end", nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false } },
+      grid: [{ left: 64, right: 40, top: 30, bottom: "36%" }, { left: 64, right: 40, top: "70%", bottom: 26 }],
+      xAxis: [x(0, false), x(1, true)],
       yAxis: [
-        { type: "value", scale: true, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
-        { type: "log", min: 1e-5, axisLabel: { color: C.axis, fontSize: 10 }, splitLine: { show: false }, name: "max violation", nameTextStyle: { color: C.axis, fontSize: 10 } },
+        { type: "value", gridIndex: 0, scale: true, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
+        { type: "log", gridIndex: 1, min: 1e-5, name: "max violation", nameLocation: "middle", nameGap: 50, nameTextStyle: { color: C.axis, fontSize: 10 },
+          axisLabel: { color: C.axis, fontSize: 9 }, splitLine: { lineStyle: { color: C.grid } } },
       ],
+      axisPointer: { link: [{ xAxisIndex: "all" }] },
       tooltip: { trigger: "axis" },
       series: [
         ...Object.entries(byStage).map(([st, data]) => ({ name: st, type: "scatter" as const, symbolSize: 4, data, itemStyle: { color: STAGE_COLOR[st] ?? C.teal } })),
-        { name: "max violation", type: "line" as const, yAxisIndex: 1, showSymbol: false, data: viol, lineStyle: { width: 1, color: "#ef4444", opacity: 0.7 } },
+        { name: "max violation", type: "line" as const, xAxisIndex: 1, yAxisIndex: 1, showSymbol: false, data: viol, lineStyle: { width: 1.2, color: C.text }, itemStyle: { color: C.text } },
       ],
     });
   }, [recs]);

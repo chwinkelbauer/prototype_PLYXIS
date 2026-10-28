@@ -142,6 +142,10 @@ class Estimator:
                 if decl.calibrate is not None and pname in self.prog.P0[g.gid]:
                     lo, hi = self._calib_bounds(g, pname, decl)
                     self.calib.append((g.gid, pname, lo, hi))
+        # constant physical lower limits of states (e.g. 'in [0, cap]'): measurements are clamped to them
+        from ..lang.behavior import C as _Const
+        self._const_lo = {(g.gid, s): float(info.lo.value) for g in self.live.phys.groups
+                          for s, info in g.ir.states.items() if isinstance(info.lo, _Const)}
         # unmeasured states with an observation path (e.g. health -> vib)
         self.hidden_states = []
         measured_states = {(t.gid, t.key) for t in tagmap.by_tag.values() if t.key.startswith("state:")}
@@ -193,6 +197,9 @@ class Estimator:
                     new = float(round(new))
                     if abs(new - old) > 0.5:
                         changes["states"].append((info.path, name, old, new))
+                lo = self._const_lo.get((info.gid, name))
+                if lo is not None and new < lo:        # a noisy level reading of an empty bin is not a negative stock
+                    new = lo
                 S[info.gid][name].reshape(-1)[info.li] = new
             elif kind == "param":
                 # direct parameter measurement (well test): blend strongly towards it

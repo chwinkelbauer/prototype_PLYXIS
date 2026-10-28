@@ -22,6 +22,10 @@ const TYPE_COLOR: Record<string, string> = {
 const SUB_COLORS = ["#fe0265", "#3987e5", "#c97a14", "#8b5cf6", "#199e70", "#ff65a3", "#7cb3f2", "#e0a24a", "#a78bfa",
   "#3fc495", "#c9024f", "#2f6fbf", "#a8640f", "#6d43d6", "#137a57", "#ffa3c6"];
 
+// label priority when labels collide (facilities and markets first)
+const LABEL_PRIO: Record<string, number> = { battery: 5, compressor_station: 5, gas_sales: 5, oil_sales: 5, swd_well: 4,
+  flare: 3, truck_fleet: 3, workover_rig: 2, pad: 1 };
+
 const GROUPS = [
   { id: "wells", label: "Wells" }, { id: "pads", label: "Pads" }, { id: "facilities", label: "Facilities" },
   { id: "pipelines", label: "Pipelines" }, { id: "lanes", label: "Truck lanes" }, { id: "trucks", label: "Trucks" },
@@ -128,13 +132,35 @@ export function MapPage() {
     markers.current.forEach((mk) => mk.remove());
     markers.current = [];
     if (!vis.labels) return;
+    const items: { el: HTMLDivElement; ll: [number, number]; prio: number; w: number }[] = [];
     for (const a of structure.assets) {
       if (!a.at || a.is_link || ["esp_well", "rod_pump_well", "field_crew"].includes(a.type)) continue;
       const el = document.createElement("div");
       el.style.cssText = "font:600 10.5px Inter;color:#f4f4f5;text-shadow:0 0 4px #000,0 0 2px #000;pointer-events:none;white-space:nowrap;transform:translate(0,-15px)";
       el.textContent = a.label;
-      markers.current.push(new maplibregl.Marker({ element: el, anchor: "bottom" }).setLngLat([a.at[1], a.at[0]]).addTo(m));
+      const ll: [number, number] = [a.at[1], a.at[0]];
+      markers.current.push(new maplibregl.Marker({ element: el, anchor: "bottom" }).setLngLat(ll).addTo(m));
+      items.push({ el, ll, prio: LABEL_PRIO[a.type] ?? (a.type === "pad" ? 1 : 2), w: 0 });
     }
+    items.sort((x, y) => y.prio - x.prio);
+    // declutter in screen space: higher-priority labels win, overlapping ones are hidden until zoomed in
+    let raf = 0;
+    const declutter = () => {
+      raf = 0;
+      const boxes: [number, number, number, number][] = [];
+      for (const it of items) {
+        if (!it.w) it.w = it.el.offsetWidth || it.el.textContent!.length * 6;
+        const p = m.project(it.ll);
+        const box: [number, number, number, number] = [p.x - it.w / 2 - 3, p.y - 30, p.x + it.w / 2 + 3, p.y - 14];
+        const hit = boxes.some((b) => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]);
+        it.el.style.visibility = hit ? "hidden" : "visible";
+        if (!hit) boxes.push(box);
+      }
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(declutter); };
+    m.on("move", schedule);
+    schedule();
+    return () => { m.off("move", schedule); if (raf) cancelAnimationFrame(raf); };
   }, [ready, structure, vis.labels]);
 
   // ---------------------------------------------------------------- live data
@@ -202,7 +228,7 @@ export function MapPage() {
           </select>
         </div>
       </div>
-      <div className="absolute bottom-3 right-14 panel z-10 px-3 py-2 text-[11px] space-y-1" style={{ background: "#12121aee" }}>
+      <div className="absolute bottom-3 left-3 panel z-10 px-3 py-2 text-[11px] space-y-1" style={{ background: "#12121aee" }}>
         <div className="flex gap-3">
           <span><span className="text-good">●</span> running <span className="num">{counts.running}</span></span>
           <span><span className="text-warn">●</span> degraded <span className="num">{counts.degraded}</span></span>
