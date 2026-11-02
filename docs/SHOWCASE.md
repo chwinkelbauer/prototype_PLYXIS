@@ -6,6 +6,19 @@ running twin, compiles the other one and starts it - about 20 s for the mine):
 * **Kestrel Field** - 96-well Permian oil field, 72 h scenario (this page, first part).
 * **Corvus Mine** - large underground copper mine in 3D, 48 h scenario (second part, below).
 
+# In both case studies: people in the loop
+
+The Shift page (left bar) is worth two minutes after the autonomous story, for anyone who asks "who is in control?":
+
+1. Switch to **Advisory**. The plant now holds what it runs; the badge counts the recommendations waiting.
+2. Press **Why** on a change: the reasons come from the model's gradients and shadow prices.
+3. **Reject** a change with a reason ("pad is being serviced"). The decision is held, the planner re-optimises around it, the
+   audit trail has it with name, time and reason. Then **Accept all**.
+4. **Shift report**: the handover, built from the accounts by fixed templates.
+5. Optimizer page, **What if**: take an asset out of service for 6 h. What the event costs, and what reacting is worth.
+6. `POST /api/event {"kind": "sensor", "tag": ..., "fault": "freeze"}`, then the Data page: the stuck sensor is flagged within
+   2 h and the twin predicts the signal instead.
+
 # Case study 1: Kestrel field
 
 ## Setup
@@ -165,21 +178,22 @@ with the same protection layer.
 # Case study 2: Corvus underground mine
 
 A synthetic sublevel-stoping copper mine in the Gawler Craton style, built to stress the platform: far more
-assets than the oil field, real 3D geometry, and an operating cost of about USD 580 M per year.
+assets than the oil field, real 3D geometry, and an operating cost of about USD 500 M per year (unit costs
+calibrated on the baseline's measured cash cost, about USD 36 per tonne milled).
 
 | | |
 |---|---|
 | Ore body | three lenses (North, Central, South), 23 production levels 520-1,060 m below surface |
-| Assets in the twin | 392 instances (393 in the plant, incl. a stope still in development): 186 stopes, 23 ventilation districts, 6 ore-pass systems, 8 haul routes, 2 crushers, 2 conveyors, skip hoist, 3 main fans, 10 pump stations, 3 loader fleets (27 LHDs), 16 trucks, ROM pad, concentrator, rail load-out, 79 individual mobile units, 64 mine openings |
+| Assets in the twin | 395 instances (396 in the plant, incl. a stope still in development): 186 stopes, 23 ventilation districts, 6 ore-pass systems, 8 haul routes, 2 crushers, 2 conveyors, skip hoist, 3 main fans, 10 pump stations, 3 loader fleets (27 LHDs), 3 charge-up crews, 16 trucks, ROM pad, concentrator, rail load-out, 79 individual mobile units, 64 mine openings |
 | Geometry | every point has an elevation; shafts, raises, the decline spiral, ore and haulage drives come from a 3D GeoJSON export (`openings.geojson`) |
 | Planning problem | 48 h at hourly resolution: ~5,000 decisions, 744 of them discrete (ring firing per stope and shift) |
-| Throughput | ~12 Mt/a (1,450-1,600 t/h milled), Cu-equivalent head grade ~1.2 % |
-| Operating cost | labour, G&A, mining consumables, explosives, loader/truck operation and ownership, power (fans, hoist, pumps, mill), mill consumables - about USD 580 M/a with the mill at nameplate (measured for the baseline, see BENCHMARKS.md) |
+| Throughput | ~14 Mt/a (1,580-1,600 t/h milled), mine-plan head grade 1.40 % Cu (window 1.35-1.45 %) |
+| Operating cost | labour, G&A, mining consumables, explosives, loader/truck operation and ownership, power (fans, hoist, pumps, mill), mill consumables - about USD 500 M/a with the mill at nameplate (measured for the baseline: USD 493-504 M over the seeds, see BENCHMARKS.md) |
 
 Everything is in `scenarios/corvus`: `generate.py` writes the asset register (CSV), the 3D openings and the
 hidden truth (stope grades ±12 % vs. the block model, upper South zone 22 % lower - the reconciliation
 surprise, productivity and water inflows off by realistic margins); `make_scenario.py` writes
-`scenario.json`; `field.plx` is the twin (135 lines of PLX plus the tables).
+`scenario.json`; `field.plx` is the twin (146 lines of PLX plus the tables).
 
 ## Events (plant time; Day 1 06:00 = start)
 
@@ -193,7 +207,7 @@ surprise, productivity and water inflows off by realistic margins); `make_scenar
 | Day 2 12:00 | a new stope is handed over; only its tags appear | discovery: the twin rewrites its own code |
 | Day 2 16:00 | power at 1,500 USD/MWh for 3 h | demand response |
 | Day 2 22:00 | South 930 pump station fails for 8 h | unannounced: the twin sees the sump rise |
-| throughout | grab-sample assays and the mill's on-stream analyser reveal the diluted upper South zone | estimation of stope grades |
+| throughout | composite muck samples at the working places (both worlds) and the mill's on-stream analyser reveal the diluted upper South zone | estimation of stope grades |
 
 ## Demo script (about 12 minutes)
 
@@ -213,8 +227,8 @@ surprise, productivity and water inflows off by realistic margins); `make_scenar
 
 | Area | Rule |
 |---|---|
-| Loaders | every 4 h and at shift change the shift boss assigns each zone's available loaders to the stopes with the largest broken stocks (1.3 working places per loader), mucking at standard productivity (85 % utilisation) up to the drawpoint limit; grade control keeps the expected blend within 0.05 % of the plan grade using the block model; a place is only assigned where its level's design air still covers its loader's statutory air, and each level's loaders are kept within that air every step (the ventilation officer's air budget); the shift's tonnes target is the mill rate (+15 % while the ore passes are below 40 % full, -10 % above 60 %) |
-| Blasting | at shift change, if a zone's broken stock is below 5 days of its share of the mill rate, up to two of its stopes below 15 % broken stock are fired (a broken-stock buffer, not firing every empty stope) |
+| Loaders | every 4 h and at shift change the shift boss assigns each zone's available loaders to the stopes with the largest broken stocks (1.3 working places per loader), mucking at standard productivity (85 % utilisation) up to the drawpoint limit; grade control keeps the expected blend within 0.05 % of the plan grade using the block model, reconciled with the mine's own muck-sample assays (same sampling and update as the twin); a place is only assigned where its level's design air still covers its loader's statutory air, and each level's loaders are kept within that air every step (the ventilation officer's air budget); the shift's tonnes target is the mill rate (+15 % while the ore passes are below 40 % full, -10 % above 60 %) |
+| Blasting | at shift change, if a zone's broken stock is below 5 days of its share of the mill rate, up to two of its stopes below 15 % broken stock are fired (a broken-stock buffer, not firing every empty stope); two charge-up crews per zone limit both worlds |
 | Ventilation | main fans at design speed (90 %); regulators set by design (each fan's air shared by its levels, half share where it is the secondary raise) |
 | Fan trip | diesel equipment withdrawn from the districts that fan ventilates until it runs again; the other fans run at full speed |
 | Ore passes, trucks | level control towards 50 % full; trucks in proportion to the draws |
@@ -225,9 +239,11 @@ surprise, productivity and water inflows off by realistic margins); `make_scenar
 | Outages | both control rooms get the crew's estimate of when a failed hoist, fan, pump, loader or closed level is back; the rules above need no forecast, PLYXIS plans the asset back at that time |
 
 Results of the reference run (48 h) are in [BENCHMARKS.md](BENCHMARKS.md#corvus-mine-showcase-run-48-h):
-+12.3 % operating profit at equal mill throughput and equal cash cost, from head grade inside the mine
-plan's window (1.449 % vs. 1.368 %): 7.1 % more copper, 7.4 % lower production cost per tonne of copper.
-Present it as grade control with an assay-calibrated twin; at site level cash cost is the same.
++10.3 % operating profit (mean of three seeds, +10.1 to +10.6 %) at about equal cash cost: 6.4 % more copper, 7 % lower
+production cost per tonne of copper. About four fifths of the copper is head grade: PLYXIS blends near the top of the plan's
+window (1.43 %, limit 1.45 %), conventional control delivers 1.37 %, both inside the window. Present it as grade
+control and unit cost, not as a site-level cost reduction, and expect the question "what if we want 1.40 %?": with the window capped
+there the lead is +4.9 % (+4.7 to +5.2 %; see BENCHMARKS.md).
 
 What PLYXIS adds: it plans all of this jointly over 48 h - which stopes to muck and fire, how many loader
 hours and how much air each gets, fan speeds, regulator settings, ore-pass draws, hoisting and pumping

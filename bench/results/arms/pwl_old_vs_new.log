@@ -1,0 +1,8 @@
+corvus   default      objective old 6,392,267.500 new 6,392,267.500 | gradient: largest change 0 of largest 4.126e+05, changed entries 0 of 4992
+corvus   noise 0.05   objective old 6,593,772.500 new 6,593,772.500 | gradient: largest change 0 of largest 4.135e+05, changed entries 0 of 4992
+corvus   noise 0.2    objective old 5,661,236.000 new 5,661,236.000 | gradient: largest change 0 of largest 4.117e+05, changed entries 0 of 4992
+corvus   all at top   objective old 2,592,538.000 new 2,592,538.000 | gradient: largest change 0 of largest 1.989e+05, changed entries 0 of 4992
+kestrel  default      objective old 4,078,733.750 new 4,078,733.750 | gradient: largest change 0 of largest 1.728e+04, changed entries 0 of 4983
+kestrel  noise 0.05   objective old 4,076,029.250 new 4,076,029.250 | gradient: largest change 0 of largest 1.728e+04, changed entries 0 of 4983
+kestrel  noise 0.2    objective old 3,249,479.500 new 3,249,479.500 | gradient: largest change 7.704e+04 of largest 2.238e+06, changed entries 401 of 4983
+kestrel  all at top   objective old -7,789,649.500 new -7,789,649.500 | gradient: largest change 7.425e+04 of largest 7.028e+05, changed entries 3456 of 4983

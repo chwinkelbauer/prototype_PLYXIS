@@ -494,3 +494,10 @@ def cached_solver(pb: Problem, window_h: float = 12.0, budget: int = 64) -> tupl
     solver, info = hit[0], hit[1]
     solver.pb = pb
     return solver, info
+
+
+def cached_parts(pb: Problem, window_h: float = 12.0, budget: int = 64) -> tuple:
+    """(solver, info, filter net, site graph) of the cached structure (decomp.py builds on them)."""
+    cached_solver(pb, window_h=window_h, budget=budget)
+    solver, info, net, g = _CACHE[(id(pb.prog), pb.space.N, float(window_h), int(budget))]
+    return solver, info, net, g

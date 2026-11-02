@@ -30,6 +30,7 @@ from plyxis.optim.cascade import Cascade, CascadeConfig  # noqa: E402
 from plyxis.optim.problem import Problem  # noqa: E402
 
 BASE = dict(use_neural=False, relax_iters=120, multistart=4, population=8, repair_iters=60, polish_iters=80)
+METHODS = ("ga", "ga+sections", "ga+late")     # ga+late: the section search runs after the polish, not before it
 
 
 def main() -> None:
@@ -42,15 +43,20 @@ def main() -> None:
     for scen in args.scenarios:
         m = compile_model([os.path.join(ROOT, "scenarios", scen, "field.plx")])
         pb = Problem(m.program)
+        with open(os.path.join(ROOT, "scenarios", scen, "scenario.json"), encoding="utf-8") as fh:
+            relax_tol = json.load(fh).get("planner", {}).get("relax_tol", 2e-3)
         rows = []
         for seed in range(args.seeds):
-            for method in ("ga", "ga+sections"):
+            for method in METHODS:
                 t = time.perf_counter()
-                r = Cascade(pb, config=CascadeConfig(**BASE, seed=seed, discrete=method)).solve()
+                r = Cascade(pb, config=CascadeConfig(**BASE, seed=seed, discrete="ga" if method == "ga+late" else method,
+                                                     late_sections=method == "ga+late", relax_tol=relax_tol)).solve()
                 d = [s for s in r.stages if s["stage"] == "discrete"][0]
+                late = [s for s in r.stages if s["stage"] == "late sections"]
                 rows.append({"seed": seed, "method": method, "objective": r.objective, "max_violation": r.max_violation,
                              "feasible": r.feasible, "seconds": time.perf_counter() - t, "discrete_seconds": d["seconds"],
-                             "accepted": d.get("sections_accepted")})
+                             "accepted": late[0]["accepted"] if late else d.get("sections_accepted"),
+                             "late_gain": late[0]["gain"] if late else None})
                 print(f"{scen} seed {seed} {method:12s} {r.objective:14,.0f} feas {r.feasible} {rows[-1]['seconds']:5.1f}s",
                       flush=True)
         info = SX.cached_solver(pb)[1]
@@ -75,12 +81,13 @@ def main() -> None:
             kern["numpy" if flag else "native"] = time.perf_counter() - t
         native.force_numpy(False)
         summ = {}
-        for method in ("ga", "ga+sections"):
+        for method in METHODS:
             sel = [r for r in rows if r["method"] == method]
             summ[method] = {"mean_objective": st.mean(r["objective"] for r in sel), "feasible": sum(r["feasible"] for r in sel),
                             "runs": len(sel), "mean_seconds": st.mean(r["seconds"] for r in sel)}
         ga = summ["ga"]["mean_objective"]
-        summ["ga+sections"]["vs_ga_pct"] = (summ["ga+sections"]["mean_objective"] - ga) / abs(ga) * 100
+        for method in METHODS[1:]:
+            summ[method]["vs_ga_pct"] = (summ[method]["mean_objective"] - ga) / abs(ga) * 100
         out["scenarios"][scen] = {"variables": pb.space.N, "discrete": int(pb.space.discrete_mask().sum()), "rows": rows,
                                   "summary": summ, "sections": info, "candidate_couplings": int(len(g.pairs)),
                                   "probe_all_couplings_s": probe_s, "filter_forward_ms": filt_ms,

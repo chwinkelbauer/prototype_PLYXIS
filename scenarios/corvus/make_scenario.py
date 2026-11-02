@@ -12,7 +12,7 @@ scenario = {
     "name": "Corvus Mine - autonomous underground operations showcase",
     "title": "Corvus Mine",
     "region": "Gawler Craton",
-    "subtitle": "synthetic underground copper mine · 186 stopes · 23 levels · 12 Mt/a · OPEX ~USD 500 M/a",
+    "subtitle": "synthetic underground copper mine · 186 stopes · 23 levels · 14 Mt/a · OPEX ~USD 500 M/a",
     "description": "Synthetic sublevel-stoping copper mine (3 ore lenses, 23 production levels 520-1060 m below "
                    "surface, 186 stopes, 6 ore-pass systems, 2 crushers, skip hoist, 3 main fans, 10 pump stations, "
                    "27 loaders, 16 trucks, concentrator). Two identical copies of the mine run side by side from the "
@@ -65,17 +65,23 @@ scenario = {
          "restore_title": "Pump station South 930 repaired",
          "narrative": "A pump seal fails. The sump keeps filling - nobody announced it, the twin sees the level rise."},
     ],
+    # grade control samples the working places: every place about once a shift (~35 working, 12 h), composite
+    # muck samples at 5 % relative error - the same sampling in both worlds
+    "assays": {"policy": "working", "signal": "LHD.TPH", "per_hour": 3, "sigma": 0.05},
+    # the head grade is planned one standard error of the blend inside the window
+    "margins": [{"asset": "MILL", "param": "grade_margin", "type": "stope", "property": "grade", "flow": "mucked",
+                 "z": 1.0}],
     "planner": {"relax_iters": 120, "multistart": 4, "population": 8, "repair_iters": 60, "polish_iters": 80,
-                "discrete": "ga+sections"},
+                "discrete": "ga+sections", "exact_branches": ["lp", "slp", "slp_quality"], "second_opinion": 0.05, "relax_tol": 0.01},
     "legacy": {"places_per_loader": 1.3, "utilisation": 0.85, "blast_below": 0.15, "blasts_per_zone": 2, "broken_days": 5, "plan_grade": 1.40, "grade_tol": 0.05,
                "fan_speed": 0.9, "mill_tph": 1580, "dr_price": 1.0},
     "demo": [
         {"id": "intro", "t": 0.0, "title": "One operating system for the whole mine", "view": "overview",
-         "text": "Corvus: 186 stopes on 23 levels, 1 km deep, 12 Mt per year, USD 500 M operating cost. The same mine "
+         "text": "Corvus: 186 stopes on 23 levels, 1 km deep, 14 Mt per year, USD 500 M operating cost. The same mine "
                  "also runs under conventional mine control in parallel - same state, same events, same physics."},
         {"id": "mine3d", "t": 1.0, "title": "The twin is three-dimensional", "view": "mine3d",
          "text": "Every stope, ore pass, fan and pump sits at its true position and depth. The openings come straight "
-                 "from a 3D GeoJSON export of the mine design; the twin is compiled from 135 lines of PLX code plus the asset register."},
+                 "from a 3D GeoJSON export of the mine design; the twin is compiled from 146 lines of PLX code plus the asset register."},
         {"id": "fan", "t": 4.2, "title": "Main fan trip: ventilation on demand", "view": "mine3d",
          "text": "The central fan trips. Air is the binding constraint for every diesel loader. PLYXIS re-plans in "
                  "seconds: the remaining fans speed up, regulators send air to the stopes that are worth most, loaders "

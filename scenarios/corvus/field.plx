@@ -1,10 +1,11 @@
 ## =====================================================================================
 ##  CORVUS - underground copper mine (synthetic demonstration asset, Gawler Craton style)
-##  Sublevel open stoping with paste fill, ~12 Mt/a. Three ore lenses (North, Central, South),
+##  Sublevel open stoping with paste fill, ~14 Mt/a. Three ore lenses (North, Central, South),
 ##  23 production levels from 520 to 1060 m below surface, 186 stopes, 6 ore-pass systems,
 ##  haulage level with two crushers, conveyors, a skip-hoist shaft, three exhaust fans,
 ##  23 ventilation districts, 10 dewatering stations, loader and truck fleets, 79 mobile units,
-##  surface ROM pad, concentrator and rail load-out. Operating cost ~ USD 500 M per year.
+##  surface ROM pad, concentrator and rail load-out. Operating cost ~ USD 500 M per year
+##  (~USD 36 per tonne milled; unit costs calibrated on the baseline's measured cash cost).
 ##
 ##  Everything underground is 3D: points are (lat, lon, elevation m) and the mine openings come
 ##  from a 3D GeoJSON export of the mine design (openings.geojson).
@@ -23,12 +24,13 @@ define corvus as env {
   contains:
     # ------------------------------------------------------------- surface
     init SITE as site_services { at = (-30.9470, 136.8050, 140); tag = "COR.SITE"; label = "Site services";
-                                 labour = 13500 [USD/h]; overhead = 6000 [USD/h]; };   ## ~1,250 FTE incl. contractors; G&A, camp, FIFO
+                                 labour = 11000 [USD/h]; overhead = 5000 [USD/h]; };   ## ~1,000 FTE incl. contractors; G&A, camp, FIFO
     init ROM as stockpile { at = (-30.9482, 136.8040, 140); tag = "COR.ROM"; label = "ROM pad";
                             cap = 60000 [t]; tonnes = 18000 [t]; reclaim_max = 2200 [t/h]; grade_avg = 1.40;
+                            unit_cost = 12.8 [USD/t];   ## cost to bring a tonne here (IAS 2), as the bin and passes below
                             reserve_t = 12000 [t]; };   ## ~7.5 h of mill feed: bridges a hoist stop
     init MILL as concentrator { at = (-30.9460, 136.8075, 140); tag = "COR.MILL"; label = "Concentrator";
-                                cap = 1600 [t/h]; kwh_t = 24 [kWh/t]; cost_t = 8.0 [USD/t];
+                                cap = 1600 [t/h]; kwh_t = 24 [kWh/t]; cost_t = 6.5 [USD/t];
                                 grade_min = 1.35; grade_max = 1.45; conc_grade = 26;
                                 grade_penalty = 250 [USD/t]; };   ## mine-plan head grade 1.40 % +- 0.05, no high-grading
     init RAIL as conc_sales { at = (-30.9440, 136.8110, 140); tag = "COR.RAIL"; label = "Rail load-out";
@@ -38,31 +40,31 @@ define corvus as env {
 
     # ------------------------------------------------------------- shaft, crushers, conveyors
     init SH1 as skip_hoist { at = (-30.9486, 136.8027, -1040); tag = "COR.SH1"; label = "Production shaft hoist";
-                             cap = 1750 [t/h]; depth = 1180 [m]; grade_avg = 1.40; };
+                             cap = 1750 [t/h]; depth = 1180 [m]; grade_avg = 1.40; unit_cost = 12.3 [USD/t]; };
     connect(SH1.skip, ROM.feed);
-    init CR_N as ug_crusher { at = (-30.9466, 136.7987, -1000); tag = "COR.CRN"; label = "Crusher North"; };
-    init CR_S as ug_crusher { at = (-30.9530, 136.8044, -1000); tag = "COR.CRS"; label = "Crusher South"; };
+    init CR_N as ug_crusher { at = (-30.9466, 136.7987, -1000); tag = "COR.CRN"; label = "Crusher North"; cost_t = 0.29 [USD/t]; };
+    init CR_S as ug_crusher { at = (-30.9530, 136.8044, -1000); tag = "COR.CRS"; label = "Crusher South"; cost_t = 0.29 [USD/t]; };
     connect(CR_N.product, SH1.feed) via conveyor { cap = 1300 [t/h]; } as CV_N;
     connect(CR_S.product, SH1.feed) via conveyor { cap = 1300 [t/h]; } as CV_S;
 
     # ------------------------------------------------------------- ore passes and truck haulage
     init TRUCKS as haul_fleet { at = (-30.9490, 136.8010, -1000); tag = "COR.TRUCKS"; label = "Underground trucks";
-                                n_trucks = 16; ownership = 110 [USD/h]; };
+                                n_trucks = 16; ownership = 90 [USD/h]; };
     for o in table("orepasses.csv") {
       init {o.name} as orepass { at = (o.lat, o.lon, o.z_bottom); tag = o.tag; label = o.label;
-                                 cap = o.cap [t]; draw_max = o.draw_max [t/h]; grade_avg = 1.40; };
+                                 cap = o.cap [t]; draw_max = o.draw_max [t/h]; grade_avg = 1.40; unit_cost = 11.6 [USD/t]; };
       connect({o.name}.chute, {o.crusher}.feed) via haul_route { distance = o.haul_km [km];
           payload = 60 [t]; speed_loaded = 14 [km/h]; speed_empty = 20 [km/h]; spot_load = 0.06 [h];
-          fuel_cost = 175 [USD/h]; } as HR_{o.name};
+          fuel_cost = 143 [USD/h]; } as HR_{o.name};
       connect(TRUCKS.pool, HR_{o.name}.trucks);
     }
     ## the central ore passes can tip to either crusher
     connect(OP_C1.chute, CR_S.feed) via haul_route { distance = 0.96 [km];
         payload = 60 [t]; speed_loaded = 14 [km/h]; speed_empty = 20 [km/h]; spot_load = 0.06 [h];
-        fuel_cost = 175 [USD/h]; } as HR_OP_C1_S;
+        fuel_cost = 143 [USD/h]; } as HR_OP_C1_S;
     connect(OP_C2.chute, CR_N.feed) via haul_route { distance = 0.75 [km];
         payload = 60 [t]; speed_loaded = 14 [km/h]; speed_empty = 20 [km/h]; spot_load = 0.06 [h];
-        fuel_cost = 175 [USD/h]; } as HR_OP_C2_N;
+        fuel_cost = 143 [USD/h]; } as HR_OP_C2_N;
     connect(TRUCKS.pool, HR_OP_C1_S.trucks);
     connect(TRUCKS.pool, HR_OP_C2_N.trucks);
 
@@ -79,15 +81,20 @@ define corvus as env {
     }
 
     # ------------------------------------------------------------- loaders and stopes
-    init LHD_N as lhd_fleet { at = (-30.9425, 136.7930, -560); tag = "COR.LHDN"; label = "Loader fleet North"; n_units = 8; };
-    init LHD_C as lhd_fleet { at = (-30.9500, 136.8000, -680); tag = "COR.LHDC"; label = "Loader fleet Central"; n_units = 11; };
-    init LHD_S as lhd_fleet { at = (-30.9572, 136.8065, -740); tag = "COR.LHDS"; label = "Loader fleet South"; n_units = 8; };
+    init LHD_N as lhd_fleet { at = (-30.9425, 136.7930, -560); tag = "COR.LHDN"; label = "Loader fleet North"; n_units = 8; ownership = 78 [USD/h]; };
+    init LHD_C as lhd_fleet { at = (-30.9500, 136.8000, -680); tag = "COR.LHDC"; label = "Loader fleet Central"; n_units = 11; ownership = 78 [USD/h]; };
+    init LHD_S as lhd_fleet { at = (-30.9572, 136.8065, -740); tag = "COR.LHDS"; label = "Loader fleet South"; n_units = 8; ownership = 78 [USD/h]; };
+    init CREW_N as charge_crew { at = (-30.9425, 136.7930, -560); label = "Charge-up crews North"; };
+    init CREW_C as charge_crew { at = (-30.9500, 136.8000, -680); label = "Charge-up crews Central"; };
+    init CREW_S as charge_crew { at = (-30.9572, 136.8065, -740); label = "Charge-up crews South"; };
     for s in table("stopes.csv") {
       init {s.name} as stope { at = (s.lat, s.lon, s.z); tag = s.tag; label = s.label; grade = s.grade;
-                               rate_max = s.rate_max [t/h]; ring_t = s.ring_t [t]; broken = s.broken [t]; cost_t = 10.0 [USD/t];
+                               rate_max = s.rate_max [t/h]; ring_t = s.ring_t [t]; broken = s.broken [t]; cost_t = 8.2 [USD/t];
+                               lhd_cost = 152 [USD/h]; ring_cost = 24600 [USD];
                                tram = s.tram [km]; up = s.up; };
       connect({s.name}.ore_out, {s.orepass}.feed);
       connect({s.name}.lhd_req, LHD_{s.zone}.requests);
+      connect({s.name}.crew_req, CREW_{s.zone}.requests);
       connect({s.name}.air_req, {s.district}.demand);
     }
 
@@ -117,9 +124,11 @@ define corvus as env {
   discover:
     ## telemetry of a stope that is not in the register = development completed, stope handed to production
     rule new_stope: on "COR.{zone}{lvl}.ST{num}.LHD.TPH" {
-      init ST_{zone}{lvl}_{num} as stope { tag = "COR.{zone}{lvl}.ST{num}"; label = "Stope {zone}{lvl}-{num}"; };
+      init ST_{zone}{lvl}_{num} as stope { tag = "COR.{zone}{lvl}.ST{num}"; label = "Stope {zone}{lvl}-{num}";
+                                        cost_t = 8.2 [USD/t]; lhd_cost = 152 [USD/h]; ring_cost = 24600 [USD]; };
       connect(ST_{zone}{lvl}_{num}.ore_out, OP_{zone}1.feed);
       connect(ST_{zone}{lvl}_{num}.lhd_req, LHD_{zone}.requests);
+      connect(ST_{zone}{lvl}_{num}.crew_req, CREW_{zone}.requests);
       connect(ST_{zone}{lvl}_{num}.air_req, VD_{zone}{lvl}.demand);
     };
 };

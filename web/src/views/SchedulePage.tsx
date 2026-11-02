@@ -44,7 +44,7 @@ export function SchedulePage() {
     const ro = new ResizeObserver(() => setWidth(el.clientWidth));
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [g !== null]);       // the panel only exists once the plan has loaded
 
   const groups = useMemo(() => {
     if (!g) return [];

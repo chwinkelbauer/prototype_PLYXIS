@@ -1,0 +1,11 @@
+plan 4382128 violation 0.0006 wells decisions 3456
+step 0.02: F 0.88156 gap 0.01250 = USD 61,834  bound F 0.89406
+step 0.005: F 0.88156 gap 0.01316 = USD 65,126  bound F 0.89472
+SLP: F 0.89204 (+USD 51,852) 8 iters 57.1s; below the bound from the plan: True
+gap at the SLP point: 0.00248 = USD 12,252, bound F 0.89452
+start 0: noise 0.05: F 0.86370 -> SLP 0.88606  (bound 0.89452, excess USD -41,837)
+start 1: noise 0.15: F 0.72623 -> SLP 0.87746  (bound 0.89452, excess USD -84,367)
+start 2: noise 0.4: F -1.09648 -> SLP 0.82177  (bound 0.89452, excess USD -359,894)
+midpoint concavity: 0 of 64 chords violate it, worst USD 0
+
+[exited with code 0]

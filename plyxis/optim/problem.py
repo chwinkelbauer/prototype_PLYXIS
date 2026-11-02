@@ -69,6 +69,8 @@ class Problem:
         self.move_ref: Optional[torch.Tensor] = None     # plan the plant is executing (move suppression)
         self.move_w: Optional[torch.Tensor] = None
         self.move_cost = 0.0
+        self.pin_mask: Optional[torch.Tensor] = None     # decisions an operator has decided (recommendation workflow)
+        self.pin_val: Optional[torch.Tensor] = None
         self._inst_maps()
         self.calibrate_scales()
 
@@ -84,6 +86,48 @@ class Problem:
         self.move_ref = x_ref.detach().reshape(1, -1).clone()
         self.move_w = (self.space.block_start_hours() < lock_hours - 1e-9).to(torch.float32)
         self.move_cost = float(cost_usd)
+
+    def set_pins(self, pins: dict, route_index: Optional[dict] = None) -> int:
+        """Decisions an operator has decided: {(path, decision): (canonical value, hours from t0)}, line-ups as
+        {("route", route key): (split, hours)} with `route_index` mapping keys to routes. Hold blocks that start before
+        that time stay at the value in every evaluation, so every stage of the cascade re-optimises the rest of the
+        plan around them. Returns the number of variables pinned."""
+        self.pin_mask, self.pin_val = None, None
+        if not pins:
+            return 0
+        sp, mask, val = self.space, torch.zeros(1, self.space.N), torch.zeros(1, self.space.N)
+        bnd, starts = sp.bounds(self.P), sp.block_start_hours()
+        for (path, name), (value, hours) in pins.items():
+            if path == "route":
+                r = (route_index or {}).get(name)
+                if r is not None and sp.route is not None:
+                    idx = sp.route.offset + r * sp.route.H + torch.arange(sp.route.H)
+                    on = idx[starts[idx] < hours - 1e-9]
+                    mask[0, on] = 1.0
+                    val[0, on] = float(value)
+                continue
+            iid = self.prog.flat.by_path.get(path)
+            if iid is None:
+                continue
+            gid, li = self.prog.inst_group[iid]
+            if (gid, name) not in bnd:
+                continue
+            b = sp.block(gid, name)
+            lo, hi, _ = bnd[(gid, name)]
+            low = float(lo.reshape(-1)[li if lo.numel() > 1 else 0])
+            span = float(hi.reshape(-1)[li if hi.numel() > 1 else 0]) - low
+            u = 0.0 if span < 1e-12 else min(max((float(value) - low) / span, 0.0), 1.0)
+            idx = b.offset + li * b.H + torch.arange(b.H)
+            on = idx[starts[idx] < hours - 1e-9]
+            mask[0, on] = 1.0
+            val[0, on] = u
+        n = int(mask.sum())
+        if n:
+            self.pin_mask, self.pin_val = mask, val
+        return n
+
+    def pinned(self, x: torch.Tensor) -> torch.Tensor:
+        return x if self.pin_mask is None else x * (1.0 - self.pin_mask) + self.pin_val * self.pin_mask
 
     # ------------------------------------------------------------------ setup
     def _inst_maps(self) -> None:
@@ -132,6 +176,7 @@ class Problem:
         P = P if P is not None else self.P
         S0 = S0 if S0 is not None else self._states(self.S0)
         E = E if E is not None else self.E
+        x = self.pinned(x)
         D, R = self.space.decode(x, P, relax=relax)
         raw = self.prog.simulate(D, R, P, S0, E, self.T, self.dt, self.t0)
         ev = self.prog.evaluate(raw, self.dt, E, want_hard=False)

@@ -1,0 +1,10 @@
+export: 288 steps, 1.9 MB compressed, 98 s
+Stope mucking rates                           1.38  limit   8.0  n=  2377  pass  [{'tag': 'COR.S920.ST02.LHD.TPH', 'mape': 1.56}, {'tag': 'COR.C680.ST06.LHD.TPH', 'mape': 1.55}, {'tag': 'COR.C740.ST07.LHD.TPH', 'mape': 1.53}]
+Crusher throughput                            1.31  limit   5.0  n=   286  pass  [{'tag': 'COR.CRN.CR.TPH', 'mape': 1.34}, {'tag': 'COR.CRS.CR.TPH', 'mape': 1.28}]
+Hoist throughput                              1.26  limit   5.0  n=   143  pass  [{'tag': 'COR.SH1.HOIST.TPH', 'mape': 1.26}]
+Head grade (on-stream analyser)               1.62  limit   5.0  n=   143  pass  [{'tag': 'COR.MILL.OSA.HEAD', 'mape': 1.62}]
+Sump level, 3 h ahead                         1.87  limit  10.0  n=   220  pass  
+Shaft bin level, 3 h ahead                    1.63  limit  10.0  n=    22  pass  
+ROM pad level, 3 h ahead                      0.23  limit  10.0  n=    22  pass  
+Ore pass level, 3 h ahead                     1.04  limit  10.0  n=   132  pass  
+assets discovered: ['ST_C560_10'] | unmapped tags: [] | gate PASSED

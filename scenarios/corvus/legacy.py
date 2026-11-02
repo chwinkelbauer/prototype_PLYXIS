@@ -6,7 +6,8 @@ short-interval control in a sublevel-stoping mine (documented in docs/SHOWCASE.m
 * loaders: every 4 h (and at shift change) the shift boss assigns each zone's available loaders to the
   stopes with the largest broken stocks (about 1.3 working places per loader), equal share per stope,
   mucking at the loaders' standard productivity (85 % utilisation) up to the drawpoint limit; grade
-  control keeps the expected blend (block-model grades) within 0.05 % of the mine-plan grade; a place is
+  control keeps the expected blend within 0.05 % of the mine-plan grade - block-model grades, reconciled with
+  the muck-sample assays of the mine's own working places (the same sampling as PLYXIS); a place is
   only assigned where its level's design air still covers its loader's statutory air, and every step the
   loaders of a level are kept within that air (the ventilation officer's air budget per level); the shift's
   tonnes target is the mill rate (+15 % while the ore passes are below 40 % full, -10 % above 60 %)
@@ -71,6 +72,8 @@ class LegacyOperators:
             self.fan_weight[r["fan2"]] += 0.5
         with open(os.path.join(HERE, "stopes.csv"), encoding="utf-8") as fh:
             self.bm_grade = {r["name"]: float(r["grade"]) for r in csv.DictReader(fh)}   # block model, not the truth
+        self.assay_tag = {x[3]: x[2] for x in emu.tele if x[6].get("test")}
+        self.assay_var: dict = {}
         with open(os.path.join(HERE, "orepasses.csv"), encoding="utf-8") as fh:
             self.home_crusher = {r["name"]: r["crusher"] for r in csv.DictReader(fh)}
         self.active: dict = {z: [] for z in "NCS"}
@@ -96,6 +99,22 @@ class LegacyOperators:
         if ev.get("kind") == "announce" and ev.get("name") == "power_price" \
                 and float(ev["value"]) >= self.cfg.get("dr_price", 1.0):
             self.dr_windows.append((float(ev["start"]), float(ev["end"])))
+
+    def assays(self, telemetry: list) -> None:
+        """Grade control reconciles the block model with the assays of the mine's working places (a running mean,
+        weighted by what is known about the sample and the block model - the same update as the twin's)."""
+        sigma = self.emu.assays.get("sigma")
+        if not sigma:
+            return                              # no working-place sampling in this configuration
+        for m in telemetry:
+            s = self.assay_tag.get(m.tag)
+            if s is None or m.quality != "test":
+                continue
+            var = self.assay_var.get(s, self.cfg.get("block_model_sigma", 0.15) ** 2)
+            gain = var / (var + sigma ** 2)
+            g = self.bm_grade.get(s, m.value)
+            self.bm_grade[s] = g + gain * (m.value - g)
+            self.assay_var[s] = (1.0 - gain) * var
 
     def _cycle(self, s):
         return 2 * self._p(s, "tram") / self._p(s, "lhd_speed") + self._p(s, "load_time")

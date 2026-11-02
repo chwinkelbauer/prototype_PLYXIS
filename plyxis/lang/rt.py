@@ -148,9 +148,17 @@ def pwl(x, xs, *ys):
     out = None
     # linear extrapolation is clamped to the end values
     xc = torch.clamp(x, min=xs[0], max=xs[-1])
+    grad = x.requires_grad
+    if grad:      # at the table's ends the end segment keeps its slope, also within rounding of them: in float32 the
+        tol = 1e-6 * max(abs(xs[0]), abs(xs[-1]), 1.0)      # ratio below can lie an ulp above 1, and a plain clamp has
+        inside = (x >= xs[0] - tol) & (x <= xs[-1] + tol)   # derivative 0 there (a pump at full speed had no rate slope)
+        xc = torch.where(inside, xc.detach() + (x - x.detach()), xc.detach())
     for i in range(n - 1):
         x0, x1 = xs[i], xs[i + 1]
-        w = torch.clamp((xc - x0) / max(x1 - x0, 1e-12), 0.0, 1.0)
+        r = (xc - x0) / max(x1 - x0, 1e-12)
+        w = torch.clamp(r, 0.0, 1.0)
+        if grad:  # exactly one segment carries the slope (values stay as they are, r - r is exactly 0)
+            w = torch.where(((r >= 0.0) | (i == 0)) & ((r < 1.0) | (i == n - 2)), w.detach() + (r - r.detach()), w.detach())
         seg = (1 - w) * ys[i] + w * ys[i + 1] if i == 0 else w * (ys[i + 1] - ys[i])
         out = seg if out is None else out + seg
     return out

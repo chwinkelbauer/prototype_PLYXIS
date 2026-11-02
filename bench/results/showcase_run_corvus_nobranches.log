@@ -1,0 +1,122 @@
+C:\Users\cwink\AppData\Local\Temp\claude\c--Users-cwink-OneDrive-Dokumente--quarries-proto-proto2\d625f999-6786-4a32-a7cc-9767cc72d64d\scratchpad\runs\end\plyxis\optim\sections.py:172: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\aten\src\ATen\Context.cpp:855.)
+  A = torch.sparse_coo_tensor(torch.tensor(np.stack([rows, cols])), torch.tensor(vals, dtype=torch.float32), (n, n)).coalesce()
+C:\Users\cwink\AppData\Local\Temp\claude\c--Users-cwink-OneDrive-Dokumente--quarries-proto-proto2\d625f999-6786-4a32-a7cc-9767cc72d64d\scratchpad\runs\end\plyxis\optim\sections.py:277: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  return net, {"mse": float(loss), "spearman": rank, "pairs": int(len(pairs))}
+Day 1 07:00  m_ore P    1,669 L    1,580 | m_hoisted P    1,488 L    1,750 | m_milled P    1,599 L    1,580 | delta profit        -310  [  148s]
+Day 1 08:00  m_ore P    1,676 L    1,580 | m_hoisted P    1,488 L    1,354 | m_milled P    1,599 L    1,580 | delta profit        -100  [  151s]
+Day 1 09:00  m_ore P    1,680 L    1,580 | m_hoisted P    1,488 L    1,214 | m_milled P    1,599 L    1,580 | delta profit         912  [  282s]
+Day 1 10:00  m_ore P    1,810 L    1,580 | m_hoisted P    1,615 L    1,242 | m_milled P    1,599 L    1,580 | delta profit       3,313  [  287s]
+Day 1 11:00  m_ore P    1,211 L    1,157 | m_hoisted P    1,636 L      938 | m_milled P    1,599 L    1,580 | delta profit       7,072  [  441s]
+Day 1 12:00  m_ore P      922 L      973 | m_hoisted P    1,624 L      838 | m_milled P    1,599 L    1,580 | delta profit      11,378  [  445s]
+Day 1 13:00  m_ore P      793 L      932 | m_hoisted P    1,624 L      843 | m_milled P    1,599 L    1,580 | delta profit      15,992  [  449s]
+Day 1 14:00  m_ore P      754 L      959 | m_hoisted P    1,640 L      908 | m_milled P    1,599 L    1,580 | delta profit      21,106  [  605s]
+Day 1 15:00  m_ore P      738 L      983 | m_hoisted P    1,660 L      953 | m_milled P    1,600 L    1,580 | delta profit      26,900  [  610s]
+Day 1 16:00  m_ore P      707 L      969 | m_hoisted P    1,700 L      949 | m_milled P    1,600 L    1,580 | delta profit      33,449  [  767s]
+Day 1 17:00  m_ore P      688 L    1,266 | m_hoisted P    1,724 L    1,248 | m_milled P    1,600 L    1,580 | delta profit      41,038  [  772s]
+Day 1 18:00  m_ore P      679 L    1,419 | m_hoisted P    1,589 L    1,405 | m_milled P    1,600 L    1,580 | delta profit      50,569  [  777s]
+Day 1 19:00  m_ore P      766 L    1,497 | m_hoisted P    1,568 L    1,487 | m_milled P    1,600 L    1,580 | delta profit      61,770  [  963s]
+Day 1 20:00  m_ore P      824 L    1,538 | m_hoisted P    1,642 L    1,491 | m_milled P    1,600 L    1,580 | delta profit      74,358  [  966s]
+Day 1 21:00  m_ore P      854 L    1,558 | m_hoisted P    1,647 L    1,509 | m_milled P    1,600 L    1,580 | delta profit      88,279  [  970s]
+Day 1 22:00  m_ore P      856 L    1,569 | m_hoisted P      846 L      775 | m_milled P    1,600 L    1,580 | delta profit     102,816  [ 1128s]
+Day 1 23:00  m_ore P      855 L    1,574 | m_hoisted P      434 L      398 | m_milled P    1,600 L    1,580 | delta profit     117,312  [ 1132s]
+Day 2 00:00  m_ore P      855 L    1,577 | m_hoisted P      223 L      204 | m_milled P    1,600 L    1,580 | delta profit     131,685  [ 1135s]
+Day 2 01:00  m_ore P      994 L    1,578 | m_hoisted P      114 L      105 | m_milled P    1,600 L    1,580 | delta profit     146,001  [ 1298s]
+Day 2 02:00  m_ore P    1,085 L    1,579 | m_hoisted P       59 L       54 | m_milled P    1,600 L    1,580 | delta profit     160,242  [ 1302s]
+Day 2 03:00  m_ore P    1,131 L    1,580 | m_hoisted P      866 L      879 | m_milled P    1,600 L    1,580 | delta profit     175,542  [ 1305s]
+Day 2 04:00  m_ore P    1,187 L    1,580 | m_hoisted P    1,296 L    1,303 | m_milled P    1,599 L    1,580 | delta profit     192,828  [ 1462s]
+Day 2 05:00  m_ore P    1,215 L    1,580 | m_hoisted P    1,517 L    1,520 | m_milled P    1,599 L    1,580 | delta profit     211,332  [ 1466s]
+Day 2 06:00  m_ore P    1,230 L    1,580 | m_hoisted P    1,630 L    1,632 | m_milled P    1,599 L    1,580 | delta profit     230,687  [ 1619s]
+Day 2 07:00  m_ore P    1,363 L    1,580 | m_hoisted P    1,689 L    1,689 | m_milled P    1,600 L    1,580 | delta profit     250,367  [ 1622s]
+Day 2 08:00  m_ore P    1,431 L    1,580 | m_hoisted P    1,718 L    1,719 | m_milled P    1,600 L    1,580 | delta profit     269,831  [ 1625s]
+Day 2 09:00  m_ore P    1,648 L    1,580 | m_hoisted P    1,734 L    1,734 | m_milled P    1,599 L    1,580 | delta profit     288,860  [ 1788s]
+Day 2 10:00  m_ore P    1,786 L    1,580 | m_hoisted P    1,742 L    1,742 | m_milled P    1,598 L    1,580 | delta profit     307,247  [ 1794s]
+Day 2 11:00  m_ore P    1,856 L    1,580 | m_hoisted P    1,746 L    1,746 | m_milled P    1,599 L    1,580 | delta profit     325,083  [ 1798s]
+Day 2 12:00  m_ore P    1,879 L    1,580 | m_hoisted P    1,748 L    1,748 | m_milled P    1,599 L    1,580 | delta profit     342,387  [ 1953s]
+Day 2 13:00  m_ore P    1,887 L    1,580 | m_hoisted P    1,749 L    1,749 | m_milled P    1,598 L    1,580 | delta profit     358,913  [ 2108s]
+Day 2 14:00  m_ore P    1,891 L    1,580 | m_hoisted P    1,749 L    1,749 | m_milled P    1,598 L    1,580 | delta profit     374,611  [ 2110s]
+Day 2 15:00  m_ore P    1,886 L    1,580 | m_hoisted P    1,750 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     389,630  [ 2190s]
+Day 2 16:00  m_ore P    1,707 L    1,580 | m_hoisted P    1,750 L    1,750 | m_milled P    1,597 L    1,580 | delta profit     403,414  [ 2195s]
+Day 2 17:00  m_ore P    1,616 L    1,580 | m_hoisted P    1,609 L    1,750 | m_milled P    1,595 L    1,580 | delta profit     420,639  [ 2197s]
+Day 2 18:00  m_ore P    1,547 L    1,580 | m_hoisted P    1,565 L    1,750 | m_milled P    1,597 L    1,580 | delta profit     440,107  [ 2303s]
+Day 2 19:00  m_ore P    1,589 L    1,580 | m_hoisted P    1,167 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     461,623  [ 2306s]
+Day 2 20:00  m_ore P    1,611 L    1,580 | m_hoisted P    1,451 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     473,256  [ 2308s]
+Day 2 21:00  m_ore P    1,622 L    1,580 | m_hoisted P    1,596 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     483,895  [ 2387s]
+Day 2 22:00  m_ore P    1,667 L    1,580 | m_hoisted P    1,671 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     493,985  [ 2389s]
+Day 2 23:00  m_ore P    1,669 L    1,580 | m_hoisted P    1,710 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     502,855  [ 2464s]
+Day 3 00:00  m_ore P    1,666 L    1,580 | m_hoisted P    1,729 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     510,587  [ 2467s]
+Day 3 01:00  m_ore P    1,665 L    1,580 | m_hoisted P    1,739 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     517,045  [ 2471s]
+Day 3 02:00  m_ore P    1,701 L    1,580 | m_hoisted P    1,733 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     522,436  [ 2535s]
+Day 3 03:00  m_ore P    1,725 L    1,580 | m_hoisted P    1,719 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     527,034  [ 2537s]
+Day 3 04:00  m_ore P    1,737 L    1,580 | m_hoisted P    1,705 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     530,821  [ 2538s]
+Day 3 05:00  m_ore P    1,693 L    1,580 | m_hoisted P    1,706 L    1,750 | m_milled P    1,600 L    1,580 | delta profit     533,825  [ 2601s]
+Day 3 06:00  m_ore P    1,663 L    1,580 | m_hoisted P    1,693 L    1,750 | m_milled P    1,599 L    1,580 | delta profit     535,961  [ 2602s]
+{
+ "plyxis": {
+  "revenue": 9199135.994140625,
+  "cost": 2730668.7450790405,
+  "emission_kg": 385452.78314208984,
+  "oil_bbl": 0.0,
+  "gas_mscf": 0.0,
+  "water_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "spilled_bbl": 0.0,
+  "hours": 47.99999999999986,
+  "inventory_value": -270712.70703125,
+  "equipment_value": 0.0,
+  "profit": 6197754.5420303345,
+  "carbon_cost": 17345.375241394027,
+  "profit_after_carbon": 6180409.166788935,
+  "flared_over_permit_mscf": 0.0,
+  "m_ore": 65649.07953906244,
+  "m_hoisted": 71499.24729687517,
+  "m_milled": 76762.17106249998,
+  "m_copper": 1007.3650341796879,
+  "m_power": 2935.4769248046846
+ },
+ "legacy": {
+  "revenue": 8660036.265625,
+  "cost": 2739236.515114111,
+  "emission_kg": 390944.12890625,
+  "oil_bbl": 0.0,
+  "gas_mscf": 0.0,
+  "water_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "spilled_bbl": 0.0,
+  "hours": 47.99999999999986,
+  "inventory_value": -259006.21875,
+  "equipment_value": 0.0,
+  "profit": 5661793.531760889,
+  "carbon_cost": 17592.48580078124,
+  "profit_after_carbon": 5644201.04596011,
+  "flared_over_permit_mscf": 0.0,
+  "m_ore": 71669.65602343726,
+  "m_hoisted": 66857.96014843765,
+  "m_milled": 75840.00299999953,
+  "m_copper": 948.4437092285167,
+  "m_power": 2917.370534179688
+ },
+ "delta": {
+  "profit": 535961.0102694454,
+  "profit_after_carbon": 536208.120828825,
+  "oil_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "emission_t": -5.491345764160156,
+  "m_ore": -6020.576484374818,
+  "m_hoisted": 4641.287148437521,
+  "m_milled": 922.1680625004519,
+  "m_copper": 58.92132495117119,
+  "m_power": 18.106390624996493
+ },
+ "value_per_day": 267980.5051347235
+}
+{
+ "grade": {
+  "engineering": 0.1184,
+  "twin": 0.0957
+ },
+ "rate_max": {
+  "engineering": 0.0892,
+  "twin": 0.0756
+ }
+}

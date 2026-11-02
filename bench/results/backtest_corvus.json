@@ -1,0 +1,121 @@
+{
+ "signals": [
+  {
+   "signal": "Stope mucking rates",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 1.38,
+   "limit": 8.0,
+   "n": 2377,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "COR.S920.ST02.LHD.TPH",
+     "mape": 1.56
+    },
+    {
+     "tag": "COR.C680.ST06.LHD.TPH",
+     "mape": 1.55
+    },
+    {
+     "tag": "COR.C740.ST07.LHD.TPH",
+     "mape": 1.53
+    }
+   ]
+  },
+  {
+   "signal": "Crusher throughput",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 1.31,
+   "limit": 5.0,
+   "n": 286,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "COR.CRN.CR.TPH",
+     "mape": 1.34
+    },
+    {
+     "tag": "COR.CRS.CR.TPH",
+     "mape": 1.28
+    }
+   ]
+  },
+  {
+   "signal": "Hoist throughput",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 1.26,
+   "limit": 5.0,
+   "n": 143,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "COR.SH1.HOIST.TPH",
+     "mape": 1.26
+    }
+   ]
+  },
+  {
+   "signal": "Head grade (on-stream analyser)",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 1.62,
+   "limit": 5.0,
+   "n": 143,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "COR.MILL.OSA.HEAD",
+     "mape": 1.62
+    }
+   ]
+  },
+  {
+   "signal": "Sump level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 1.87,
+   "limit": 10.0,
+   "n": 220,
+   "pass": true
+  },
+  {
+   "signal": "Shaft bin level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 1.63,
+   "limit": 10.0,
+   "n": 22,
+   "pass": true
+  },
+  {
+   "signal": "ROM pad level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 0.23,
+   "limit": 10.0,
+   "n": 22,
+   "pass": true
+  },
+  {
+   "signal": "Ore pass level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 1.04,
+   "limit": 10.0,
+   "n": 132,
+   "pass": true
+  }
+ ],
+ "discovered_assets": [
+  "ST_C560_10"
+ ],
+ "tags_mapped": 1044,
+ "tags_unmapped": [],
+ "all_assets_represented": true,
+ "gate_passed": true,
+ "twin_version": 2,
+ "scenario": "corvus",
+ "seed": 0,
+ "train_h": 24.0,
+ "test_h": 24.0,
+ "export": {
+  "steps": 288,
+  "bytes": 1880921
+ },
+ "wall_seconds": 161.6
+}

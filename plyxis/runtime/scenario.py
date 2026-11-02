@@ -65,7 +65,9 @@ class PriceModel:
         self.cfg = cfg
         self.U = U
         self.start = start_hour
-        self.rng = random.Random(seed)
+        # one random stream per price: a price path must not depend on the order in which the code asks for
+        # prices (with one shared stream, any change in call order changed the realised scenario)
+        self.rngs = {k: random.Random(f"{seed}:{k}") for k in cfg}
         self.cache: dict = {}
         self.walk: dict = {k: 0.0 for k in cfg}
         self.last_hour = {k: -1 for k in cfg}
@@ -79,12 +81,13 @@ class PriceModel:
         if key not in self.cache:
             while self.last_hour[name] < h:
                 self.last_hour[name] += 1
-                self.walk[name] = 0.98 * self.walk[name] + self.rng.gauss(0, c.get("walk", 0.0))
+                rng = self.rngs[name]
+                self.walk[name] = 0.98 * self.walk[name] + rng.gauss(0, c.get("walk", 0.0))
                 hh = self.last_hour[name]
                 v = c["base"] + self.walk[name]
                 if "daily" in c:
                     v = c["base"] * c["daily"][int((hh + self.start) % 24)] * (1 + 0.15 * self.walk[name])
-                    if self.rng.random() < c.get("spike_prob", 0.0):
+                    if rng.random() < c.get("spike_prob", 0.0):
                         v *= 4.0
                 self.cache[(name, hh)] = v
         return self.cache[key]

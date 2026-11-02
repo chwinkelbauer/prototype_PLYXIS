@@ -36,6 +36,19 @@ export interface Job {
   at: [number, number] | null; status: string;
 }
 
+export interface Recommendation {
+  id: string; plan: number; kind: "setpoint" | "lineup"; asset: string; label: string; type: string; decision: string;
+  from?: number; to?: number; lo?: number; hi?: number; from_display: string; to_display: string; start: number; end: number;
+  status: string; share: number; decided_by?: string; decided_at?: number; reason?: string; value?: number;
+}
+
+export interface AdvisoryView {
+  mode: "autonomous" | "advisory" | "shadow"; modes: string[]; shift_h: number; plan: number | null; plan_valid: boolean;
+  valid_until: number | null; recommendations: Recommendation[]; total: number; counts: Record<string, number>;
+  recent_decisions: Recommendation[]; overrides: { asset: string; decision: string; value: number; until: number }[];
+  shadow: { t: number; plan: number; plan_value: number; hold_value: number; gap: number }[];
+}
+
 export interface KpiPoint { t: number; p: Rate; l: Rate; pc: number; lc: number }
 
 export interface Snapshot {
@@ -44,6 +57,8 @@ export interface Snapshot {
   optimizer: { running: boolean; plan_id: number | null; last_plan_t: number; neural: Record<string, unknown>;
     progress_tail: Record<string, unknown>[] };
   twin: { version: number; commits: number };
+  advisory?: { mode: string; plan_valid: boolean; pending: number };
+  quality?: { bad_now: number };
   jobs: Job[];
   prices: Record<string, number>;
   alerts_tail: Alert[];
@@ -82,6 +97,7 @@ export interface KpiConfig { metrics: KpiMetric[]; primary: string; product?: st
   unit_cost_label?: string }
 
 export interface Meta {
+  prices?: Record<string, { unit?: string | null }>;
   id?: string; title?: string; region?: string; subtitle?: string; kpi?: KpiConfig | null;
   name: string; description: string; start_hour: number; events: Record<string, unknown>[]; demo: DemoStep[];
   speed: number; dt_emulator_h: number; replan_every_h: number;
@@ -108,7 +124,7 @@ const post = <T>(url: string, body: unknown) =>
   j<T>(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
 
 export const api = {
-  health: () => j<{ ok: boolean; booting: boolean; message: string }>("/api/health"),
+  health: () => j<{ ok: boolean; booting: boolean; message: string; error: string | null; scenario: string }>("/api/health"),
   meta: () => j<Meta>("/api/meta"),
   scenarios: () => j<ScenarioInfo[]>("/api/scenarios"),
   selectScenario: (id: string) => post<{ ok: boolean }>("/api/scenario", { id }),
@@ -126,6 +142,7 @@ export const api = {
   twinGenerated: () => j<{ simulate: string; bounds: string; summary: Record<string, unknown> }>("/api/twin/generated"),
   twinCheck: (files: Record<string, string>) => post<{ diagnostics: Diagnostic[] }>("/api/twin/check", { files }),
   twinApply: (files: Record<string, string>, message: string) => post<any>("/api/twin/apply", { files, message }),
+  twinLint: () => j<{ severity: string; code: string; type: string; asset: string | null; message: string }[]>("/api/twin/lint"),
   commits: () => j<any[]>("/api/twin/commits"),
   commit: (id: string) => j<any>(`/api/twin/commit/${id}`),
   connectors: () => j<any[]>("/api/data/connectors"),
@@ -137,14 +154,23 @@ export const api = {
   alerts: () => j<Alert[]>("/api/alerts"),
   timeline: () => j<TimelineEvent[]>("/api/timeline"),
   bench: () => j<Record<string, any>>("/api/bench"),
+  advisory: () => j<AdvisoryView>("/api/advisory"),
+  setMode: (mode: string) => post<{ ok: boolean; error?: string }>("/api/advisory/mode", { mode }),
+  decide: (ids: string[] | "all", action: "accept" | "reject" | "modify", reason: string, value?: number) =>
+    post<{ ok: boolean; error?: string }>("/api/advisory/decide", { ids, action, reason, value }),
+  audit: () => j<any[]>("/api/audit"),
+  reportMd: async () => { const r = await fetch("/api/report/shift?format=md"); if (!r.ok) throw new Error(await r.text()); return r.text(); },
+  whatIf: (changes: Record<string, unknown>[], name: string) => post<any>("/api/whatif", { changes, name }),
+  quality: () => j<{ tags: number; bad_now: number; flagged_total: number; issues: { tag: string; issue: string; since: number }[] }>("/api/data/quality"),
 };
 
 // ---------------------------------------------------------------- formatting helpers
 export const fmt = {
   n: (v: number | undefined | null, d = 0) =>
-    v === undefined || v === null || Number.isNaN(v) ? "–" : v.toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d }),
+    v === undefined || v === null || !Number.isFinite(v) ? "–"
+      : v.toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d }).replace(/^-(?=[0.]+$)/, ""),
   usd: (v: number | undefined | null, d = 0) => {
-    if (v === undefined || v === null || Number.isNaN(v)) return "–";
+    if (v === undefined || v === null || !Number.isFinite(v)) return "–";
     const a = Math.abs(v);
     const s = v < 0 ? "−" : "";
     if (a >= 1e6) return `${s}$${(a / 1e6).toFixed(2)}M`;

@@ -5,7 +5,7 @@ export function KpiAB({ label, plx, leg, unit, digits = 0, better = "higher", hi
   hint?: string; format?: (v: number) => string;
 }) {
   const f = format ?? ((v: number) => v.toLocaleString("en-US", { maximumFractionDigits: digits, minimumFractionDigits: digits }));
-  const has = plx !== undefined && leg !== undefined && !Number.isNaN(plx) && !Number.isNaN(leg);
+  const has = Number.isFinite(plx) && Number.isFinite(leg);
   const diff = has ? (plx! - leg!) : 0;
   const pct = has && Math.abs(leg!) > 1e-9 ? (diff / Math.abs(leg!)) * 100 : 0;
   const good = better === "higher" ? diff >= 0 : diff <= 0;
@@ -13,11 +13,11 @@ export function KpiAB({ label, plx, leg, unit, digits = 0, better = "higher", hi
     <div className="panel px-3 py-2.5 min-w-0" title={hint}>
       <div className="text-[10.5px] uppercase tracking-wider text-muted font-semibold truncate">{label}</div>
       <div className="flex items-baseline gap-1.5 mt-1">
-        <span className="display text-[24px] leading-none font-semibold text-ink tabular-nums">{plx === undefined ? "–" : f(plx)}</span>
+        <span className="display text-[24px] leading-none font-semibold text-ink tabular-nums">{Number.isFinite(plx) ? f(plx!) : "–"}</span>
         {unit && <span className="text-[11px] text-dim">{unit}</span>}
       </div>
       <div className="flex items-center justify-between mt-1.5 text-[11px]">
-        <span className="text-dim">manual <span className="num text-leg">{leg === undefined ? "–" : f(leg)}</span></span>
+        <span className="text-dim">manual <span className="num text-leg">{Number.isFinite(leg) ? f(leg!) : "–"}</span></span>
         {has && Math.abs(diff) > 1e-9 && (
           <span className={`num font-semibold ${good ? "text-good" : "text-crit"}`}>
             {diff >= 0 ? "▲" : "▼"} {Math.abs(pct) >= 0.05 ? `${Math.abs(pct).toFixed(1)} %` : f(Math.abs(diff))}

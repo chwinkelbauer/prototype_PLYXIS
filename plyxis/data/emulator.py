@@ -47,7 +47,10 @@ class Birth:
 class PlantEmulator:
     def __init__(self, files: list, env: str, dt: float = 1.0 / 6.0, seed: int = 0, name: str = "plant",
                  hidden: Optional[list] = None, noise: float = 1.0, defines_prices: Optional[Callable] = None,
-                 kpi_metrics: Optional[list] = None):
+                 kpi_metrics: Optional[list] = None, assays: Optional[dict] = None):
+        self.assays = assays or {}         # direct samples of a property (scenario `assays`); default: one per hour, rotating
+        self.last_assay: dict = {}
+        self.sensor_faults: dict = {}      # tag -> instrument fault (event `sensor`)
         m = compile_model(files, env=env, physical=True)
         self.model = m
         self.prog = m.physical
@@ -233,17 +236,54 @@ class PlantEmulator:
         tests = [x for x in self.tele if x[6].get("test") and x[2] not in self.hidden]
         if tests and abs((self.t / 1.0) - round(self.t / 1.0)) < 1e-6:
             wells = sorted({x[2] for x in tests})
-            w = wells[self.test_cursor % len(wells)]
-            self.test_cursor += 1
+            if self.assays.get("policy") == "working":
+                picks = self._working_places(raw, wells)
+            else:
+                picks = {wells[self.test_cursor % len(wells)]}
+                self.test_cursor += 1
+            sigma = self.assays.get("sigma", 0.01)
             for gid, li, path, tag, sk, unit, opt in tests:
-                if path != w:
+                if path not in picks:
                     continue
                 v = self._signal(raw, gid, li, sk)
                 if unit:
                     v = U.from_canonical(v, unit)
-                v = v * (1 + self.rng.gauss(0, 0.01 * self.noise))
+                v = v * (1 + self.rng.gauss(0, sigma * self.noise))
                 out.append(Telemetry(tag, round(v, 4), unit, self.t, "test"))
+        return self._sensor_faults(out) if self.sensor_faults else out
+
+    def _sensor_faults(self, msgs: list) -> list:
+        out = []
+        for m in msgs:
+            f = self.sensor_faults.get(m.tag)
+            if f is not None and self.t >= f["until"]:
+                del self.sensor_faults[m.tag]
+                f = None
+            if f is None:
+                out.append(m)
+            elif f["fault"] == "freeze":
+                f["held"] = m.value if f["held"] is None else f["held"]
+                m.value = f["held"]
+                out.append(m)
+            elif f["fault"] == "value":
+                m.value = float(f["value"])
+                out.append(m)
+            # "dropout": the reading never arrives
         return out
+
+    def _working_places(self, raw: dict, assets: list) -> set:
+        """Grade control samples where the plant works: the `per_hour` working places sampled longest ago (with
+        a working place visited about once a shift); idle places only when fewer are working."""
+        working = set()
+        suffix = "." + self.assays.get("signal", "")
+        for gid, li, path, tag, sk, unit, opt in self.tele:
+            if tag.endswith(suffix) and path not in self.hidden and self._signal(raw, gid, li, sk) > 1e-6:
+                working.add(path)
+        order = sorted(assets, key=lambda p: (p not in working, self.last_assay.get(p, -1e9), p))
+        picks = set(order[:int(self.assays.get("per_hour", 1))])
+        for p in picks:
+            self.last_assay[p] = self.t
+        return picks
 
     def births(self, path: str) -> Birth:
         inst = self.flat.instances[self.flat.by_path[path]]
@@ -422,6 +462,10 @@ class PlantEmulator:
         elif kind == "wear" and gi:
             self.P_nominal[gi[0]]["wear_rate"].reshape(-1)[gi[1]] = kw["rate"]
             self.P[gi[0]]["wear_rate"].reshape(-1)[gi[1]] = kw["rate"]
+        elif kind == "sensor":
+            # instrument fault: {tag, fault: "freeze" | "dropout" | "value", value?, hours?}. Telemetry only, not the plant.
+            self.sensor_faults[kw["tag"]] = {"fault": kw.get("fault", "freeze"), "value": kw.get("value"),
+                                             "until": self.t + float(kw.get("hours", 1e9)), "held": None}
         elif kind == "price":
             self.overrides[kw["name"]] = (kw["value"], self.t + kw.get("hours", 24.0))
         elif kind == "commission" and asset:

@@ -13,28 +13,42 @@ python -m bench.solver_comparison --budget 60                # solvers at equal 
 python -m bench.solver_budget --cases 5                      # what the live solver budget buys
 python -m bench.neural_ablation --experts 60 --test 8        # what the neural sub-solvers add
 python -m bench.decomposition --seeds 3                      # deterministic sections, native kernels
+python -m bench.section_theory                               # section DP vs. exact MILP, known structure
+python -m bench.exact_branches                               # structure recognition, exact LP branches
 python -m bench.scaling --fields 1 2 4 8 --ga                # enterprise twins up to 768 wells
+python -m bench.backtest --scenario kestrel                  # pilot gate G1: historian export, frozen twin, unseen history
 ```
 
 ## Kestrel showcase run (72 h)
 
-`bench/results/showcase_run.json` - the full Kestrel scenario: two compressor trips, a 10-hour gas
-plant upset that cuts takeaway by a third, a fast-wearing ESP, an unannounced 55 % loss of disposal
-injectivity, 24 h of negative gas prices, two hours of power at ERCOT's 5,000 USD/MWh cap, and a new well
-that appears only as SCADA tags. Two worlds start from the same state and see the same hidden physics,
-events, notices and sensor noise: one operated by PLYXIS (re-planning every 3 h and after every event),
-one by a rule-based model of competent manual operations ([SHOWCASE.md](SHOWCASE.md)).
+`bench/results/showcase_run.json` (seed 0) and `showcase_run_s1.json`, `showcase_run_s2.json` - the full
+Kestrel scenario: two compressor trips, a 10-hour gas plant upset that cuts takeaway by a third, a
+fast-wearing ESP, an unannounced 55 % loss of disposal injectivity, 24 h of negative gas prices, two hours of
+power at ERCOT's 5,000 USD/MWh cap, and a new well that appears only as SCADA tags. Two worlds start from
+the same state and see the same hidden physics, events, notices, prices and sensor noise: one operated by
+PLYXIS (re-planning every 3 h and after every event), one by a rule-based model of competent manual
+operations ([SHOWCASE.md](SHOWCASE.md)). The seed changes the realised prices and the sensor and process
+noise - for both worlds alike.
+
+| seed | operating profit | after carbon cost | oil | cash operating cost | flaring | CO2e |
+|---|---|---|---|---|---|---|
+| 0 | +382,137 (+13.8 %) | +14.5 % | +11.1 % | -8.7 % | -85 % | -31 % |
+| 1 | +398,257 (+14.7 %) | +15.4 % | +11.4 % | -10.4 % | -82 % | -29 % |
+| 2 | +398,127 (+14.7 %) | +15.3 % | +11.2 % | -9.9 % | -85 % | -31 % |
+| **mean** | **+392,840 (+14.4 %)** | **+15.1 %** | +11.3 % | -9.7 % | -84 % | -30 % |
+
+Seed 0 in detail:
 
 | KPI (72 h) | PLYXIS | manual operations | difference |
 |---|---|---|---|
-| **Operating profit** (USD) | 3,190,744 | 2,806,032 | **+384,713 (+13.7 %)** |
-| **Profit after carbon cost** (USD) | 3,163,710 | 2,767,096 | **+396,614 (+14.3 %)** |
-| Oil produced (bbl) | 53,613 | 48,756 | +4,857 (+10.0 %) |
-| Gas produced (Mscf) | 102,542 | 102,688 | -146 (-0.1 %) |
-| **Cash operating cost** (USD) | 398,957 | 440,043 | **-41,086 (-9.3 %)** |
-| **Gas flared** (Mscf) | 463 | 2,630 | **-2,168 (-82 %)** |
-| Flared above the permit (Mscf) | 58 | 1,880 | -1,822 (-97 %) |
-| Emissions (t CO2e) | 451 | 649 | -198 (-31 %) |
+| **Operating profit** (USD) | 3,146,031 | 2,763,894 | **+382,137 (+13.8 %)** |
+| **Profit after carbon cost** (USD) | 3,119,211 | 2,724,958 | **+394,253 (+14.5 %)** |
+| Oil produced (bbl) | 54,169 | 48,756 | +5,412 (+11.1 %) |
+| Gas produced (Mscf) | 103,423 | 102,688 | +734 (+0.7 %) |
+| **Cash operating cost** (USD) | 402,855 | 441,080 | **-38,224 (-8.7 %)** |
+| **Gas flared** (Mscf) | 390 | 2,630 | **-2,240 (-85 %)** |
+| Flared above the permit (Mscf) | 51 | 1,880 | -1,829 (-97 %) |
+| Emissions (t CO2e) | 447 | 649 | -202 (-31 %) |
 | Unplanned pump failures | 0 | 1 | |
 
 How the comparison is valued - identically for both worlds: sales minus cash costs, plus the change in
@@ -45,58 +59,92 @@ model's failure premium). Planning-only terms (expected failure cost, flaring-ri
 are not counted. The carbon cost uses the field's internal price (60 USD/t), which is also what the
 planner optimises.
 
-Where the difference comes from (realised terms, `bench/results/showcase_run.json` -> `bridge`, adds up to
-the operating-profit difference):
+Where the difference comes from (seed 0, realised terms, `showcase_run.json` -> `bridge`, adds up to the
+operating-profit difference):
 
 | Term | USD |
 |---|---|
-| Oil sales | +706,954 |
-| Oil and water in tanks | -318,635 |
+| Oil sales | +617,678 |
+| Oil and water in tanks | -213,123 |
+| Pump life consumed | -58,648 |
 | Avoided unplanned pump failure | +45,000 |
-| Pump life consumed | -40,937 |
-| Power | -9,293 |
-| Well restarts | +8,604 |
-| Water injection power | +3,947 |
-| Disposal fees, gas sales, treating, trucking, lease | -10,929 |
-| **total** | **+384,711** |
+| Power | -15,647 |
+| Well restarts | +12,182 |
+| Water injection power | +3,872 |
+| Disposal fees, treating, gas sales, trucking, lease | -9,177 |
+| **total** | **+382,137** |
 
-PLYXIS produces 10 % more oil (choosing which wells to run and how fast when gas takeaway, compression
+PLYXIS produces 11 % more oil (choosing which wells to run and how fast when gas takeaway, compression
 and disposal bind) and also sells down tank inventory that manual operations keep at about half full.
 The tank draw-down is netted out by the inventory line; what remains of it in the result is the 10 % gap
-between selling a barrel now and valuing it in a tank at the end (about USD 35,000 of the total).
+between selling a barrel now and valuing it in a tank at the end.
 
-By period (difference in operating profit; flaring in Mscf):
+By period (seed 0; difference in operating profit; flaring in Mscf):
 
 | Period | delta profit (USD) | PLYXIS flare | manual flare |
 |---|---|---|---|
-| normal operation (first 7 h) | +59,883 | 0 | 0 |
-| CS-1 trip | +9,934 | 174 | 1,055 |
-| gas plant upset (takeaway -1/3, 10 h), ESP wear | +68,836 | 8 | 198 |
-| SWD-2 injectivity loss, new well | +49,256 | 0 | 0 |
-| negative gas price | +108,731 | 0 | 0 |
-| CS-2 trip during negative price | +57,507 | 227 | 1,160 |
-| evening incl. the ERCOT price cap | +24,451 | 24 | 209 |
-| recovery to end | +6,115 | 9 | 2 |
+| normal operation (first 7 h) | +56,180 | 0 | 0 |
+| CS-1 trip | +21,514 | 196 | 1,055 |
+| gas plant upset (takeaway -1/3, 10 h), ESP wear | +70,537 | 10 | 198 |
+| SWD-2 injectivity loss, new well | +45,661 | 0 | 0 |
+| negative gas price | +108,106 | 0 | 0 |
+| CS-2 trip during negative price | +42,709 | 155 | 1,160 |
+| evening incl. the ERCOT price cap | +20,392 | 7 | 209 |
+| recovery to end | +17,038 | 0 | 2 |
 
-Twin and planner during the run: well deliverability error 11.9 % → 2.4 %, GOR 12.9 % → 4.0 %,
-water cut 4.7 % → 2.1 %; 32 plans of 4,983 decisions each, all feasible, mean solve time 10.5 s
-(max 15.8 s), each preceded by a first response within 1-2 s after urgent triggers.
+Twin and planner during the run (seed 0): well deliverability error 11.9 % → 2.3 %, GOR 12.9 % → 4.7 %,
+water cut 4.7 % → 2.1 %; 32 plans of 4,983 decisions each, all feasible. These runs shared the machine with other benchmarks, so
+their solve times mean nothing; alone, a plan takes about 10 s (Solver budget below). Over the three seeds 93 of 96 plans
+were feasible. No seed had an unplanned pump failure in the PLYXIS world; the manual-operations world had one on each.
+
+**A wrong slope, fixed: no measurable effect on this result.** `rt.pwl` returned slope 0 at the top of its table: in float32 the ratio inside it can lie one rounding step above 1, where `clamp` has derivative 0. A pump at full speed therefore had no slope of its rate, only of its power and wear, and about half of a plan's well speeds sit there. It surfaced when a sequential LP built on reverse-mode slopes lost money where one built on finite differences gained (slopes correlated 0.47 at that plan, 0.999 after the fix). The fix changes derivatives only, not one simulated value. Every number above is with the fix.
+
+| seed | before the fix (`arms/showcase_run_beforeslope*`) | with the fix | difference |
+|---|---|---|---|
+| 0 | +397,124 | +382,137 | -14,987 |
+| 1 | +378,360 | +398,257 | +19,897 |
+| 2 | +401,056 | +398,127 | -2,929 |
+| **mean** | **+392,180** | **+392,840** | **+660** |
+
+The first-order stages evidently found their way around the wrong slope: the difference is within the noise of three seeds, feasible plans went from 94 of 95 to 93 of 96, and the manual-operations world is identical to the cent. So the fix is right, and it is not a gain. The mine is not affected: its values and gradients were identical at all four points tested (its only table is the recovery curve, and the head grade stays inside it), so its results stand. The comparison arms in this file, the `core` run below and the Kestrel sections further down (solver comparison, budget, neural ablation, scaling, twin accuracy, decomposition) were not re-run after the fix.
+
+Cold plans are less clear (no neural start, four seeds, equal evaluations, `bench/checks/cold_plans_old_vs_new.py`, `arms/cold_plans_old_vs_new.log`): three got better with the fix (+8,449, +53,060, +9,113) and one far worse (-326,482), so the mean falls from 4,330,118 to 4,266,153. Four seeds cannot say whether that is a wider spread or a real loss. The A/B above starts its later plans warm and does not show it.
+
+**The convex stage has no A/B result yet.** Sequential LP over the wells (`--exact convex --exact-margin 0.10`) gains in the plan (Structure section) but was stopped for time at hour 24 of 72, before the negative-price period: +162,505 against +163,053 without it at that hour, three seeds (`arms/showcase_run_slope_convex_partial_s*.log`). That is no decision either way, so the stage stays off on the oil field.
+
+**Without the two newest events** (`showcase_run_core.json`, before the slope fix: no gas-plant upset, no ERCOT price cap; seed 0):
++294,368 (+9.5 %) operating profit, +10.1 % after carbon, oil +7.3 %, flaring -83 %. About four fifths of
+the result does not depend on those two events; they add the rest because they are situations where a
+plan that sees the whole field is worth more than fixed rules.
+
+**Reproducibility.** Re-running seed 0 reproduces the manual-operations world exactly. The PLYXIS world is not bit-reproducible: multi-threaded floating point in the solver differs between runs. With unchanged code and thread count a rerun differed by USD 136; with 2 threads instead of 6 the same seed gave +355,215 instead of about +386,000. Compare arms only at equal thread counts, and over seeds.
+
+**The exact-branch stage stays off on the oil field** (measured before the slope fix, on both sides of each comparison). Without margins it lowered the result on every seed (mean -47,832: the LP drove the tank batteries to their limits and the buffer was gone when the gas-plant upset and the compressor trips came).
+It was re-measured with a margin: `exact_margin` keeps state limits inside by a share of their scale. Measured with 10 % over the same three seeds (`showcase_run_branches*.json`, `python -m bench.showcase_run --exact lp,slp,slp_quality --exact-margin 0.10`):
+
+| seed | without the stage (configured) | with the stage and 10 % margins | effect of the stage |
+|---|---|---|---|
+| 0 | +397,124 | +390,174 | -6,950 |
+| 1 | +378,360 | +373,791 | -4,569 |
+| 2 | +401,056 | +390,446 | -10,611 |
+
+The margin removes most of the harm (mean -7,377, -10,611 to -4,569) but the stage still does not pay here, so it stays off. A 5 % margin was worse than 10 % in a separate comparison at 2 threads each (-12,570 against +6,840, both against the same no-stage arm, `arms/showcase_run_guard*`, `_exact*`, `_exact10*`); the difference between those two is within the noise of a three-seed mean. On the mine the stage stays on (Corvus section).
 
 **How this number was arrived at.** An earlier version of this benchmark reported +16 % operating
 profit. Investigation showed that most of it was not PLYXIS: the emulator's protection layer
 over-throttled overloaded flows, which hurt the rule-based world more, and the baseline's water handling
 was weaker than a real control room. After those fixes, and with pump condition and carbon in the
-accounting, the result was +2.0 %. It has since grown to +13.7 % for reasons that are documented and
-testable: (1) the solver - more diverse starts, a longer polish and a feasibility restoration (+2.6 % per
-plan, `solver_budget`); (2) planner corrections - announced price transients are no longer extrapolated
-into the forecast, pump wear is priced the way the accounting values it; (3) a more realistic scenario -
-firm gas takeaway below field deliverability (the Permian situation before new pipelines), a midstream
-upset with a curtailment notice, disposal fees, and a scarcity price window. Every new event came with the
-standard response a competent control room would have (immediate curtailment on the midstream notice,
-the 75 % demand-response set point for the price cap), so the baseline was not weakened. A bug found on
-the way - price events had silently lasted 24 h instead of their stated duration - was fixed before these
-numbers were produced. The period table above shows what each event phase contributes; a run without the
-two newest events (`showcase_run --skip-events GASPLANT,power_price --tag core`) has not been made yet.
+accounting, the result was +2.0 %. It grew to +13.7 % (one run) for reasons that are documented and
+testable: (1) the solver - more diverse starts, a longer polish and a feasibility restoration; (2) planner
+corrections - announced price transients are no longer extrapolated into the forecast, pump wear is priced
+the way the accounting values it; (3) a more realistic scenario - firm gas takeaway below field
+deliverability (the Permian situation before new pipelines), a midstream upset with a curtailment notice,
+disposal fees, and a scarcity price window. Every new event came with the standard response a competent
+control room would have (immediate curtailment on the midstream notice, the 75 % demand-response set point
+for the price cap), so the baseline was not weakened. A bug found on the way - price events had silently
+lasted 24 h instead of their stated duration - was fixed before these numbers were produced. Then the price
+process was made independent of the code's call order (one random stream per price) and the neural
+sub-solvers were retrained; that gave +392,180 over three seeds. The slope fix described above then gave the result at the top of this section.
 
 ## Twin accuracy over time (Kestrel)
 
@@ -106,14 +154,14 @@ only SCADA telemetry and one well test per hour.
 
 | plant time (h) | well deliverability q_max | GOR | water cut | pad gas, one step ahead (mean / max) | compressor stations |
 |---|---|---|---|---|---|
-| 6 (start, engineering model) | 10.9 % | 12.7 % | 4.7 % | 7.7 % / 32 % | +3.6 %, +2.9 % |
-| 10 | 3.0 % | 12.1 % | 4.5 % | 5.8 % / 19 % | +0.4 %, +1.3 % |
-| 18 | 2.4 % | 11.2 % | 4.2 % | 4.4 % / 15 % | -0.7 %, +0.4 % |
-| 26 | 2.3 % | 10.7 % | 3.8 % | 5.5 % / 15 % | +0.4 %, +2.2 % |
-| 36 | 2.2 % | 9.8 % | 3.5 % | 3.8 % / 12 % | +0.9 %, +0.8 % |
+| 6 (start, engineering model) | 10.9 % | 12.7 % | 4.7 % | 8.0 % / 32 % | +4.3 %, +2.2 % |
+| 10 | 3.0 % | 12.9 % | 4.5 % | 5.7 % / 10 % | +0.4 %, +0.5 % |
+| 18 | 2.4 % | 11.8 % | 4.2 % | 5.0 % / 17 % | -0.4 %, +0.0 % |
+| 26 | 2.5 % | 11.2 % | 3.8 % | 6.3 % / 15 % | +0.1 %, +2.7 % |
+| 36 | 2.3 % | 10.3 % | 3.5 % | 4.3 % / 14 % | +0.7 %, +0.2 % |
 
 Well deliverability is pinned down within four hours; GOR and water cut improve as well tests rotate
-through the 96 wells (after 72 h: GOR 4.0 %, water cut 2.1 %, see the showcase run). With the plant's
+through the 96 wells (after 72 h: GOR 4.6 %, water cut 2.1 %, see the showcase run). With the plant's
 true parameters, the twin reproduces all ~1,000 plant signals exactly - the remaining error is
 estimation error, not model error.
 
@@ -127,18 +175,18 @@ by themselves.
 
 | Method | objective (USD) | max violation | feasible | seconds |
 |---|---|---|---|---|
-| PSO | 3,144,324 | 0.5935 | no | 60.0 |
-| gravitational search | 1,935,002 | 0.0617 | no | 60.0 |
-| GA | 4,183,679 | 0.0001 | yes | 60.0 |
-| DE | 3,810,866 | 0.0000 | yes | 60.0 |
+| PSO | 3,145,609 | 0.5963 | no | 60.0 |
+| gravitational search | 1,935,002 | 0.0617 | no | 60.1 |
+| GA | 4,182,931 | 0.0004 | yes | 60.0 |
+| DE | 3,786,100 | 0.0000 | yes | 60.0 |
 | PSO, cooperative (per subsystem) | 1,711,091 | 1.6285 | no | 60.0 |
 | GA, cooperative (per subsystem) | 1,112,336 | 0.0000 | yes | 60.0 |
-| augmented Lagrangian, single start | 3,259,812 | 0.0002 | yes | 7.0 |
-| **PLYXIS cascade** | **4,383,413** | 0.0008 | yes | **10.3** |
-| **PLYXIS cascade + neural sub-solvers** | **4,431,554** | 0.0012 | yes | **10.5** |
+| augmented Lagrangian, single start | 3,236,756 | 0.0000 | yes | 7.0 |
+| **PLYXIS cascade** | **4,354,262** | 0.0016 | yes | **10.3** |
+| **PLYXIS cascade + neural sub-solvers** | **4,387,048** | 0.0017 | yes | **10.6** |
 
-The vectorised GA is the strongest classic method, but it needs the whole minute and ends 5.6 % below
-the cascade with neural sub-solvers, which finishes in 10.5 s. PSO and gravitational search - the
+The vectorised GA is the strongest classic method, but it needs the whole minute and ends 4.7 % below
+the cascade with neural sub-solvers, which finishes in 10.6 s. PSO and gravitational search - the
 original concept's front end - do not reach a feasible plan at this dimension.
 
 ## Solver budget (Kestrel)
@@ -148,28 +196,29 @@ live operation:
 
 | Configuration | relax / starts / discrete / repair / polish | mean objective (USD) | vs previous live | feasible | mean seconds |
 |---|---|---|---|---|---|
-| previous live | 160 / 3 / 12x1 / 80 / 50 | 4,254,832 | - | 5/5 | 7.1 |
-| **live** | 200 / 8 / 12x1 / 80 / 120 | 4,366,757 | **+2.6 %** | 5/5 | 10.2 |
-| large | 480 / 8 / 24x3 / 150 / 150 | 4,376,936 | +2.9 % | 5/5 | 34.3 |
+| previous live | 160 / 3 / 12x1 / 80 / 50 | 4,161,414 | - | 4/5 | 7.0 |
+| **live** | 200 / 8 / 12x1 / 80 / 120 | 4,217,939 | **+1.4 %** | 5/5 | 10.0 |
+| large | 480 / 8 / 24x3 / 150 / 150 | 4,199,357 | +0.9 % | 5/5 | 31.6 |
 
 ## Neural sub-solvers (ablation, Kestrel)
 
 `bench/results/neural_ablation.json` - the cascade solves 60 realistic event situations warm-started from
-the current plan; the graph network is trained on them (132 s). Then 8 held-out situations are re-planned
+the current plan; the graph network is trained on them (137 s). Then 8 held-out situations are re-planned
 with equal budgets:
 
 | Start / method | mean objective (USD) | feasible | mean seconds |
 |---|---|---|---|
-| previous plan, as is | -1,268,311 | 0/8 | - |
-| neural sub-solver plan, as is | 266,094 | 0/8 | 0.02 |
-| previous plan + gradient repair | 3,240,462 | 5/8 | 1.36 |
-| neural plan + gradient repair | 3,234,521 | 8/8 | 1.36 |
-| full cascade | 3,454,010 | 8/8 | 5.64 |
-| full cascade + neural start | 3,567,896 | 8/8 | 5.15 |
+| previous plan, as is | 1,369,012 | 0/8 | 0.02 |
+| neural sub-solver plan, as is | 1,740,764 | 0/8 | 0.02 |
+| previous plan + gradient repair | 2,870,377 | 3/8 | 1.54 |
+| neural plan + gradient repair | 2,924,572 | 5/8 | 1.50 |
+| full cascade | 3,123,836 | 8/8 | 6.16 |
+| full cascade + neural start | 3,352,147 | 8/8 | 6.46 |
 
 * The network's raw plan (20 ms for the whole field) is a start, never the final word.
-* With the same short repair, the neural start reaches a feasible plan in 8/8 cases (previous plan: 5/8).
-* Inside the full cascade the neural start wins 5 of 8 cases, ties 2, loses 1 (median +3.0 %, mean +3.8 %).
+* With the same short repair, the neural start reaches a feasible plan in 5/8 cases (previous plan: 3/8).
+* Inside the full cascade the neural start wins 7 of 8 cases and loses 1 (median +4.6 %, mean +8.4 %,
+  range -8.3 % to +24.9 %).
 
 ## Scaling: from one field to a company
 
@@ -178,10 +227,10 @@ plant, one oil terminal and a company-wide flare permit. The GA gets exactly the
 
 | Fields | wells | decisions (discrete) | compile | simulate 1 / 16 plans | gradient | generated code | cascade solve | cascade objective | GA, same time |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | 96 | 4,983 (1,272) | 0.15 s | 10 / 13 ms | 15 ms | 432 lines | 12 s | USD 4.40 M, feasible | infeasible (max violation 0.56) |
-| 2 | 192 | 9,966 (2,544) | 0.17 s | 9 / 20 ms | 18 ms | 432 lines | 13 s | USD 8.31 M, feasible | infeasible (max violation 1.24) |
-| 4 | 384 | 19,932 (5,088) | 0.24 s | 10 / 34 ms | 19 ms | 432 lines | 19 s | USD 16.45 M, feasible | infeasible (max violation 2.28) |
-| 8 | 768 | 39,864 (10,176) | 0.32 s | 16 / 87 ms | 31 ms | 432 lines | 38 s | USD 30.28 M, feasible | infeasible (max violation 2.44) |
+| 1 | 96 | 4,983 (1,272) | 0.16 s | 7 / 12 ms | 15 ms | 432 lines | 12 s | USD 4.38 M, feasible | infeasible (max violation 0.56) |
+| 2 | 192 | 9,966 (2,544) | 0.20 s | 8 / 19 ms | 20 ms | 432 lines | 13 s | USD 8.19 M, feasible | infeasible (max violation 1.24) |
+| 4 | 384 | 19,932 (5,088) | 0.24 s | 10 / 34 ms | 21 ms | 432 lines | 19 s | USD 16.21 M, feasible | infeasible (max violation 2.28) |
+| 8 | 768 | 39,864 (10,176) | 0.40 s | 12 / 105 ms | 34 ms | 432 lines | 38 s | USD 30.54 M, feasible | infeasible (max violation 2.44) |
 
 * Adding assets adds tensor rows, not code: 768 wells compile to the same 432 lines as 96.
 * Solve time grows sub-linearly: 8x the decisions take 3.2x the time (38 s vs. 12 s).
@@ -190,53 +239,102 @@ plant, one oil terminal and a company-wide flare permit. The GA gets exactly the
 
 ## Corvus mine showcase run (48 h)
 
-`bench/results/showcase_run_corvus.json` - the underground copper mine (186 stopes on 23 levels, ~5,000
-planning decisions, see [SHOWCASE.md](SHOWCASE.md#case-study-2-corvus-underground-mine)): main fan trip,
-seismic closure of a level, a 5-hour hoist stop, three loaders down, a critical-peak price day, a pump
-failure and a new stope. Same set-up as Kestrel: two copies of the mine, same truth, events and noise. The
-baseline is competent conventional mine control: loader allocation within each level's air budget with
-grade control against the block model, a tonnes target at the mill rate, a broken-stock buffer rule for
-blasting, design ventilation (full fan speed after a fan trip), level-controlled pumps, the mill at 99 % of
-nameplate, deferral of hoisting and pumping during announced price peaks.
+`bench/results/showcase_run_corvus.json` (seed 0), `showcase_run_corvus_s1.json`, `_s2.json` - the underground copper
+mine (186 stopes on 23 levels, ~5,000 planning decisions, see
+[SHOWCASE.md](SHOWCASE.md#case-study-2-corvus-underground-mine)): main fan trip, seismic closure of a level,
+a 5-hour hoist stop, three loaders down, a critical-peak price day, a pump failure and a new stope. Same
+set-up as Kestrel: two copies of the mine, same truth, events, prices and noise. The baseline is competent
+conventional mine control: loader allocation within each level's air budget with grade control against the
+block model reconciled with its own assays, a tonnes target at the mill rate, a broken-stock buffer rule for blasting, design ventilation
+(full fan speed after a fan trip), level-controlled pumps, the mill at 99 % of nameplate, deferral of
+hoisting and pumping during announced price peaks. The planner runs the exact-branch stage (sequential LP
+over the mine's linear and piecewise-linear layer, [DECOMPOSITION.md](DECOMPOSITION.md)).
+
+| seed | operating profit | copper | head grade (PLYXIS / conventional) | production cost per t of copper | cash cost | plans feasible |
+|---|---|---|---|---|---|---|
+| 0 | +583,760 (+10.3 %) | +6.4 % | 1.434 % / 1.370 % | USD 2,943 / 3,161 (-6.9 %) | +1.2 % | 19/19 |
+| 1 | +584,584 (+10.6 %) | +6.5 % | 1.430 % / 1.365 % | USD 2,953 / 3,176 (-7.0 %) | +0.9 % | 19/19 |
+| 2 | +592,133 (+10.1 %) | +6.3 % | 1.435 % / 1.372 % | USD 2,892 / 3,110 (-7.0 %) | +0.8 % | 19/19 |
+| **mean** | **+586,825 (+10.3 %)** | +6.4 % | | -7.0 % | +1.0 % | |
+
+The baseline's annualised cash cost is USD 493-504 M over the seeds: the unit costs are calibrated to the USD 500 M/a the
+founder specified (see below). The mill runs at about 14 Mt/a in this window (1,580 t/h baseline, 1,600 t/h PLYXIS, no planned downtime).
+
+Seed 0 in detail:
 
 | KPI (48 h) | PLYXIS | conventional control | difference |
 |---|---|---|---|
-| Operating profit (USD) | 5,894,144 | 5,247,053 | +647,091 (+12.3 %) |
-| Ore milled (t) | 76,292 | 75,840 | +452 (+0.6 %) |
-| Head grade (from copper, milled tonnes and the recovery curve) | 1.449 % | 1.368 % | mine-plan window 1.35-1.45 % |
-| Copper in concentrate (t) | 1,014 | 947 | +67 (+7.1 %) |
-| Ore mined (t) | 64,997 | 71,685 | -6,689 (-9.3 %) |
-| Ore hoisted (t) | 71,188 | 66,874 | +4,314 (+6.5 %) |
-| Cash operating cost (USD) | 3,158,574 | 3,184,662 | -26,088 (-0.8 %) |
-| Production cost per t of copper (cash cost + ore inventories drawn down, at cost) | USD 3,414 | USD 3,685 | -7.4 % |
-| Annualised cash operating cost | USD 576 M | USD 581 M | |
-| Site power (MWh) | 2,928 | 2,917 | +0.4 % |
+| Operating profit (USD) | 6,245,553 | 5,661,794 | +583,760 (+10.3 %) |
+| Ore milled (t) | 76,783 | 75,840 | +943 (+1.2 %) |
+| Copper in concentrate (t) | 1,009 | 948 | +61 (+6.4 %) |
+| Ore mined (t) | 76,111 | 71,670 | +4,441 (+6.2 %) |
+| Ore hoisted (t) | 71,895 | 66,858 | +5,037 (+7.5 %) |
+| Cash operating cost (USD) | 2,772,884 | 2,739,237 | +33,648 (+1.2 %) |
+| Head grade (from copper, milled tonnes and the recovery curve) | 1.434 % | 1.370 % | mine-plan window 1.35-1.45 % |
+| Production cost per t of copper (cash cost + ore inventories drawn down, at cost) | USD 2,943 | USD 3,161 | -6.9 % |
+| Cash cost per t milled | USD 36.11 | USD 36.12 | |
+| Annualised cash operating cost | USD 506 M | USD 500 M | |
+| Site power (MWh) | 2,936 | 2,917 | +0.6 % |
 | Sump overflow | none | none | |
 
 | Where the operating-profit difference comes from | USD |
 |---|---|
-| Copper sales | +619,581 |
-| Mining consumables | +65,223 |
-| Explosives and charging | -50,000 |
-| Power (fans, pumps, hoist) | +13,955 |
-| Loader operating cost | +6,001 |
-| other (mill power and consumables, inventories at cost, crushers, trucks) | -7,669 |
-| **total** | **+647,091** |
+| Copper sales | +555,014 |
+| Ore inventories (at cost) | +62,393 |
+| Mining consumables | -36,420 |
+| Power (fans, pumps, hoist) | +34,583 |
+| Explosives and charging | -16,400 |
+| Mill consumables | -6,130 |
+| Mill power | -4,895 |
+| Loader operating cost | -4,257 |
+| Crusher wear | -515 |
+| Trucking | +386 |
+| **total** | **+583,759** |
 
-Plans: 19, of which 17 feasible (the other two within 0.25 % of a limit); mean solve time 48.9 s, maximum
-62.6 s. Stope grade error of the twin: 11.8 % (engineering model) → 9.9 % after 48 h.
+Plans: 19 per run, all 57 feasible, none far below the last one. These runs shared the machine with other benchmarks, so their solve times mean nothing.
+Stope grade error of the twin: 11.8 % (engineering model) to 9.4-10.1 % after 48 h; drawpoint rates 8.9 % to 7.6-8.1 %.
 
-**How to read this result.** Both mills run at capacity; the gain is grade within the mine plan. The twin
-learns the stope grades from grab-sample assays and the mill's on-stream analyser and blends to the top of
-the plan's head-grade window (1.449 % against a limit of 1.45 %); conventional grade control aims at 1.40 %
-with block-model grades that overstate the diluted upper South zone and delivers 1.368 %. Same tonnes, same
-cash cost, 7.1 % more copper: the production cost per tonne of copper - the unit cost miners report - is
-7.4 % lower. PLYXIS mined 9 % less ore and drew the ore passes down instead (inventories at cost are equal
-in total: -303 k vs -305 k USD), so part of its lower mining cost is buffer it will have to rebuild. It is
-not yet a cost-reduction story at the site level: cash cost is the same.
+**How to read this result.** Almost all of it is copper, and about four fifths of the copper is head grade: PLYXIS blends
+near the top of the plan's window (1.43 %, limit 1.45 %), conventional control aims at the middle and delivers 1.37 %,
+both inside the window. The rest is 1.2 % more milled tonnes. Power adds a little; cash cost is 1 % higher, because the mine works harder for
+the same mill rate. This is a grade-control result, not a cost reduction. Anyone who reads the window as "1.40 % please, 1.45 % at most"
+will take about half of it away; the sensitivity below measures that.
 
-**How this number was arrived at.** The previous version of this section reported +17.4 %. Re-examining it
-hour by hour found planner errors and a baseline that was not competent, all fixed before this run (and
+**The head grade now stays inside the window.** The twin plans it one standard error of the blend inside the limits
+(`concentrator.grade_margin`, 0.009-0.036 %-points during the runs, from `Estimator.uncertainty`), and grade control samples
+the working places instead of rotating through all stopes (three composite samples per hour at 5 % error, in both worlds; the
+baseline reconciles its block model with its own assays). An earlier version ended 0.010-0.017 %-points above the
+window. Staying inside costs copper: this is one reason the lead fell from +16.3 % (see below).
+
+**What the exact-branch stage adds on the mine** (same seeds, stage off: `showcase_run_corvus_nobranches*.json`):
+
+| seed | with the stage | without | effect | head grade with / without | head-grade factor with / without |
+|---|---|---|---|---|---|
+| 0 | +583,760 | +535,961 | +47,799 | 1.434 % / 1.432 % | 1.000 / 1.003 |
+| 1 | +584,584 | +535,005 | +49,579 | 1.430 % / 1.429 % | 1.000 / 0.999 |
+| 2 | +592,133 | +547,639 | +44,494 | 1.435 % / 1.435 % | 1.009 / 1.005 |
+
+The stage adds USD 47,290 on average (positive on all three seeds, +44,494 to +49,579). The USD 205,000 reported before included
+grade above the window and plans that had lost their way; the head-grade factor no longer drifts to 1.05-1.07, so stopes whose grade the twin
+underestimates are no longer selected systematically. The stage now uses the structured Jacobian (coloured finite differences plus batched
+reverse mode): under equal load the Jacobian took 17-21 s per plan instead of 33-36 s, and the three-seed A/B was no worse
+(+580,176 against +557,707; `bench/results/arms/showcase_run_corvus_sj*.json` and `_margin*.json`).
+
+**Sensitivity: window capped at the plan grade** (`showcase_run_corvus_gradecap*.json`, `grade_max` 1.40 instead of 1.45 in both
+worlds, 2 threads):
+
+| seed | operating profit | copper | head grade (PLYXIS / conventional) | plans feasible |
+|---|---|---|---|---|
+| 0 | +264,526 (+4.7 %) | +2.6 % | 1.388 % / 1.370 % | 19/19 |
+| 1 | +287,183 (+5.2 %) | +2.9 % | 1.385 % / 1.365 % | 18/19 |
+| 2 | +281,198 (+4.8 %) | +2.8 % | 1.391 % / 1.372 % | 19/19 |
+| **mean** | **+277,636 (+4.9 %)** | +2.8 % | | |
+
+Without the top of the window the lead is about half: this is the number to quote to anyone who wants 1.40 %. Before the fix below this configuration
+lost to the baseline (-3.1 to -5.5 %, `arms/showcase_run_corvus_gradecap_tol002*.json`), because the first plan ran the mill below 1,500 t/h for 7-8 hours.
+
+**How this number was arrived at.** An earlier version of this section reported +17.4 %. Re-examining it
+hour by hour found planner errors and a baseline that was not competent, all fixed before these runs (and
 recorded in CLAUDE.md):
 
 * *A phantom penalty.* The head grade is a flow-weighted average, which is 0 when the mill stands, so the
@@ -257,54 +355,221 @@ recorded in CLAUDE.md):
   of its level's air; the plant's ventilation interlock then cut ~5,200 t/h of set points to ~1,000 t/h, and
   the baseline mill starved. A competent ventilation officer allocates within each level's air, and a shift
   boss works to a tonnes target: with those rules the baseline mines 40 % more ore, and the same planner's
-  lead fell from +34 % to the +12.3 % above. Its annualised cash cost rose from USD 491 M to USD 581 M with
-  the extra tonnes.
+  lead fell from +34 % to +12 %. Its annualised cash cost rose from USD 491 M to about USD 585 M with the
+  extra tonnes.
 * *Head grade.* The earlier "1.52 % vs 1.33 %" was not derived from the results; `bench.report` now inverts
   the concentrator's recovery curve on copper and milled tonnes (for that run: 1.455 % vs 1.287 %).
+* *Exact plans need margins.* With the exact-branch stage the LP planned a sump exactly on its storage
+  reserve, computed from an inflow the twin underestimated by 17 %; the unannounced pump failure then
+  flooded it (92 m3, almost exactly 8 h of the inflow error). The reserve now carries a 25 % design margin
+  on the inflow, and the head grade is planned offset-free (the analysed / computed head-grade factor is
+  estimated online). Then the market prices were made independent of the code's call order (one random
+  stream per price), which gave +16.3 % (three seeds, baseline USD 585 M/a).
+* *Unit costs recalibrated.* The founder's figure for this mine is USD 500 M/a; the baseline measured USD 585 M/a. All non-energy unit
+  costs were lowered by about 18 % (labour 13,500 to 11,000 USD/h, G&A 6,000 to 5,000, stope 10.0 to 8.2 USD/t, mill 8.0 to 6.5, rings 30,000
+  to 24,600, fleets and fuel alike; inventories at the new cost). Power stays at market. Baseline profit rises by USD 0.5 M, which
+  alone lowers the percentage; PLYXIS's mining savings shrink with the costs. With the old planner: +9.1 % (three seeds, `arms/showcase_run_corvus_recal*.json`).
+* *Inside the window, working-place assays, charge-up crews.* See above. Ring firings per shift are now limited by the crews, two per zone,
+  which only restricts PLYXIS: the baseline already fires at most two per zone and shift. One run had fired 17 rings in 48 h.
+* *A plan can lose its way.* About one plan in 50 came out far below the last one (USD 5.5-6.8 M instead of about 7.5 M), not reproducibly: with the same seed and
+  code, one plan before the price peak idled the mill for three hours in one run and cost about USD 360,000 against the next run (+557,288, `arms/diag_s0.log`; the poor run's file
+  was overwritten). The cause: the relaxation picks its best iterate among those with violation up to 0.002, so a poor but strictly feasible iterate beat a far better one
+  the discrete stage and polish could still have repaired. With a tolerance of 0.01 (`relax_tol`, mine only so far) a cold plan goes from USD 6.1 M to 7.5 M, no plan in 57 falls far below
+  the last, the result is the same within noise (+586,825 against +594,876, `arms/showcase_run_corvus_tol002*.json`) and the seeds sit closer together (10.1-10.6 % against 9.9-11.0 %).
+  On the oil field the same tolerance is neutral (+389,642 against +392,180, both before the slope fix, `arms/showcase_run_tol*.json`), so it stays at the default there. Two safety nets stay on: the running plan
+  is a candidate after the polish (`kept_running_plan`), and a plan far below the last gets a second solve from another random stream (`second_opinion`). Neither fired in the final runs.
+
+**A smaller re-plan budget does not hold up** (`arms/showcase_run_corvus_fast*.json`, `--discrete ga --set warm_relax=0.5 --set population=4`). It saves a quarter of the twin evaluations (3,232 per plan against 4,292) but ends at +569,294 (+10.0 %) against +586,825, with seeds much further apart (+545,826 to +588,513 against +583,760 to +592,133) and 56 of 57 plans feasible. The configured budget stays.
 
 ## Deterministic sections (learned graph filter + exact section search)
 
-`bench/results/decomposition.json` - the cascade with the GA discrete stage alone vs. with the exact
-section search on the GA's best plan (`ga+sections`), 3 seeds each, same budgets:
+`bench/results/decomposition.json` - the cascade with the GA discrete stage alone, with the exact section search
+on the GA's best plan (`ga+sections`), and with the section search on the polished plan, accepted after its own polish (`ga+late`).
+3 seeds each, same budgets, cold start, default prices:
 
 | Case study | decisions (discrete) | method | mean objective (USD) | vs GA | feasible | mean seconds |
 |---|---|---|---|---|---|---|
-| Kestrel | 4,983 (1,272) | GA | 4,207,025 | - | 3/3 | 6.3 |
-| Kestrel | 4,983 (1,272) | GA + sections | 4,205,566 | -0.0 % | 3/3 | 9.2 |
-| Corvus | 4,992 (744) | GA | 7,275,111 | - | 3/3 | 38.8 |
-| Corvus | 4,992 (744) | GA + sections | 7,247,980 | -0.4 % | 3/3 | 48.1 |
+| Kestrel | 4,983 (1,272) | GA | 4,208,529 | - | 3/3 | 5.7 |
+| Kestrel | 4,983 (1,272) | GA + sections | 4,249,347 | +1.0 % | 3/3 | 8.5 |
+| Kestrel | 4,983 (1,272) | GA + sections after the polish | 4,222,577 | +0.3 % | 2/3 | 8.1 |
+| Corvus | 4,992 (744) | GA | 7,478,371 | - | 3/3 | 40.0 |
+| Corvus | 4,992 (744) | GA + sections | 7,476,820 | -0.0 % | 3/3 | 48.8 |
+| Corvus | 4,992 (744) | GA + sections after the polish | 7,513,248 | +0.5 % | 3/3 | 50.0 |
 
 | Case study | sections (largest) | colours | filter: rank correlation with exact couplings | filter forward | probing all couplings exactly | one sweep native / NumPy |
 |---|---|---|---|---|---|---|
-| Kestrel | 76 (3 assets) | 8 | 0.73 | 1.4 ms | 0.4 s (442 pairs) | 1.09 s / 1.15 s |
-| Corvus | 46 (6 assets) | 10 | 0.03 | 2.1 ms | 1.1 s (665 pairs) | 2.34 s / 2.38 s |
+| Kestrel | 76 (3 assets) | 8 | 0.73 | 1.0 ms | 0.3 s (442 pairs) | 0.99 s / 1.04 s |
+| Corvus | 46 (6 assets) | 10 | 0.07 | 1.8 ms | 1.1 s (665 pairs) | 2.15 s / 2.17 s |
 
 Scaling - enterprise twins of N Kestrel fields:
 
 | Fields | decisions | discrete units | sections (largest) | colours | one exact section sweep | one simulation |
 |---|---|---|---|---|---|---|
-| 1 | 4,983 | 624 | 76 (3) | 8 | 0.9 s | 9 ms |
-| 2 | 9,966 | 1,248 | 152 (3) | 8 | 1.5 s | 12 ms |
-| 4 | 19,932 | 2,496 | 304 (3) | 8 | 2.9 s | 16 ms |
-| 8 | 39,864 | 4,992 | 688 (3) | 9 | 3.2 s | 28 ms |
+| 1 | 4,983 | 624 | 76 (3) | 8 | 1.2 s | 10 ms |
+| 2 | 9,966 | 1,248 | 152 (3) | 8 | 1.9 s | 10 ms |
+| 4 | 19,932 | 2,496 | 304 (3) | 8 | 2.7 s | 15 ms |
+| 8 | 39,864 | 4,992 | 688 (3) | 9 | 3.1 s | 21 ms |
 
 Reading:
 * **The complexity claim holds.** Sections stay small (3 assets, ≤ 64 joint options per window) while
   their number grows linearly with the site (76 → 688), the colouring stays at 8-9 colours, and one exact
-  sweep over all sections grows sub-linearly in wall time (0.9 s → 3.2 s for 8x the decisions): the work is
+  sweep over all sections grows sub-linearly in wall time (1.0 s → 3.2 s for 8x the decisions): the work is
   exponential only inside a section.
-* **No measurable plan gain yet.** On this run the section search changes the plan value by -0.0 % (oil
-  field) and -0.4 % (mine) against the GA alone - both within the run-to-run spread of these non-convex
-  solves. The previous run of the same benchmark showed +1.0 % on the unchanged oil-field model, so that
-  number was noise too. (The search only accepts a plan that improves the GA's best; the polish that follows
-  is not deterministic across runs.) It costs 3-9 s per plan.
+* **No measurable plan gain yet, also with the two changes that were meant to give one.** Charge-up crews make the mine's ring firings
+  really compete (sections 186 → 46, largest 6 stopes instead of 1), and the section search can now run after the polish. Plan value against
+  the GA alone: mine -0.0 % (before the polish) and +0.5 % (after it); oil field +1.0 % and +0.3 %. A previous run showed -0.0 % on the unchanged
+  oil-field model and the one before +1.0 %, so that number is noise. It costs 3-10 s per plan.
+  Over the full oil-field A/B the section search adds nothing either: +394,889 against +392,180 (three seeds, both before the slope fix, `arms/showcase_run_sections*.json`), within the noise. The oil field stays on the GA alone;
+  the mine keeps its setting (`ga+sections`), and the search after the polish is an option (`late_sections`) that has not been A/B tested on the mine.
 * **The graph filter does learn real structure where there is some** (Kestrel: 0.73 rank correlation
   with the exact cross terms) and replaces the exact probing at ~1-2 ms per call - on these sites the
   probing itself is still cheap (0.4-1.1 s); the filter matters for larger sites and repeated re-planning.
-  On the mine the couplings between discrete decisions are weak (rank correlation 0.03).
+  On the mine the couplings between discrete decisions stay weak (rank correlation 0.07) even with the shared crews, because a crew limit
+  only couples firings when it binds, and in these plans it rarely does.
 * **Native kernels.** The C++/OpenMP kernels give identical results to the NumPy reference; inside a
-  sweep they make no measurable difference (1.09 s vs. 1.15 s on Kestrel) because the batched twin
+  sweep they make no measurable difference (0.99 s vs. 1.03 s on Kestrel) because the batched twin
   simulation dominates the sweep. They are kept for the combinatorial core as sites grow.
+
+## Section DP vs. exact MILP (scheduling models with known structure)
+
+`bench/results/section_theory.json` - the decomposition core (`sectiondp.py`, theory in
+[DECOMPOSITION.md](DECOMPOSITION.md)) on table models built like a site plan: S sections x 6 shifts, every
+block choosing one of 8 joint options (3 machines on/off); strong interactions over time (a section in
+consecutive shifts), moderate ones along a random network tree (one shift), weak ones on random extra edges
+that close cycles (10 % of the blocks), and one shared crew capacity (at most 30 % of the machine-shifts).
+Methods: **section DP** (the strongest forest solved exactly, exact moves over random induced forests,
+dual decomposition for the certified bound), block coordinate ascent from the empty plan, multi-start
+coordinate ascent (8 random feasible starts), and the exact MILP of the same model (HiGHS; one-hot options,
+pairwise marginals, the crew knapsack) with a 120 s limit (not run above 9,000 blocks).
+
+| blocks | section DP | certified gap | DP seconds | coordinate ascent | multi-start | MILP best | MILP bound | MILP seconds | MILP optimal |
+|---|---|---|---|---|---|---|---|---|---|
+| 120 | 304.8 | 2.5 % | 0.14 | 188.9 | 238.0 | 307.0 | 307.0 | 8 | yes |
+| 360 | 952.7 | 3.9 % | 0.23 | 588.3 | 736.1 | 956.4 | 959.1 | 120 | no |
+| 1,200 | 3,239.4 | 9.3 % | 0.64 | 1,888.3 | 2,519.0 | 3,006.2 | 3,254.3 | 121 | no |
+| 3,600 | 9,611.8 | 13.2 % | 2.95 | 5,931.7 | 7,371.2 | 8,393.7 | 132,776.0 | 124 | no |
+| 9,000 | 24,001.7 | 14.4 % | 7.10 | 14,793.1 | 18,333.2 | 20,933.8 | 331,975.5 | 220 | no |
+| 30,000 | 79,787.7 | 18.5 % | 27.38 | 49,257.6 | 60,622.8 | - | - | - | - |
+| 90,000 | 239,360.3 | 19.3 % | 95.18 | 146,512.5 | 181,789.0 | - | - | - | - |
+
+Stronger cycles (1,200 blocks, extra edges for 30 % of the blocks, weak-edge scale varied):
+
+| weak-edge scale | section DP | certified gap | MILP best (120 s) | MILP bound |
+|---|---|---|---|---|
+| 0.0 | 3,178.5 | 6.6 % | 2,887.7 | 3,207.4 |
+| 0.1 | 3,181.4 | 9.1 % | 2,875.6 | 3,213.2 |
+| 0.3 | 3,191.9 | 7.0 % | 2,636.7 | 3,237.3 |
+| 0.6 | 3,241.9 | 8.2 % | 2,195.1 | 3,304.7 |
+| 1.0 | 3,361.2 | 10.0 % | 678.8 | 52,645.6 |
+
+Reading:
+* **Near-optimal, fast.** On the smallest model the section DP is 0.7 % below the proven optimum, in 0.14 s
+  against 8 s. Where HiGHS's bound is informative, the DP plan is within 0.5-1.9 % of the optimum
+  (360 blocks: 0.7 %; 1,200 blocks: 0.5 %; the coupling series: 0.9-1.9 %). From 1,200 blocks on, the exact
+  MILP's best plan after two to four minutes is 7-13 % worse than the DP's, and with strong cycles it
+  collapses (679 against 3,361).
+* **Linear time.** 0.14 s for 120 blocks to 95 s for 90,000 blocks - about 1 ms per block; the exponential
+  part stays inside the 8-option blocks.
+* **Exact moves matter.** Local search over single blocks (coordinate ascent, multi-start) ends 22-39 %
+  below: with interactions, one-block moves are myopic; moves that re-solve a whole induced forest exactly
+  are not.
+* **The fast certificate is conservative.** The bound from subgradient steps says 2.5-19 %; where HiGHS
+  proves more, the true gap is far smaller (1,200 blocks: certificate 9.3 %, true gap at most 0.5 %). The
+  smoothed dual below tightens it.
+
+**A tighter certificate** (`bench/results/section_theory_smooth.json`, `--dual smooth`: smoothed dual
+decomposition, L-BFGS-B, temperature lowered in stages; same plans, only the proof differs):
+
+| blocks | certified gap, subgradient | certified gap, smoothed | seconds, subgradient / smoothed |
+|---|---|---|---|
+| 120 | 2.5 % | 2.5 % | 0.14 / 0.77 |
+| 360 | 3.9 % | 1.9 % | 0.23 / 1.76 |
+| 1,200 | 9.3 % | 1.7 % | 0.64 / 6.22 |
+| 3,600 | 13.2 % | 2.0 % | 2.95 / 20.39 |
+| 9,000 | 14.4 % | 2.3 % | 7.10 / 57.67 |
+| 30,000 | 18.5 % | 2.2 % | 27.38 / 182.93 |
+| 90,000 | 19.3 % | 2.7 % | 95.18 / 563.28 |
+
+With strong cycles (the coupling series) the smoothed certificate is 2.3-3.7 % (subgradient: 6.6-10.0 %).
+So every plan of up to 90,000 blocks is *proven* to be within 1.7-3.7 % of the optimum, without an exact
+solver; the price is about 6-9x the time (about 6 ms per block, still linear). Where HiGHS can prove more,
+the true gap is smaller still (at most 0.5 % at 1,200 blocks).
+
+## Structure recognition and exact branches (twins)
+
+`bench/results/exact_branches.json` - which branches of the twins the structure analysis
+(`structure.py`, theory in [DECOMPOSITION.md](DECOMPOSITION.md#7-recognising-branches-that-classical-methods-solve-exactly))
+proves to be linear, piecewise-linear or convex programmes, and what solving them with LP methods adds to a plan of
+the live cascade (scenario planner budget, no neural start; the polish comparison continues the cascade's
+own augmented Lagrangian with its multipliers for at least the same wall time). The Kestrel rows are from after the
+slope fix, the Corvus rows from before it (the fix does not change the mine's gradients). The previous Kestrel rows: `arms/exact_branches_beforeslope.json`.
+
+| twin | decisions | LP | sequential LP (given the discrete choices, blend qualities frozen) | convex (same, power price at its current sign) | nonlinear |
+|---|---|---|---|---|---|
+| Corvus mine | 4,992 | 33.7 % (regulators, pumps, trucks) | 64.9 % (stopes, ore passes, hoist, ROM pad) | 1.4 % (main fans) | 0 % |
+| Kestrel field | 4,983 | 0.2 % (trucks) | 7.3 % (batteries, pads, compressor stations) | 92.5 % (wells) | 0 % |
+
+| twin | cascade plan (USD, F) | + LP branches | + sequential LP over the recognised layer | + polish, at least the same time |
+|---|---|---|---|---|
+| Corvus | 7,638,002 (F 0.3739) | +0 in 2.1 s | +14,460 (+0.19 %, F +0.0007) in 11.7 s, 4,032 decisions, 16,885 rows, feasible | -67,184 and F -26.1 (violation 0.105) |
+| Kestrel | 4,219,444 (F 0.8486) | - (no LP decisions in the blocks) | +58,042 (+1.4 %, F +0.0117) in 0.6 s, 216 decisions | +26,762 but F -1.6 (violation 0.056) |
+
+| twin | full cascade | half the cascade's iterations + LP branches |
+|---|---|---|
+| Corvus | 7,638,002 in 69.2 s | 6,365,872 in 34.3 s |
+| Kestrel | 4,219,444 in 23.0 s | 4,294,715 in 8.7 s |
+
+| twin | sequential LP including the convex class | tangent gap left |
+|---|---|---|
+| Kestrel | +136,368 (+3.2 %, F +0.0317) in 24.4 s, 3,672 decisions, 4,464 rows, violation 0.0001 | USD 36,650 |
+
+Reading:
+* **Most of the mine is (piecewise) linear.** Once the discrete choices (ring firings) and the blend grades
+  are fixed - the situation of the cascade's continuous polish - 98.6 % of the mine's decisions are proven
+  linear or piecewise linear; the fans (power ~ speed^3) are convex.
+* **The oil field's wells are convex, not nonlinear.** With on/off fixed a well's rate is linear in its speed (the pump
+  curve has one segment on the speed range) and its power, wear and failure risk are convex. This class is 92.5 % of the
+  field's decisions. The verdict rests on a non-negative power price, and it is a per-asset proof: the plan value as a whole
+  also passes through kinks downstream, so the tangent gap is a measured estimate, not a theorem.
+* **The LP branches are already solved by the cascade.** On the regulators, pumps and trucks the exact LP
+  adds nothing to the cascade's plan; it certifies the plan's optimum on those branches (global optimum,
+  exact shadow prices) in 2.1 s.
+* **A gain in one plan does not predict the realised result.** Sequential LP over the recognised layer
+  improves this oil-field plan by 1.4 % in the twin's objective - and over 72 h on three seeds (before the slope fix) the same stage
+  *lowers* the realised result (by USD 47,800 without margins on the tank limits, by USD 7,400 with 10 % margins); it barely changes this mine plan
+  (+0.19 %) - and over 48 h on three seeds it *adds* USD 47,300 ([Kestrel](#kestrel-showcase-run-72-h) and
+  [Corvus](#corvus-mine-showcase-run-48-h) sections). Plans are executed for three hours and re-made; where
+  the twin is not exact, a plan that sits on a limit costs in reality what it gained in the model. Only the
+  A/B over seeds decides - so the stage runs on the mine and is off on the oil field. Continuing the polish
+  instead of the LP does not help at all: it buys objective with constraint violations. On the mine most of the time
+  goes into the Jacobian (7.3 s of 11.7 s, with the structured Jacobian now on by default: column colouring for
+  the sparse rows, batched reverse mode for the dense ones); the LPs take 3.5 s.
+* **It finishes the cascade, it does not replace it.** Half the cascade's iterations plus exact branches is
+  far worse than the full cascade: the relaxation and the discrete search find the region; LP methods then
+  solve the part of the problem that is linear in that region exactly.
+
+## Backtest, pilot gate G1
+
+`bench/results/backtest_*.json`, `python -m bench.backtest`. The plant runs under manual operations and writes a raw historian export. A fresh twin sees only that file: it is calibrated on the first half (oil field 36 h, mine 24 h), then frozen, and predicts the second half: every signal one step ahead, every level 3 h ahead from the state 3 h earlier. The limits are the pilot plan's for the oil field; for the mine the same limits are applied to the corresponding signals, because no pilot plan exists for a mine.
+
+| Case study | signal | error (% , levels: of capacity) | limit | result | worst tags |
+|---|---|---|---|---|---|
+| Kestrel | Well liquid rates | 4.88 | 8 | pass | KST.P07.W11.FLOW.LIQ 38.7 %, KST.P02.W06.FLOW.LIQ 10.5 % |
+| Kestrel | Compression suction gas | 3.90 | 5 | pass | KST.CS2.SUC.FLOW 4.2 %, KST.CS1.SUC.FLOW 3.6 % |
+| Kestrel | Battery separator gas | 3.72 | 5 | pass | KST.CTBC.SEP.GAS 5.7 %, KST.CTBS.SEP.GAS 3.8 % |
+| Kestrel | Disposal injection pressure | 16.89 | 10 | **fail** | KST.SWD2.INJ.PRESS 47.9 %, KST.SWD3.INJ.PRESS 1.4 % |
+| Kestrel | Oil tank level, 3 h ahead | 1.27 | 10 | pass |  |
+| Kestrel | Water tank level, 3 h ahead | 1.65 | 10 | pass |  |
+| Corvus | Stope mucking rates | 1.38 | 8 | pass | COR.S920.ST02.LHD.TPH 1.6 %, COR.C680.ST06.LHD.TPH 1.6 % |
+| Corvus | Crusher throughput | 1.31 | 5 | pass | COR.CRN.CR.TPH 1.3 %, COR.CRS.CR.TPH 1.3 % |
+| Corvus | Hoist throughput | 1.26 | 5 | pass | COR.SH1.HOIST.TPH 1.3 % |
+| Corvus | Head grade (on-stream analyser) | 1.62 | 5 | pass | COR.MILL.OSA.HEAD 1.6 % |
+| Corvus | Sump level, 3 h ahead | 1.87 | 10 | pass |  |
+| Corvus | Shaft bin level, 3 h ahead | 1.63 | 10 | pass |  |
+| Corvus | ROM pad level, 3 h ahead | 0.23 | 10 | pass |  |
+| Corvus | Ore pass level, 3 h ahead | 1.04 | 10 | pass |  |
+
+**The oil field does not pass as it stands.** The disposal-pressure failure is SWD-2 alone (47.9 %; the other wells 1.4 %): an injectivity loss nobody announces, in the frozen half. The live twin re-estimates it within 3 h; a frozen twin cannot. A pilot has to decide whether gate G1 is meant frozen or with live estimation. The mine passes. Two limits on what this shows: the window is days, not the months a pilot would use, and the data are synthetic; one step ahead with the set points known, most of what remains is sensor noise (about 2 %), so the 3 h level predictions are the harder test.
 
 ## What these numbers do not show
 
@@ -317,6 +582,12 @@ Reading:
 * **Model-form error.** The emulated plants are written in PLX, so the twin's structure matches reality;
   only parameters, drifts, noise and events differ. Real sites add structural mismatch, which a pilot's
   backtest gate measures.
-* **Statistical spread.** The showcase runs are single runs; the solver and section benchmarks use 3-8
-  situations or seeds, and the mine solver results vary noticeably between runs (multi-threaded floating
-  point on a non-convex problem). The direction of the Kestrel results has been stable; exact sizes are not.
+* **Statistical spread.** The Kestrel showcase is reported over 3 seeds (14.0-14.9 %), the mine over 3
+  (16.0-16.5 %); a re-run of the same seed reproduces the manual world exactly and PLYXIS within about 1 %
+  (multi-threaded floating point on a non-convex problem). The solver and section benchmarks use 3-8
+  situations or seeds. Single-plan benchmarks are a poor predictor of the realised result (see the exact
+  branches) - planner changes are decided on the A/B over seeds.
+* **Reproducibility of the scenario.** Until 28 October the market prices of both case studies were drawn
+  from one shared random stream in the order the code first asked for them, so a code change that altered
+  that order changed the realised prices (within a run both worlds always saw the same prices). Each price
+  now has its own stream; all results in this document were re-run after that fix.

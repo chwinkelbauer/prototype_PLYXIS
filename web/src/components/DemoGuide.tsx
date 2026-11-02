@@ -60,8 +60,8 @@ export function DemoGuide() {
   return (
     <div className="shrink-0 border-t border-line bg-panel/95 px-3 py-2" style={{ boxShadow: "0 -8px 24px #0006" }}>
       <div className="flex items-center gap-3 min-w-0">
-        <div className="text-[10.5px] uppercase tracking-wider font-semibold text-brand2 whitespace-nowrap">Guided demo {step + 1}/{steps.length}</div>
-        <div className="flex gap-0.5 shrink-0" aria-hidden>
+        <div className="text-[10.5px] uppercase tracking-wider font-semibold text-brand2 whitespace-nowrap shrink-0"><span className="max-[900px]:hidden">Guided demo </span>{step + 1}/{steps.length}</div>
+        <div className="flex gap-0.5 shrink-0 max-[1180px]:hidden" aria-hidden>
           {steps.map((s, i) => (
             <button key={s.id} onClick={() => set({ demoStep: i })} title={s.title}
               className={`h-1.5 w-4 rounded ${i === step ? "bg-brand" : snap && snap.t >= start + s.t ? "bg-[#7a1a45]" : "bg-line2"}`} />
@@ -70,7 +70,7 @@ export function DemoGuide() {
         <div className="flex-1 min-w-0 text-[13.5px] font-semibold truncate" title={cur.title}>{cur.title}</div>
         <div className="flex items-center gap-1.5 shrink-0">
           <button className="btn !px-2" disabled={step === 0} onClick={() => set({ demoStep: step - 1 })} title="Previous step (←)"><ChevronLeft size={14} /></button>
-          <button className="btn btn-primary min-w-[180px] justify-center" onClick={go} disabled={seeking !== null} title="Go to this step (Enter)">
+          <button className="btn btn-primary min-w-[180px] max-[900px]:min-w-[110px] justify-center whitespace-nowrap" onClick={go} disabled={seeking !== null} title="Go to this step (Enter)">
             {seeking !== null ? <><FastForward size={14} className="pulse" />fast-forwarding…</> :
               reached ? <>Show</> : <><FastForward size={14} />Go to {when}</>}
           </button>

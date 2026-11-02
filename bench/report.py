@@ -73,22 +73,61 @@ def showcase(d) -> None:
     print()
 
 
-def variants() -> None:
-    """Full showcase vs. ablation runs (bench.showcase_run --skip-events ... --tag ...)."""
+def _branch_stats(d) -> str:
+    stg = [s for r in d.get("runs", []) for s in r.get("stages", []) if s.get("stage") == "branches"]
+    if not stg:
+        return "no exact-branch stage"
+    return (f"exact-branch stage in {len(stg)} plans, mean {st.mean(s['seconds'] for s in stg):.1f} s, "
+            f"improved {sum(1 for s in stg if s.get('gain', 0) > 0)}")
+
+
+def seed_summary(scenario: str) -> None:
+    """Exact branches on vs. off over the seeds that were run (full event set only)."""
     names = sorted(n for n in os.listdir(RES) if n.startswith("showcase_run") and n.endswith(".json"))
-    runs = [(n, d) for n in names if (d := _load(n)) and d.get("scenario", "kestrel") == "kestrel"]
+    groups: dict = {}
+    for n in names:
+        d = _load(n)
+        if not d or d.get("scenario", "kestrel") != scenario or d.get("skipped_events") or not d.get("neural", True) \
+                and scenario == "kestrel":
+            continue
+        if "exact_branches" not in d:
+            continue
+        on = bool(d.get("exact_branches"))
+        p, l = d["kpis"]["plyxis"], d["kpis"]["legacy"]
+        groups.setdefault(d.get("seed", 0), {})[on] = (p["profit"] - l["profit"], (p["profit"] - l["profit"]) / abs(l["profit"]),
+                                                      st.mean(x["seconds"] for x in d["plans"]))
+    rows = [(s, g) for s, g in sorted(groups.items()) if True in g and False in g]
+    if not rows:
+        return
+    print(f"### Exact branches on / off over seeds ({scenario})\n")
+    print("| seed | with exact branches | without | effect | mean plan seconds (with / without) |\n|---|---|---|---|---|")
+    eff = []
+    for s, g in rows:
+        (a, ar, at), (b, br, bt) = g[True], g[False]
+        eff.append(a - b)
+        print(f"| {s} | {a:+,.0f} ({100 * ar:+.1f} %) | {b:+,.0f} ({100 * br:+.1f} %) | {a - b:+,.0f} | {at:.1f} / {bt:.1f} |")
+    print(f"\nEffect over {len(eff)} seeds: mean {st.mean(eff):+,.0f}, min {min(eff):+,.0f}, max {max(eff):+,.0f}\n")
+
+
+def variants(scenario: str = "kestrel") -> None:
+    """Full showcase vs. ablation runs (bench.showcase_run --skip-events / --no-branches ... --tag ...)."""
+    names = sorted(n for n in os.listdir(RES) if n.startswith("showcase_run") and n.endswith(".json"))
+    runs = [(n, d) for n in names if (d := _load(n)) and d.get("scenario", "kestrel") == scenario]
     if len(runs) < 2:
         return
-    print("### Showcase variants (72 h, PLYXIS vs. manual operations)\n")
-    print("| Run | events dropped | operating profit | profit after carbon | oil | flaring |\n|---|---|---|---|---|---|")
+    print(f"### Showcase variants ({scenario}, PLYXIS vs. manual operations)\n")
+    print("| Run | exact branches | events dropped | operating profit | profit after carbon | oil | flaring |"
+          "\n|---|---|---|---|---|---|---|")
     for n, d in runs:
         p, l = d["kpis"]["plyxis"], d["kpis"]["legacy"]
 
         def rel(key):
             a, b = p.get(key, 0.0), l.get(key, 0.0)
             return f"{a - b:+,.0f} ({(a - b) / abs(b) * 100:+.1f} %)" if abs(b) > 1e-9 else "-"
-        print(f"| {n} | {', '.join(d.get('skipped_events', [])) or 'none'} | {rel('profit')} | "
+        print(f"| {n} | {', '.join(d.get('exact_branches', [])) or 'off'} | "
+              f"{', '.join(d.get('skipped_events', [])) or 'none'} | {rel('profit')} | "
               f"{rel('profit_after_carbon')} | {rel('oil_bbl')} | {rel('flared_mscf')} |")
+        print(f"|   | {_branch_stats(d)} | | manual ops USD {l.get('profit', 0):,.0f} | | | |")
     print()
 
 
@@ -248,16 +287,84 @@ def accuracy(d) -> None:
     print()
 
 
+def section_theory(d) -> None:
+    print("### Section DP vs. exact MILP (scheduling models with known structure)\n")
+    print("| blocks | section DP | its certified gap | DP seconds | coordinate ascent | multi-start | MILP (HiGHS) best "
+          "| MILP bound | MILP seconds | MILP optimal |\n|---|---|---|---|---|---|---|---|---|---|")
+    for r in d["scaling"]:
+        p, ml = r["dp"], r.get("milp", {})
+        f = lambda v: "-" if v is None else f"{v:,.1f}"  # noqa: E731
+        print(f"| {r['blocks']:,} | {p['value']:,.1f} | {100 * p['certified_gap']:.1f} % | {p['seconds']:.2f} | "
+              f"{r['coordinate']['value']:,.1f} | {r['multistart']['value']:,.1f} | {f(ml.get('value'))} | "
+              f"{f(ml.get('bound'))} | {ml.get('seconds', 0):.0f} | {ml.get('optimal', '-')} |")
+    print("\n| weak-edge scale | section DP | certified gap | MILP best (120 s) | MILP bound |\n|---|---|---|---|---|")
+    for r in d["coupling"]:
+        p, ml = r["dp"], r.get("milp", {})
+        print(f"| {r['weak']} | {p['value']:,.1f} | {100 * p['certified_gap']:.1f} % | {ml.get('value', float('nan')):,.1f} | "
+              f"{(ml.get('bound') or float('nan')):,.1f} |")
+    print()
+
+
+def exact_branches(d) -> None:
+    print("### Structure recognition and exact branches\n")
+    print("| twin | decisions | LP | sequential LP (given discrete choices, frozen qualities) | convex (same, prices at their sign) | nonlinear |"
+          "\n|---|---|---|---|---|---|")
+    for r in d["runs"]:
+        sh = r["structure"]["share_by_class"]
+        print(f"| {r['scenario']} | {r['structure']['decisions']:,} | {100 * sh.get('lp', 0):.1f} % | "
+              f"{100 * (sh.get('slp', 0) + sh.get('slp_quality', 0)):.1f} % | {100 * sh.get('convex', 0):.1f} % | {100 * sh.get('nonlinear', 0):.1f} % |")
+    print("\n| twin | cascade plan (USD, F) | + LP branches | + sequential LP over the layer | "
+          "+ polish for the same time |\n|---|---|---|---|---|")
+    for r in d["runs"]:
+        c, e, s, p = r["cascade"], r["exact_branches"], r["slp_layer"], r["slp_layer_polish_equal_time"]
+        dv = lambda a: f"{a['objective'] - c['objective']:+,.0f} (F {a['F'] - c['F']:+.4f})"  # noqa: E731
+        print(f"| {r['scenario']} | {c['objective']:,.0f} (F {c['F']:.4f}) | {dv(e)} in {e['seconds']:.1f} s, "
+              f"{e['variables']} vars | {dv(s)} in {s['seconds']:.1f} s, {s['variables']} vars, {s['rows']:,} rows, "
+              f"{s['iterations']} it (Jacobian {s['jacobian_seconds']:.1f} s, LP {s['lp_seconds']:.1f} s), "
+              f"violation {s['max_violation']:.4f} | {dv(p)} in {p['seconds']:.1f} s, violation {p['max_violation']:.4f} |")
+    print("\n| twin | full cascade | half the cascade's iterations + LP branches |\n|---|---|---|")
+    for r in d["runs"]:
+        h = r["half_cascade_plus_branches"]
+        print(f"| {r['scenario']} | {r['cascade']['objective']:,.0f} in {r['cascade_seconds']:.1f} s | "
+              f"{h['objective']:,.0f} in {h['seconds']:.1f} s |")
+    print()
+    rows = [r for r in d["runs"] if "slp_with_convex" in r]
+    if rows:
+        print("| twin | + sequential LP including the convex class | tangent gap left |\n|---|---|---|")
+        for r in rows:
+            c, v = r["cascade"], r["slp_with_convex"]
+            print(f"| {r['scenario']} | {v['objective'] - c['objective']:+,.0f} (F {v['F'] - c['F']:+.4f}) in {v['seconds']:.1f} s, {v['variables']} vars, "
+                  f"{v['rows']:,} rows, {v['iterations']} it (Jacobian {v['jacobian_seconds']:.1f} s, LP {v['lp_seconds']:.1f} s), violation {v['max_violation']:.4f} | "
+                  f"USD {v['tangent_gap_usd']:,.0f} |")
+        print()
+
+
+def backtest(d) -> None:
+    print(f"### Backtest, gate G1 ({d['scenario']}: calibrated on {d['train_h']:.0f} h, frozen, predicting {d['test_h']:.0f} h)\n")
+    print("| Signal | measure | value | limit | result | worst tags |\n|---|---|---|---|---|---|")
+    for r in d["signals"]:
+        worst = ", ".join(f"{w['tag']} {w['mape']:.1f}" for w in r.get("worst", [])[:2])
+        print(f"| {r['signal']} | {r['measure']} | {r['value']:.2f} | {r['limit']:.0f} | {'pass' if r['pass'] else 'FAIL'} | {worst} |")
+    print(f"\nAssets discovered from tags: {', '.join(d['discovered_assets']) or 'none'}; unmapped tags left: {len(d['tags_unmapped'])}; "
+          f"gate {'passed' if d['gate_passed'] else 'not passed'}.\n")
+
+
 def main() -> None:
     for name, fn in (("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
-                     ("decomposition.json", decomposition), ("neural_ablation.json", neural),
+                     ("backtest_kestrel.json", backtest), ("backtest_corvus.json", backtest),
+                     ("decomposition.json", decomposition), ("section_theory.json", section_theory),
+                     ("exact_branches.json", exact_branches), ("neural_ablation.json", neural),
                      ("solver_comparison.json", solvers), ("solver_budget.json", budget), ("scaling.json", scaling),
                      ("twin_accuracy.json", accuracy)):
         d = _load(name)
         if d is not None:
             fn(d)
         if name == "showcase_run.json":
-            variants()
+            variants("kestrel")
+            seed_summary("kestrel")
+        if name == "showcase_run_corvus.json":
+            variants("corvus")
+            seed_summary("corvus")
 
 
 if __name__ == "__main__":

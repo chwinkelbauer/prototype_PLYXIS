@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { Alert, KpiPoint, Meta, Snapshot, Structure, TimelineEvent } from "./api";
 
-export type View = "overview" | "map" | "mine3d" | "schedule" | "optimizer" | "studio" | "data" | "bench";
+export type View = "overview" | "map" | "mine3d" | "schedule" | "shift" | "optimizer" | "studio" | "data" | "bench";
 
 export interface OptRec { stage: string; iter?: number; objective?: number; max_violation?: number; t?: number;
   t_total?: number; event?: string; generation?: number; [k: string]: unknown }
@@ -9,6 +9,9 @@ export interface OptRec { stage: string; iter?: number; objective?: number; max_
 interface State {
   connected: boolean;
   booting: string | null;
+  bootError: string | null;
+  loadError: string | null;
+  lastSnapAt: number;
   meta: Meta | null;
   structure: Structure | null;
   snap: Snapshot | null;
@@ -29,6 +32,9 @@ interface State {
 export const useStore = create<State>((set, get) => ({
   connected: false,
   booting: "connecting",
+  bootError: null,
+  loadError: null,
+  lastSnapAt: 0,
   meta: null,
   structure: null,
   snap: null,
@@ -38,7 +44,7 @@ export const useStore = create<State>((set, get) => ({
   optRun: null,
   planVersion: 0,
   structureVersion: 0,
-  view: (["overview", "map", "mine3d", "schedule", "optimizer", "studio", "data", "bench"].includes(location.hash.slice(1)) ?
+  view: (["overview", "map", "mine3d", "schedule", "shift", "optimizer", "studio", "data", "bench"].includes(location.hash.slice(1)) ?
     location.hash.slice(1) : "overview") as View,
   selected: null,
   demoOpen: true,
@@ -51,16 +57,19 @@ export const useStore = create<State>((set, get) => ({
     const s = get();
     switch (msg.type) {
       case "booting":
-        set({ booting: msg.message });
+        set({ booting: msg.message, bootError: null });
+        break;
+      case "boot_error":
+        set({ booting: null, bootError: msg.message, snap: null });
         break;
       case "ready":
-        set({ booting: null, planVersion: s.planVersion + 1, structureVersion: s.structureVersion + 1 });
+        set({ booting: null, bootError: null, planVersion: s.planVersion + 1, structureVersion: s.structureVersion + 1 });
         break;
       case "reset":
         set({ kpiHistory: [], alerts: [], timeline: [], optRun: null, planVersion: s.planVersion + 1 });
         break;
       case "snapshot": {
-        const upd: Partial<State> = { snap: msg as Snapshot, booting: null };
+        const upd: Partial<State> = { snap: msg as Snapshot, booting: null, bootError: null, loadError: null, lastSnapAt: Date.now() };
         if (msg.kpi_history) upd.kpiHistory = msg.kpi_history;
         else {
           const k = msg.kpis;
@@ -84,9 +93,11 @@ export const useStore = create<State>((set, get) => ({
         break;
       case "optimizer":
         if (msg.event === "start") set({ optRun: { trigger: msg.trigger, t: msg.t, recs: [], running: true } });
-        else if (msg.event === "progress" && s.optRun) {
-          const recs = [...s.optRun.recs, msg.rec];
-          set({ optRun: { ...s.optRun, recs: recs.slice(-1500), running: msg.rec.stage !== "done" } });
+        else if (msg.event === "progress") {
+          // a page opened while a plan is running never saw its start
+          const run = s.optRun ?? { trigger: s.booting ? "initial plan" : "re-plan", t: s.snap?.t ?? 0, recs: [], running: true };
+          const recs = [...run.recs, msg.rec];
+          set({ optRun: { ...run, recs: recs.slice(-1500), running: msg.rec.stage !== "done" } });
         }
         break;
       case "plan":
@@ -115,6 +126,7 @@ export function connect() {
       useStore.getState().ingest(JSON.parse(ev.data));
     } catch (e) {
       console.error(e);
+      useStore.getState().set({ loadError: `live update rejected: ${e}` });
     }
   };
 }

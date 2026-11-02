@@ -1,0 +1,8 @@
+export: 432 steps, 1.5 MB compressed, 127 s
+Well liquid rates                             4.88  limit   8.0  n= 20729  pass  [{'tag': 'KST.P07.W11.FLOW.LIQ', 'mape': 38.74}, {'tag': 'KST.P02.W06.FLOW.LIQ', 'mape': 10.5}, {'tag': 'KST.P12.W03.FLOW.LIQ', 'mape': 10.01}]
+Compression suction gas                       3.90  limit   5.0  n=   430  pass  [{'tag': 'KST.CS2.SUC.FLOW', 'mape': 4.19}, {'tag': 'KST.CS1.SUC.FLOW', 'mape': 3.61}]
+Battery separator gas                         3.72  limit   5.0  n=   645  pass  [{'tag': 'KST.CTBC.SEP.GAS', 'mape': 5.73}, {'tag': 'KST.CTBS.SEP.GAS', 'mape': 3.76}, {'tag': 'KST.CTBN.SEP.GAS', 'mape': 1.67}]
+Disposal injection pressure                  16.89  limit  10.0  n=   645  FAIL  [{'tag': 'KST.SWD2.INJ.PRESS', 'mape': 47.91}, {'tag': 'KST.SWD3.INJ.PRESS', 'mape': 1.39}, {'tag': 'KST.SWD1.INJ.PRESS', 'mape': 1.36}]
+Oil tank level, 3 h ahead                     1.27  limit  10.0  n=   102  pass  
+Water tank level, 3 h ahead                   1.65  limit  10.0  n=   102  pass  
+assets discovered: ['P07_W11'] | unmapped tags: [] | gate NOT PASSED

@@ -24,12 +24,18 @@ sub-solvers, live console. All data is synthetic.
 ## Commands (Windows, Git Bash or PowerShell)
 
 ```
-.venv/Scripts/python.exe -m pytest tests -q            # 53 tests, ~1 min
+.venv/Scripts/python.exe -m pytest tests -q            # about 100 tests, ~5 min
 .venv/Scripts/python.exe -m plyxis serve --port 8000   # console at http://127.0.0.1:8000 (needs web/dist)
 cd web && npx vite build                               # rebuild console; npx tsc -b --noEmit to type-check
 .venv/Scripts/python.exe -m bench.showcase_run --hours 72      # Kestrel A/B, ~10 min
 .venv/Scripts/python.exe -m bench.showcase_run --scenario corvus  # mine A/B (48 h), writes showcase_run_corvus.json
 .venv/Scripts/python.exe -m bench.decomposition --seeds 3       # GA vs GA + exact sections, filter, native kernels
+.venv/Scripts/python.exe -m bench.section_theory                # section DP vs exact MILP (HiGHS), ~25 min
+.venv/Scripts/python.exe -m bench.section_theory --dual smooth --tag smooth   # tight certificate, ~35 min
+.venv/Scripts/python.exe -m bench.showcase_run --scenario corvus --seed 1 [--no-branches --tag nobranches]
+.venv/Scripts/python.exe -m bench.exact_branches                # structure classes + exact/sequential LP on the twins
+.venv/Scripts/python.exe -m plyxis.optim.structure scenarios/corvus   # which branches are LP / SLP / convex / nonlinear
+.venv/Scripts/python.exe bench/checks/pwl_slope.py                    # reverse-mode slopes vs finite differences (also tangent_bound.py, cold_plans_old_vs_new.py); from the repo root
 .venv/Scripts/python.exe -m plyxis.native build                 # C++/OpenMP kernels (g++ / MinGW-w64); NumPy fallback
 .venv/Scripts/python.exe scenarios/corvus/generate.py; .venv/Scripts/python.exe scenarios/corvus/make_scenario.py
 .venv/Scripts/python.exe -m bench.twin_accuracy --hours 30 --full
@@ -37,12 +43,19 @@ cd web && npx vite build                               # rebuild console; npx ts
 .venv/Scripts/python.exe -m bench.neural_ablation --experts 60 --test 8   # retrains scenarios/kestrel/models/subsolver.pt
 .venv/Scripts/python.exe -m bench.scaling --fields 1 2 4 8 --ga
 .venv/Scripts/python.exe -m bench.solver_budget --cases 5   # live solver budget vs previous / large
+.venv/Scripts/python.exe -m bench.backtest --scenario kestrel   # pilot gate G1: historian export -> twin -> unseen history
+.venv/Scripts/python.exe -m plyxis lint scenarios/corvus/field.plx         # what compiles but will not do what you think
+.venv/Scripts/python.exe -m plyxis backfill history.csv.gz --scenario kestrel   # calibrate a fresh twin from an export
 .venv/Scripts/python.exe -m bench.report                # markdown tables from bench/results
 ```
 
-Long benchmarks are CPU-bound and timing-sensitive (wall-clock budgets): run them one at a time, and
-not while the console server or a web build is running. After a model change run `neural_ablation`
-first (it retrains `subsolver.pt`), then the showcase and the rest.
+Benchmarks that report solve times (decomposition, section_theory, solver_comparison, solver_budget, scaling, exact_branches) are
+timing-sensitive: run them one at a time, and not while the console server or a web build is running. The showcase A/B has no wall-clock
+budgets, so seeds can run side by side (three at the default thread count take about 35-55 min on the mine); its solve times then mean
+nothing. It reads `field.plx` and the stdlib again at a twin rewrite, so never edit those under a running benchmark: run from a copy of
+the code. Compare arms only at equal thread counts (`PLYXIS_THREADS`; 2 instead of 6 threads moved the same oil-field seed by USD 31 k,
+a rerun at equal threads by USD 136). After a model change run `neural_ablation` first (it retrains `subsolver.pt`), then the
+showcase and the rest. Blueprints that no case study instantiates do not touch the neural layout.
 
 ## Layout
 
@@ -52,13 +65,20 @@ first (it retrains `subsolver.pt`), then the showcase and the rest.
   explanations, dispatch, maintenance.
 - `plyxis/data` connectors, plant emulator (hidden truth + protection layer + KPI accounting),
   estimation (MHE with L-BFGS, prediction step, adaptive prior release), anomaly, discovery, repo.
-- `plyxis/runtime` engine (two worlds, plant-clock thread, planner thread), planner, twin manager.
+- `plyxis/runtime` engine (two worlds, plant-clock thread, planner thread), planner, twin manager; `advisory.py` operating
+  modes, recommendations, audit log; `report.py` shift report, work orders; `whatif.py` what-if runs; `backfill.py`.
+- `plyxis/data` also: `quality.py` data quality in front of the estimator, `industrial.py` PI Web API / Sparkplug B / OPC UA
+  connectors (read only, tested against local stand-ins only), `historian.py` export format. `plyxis/lang/lint.py` model lint.
 - `plyxis/optim/sections.py` deterministic sections (graph filter net, clustering, exact section search);
-  `plyxis/native` C++ kernels (`sections.cpp`) with ctypes wrapper and NumPy reference versions.
+  `decomp.py` section tables + forest DP on the twin; `sectiondp.py` the model-agnostic core (forest DP,
+  induced-forest moves, dual decomposition with certified bound); `structure.py` proves problem classes from
+  the planning IR (DCP-style curvature); `branchlp.py` exact LP / sequential LP of those branches (HiGHS), `tangent_gap`;
+  `plyxis/native` C++ kernels (`sections.cpp`: clustering, scoring, Viterbi, forest DP, coordinate ascent)
+  with ctypes wrapper and NumPy reference versions. Theory: `docs/DECOMPOSITION.md`.
 - `plyxis/server` FastAPI + WebSocket (`/api/scenarios`, `POST /api/scenario` switches the case study).
   `web/` React console (Vite, TS, Tailwind 4, MapLibre, ECharts, Monaco, three.js for the 3D twin).
 - Case studies: `scenarios/kestrel` (oil field, 72 h), `scenarios/corvus` (underground copper mine, 48 h,
-  3D, ~USD 580 M/a OPEX measured; register/geometry generated by `generate.py`, scenario by `make_scenario.py`).
+  3D, ~USD 500 M/a OPEX and ~14 Mt/a measured; register/geometry generated by `generate.py`, scenario by `make_scenario.py`).
   `scenarios/mining_demo` (open pit) and `enterprise` are solver demos without a console scenario.
   `bench/` evidence. `docs/` documentation.
 
@@ -97,6 +117,27 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
 
 ## Mechanisms worth knowing (and traps already hit)
 
+- **Plans can lose their way, and why.** The ALM keeps its best iterate among those with violation up to `tol`. In the relaxation at 0.002 a poor but strictly feasible
+  iterate beat a far better one the discrete stage and polish could still repair: about one mine plan in 50 fell from USD 7.5 M to 5.5-6.8 M of plan value, not reproducibly (the same seed and
+  code once ended USD 360 k apart, a plan idled the mill for three hours), and the first plan with a capped grade window idled the mill for 7-8 h. `relax_tol` 0.01 (mine, `scenario.json`) fixes it: no such
+  plan in 57, capped window from -4 % to +4.9 %, main result unchanged within noise, seeds closer together. Neutral on the oil field (kept at the default there). Safety nets that stay on: the running plan as a
+  candidate after the polish (`kept_running_plan`), a second solve from another random stream (`planner.second_opinion`). When an A/B looks odd, read `runs[].objective` plan by plan first.
+- **Operating modes** (`runtime/advisory.py`): autonomous, advisory, shadow. In advisory mode the plant runs `held` set points; a rejected or
+  modified decision (set point or line-up) needs a reason, is held until the shift ends and is pinned for the planner
+  (`Problem.set_pins`: every evaluation of every stage). A plan expires after 12 h unless a newer one is on its way (at 600x time compression a
+  60 s solve is 10 plant hours: counting the expiry from the plant clock alone would stop the mine in a live demo).
+- **Assays and margins.** Composite muck samples at the working places (scenario `assays`, Kalman update, same rule in both worlds; the baseline
+  reconciles its block model) give `Estimator.uncertainty`; `Engine._update_margins` plans the head grade one standard error of the blend
+  inside the window. After a twin rewrite the last plan's blend does not map: keep the margin (an even blend of all open stopes gave 0.002).
+- **Zustand selectors must return stable values.** `useStore((s) => Object.keys(...))` returns a new array every time: React error #185, the page
+  goes blank. Select the object and `useMemo` the rest.
+- **Console start states** (`server/app.py`, `web/src/App.tsx`): `boot()` and `ticker()` are tasks nobody awaits, so
+  each handles its own failures. A failed start, including a failed first plan (`_replan` only logs), goes to
+  `/api/health.error` and a `boot_error` push; the console shows it with retry buttons instead of spinning for ever.
+  No snapshots while booting: they used to flip the page between the starting screen and an empty console. Pushes are
+  strict JSON (`_dumps`): one NaN token makes the browser's `JSON.parse` reject the whole message. If no snapshot
+  arrives for 3 s the console polls `/api/snapshot`. It opens paused at the first hour for the guided demo, and
+  `StartBar` says so: `$0` and `NaN` alone read as "stuck".
 - **Anytime planning**: urgent triggers (disruption, notices, twin rewrite, asset back) publish a
   first response (short ALM from the shifted plan + neural proposal) in 1-2 s, then the full cascade
   (~10 s, `Planner.LIVE`) replaces it. The console holds the plant clock only until the first response.
@@ -171,26 +212,53 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
   generic Overview), market tags in `market_tags`.
 - **3D geometry**: `at = (lat, lon, z)`, `path` with z, `geojson("x.geojson")` keeps elevation. The 3D view
   appears in the console when any asset has a z coordinate.
+- **Check slopes against finite differences.** `rt.pwl` had slope 0 at the top of its table: in float32 `(x - x0) / (x1 - x0)` can lie an ulp above 1, where `clamp` has derivative 0. A pump at
+  full speed had no slope of its rate, only of its power and wear, and half of a plan's well speeds sit there, so every first-order stage on the oil field worked with a wrong gradient. It showed only because a sequential LP on reverse-mode
+  slopes lost money where finite differences gained. Values did not change; the mine's gradients are identical (its only table is the recovery curve, the head grade stays inside it). `test_reverse_mode_agrees_with_finite_differences_at_the_bounds` guards it.
+- **Structure first, then the method.** `structure.py` classifies with the discrete choices fixed and blend
+  qualities (incoming and stored) frozen - the polish's situation. Pure-LP branches came out already optimal
+  from the cascade (the LP only certifies them); the effect is sequential LP over the whole (piecewise) linear
+  layer - positive on the mine's A/B, negative on the oil field's (see open work). It finishes the cascade
+  but cannot replace it (half the cascade + LP is far worse). The finite-difference Jacobian dominates the
+  time (~21 of 26 s on the mine); `scipy.linprog` raises "c must be a 1-D array" when a branch has no
+  variables (routing splits are not in `space.blocks`).
+- **Restarting the ALM polish from a converged plan breaks feasibility** (F falls even with the cascade's
+  multipliers): never use "more polish" as a fair baseline without checking F and the violation.
+- **Exact plans need margins.** An LP optimum sits exactly on the binding constraints as the twin sees them;
+  every estimation error then becomes a violation in reality. With the LP finishing step the mine flooded a
+  sump (reserve computed from an inflow the twin underestimated by 17 %: 92 m3 = 8 h of that error) and ran
+  its head grade above the plan window (stope grades underestimated). Fixes: `pump_station.reserve_margin`
+  (25 % more inflow in the reserve) and offset-free planning - `concentrator.head_factor` (analysed / computed
+  head grade, `calibrate`d online from the on-stream analyser). Check every exact stage for this.
+- **Benchmark a planner change over seeds** (`showcase_run --seed`): one 72 h A/B pair moved by +$27k and
+  -$44k for the same change; only the mean over seeds says something.
+- **Price paths are one random stream per price** (`runtime/scenario.py`). With one shared stream, advanced in
+  the order the code first asked for each price and hour, any change in call order changed the realised
+  scenario: two runs of different code versions saw different prices (the manual-operations result moved by
+  0.5 % with nothing changed in it). Within a run both worlds always saw the same prices. Results produced
+  before the fix (twin accuracy, solver budget and comparison, neural ablation, scaling, decomposition) used
+  the old paths and are not reproducible bit for bit.
 - **Tooling trap (this machine)**: the Bash tool collapses doubled backslashes inside heredocs - write
   Python/TS that contains backslashes with the Write/Edit tools, not via `python - <<EOF`.
 
 ## Open work (as of the last benchmark run)
 
-- **Mine: equal cost, more copper - not yet a cost reduction.** Corvus: +12.3 % operating profit vs. competent
-  control (air-aware loader allocation, tonnes target), all from head grade inside the plan window (twin
-  1.449 % vs. baseline 1.368 %, window 1.35-1.45 %); both mills at capacity, cash cost equal, production cost
-  per t of copper -7.4 %. PLYXIS mines 9 % less and draws the ore passes down (buffer to rebuild). Next:
-  site-level cost levers (ventilation on demand against the air budget, tram distance, blast scheduling on a
-  model where ring firings interact), tighter grade estimation (stope grades still ~10 % off; assays rotate
-  through all 186 stopes one per hour instead of sampling the working places each shift - the baseline would
-  then need the same assays), and a pass-level reserve like the ROM pad's.
-- **Mine OPEX calibration.** With the competent baseline keeping the mill full, the measured baseline cash
-  cost is USD 581 M/a (~14 Mt/a), above the ~USD 500 M/a the founder specified; recalibrating needs lower
-  unit costs and a re-run (fixed costs alone do not change the A/B difference, only the percentages).
-- **Section search** has no measurable plan gain (re-run: Kestrel -0.0 %, mine -0.4 %; the earlier +1.0 % on
-  Kestrel was run-to-run noise). The scaling claim holds (sections stay at 3 assets, sweep 0.9 -> 3.2 s for
-  8x the decisions). Native kernels match NumPy; the sweep is dominated by simulation. To make it pay: a
-  model where discrete choices really interact (ring firings sharing crews, compressor line-ups) and
-  accepting after the polish, not before.
-- A Kestrel run without the two newest events (`--skip-events GASPLANT,power_price --tag core`) to split
-  the +13.7 % into planner effect vs. new events has not been made.
+- **Which head-grade window the mine claims.** +10.3 % operating profit at 1.35-1.45 %, about four fifths of the copper gain is head grade at the top of it; +4.9 % with the window capped at 1.40 %.
+  The founder should decide which number the showcase leads with.
+- **`relax_tol` as the default?** Neutral on the oil field (+389,642 against +392,180, 3 seeds, before the slope fix), better on the mine. Making it the default means re-running the Kestrel benchmarks.
+- **Convex stage on the oil field** (`--exact convex --exact-margin 0.10`): +USD 136 k in one plan including the rest of the layer, but the A/B was stopped at hour 24 of 72 with no difference (+162,505 against +163,053). Run it to the end before switching it on.
+  `branchlp.tangent_gap` is a measured estimate, not a proof: the analysis proves convexity per asset type, not through the kinks downstream.
+- **Cold plans on the oil field after the slope fix**: 3 of 4 seeds better, one -USD 326 k (`arms/cold_plans_old_vs_new.log`). Warm A/B is neutral. More seeds would tell whether the spread really widened; it matters for a console's first plan.
+- **Exact branches**: on for the mine (+USD 47 k / 48 h, 3 seeds), off for the oil field (before the slope fix: -USD 7 k / 72 h with 10 % margins on state limits,
+  3 seeds; -USD 48 k without). Single-plan gains in the twin's objective do not predict this (`bench.exact_branches`) - always decide with A/B over seeds.
+- **Section search** has no measurable gain, also not with charge-up crews on the mine or after the polish (`late_sections`; +0.5 % in one mine plan, not A/B tested there; oil field A/B +USD 2.7 k, noise).
+  The scaling claim holds. Crew limits rarely bind in a 48 h horizon; a model with a binding discrete resource would be the test.
+- **Certificates.** Smoothed dual decomposition (`sectiondp.solve(dual="smooth")`) proves 1.7-3.7 % up to
+  90,000 blocks at 6-9x the time of the subgradient bound (2.5-19 %); the default stays the fast one.
+- **Connectors** have only met local stand-ins. Next: a real broker, PI server or OPC UA server; TLS for MQTT, Kerberos for PI, OPC UA subscriptions.
+- **Backtest gate G1** counts an unannounced step change against the frozen twin (SWD-2's injectivity, the only failure): decide with the first pilot whether the gate is
+  meant frozen or with live estimation.
+- **Not re-run after the plan guard**: `neural_ablation`, `solver_comparison`, `scaling`, `twin_accuracy` (Kestrel-only; solver_comparison, scaling and twin_accuracy never pass a warm start, neural_ablation does, and re-running it retrains `subsolver.pt`).
+- **Not re-run after the `pwl` slope fix** (Kestrel only; the mine's gradients are identical): the same four, `solver_budget`, `decomposition`, the `core` showcase run and the oil-field comparison arms (exact, `relax_tol`, sections). They stay labelled as measured before it.
+- **Not built**: SSO/RBAC (decisions carry a free-text name), Dockerfile never built (no Docker on the development machine), mobile view, SAP PM / Maximo
+  interface proper (flat file only), write-back, job queue for solves, constraint editor beyond the PLX editor.

@@ -53,6 +53,33 @@ def test_cascade_feasible_and_better_than_default(small_model):
     assert stages == ["compile", "relaxation", "discrete", "polish"]
 
 
+def test_running_plan_survives_a_search_that_lost_its_way(small_model, monkeypatch):
+    from plyxis.optim import cascade as CS
+    pb = Problem(small_model.program)
+    cfg = CascadeConfig(relax_iters=120, population=4, repair_iters=40, polish_iters=60, multistart=3, use_neural=False)
+    good = Cascade(pb, config=cfg).solve()
+    assert good.feasible
+    real = CS.alm
+
+    def lost(problem, x, **kw):                # relaxation and discrete search end on a useless plan
+        r = real(problem, x, **kw)
+        if kw.get("stage") in ("relaxation", "discrete"):
+            r.x = torch.zeros_like(r.x)
+            if r.population is not None:
+                r.population = torch.zeros_like(r.population)
+        return r
+    monkeypatch.setattr(CS, "alm", lost)
+    rounding = CS.randomized_roundings
+    monkeypatch.setattr(CS, "randomized_roundings", lambda sp, x, P, gen, extra=None, flip=0.0: rounding(sp, x, P, gen, None, flip))
+    cfg_small = CascadeConfig(relax_iters=40, population=2, repair_iters=5, polish_iters=5, multistart=1, restore_iters=0, use_neural=False)
+    without = Cascade(pb, config=cfg_small).solve()
+    res = Cascade(pb, config=cfg_small).solve(warm=good.x)
+    polish = [st for st in res.stages if st["stage"] == "polish"][0]
+    assert polish["kept_running_plan"] is True
+    assert res.objective > without.objective
+    assert res.objective >= good.objective - 0.05 * abs(good.objective)
+
+
 def test_metaheuristics_on_test_functions():
     for name, fn in MH.METHODS.items():
         r = fn(MH.sphere, 8, pop=24, iters=150, seed=1)

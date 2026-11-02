@@ -27,7 +27,9 @@ from ..lang.printer import set_line
 
 
 class TwinManager:
-    def __init__(self, base_files: list, env: str, sim: Optional[str], dt_data: float, window: int = 18):
+    def __init__(self, base_files: list, env: str, sim: Optional[str], dt_data: float, window: int = 18,
+                 test_sigma: Optional[float] = None):
+        self.test_sigma = test_sigma
         self.base_env = env
         self.env = f"{env}_live"
         self.sim = sim
@@ -93,7 +95,10 @@ class TwinManager:
             _transfer(old_live, live)
         self.live = live
         self.tags = TagMap(self.model.program, self.model.flat)
-        self.estimator = Estimator(self.live, self.tags, self.dt_data)
+        old_est = getattr(self, "estimator", None)
+        self.estimator = Estimator(self.live, self.tags, self.dt_data, test_sigma=self.test_sigma)
+        if old_est is not None:
+            self.estimator.test_var = old_est.test_var     # keyed by asset path: what samples taught survives a rewrite
         known = {i.path for i in self.model.flat.instances}
         if hasattr(self, "discovery"):
             self.discovery.mark_known(list(known), list(self.tags.prefixes))

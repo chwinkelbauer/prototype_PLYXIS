@@ -17,6 +17,7 @@ define oilgas as pkg {
   define gas   as res [Mscf] { rate_unit = "Mscf/d"; };
   define water as res [bbl]  { rate_unit = "bbl/d"; };
   define truck_hours as res [h] { rate_unit = "trucks"; };
+  define lift_gas as res [Mscf] { rate_unit = "Mscf/d"; };
   define fluids as grp { oil; gas; water; };
   define liquids as grp { oil; water; };
 
@@ -101,6 +102,79 @@ define oilgas as pkg {
       metric oil_rate = prod.oil [bbl/d];
   };
 
+  ## Gas-lifted well. Lift gas raises the rate along a concave performance curve up to its optimum and lowers it
+  ## beyond (friction). The well requests lift gas from the compressor.
+  define gas_lift_well as ent {
+    geom: point; layer = "wells"; icon = "well";
+    properties:
+      q_max    = 1200 [bbl/d]    calibrate in [30, 6000];   ## liquid rate at the optimal lift gas rate
+      wc       = 0.65;
+      gor      = 0.8  [Mscf/bbl] calibrate in [0.05, 30];
+      lift_opt = 700  [Mscf/d];                             ## lift gas rate of the maximum
+      natural  = 0.15;                                      ## share of q_max without lift gas
+      opex     = 12   [USD/h];
+    state: up = 1;
+    decision: lift in [0, 1.5 * lift_opt] default 0.8 * lift_opt hold 2;
+    nodes:
+      out lift_req <- lift_gas;
+      out prod <- oil, gas, water;
+    telemetry:
+      liquid <- "FLOW.LIQ" [bbl/d];
+      lift_used <- "LIFT.FLOW" [Mscf/d];
+      up <- "WELL.RUN";
+    behavior:
+      lift_used = lift * up;
+      lift_req.lift_gas = lift_used;
+      liquid = q_max * pwl(lift / lift_opt, [0, 0.25, 0.5, 1.0, 1.5], [natural, 0.62, 0.86, 1.0, 0.96]) * up;
+      prod.oil = liquid * (1 - wc);
+      prod.water = liquid * wc;
+      prod.gas = prod.oil * gor;       ## lift gas circulates in a closed loop: it is no production to sell
+      cost lease = opex * up;
+      metric oil_rate = prod.oil [bbl/d];
+  };
+
+  ## Gas-lift compressor: the lift gas its wells request cannot exceed its capacity; power follows the rate.
+  define lift_compressor as ent {
+    geom: point; layer = "facilities"; icon = "compressor";
+    properties: cap = 12000 [Mscf/d]; kwh_mscf = 2.2 [kWh/Mscf];
+    state: up = 1;
+    nodes: in requests <- lift_gas;
+    telemetry: delivered <- "LIFT.TOTAL" [Mscf/d]; up <- "COMP.RUN";
+    behavior:
+      delivered = requests.lift_gas;
+      constraint capacity: delivered <= cap * up;
+      kw = kwh_mscf * delivered;
+      cost power = kw * env.power_price;
+      emission grid = kw * env.grid_co2;
+  };
+
+  ## Plunger-lifted gas well: more cycles unload liquids faster until the plunger no longer falls in time;
+  ## every arrival vents a little gas.
+  define plunger_lift_well as ent {
+    geom: point; layer = "wells"; icon = "well";
+    properties:
+      q_gas    = 900 [Mscf/d] calibrate in [20, 6000];     ## gas rate at the best cycle count
+      liq_gas  = 0.04 [bbl/Mscf];                          ## liquid per gas
+      wc       = 0.5;
+      best_cycles = 12;
+      vent_per_cycle = 0.6 [Mscf];
+      vent_co2e = 55 [kgCO2e/Mscf];
+      opex     = 5 [USD/h];
+    state: up = 1;
+    decision: cycles in [2, 24] default 8 hold 6;           ## arrivals per day
+    nodes: out prod <- oil, gas, water;
+    telemetry: gas_rate <- "FLOW.GAS" [Mscf/d]; up <- "WELL.RUN";
+    behavior:
+      gas_rate = q_gas * pwl(cycles / best_cycles, [0.15, 0.5, 1.0, 2.0], [0.45, 0.82, 1.0, 0.9]) * up;
+      prod.gas = gas_rate;
+      prod.oil = gas_rate * liq_gas * (1 - wc);
+      prod.water = gas_rate * liq_gas * wc;
+      vented = vent_per_cycle * cycles / 24 [h] * up;
+      emission venting = vented * vent_co2e;
+      cost lease = opex * up;
+      metric oil_rate = prod.oil [bbl/d];
+  };
+
   # ------------------------------------------------------------------ gathering
   ## Multi-well pad header. The valve line-up sends the whole pad to one destination.
   define pad as ent {
@@ -124,6 +198,75 @@ define oilgas as pkg {
       b = a;
       constraint liquid_capacity: a.oil + a.water <= cap_liquid;
       constraint gas_capacity: a.gas <= cap_gas;
+  };
+
+  ## Liquid pipeline with hydraulics: the pressure drop grows with the square of the flow (Darcy-Weisbach, turbulent),
+  ## so the line's capacity is what its pressure rating allows. The friction factor is estimated from the measured drop.
+  define pipeline as ent {
+    geom: line; layer = "pipelines";
+    properties:
+      q_design  = 40000 [bbl/d];                        ## flow at the design pressure drop
+      dp_design = 350 [psi];
+      dp_max    = 600 [psi];                            ## inlet rating less required arrival pressure
+      friction  = 1.0 calibrate in [0.5, 3];            ## roughness and wax: measured drop / design drop
+      length    = auto [km];
+    nodes: in a <- *; out b <- *;
+    telemetry: dp <- "PIPE.DP" [psi];
+    behavior:
+      b = a;
+      flow = a.oil + a.water;
+      dp = dp_design * friction * (flow / q_design)^2;
+      constraint pressure: dp <= dp_max;
+      metric line_rate = flow [bbl/d];
+  };
+
+  ## Inlet separator: splits gas from liquids within its gas and liquid handling capacity.
+  define separator as ent {
+    geom: point; layer = "facilities"; icon = "battery";
+    properties: liq_cap = 25000 [bbl/d]; gas_cap = 30000 [Mscf/d];
+    nodes:
+      in feed <- oil, gas, water;
+      out liquids_out <- oil, water;
+      out gas_out <- gas;
+    telemetry: liquid <- "SEP.LIQ" [bbl/d]; gas_in <- "SEP.GAS" [Mscf/d];
+    behavior:
+      liquid = feed.oil + feed.water;
+      gas_in = feed.gas;
+      constraint liquid_capacity: liquid <= liq_cap;
+      constraint gas_capacity: gas_in <= gas_cap;
+      liquids_out.oil = feed.oil;
+      liquids_out.water = feed.water;
+      gas_out.gas = feed.gas;
+  };
+
+  ## Vapour recovery unit on the tanks: what it does not capture is vented. Worth running when the gas it sells and
+  ## the carbon it avoids pay for its power.
+  define vru as ent {
+    geom: point; layer = "facilities"; icon = "compressor";
+    properties: cap = 1500 [Mscf/d]; kw_rated = 90 [kW]; vent_co2e = 55 [kgCO2e/Mscf];
+    state: up = 1;
+    decision: on : bool default 1 hold 6;
+    nodes: in vapour <- gas; out sales <- gas;
+    telemetry: captured <- "VRU.FLOW" [Mscf/d]; up <- "VRU.RUN";
+    behavior:
+      run = on * up;
+      captured = min(vapour.gas, cap) * run;
+      sales.gas = captured;
+      emission vented = (vapour.gas - captured) * vent_co2e;
+      cost power = kw_rated * run * env.power_price;
+      emission grid = kw_rated * run * env.grid_co2;
+  };
+
+  ## Chemical injection skid (corrosion, scale, paraffin): a dose per barrel of the liquid it treats.
+  define chemical_skid as ent {
+    geom: point; layer = "facilities"; icon = "battery";
+    properties: dose = 0.02 [gal/bbl]; price = 9 [USD/gal]; pump_cap = 60000 [bbl/d];
+    nodes: in a <- *; out b <- *;
+    behavior:
+      b = a;
+      treated = a.oil + a.water;
+      constraint capacity: treated <= pump_cap;
+      cost chemicals = treated * dose * price;
   };
 
   # ------------------------------------------------------------------ facilities
@@ -288,6 +431,23 @@ define oilgas as pkg {
   };
 
   # ------------------------------------------------------------------ markets
+  ## LACT unit with a water-cut monitor: off-spec crude is priced per barrel; the meter is proved on a fixed cost.
+  define lact_unit as ent {
+    geom: point; layer = "markets"; icon = "terminal";
+    properties:
+      diff = -1.8 [USD/bbl]; cap = 40000 [bbl/d]; bsw = 0.2; bsw_max = 0.5;   ## basic sediment and water, %
+      proving = 40 [USD/h]; offspec_penalty = 6 [USD/bbl];
+    nodes: in rec <- oil;
+    telemetry: delivered <- "LACT.FLOW" [bbl/d];
+    behavior:
+      delivered = rec.oil;
+      constraint takeaway: delivered <= cap;
+      revenue crude = delivered * (env.oil_price + diff);
+      cost proving = proving;
+      cost offspec = offspec_penalty * delivered * clamp((bsw - bsw_max) / max(bsw_max, 0.01), 0, 1);
+      metric oil_sold = delivered [bbl/d];
+  };
+
   ## Crude oil sales point (LACT unit / terminal).
   define oil_sales as ent {
     geom: point; layer = "markets"; icon = "terminal";

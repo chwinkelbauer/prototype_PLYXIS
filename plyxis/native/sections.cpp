@@ -122,4 +122,163 @@ PX_API void px_viterbi(int C, int K, int A, const float* R, const float* S, cons
     }
 }
 
-PX_API int px_version() { return 1; }
+// Max-sum dynamic programme on a forest (exact): maximise sum_v U[v,z_v] + sum_k P[k,z_a,z_b].
+// post = nodes with children before parents; parent[v] < 0 for roots; pedge[v] = edge to the parent;
+// flip[v] = 1 if the parent is the edge's second node (P[k] is indexed [z_a, z_b]). O(m q^2).
+PX_API void px_forest_dp(int n, int q, int m, const double* U, const double* P, const int* post,
+                         const int* parent, const int* pedge, const uint8_t* flip, int* z) {
+    std::vector<double> acc(U, U + (size_t)n * q);
+    std::vector<int> arg((size_t)n * q, 0);
+    for (int t = 0; t < n; ++t) {
+        int v = post[t], p = parent[v];
+        if (p < 0) continue;
+        const double* Pk = P + (size_t)pedge[v] * q * q;
+        const double* av = acc.data() + (size_t)v * q;
+        double* ap = acc.data() + (size_t)p * q;
+        int* gv = arg.data() + (size_t)v * q;
+        for (int zp = 0; zp < q; ++zp) {
+            double best = -1e300; int bi = 0;
+            for (int zc = 0; zc < q; ++zc) {
+                double tv = flip[v] ? Pk[(size_t)zc * q + zp] : Pk[(size_t)zp * q + zc];
+                double s = tv + av[zc];
+                if (s > best) { best = s; bi = zc; }
+            }
+            gv[zp] = bi;
+            ap[zp] += best;
+        }
+    }
+    for (int t = n - 1; t >= 0; --t) {
+        int v = post[t], p = parent[v];
+        if (p < 0) {
+            const double* av = acc.data() + (size_t)v * q;
+            z[v] = (int)(std::max_element(av, av + q) - av);
+        } else {
+            z[v] = arg[(size_t)v * q + z[p]];
+        }
+    }
+    (void)m;
+}
+
+// Block coordinate ascent (Gauss-Seidel, exact per block) on a pairwise table model with shared capacities:
+// every block in turn takes its best option given its neighbours, among the options that keep every
+// capacity h within cap[h] (given the other blocks' use). U [n,q] (<= -1e29: no option), E [m,2], P [m,q,q],
+// R [H,n,q], cap [H]; z [n] in/out. Monotone in the objective; returns the number of sweeps run.
+PX_API int px_coordinate_ascent(int n, int q, int m, int H, const double* U, const int* E, const double* P,
+                                const double* R, const double* cap, int* z, int sweeps) {
+    std::vector<int> deg(n + 1, 0);
+    for (int k = 0; k < m; ++k) { deg[E[2 * k] + 1]++; deg[E[2 * k + 1] + 1]++; }
+    for (int i = 0; i < n; ++i) deg[i + 1] += deg[i];
+    std::vector<int> nb_edge(2 * (size_t)m), nb_side(2 * (size_t)m), fill(deg.begin(), deg.end() - 1);
+    for (int k = 0; k < m; ++k) {
+        int a = E[2 * k], b = E[2 * k + 1];
+        nb_edge[fill[a]] = k; nb_side[fill[a]++] = 0;
+        nb_edge[fill[b]] = k; nb_side[fill[b]++] = 1;
+    }
+    std::vector<double> use(H, 0.0);
+    for (int h = 0; h < H; ++h)
+        for (int b = 0; b < n; ++b) use[h] += R[((size_t)h * n + b) * q + z[b]];
+    std::vector<double> s(q);
+    int sw = 0;
+    for (; sw < sweeps; ++sw) {
+        bool changed = false;
+        for (int b = 0; b < n; ++b) {
+            const double* Ub = U + (size_t)b * q;
+            for (int j = 0; j < q; ++j) s[j] = Ub[j];
+            for (int t = deg[b]; t < deg[b + 1]; ++t) {
+                int k = nb_edge[t];
+                const double* Pk = P + (size_t)k * q * q;
+                if (nb_side[t] == 0) { int o = z[E[2 * k + 1]]; for (int j = 0; j < q; ++j) s[j] += Pk[(size_t)j * q + o]; }
+                else                 { int o = z[E[2 * k]];     for (int j = 0; j < q; ++j) s[j] += Pk[(size_t)o * q + j]; }
+            }
+            int cur = z[b], best = cur;
+            double bv = s[cur];
+            for (int j = 0; j < q; ++j) {
+                if (Ub[j] <= -1e29 || s[j] <= bv + 1e-12) continue;
+                bool ok = true;
+                for (int h = 0; h < H && ok; ++h) {
+                    const double* Rh = R + ((size_t)h * n + b) * q;
+                    if (use[h] - Rh[cur] + Rh[j] > cap[h] + 1e-9 && Rh[j] > Rh[cur]) ok = false;
+                }
+                if (ok) { bv = s[j]; best = j; }
+            }
+            if (best != cur) {
+                for (int h = 0; h < H; ++h) {
+                    const double* Rh = R + ((size_t)h * n + b) * q;
+                    use[h] += Rh[best] - Rh[cur];
+                }
+                z[b] = best;
+                changed = true;
+            }
+        }
+        if (!changed) { ++sw; break; }
+    }
+    return sw;
+}
+
+// Sum-product on a forest at temperature tau (log space): returns tau * log Z of
+// exp((sum_v U[v,z_v] + sum_k P[k,z_a,z_b]) / tau) and writes the node marginals marg [n,q].
+// tau * log Z >= max (it is a smooth upper bound of the max-sum value); its gradient w.r.t. U is marg.
+static inline double lse(const double* a, int q) {
+    double m = -1e300;
+    for (int i = 0; i < q; ++i) m = std::max(m, a[i]);
+    if (m <= -1e299) return m;
+    double s = 0.0;
+    for (int i = 0; i < q; ++i) s += std::exp(a[i] - m);
+    return m + std::log(s);
+}
+
+PX_API double px_forest_logz(int n, int q, const double* U, const double* P, const int* post, const int* parent,
+                             const int* pedge, const uint8_t* flip, double tau, double* marg) {
+    const double inv = 1.0 / tau;
+    std::vector<double> acc((size_t)n * q), up((size_t)n * q, 0.0), down((size_t)n * q, 0.0), tmp(q);
+    for (size_t i = 0; i < (size_t)n * q; ++i) acc[i] = U[i] <= -1e29 ? -1e300 : U[i] * inv;
+    // upward pass: message v -> parent, stored in up[v]
+    for (int t = 0; t < n; ++t) {
+        int v = post[t], p = parent[v];
+        if (p < 0) continue;
+        const double* Pk = P + (size_t)pedge[v] * q * q;
+        double* uv = up.data() + (size_t)v * q;
+        const double* av = acc.data() + (size_t)v * q;
+        for (int zp = 0; zp < q; ++zp) {
+            for (int zc = 0; zc < q; ++zc) {
+                double pv = flip[v] ? Pk[(size_t)zc * q + zp] : Pk[(size_t)zp * q + zc];
+                tmp[zc] = pv * inv + av[zc];
+            }
+            uv[zp] = lse(tmp.data(), q);
+        }
+        double* ap = acc.data() + (size_t)p * q;
+        for (int zp = 0; zp < q; ++zp) ap[zp] += uv[zp];
+    }
+    double logz = 0.0;
+    // downward pass: message parent -> v (down[v]), then the marginals
+    for (int t = n - 1; t >= 0; --t) {
+        int v = post[t], p = parent[v];
+        double* av = acc.data() + (size_t)v * q;
+        if (p < 0) {
+            logz += lse(av, q);
+        } else {
+            const double* Pk = P + (size_t)pedge[v] * q * q;
+            const double* ap = acc.data() + (size_t)p * q;
+            const double* dp = down.data() + (size_t)p * q;
+            const double* uv = up.data() + (size_t)v * q;
+            double* dv = down.data() + (size_t)v * q;
+            for (int zc = 0; zc < q; ++zc) {
+                for (int zp = 0; zp < q; ++zp) {
+                    double pv = flip[v] ? Pk[(size_t)zc * q + zp] : Pk[(size_t)zp * q + zc];
+                    tmp[zp] = pv * inv + ap[zp] - uv[zp] + dp[zp];     // parent's belief without v's message
+                }
+                dv[zc] = lse(tmp.data(), q);
+            }
+        }
+    }
+    for (int v = 0; v < n; ++v) {
+        double* av = acc.data() + (size_t)v * q;
+        const double* dv = down.data() + (size_t)v * q;
+        for (int z = 0; z < q; ++z) tmp[z] = av[z] + dv[z];
+        double l = lse(tmp.data(), q);
+        for (int z = 0; z < q; ++z) marg[(size_t)v * q + z] = l <= -1e299 ? 0.0 : std::exp(tmp[z] - l);
+    }
+    return tau * logz;
+}
+
+PX_API int px_version() { return 4; }

@@ -1,9 +1,9 @@
-pso                objective      3,144,324  max viol   0.5935    60.0s
-gravisearch        objective      1,935,002  max viol   0.0617    60.0s
-ga                 objective      4,183,679  max viol   0.0001    60.0s
-de                 objective      3,810,866  max viol   0.0000    60.0s
+pso                objective      3,145,609  max viol   0.5963    60.0s
+gravisearch        objective      1,935,002  max viol   0.0617    60.1s
+ga                 objective      4,182,931  max viol   0.0004    60.0s
+de                 objective      3,786,100  max viol   0.0000    60.0s
 pso-coop           objective      1,711,091  max viol   1.6285    60.0s
 ga-coop            objective      1,112,336  max viol   0.0000    60.0s
-alm                objective      3,259,812  max viol   0.0002     7.0s
-cascade            objective      4,383,413  max viol   0.0008    10.3s
-cascade+neural     objective      4,431,554  max viol   0.0012    10.5s
+alm                objective      3,236,756  max viol   0.0000     7.0s
+cascade            objective      4,354,262  max viol   0.0016    10.3s
+cascade+neural     objective      4,387,048  max viol   0.0017    10.6s

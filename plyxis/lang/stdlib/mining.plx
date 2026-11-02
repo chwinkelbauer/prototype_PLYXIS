@@ -10,6 +10,7 @@ define mining as pkg {
   define haul_hours as res [h] { rate_unit = "trucks"; };
   define lhd_hours as res [h] { rate_unit = "units"; };           ## loaders in service
   define air as res [m3] { rate_unit = "m3/s"; };                  ## ventilation air
+  define charge_shifts as res [h] { rate_unit = "crews"; };        ## charge-up crews at work on ring firings
 
   ## Excavator working a dig face with known (block-model) grade.
   define dig_face as ent {
@@ -73,6 +74,7 @@ define mining as pkg {
     state: tonnes = 40000 [t] in [0, cap]; grade_avg = 0.85;
     decision: reclaim in [0, reclaim_max] default 0.6 * reclaim_max hold 2;
     nodes: in feed <- ore; out out <- ore;
+    telemetry: tonnes <- "PAD.TONNES" [t];       ## belt weighers + stockpile scanner
     behavior:
       taken = sat(reclaim, tonnes / dt + feed.ore);
       out.ore = taken;
@@ -95,17 +97,22 @@ define mining as pkg {
       cost_t = 0 [USD/t];                           ## grinding media, liners, reagents, tailings
       grade_penalty = 250 [USD/t];                  ## planning price per tonne milled and %-point outside the
                                                     ## head-grade window (~3x the metal in 1 %-point of a tonne)
+      head_factor = 1.0 calibrate in [0.8, 1.25];   ## offset-free planning: analysed head grade / the blend the
+                                                    ## model computes - estimated online from the analyser, so a
+                                                    ## plan on the window limit stays inside it in reality
+      grade_margin = 0;                             ## planned distance from the window limits: set by the runtime
+                                                    ## from the twin's grade uncertainty (scenario `margins`)
     nodes: in feed <- ore; out conc <- concentrate;
     telemetry: throughput <- "MILL.TPH" [t/h]; g <- "OSA.HEAD";       ## on-stream analyser: head grade
     behavior:
       throughput = feed.ore;
-      g = feed.ore.grade;
+      g = feed.ore.grade * head_factor;
       recovery = pwl(g, [0.3, 0.8, 1.5], [0.70, 0.88, 0.92]);
       constraint capacity: throughput <= cap;
       ## off-spec feed is priced per tonne milled: an idle mill has no head grade (the flow-weighted grade
       ## of no flow is 0, which a plain `g >= grade_min` would charge every hour the mill stands)
-      constraint soft(grade_penalty) grade_low: throughput * g >= throughput * grade_min;
-      constraint soft(grade_penalty) grade_high: throughput * g <= throughput * grade_max;
+      constraint soft(grade_penalty) grade_low: throughput * g >= throughput * (grade_min + grade_margin);
+      constraint soft(grade_penalty) grade_high: throughput * g <= throughput * (grade_max - grade_margin);
       conc.concentrate = throughput * g / 100 * recovery * 100 / conc_grade;
       kw = kwh_t * throughput;
       cost energy = kw * env.power_price;
@@ -164,6 +171,7 @@ define mining as pkg {
       ## the capacity limits sit with the fleet and the district (sum of requests <= what they have)
       out lhd_req <- lhd_hours;
       out air_req <- air;
+      out crew_req <- charge_shifts;
       out ore_out <- ore;
     telemetry:
       mucked <- "LHD.TPH" [t/h];
@@ -177,6 +185,7 @@ define mining as pkg {
       cycle = 2 * tram / lhd_speed + load_time;
       lhd_use = mucked / bucket * cycle;
       lhd_req.lhd_hours = lhd_use;
+      crew_req.charge_shifts = blast * up;       ## charging a ring takes a crew for the firing's shift
       active = clamp(mucked / (0.15 * rate_max), 0, 1);
       air_need = air_base * active + air_per_kw * lhd_kw * lhd_use;
       air_q = air_need;
@@ -228,6 +237,18 @@ define mining as pkg {
       constraint fleet_size: in_use <= avail;
       cost ownership = ownership * n_units;
       metric loaders_busy = in_use [units];
+  };
+
+  ## Charge-up crews of a mining zone: the ring firings of a shift cannot exceed the crews (the stopes' discrete
+  ## firing decisions compete for them).
+  define charge_crew as ent {
+    geom: point; layer = "equipment"; icon = "vehicle";
+    properties: n_crews = 2;
+    nodes: in requests <- charge_shifts;
+    behavior:
+      in_use = requests.charge_shifts;
+      constraint crews: in_use <= n_crews;
+      metric crews_busy = in_use [units];
   };
 
   ## Main ventilation fan (surface exhaust): air quantity ~ speed, power ~ speed^3 (fan laws).
@@ -325,6 +346,8 @@ define mining as pkg {
       inflow = 40 [L/s] calibrate in [2, 400]; cap = 90 [L/s]; sump = 2500 [m3];
       head = 900 [m]; eff = 0.72;
       reserve_h = 0 [h];                  ## storage kept free for this many hours of inflow (pump failure)
+      reserve_margin = 0.25;              ## design margin on the (estimated) inflow: an optimal plan sits exactly
+                                          ## on the reserve limit, so an underestimated inflow would flood it
       reserve_price = 5 [USD/m3/h];       ## planning price of using that reserve while the pump runs
       overflow_cost = 60 [USD/m3];        ## water the sump cannot hold: pumping back, cleaning drives, wet muck
     state: up = 1; level = 0.5 * sump [m3] in [0, sump];
@@ -334,7 +357,7 @@ define mining as pkg {
       pumped = sat(rate * up, level / dt + inflow);
       level <- level + (inflow - pumped) * dt;
       ## load shifting may use the sump, but not the room an unannounced pump failure needs
-      constraint soft(reserve_price) storage: level <= sump - inflow * reserve_h * up;
+      constraint soft(reserve_price) storage: level <= sump - inflow * (1 + reserve_margin) * reserve_h * up;
       kw = 0.00981 [kW*s/L/m] * pumped * head / eff;
       cost power = kw * env.power_price;
       emission grid = kw * env.grid_co2;

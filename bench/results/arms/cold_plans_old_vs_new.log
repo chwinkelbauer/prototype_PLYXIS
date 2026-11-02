@@ -1,0 +1,10 @@
+seed 0 old: objective 4,350,851 F 0.85732 violation 0.0019 evals 2696 32.8s
+seed 0 new: objective 4,359,300 F 0.87450 violation 0.0008 evals 2696 39.7s
+seed 1 old: objective 4,236,822 F 0.85026 violation 0.0009 evals 2696 31.8s
+seed 1 new: objective 4,289,882 F 0.86480 violation 0.0007 evals 2696 29.7s
+seed 2 old: objective 4,363,714 F 0.88125 violation 0.0001 evals 2696 27.2s
+seed 2 new: objective 4,372,827 F 0.88290 violation 0.0002 evals 2696 28.8s
+seed 3 old: objective 4,369,084 F 0.88115 violation 0.0003 evals 2696 26.7s
+seed 3 new: objective 4,042,602 F 0.81528 violation 0.0014 evals 2696 27.7s
+{'old': 4330118, 'new': 4266153}
+

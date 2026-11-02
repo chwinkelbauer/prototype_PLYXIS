@@ -1,0 +1,1200 @@
+{
+ "runs": [
+  {
+   "scenario": "corvus",
+   "structure": {
+    "decisions": 4992,
+    "share_by_class": {
+     "slp": 0.5962,
+     "lp": 0.3365,
+     "slp_quality": 0.0529,
+     "convex": 0.0144,
+     "none": 0.0
+    },
+    "types": [
+     {
+      "type": "stope",
+      "gid": "g9",
+      "instances": 186,
+      "decisions": 2976,
+      "discrete": 744,
+      "cls": "slp",
+      "reasons": [
+       "out:lhd_req:lhd_hours: min (piecewise affine)",
+       "out:air_req:air: min (piecewise affine)",
+       "given fixed discrete choices and qualities - out:lhd_req:lhd_hours: min (piecewise affine)"
+      ]
+     },
+     {
+      "type": "vent_district",
+      "gid": "g10",
+      "instances": 23,
+      "decisions": 1104,
+      "discrete": 0,
+      "cls": "lp",
+      "reasons": []
+     },
+     {
+      "type": "pump_station",
+      "gid": "g7",
+      "instances": 10,
+      "decisions": 480,
+      "discrete": 0,
+      "cls": "lp",
+      "reasons": []
+     },
+     {
+      "type": "orepass",
+      "gid": "g11",
+      "instances": 6,
+      "decisions": 192,
+      "discrete": 0,
+      "cls": "slp_quality",
+      "reasons": [
+       "out:chute:ore:grade: pos (piecewise affine)",
+       "next:grade_avg: pos (piecewise affine)"
+      ]
+     },
+     {
+      "type": "haul_fleet",
+      "gid": "g2",
+      "instances": 1,
+      "decisions": 96,
+      "discrete": 0,
+      "cls": "lp",
+      "reasons": []
+     },
+     {
+      "type": "main_fan",
+      "gid": "g4",
+      "instances": 3,
+      "decisions": 72,
+      "discrete": 0,
+      "cls": "convex",
+      "reasons": [
+       "term:cost:power: power 3 (convex, smooth)",
+       "term:emission:grid: power 3 (convex, smooth)",
+       "given fixed discrete choices and qualities - term:cost:power: power 3 (convex, smooth)",
+       "at the current sign of metal_price, power_price"
+      ]
+     },
+     {
+      "type": "skip_hoist",
+      "gid": "g15",
+      "instances": 1,
+      "decisions": 48,
+      "discrete": 0,
+      "cls": "slp_quality",
+      "reasons": [
+       "out:skip:ore:grade: pos (piecewise affine)",
+       "next:grade_avg: pos (piecewise affine)"
+      ]
+     },
+     {
+      "type": "stockpile",
+      "gid": "g16",
+      "instances": 1,
+      "decisions": 24,
+      "discrete": 0,
+      "cls": "slp_quality",
+      "reasons": [
+       "out:out:ore:grade: pos (piecewise affine)",
+       "next:grade_avg: pos (piecewise affine)"
+      ]
+     },
+     {
+      "type": "charge_crew",
+      "gid": "g0",
+      "instances": 3,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "conc_sales",
+      "gid": "g1",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "lhd_fleet",
+      "gid": "g3",
+      "instances": 3,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "mobile_unit",
+      "gid": "g5",
+      "instances": 79,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "opening",
+      "gid": "g6",
+      "instances": 64,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "site_services",
+      "gid": "g8",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "haul_route",
+      "gid": "g12",
+      "instances": 8,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:dump:ore:grade: blended quality 'load:ore:grade' (pooling)"
+      ]
+     },
+     {
+      "type": "ug_crusher",
+      "gid": "g13",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:product:ore:grade: blended quality 'feed:ore:grade' (pooling)"
+      ]
+     },
+     {
+      "type": "conveyor",
+      "gid": "g14",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:b:ore:grade: blended quality 'a:ore:grade' (pooling)"
+      ]
+     },
+     {
+      "type": "concentrator",
+      "gid": "g17",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:conc:concentrate: blended quality 'feed:ore:grade' (pooling)",
+       "con:grade_low: blended quality 'feed:ore:grade' (pooling)",
+       "con:grade_high: blended quality 'feed:ore:grade' (pooling)"
+      ]
+     }
+    ],
+    "branches": [
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 96,
+      "example": [
+       "TRUCKS"
+      ]
+     },
+     {
+      "class": "slp_quality",
+      "assets": 2,
+      "decisions": 72,
+      "example": [
+       "SH1",
+       "ROM"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_N1"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_N2"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_N3"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_C1"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_C2"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_C3"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_S1"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_S2"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_S3"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "PS_MAIN"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N380"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N440"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N500"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N560"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N620"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N680"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_N740"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C440"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C500"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C560"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C620"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C680"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C740"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C800"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C860"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_C920"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_S560"
+      ]
+     },
+     {
+      "class": "lp",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "VD_S620"
+      ]
+     }
+    ],
+    "n_branches": 230
+   },
+   "cascade_seconds": 69.20323970000027,
+   "cascade": {
+    "F": 0.3739149272441864,
+    "objective": 7638001.5,
+    "max_violation": 9.359869750369398e-07
+   },
+   "exact_branches": {
+    "F": 0.3739316463470459,
+    "objective": 7638001.5,
+    "max_violation": 9.359869750369398e-07,
+    "seconds": 2.120018399997207,
+    "jacobian_seconds": 1.9406553000007989,
+    "lp_seconds": 0.08102420000068378,
+    "variables": 1584,
+    "rows": 2726,
+    "iterations": 1
+   },
+   "more_polish": {
+    "F": -25.69338607788086,
+    "objective": 7570817.0,
+    "max_violation": 0.10536327958106995,
+    "seconds": 2.3566895999974804,
+    "iterations": 20
+   },
+   "polish_then_branches": {
+    "F": -19.787158966064453,
+    "objective": 7596534.0,
+    "max_violation": 0.057808563113212585,
+    "seconds": 4.465065299998969
+   },
+   "slp_layer": {
+    "F": 0.37465161085128784,
+    "objective": 7652461.5,
+    "max_violation": 3.427921342336049e-07,
+    "seconds": 11.670125199998438,
+    "variables": 4032,
+    "rows": 16885,
+    "iterations": 8,
+    "lp_seconds": 3.5214857999962987,
+    "jacobian_seconds": 7.318349799999851,
+    "history": [
+     {
+      "stage": "branches",
+      "iter": 1,
+      "F": 0.37424758076667786,
+      "accepted": true,
+      "rows": 16885,
+      "trust": 0.25,
+      "t": 2.431834200004232
+     },
+     {
+      "stage": "branches",
+      "iter": 2,
+      "F": 0.3742746114730835,
+      "accepted": true,
+      "rows": 16885,
+      "trust": 0.25,
+      "t": 3.0221605000042473
+     },
+     {
+      "stage": "branches",
+      "iter": 3,
+      "F": 0.3742746114730835,
+      "accepted": false,
+      "rows": 16885,
+      "trust": 0.25,
+      "t": 3.6580715000018245
+     },
+     {
+      "stage": "branches",
+      "iter": 4,
+      "F": 0.37451937794685364,
+      "accepted": true,
+      "rows": 16885,
+      "trust": 0.125,
+      "t": 6.0216809999983525
+     },
+     {
+      "stage": "branches",
+      "iter": 5,
+      "F": 0.37451937794685364,
+      "accepted": false,
+      "rows": 16885,
+      "trust": 0.125,
+      "t": 6.56895230000373
+     },
+     {
+      "stage": "branches",
+      "iter": 6,
+      "F": 0.37464720010757446,
+      "accepted": true,
+      "rows": 16885,
+      "trust": 0.0625,
+      "t": 8.877511799997592
+     },
+     {
+      "stage": "branches",
+      "iter": 7,
+      "F": 0.37464720010757446,
+      "accepted": false,
+      "rows": 16885,
+      "trust": 0.0625,
+      "t": 9.38488750000397
+     },
+     {
+      "stage": "branches",
+      "iter": 8,
+      "F": 0.37465161085128784,
+      "accepted": true,
+      "rows": 16885,
+      "trust": 0.03125,
+      "t": 11.670122199997422
+     }
+    ]
+   },
+   "slp_layer_polish_equal_time": {
+    "F": -25.69338607788086,
+    "objective": 7570817.0,
+    "max_violation": 0.10536327958106995,
+    "seconds": 20.693269799994596,
+    "iterations": 160
+   },
+   "half_cascade_plus_branches": {
+    "F": 0.31165292859077454,
+    "objective": 6365872.5,
+    "max_violation": 7.454143542418024e-07,
+    "seconds": 34.297016900003655,
+    "cascade_only": {
+     "F": 0.31162580847740173,
+     "objective": 6365872.5,
+     "max_violation": 7.586014589833212e-07
+    }
+   }
+  },
+  {
+   "scenario": "kestrel",
+   "structure": {
+    "decisions": 4983,
+    "share_by_class": {
+     "convex": 0.9247,
+     "slp_quality": 0.0638,
+     "slp": 0.0096,
+     "lp": 0.0018,
+     "none": 0.0
+    },
+    "types": [
+     {
+      "type": "esp_well",
+      "gid": "g0",
+      "instances": 96,
+      "decisions": 4608,
+      "discrete": 1152,
+      "cls": "convex",
+      "reasons": [
+       "out:prod:oil: product of two variables (bilinear)",
+       "out:prod:water: product of two variables (bilinear)",
+       "given fixed discrete choices and qualities - next:health: power 4 (convex, smooth)",
+       "at the current sign of power_price"
+      ]
+     },
+     {
+      "type": "battery",
+      "gid": "g10",
+      "instances": 3,
+      "decisions": 246,
+      "discrete": 0,
+      "cls": "slp_quality",
+      "reasons": [
+       "out:oil_out:oil:api: blended quality 'feed:oil:api' (pooling)"
+      ]
+     },
+     {
+      "type": "pad",
+      "gid": "g8",
+      "instances": 12,
+      "decisions": 72,
+      "discrete": 0,
+      "cls": "slp_quality",
+      "reasons": [
+       "out:header:oil:api: blended quality 'wells:oil:api' (pooling)"
+      ]
+     },
+     {
+      "type": "compressor_station",
+      "gid": "g16",
+      "instances": 2,
+      "decisions": 48,
+      "discrete": 48,
+      "cls": "slp",
+      "reasons": [
+       "out:discharge:gas: min (piecewise affine)",
+       "out:flare:gas: min (piecewise affine)",
+       "given fixed discrete choices and qualities - out:discharge:gas: min (piecewise affine)"
+      ]
+     },
+     {
+      "type": "truck_fleet",
+      "gid": "g6",
+      "instances": 1,
+      "decisions": 9,
+      "discrete": 0,
+      "cls": "lp",
+      "reasons": []
+     },
+     {
+      "type": "field_crew",
+      "gid": "g1",
+      "instances": 4,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "flare",
+      "gid": "g2",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "gas_sales",
+      "gid": "g3",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "oil_sales",
+      "gid": "g4",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "swd_well",
+      "gid": "g5",
+      "instances": 3,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "workover_rig",
+      "gid": "g7",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "flowline",
+      "gid": "g9",
+      "instances": 24,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:b:oil:api: blended quality 'a:oil:api' (pooling)"
+      ]
+     },
+     {
+      "type": "flowline",
+      "gid": "g11",
+      "instances": 4,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "flowline",
+      "gid": "g12",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:b:oil:api: blended quality 'a:oil:api' (pooling)"
+      ]
+     },
+     {
+      "type": "flowline",
+      "gid": "g13",
+      "instances": 5,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "truck_lane",
+      "gid": "g14",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": [
+       "out:drop:oil:api: blended quality 'cargo:oil:api' (pooling)"
+      ]
+     },
+     {
+      "type": "truck_lane",
+      "gid": "g15",
+      "instances": 1,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     },
+     {
+      "type": "flowline",
+      "gid": "g17",
+      "instances": 2,
+      "decisions": 0,
+      "discrete": 0,
+      "cls": "none",
+      "reasons": []
+     }
+    ],
+    "branches": [
+     {
+      "class": "slp_quality",
+      "assets": 1,
+      "decisions": 82,
+      "example": [
+       "CTB_N"
+      ]
+     },
+     {
+      "class": "slp_quality",
+      "assets": 1,
+      "decisions": 82,
+      "example": [
+       "CTB_C"
+      ]
+     },
+     {
+      "class": "slp_quality",
+      "assets": 1,
+      "decisions": 82,
+      "example": [
+       "CTB_S"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W01"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W02"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W03"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W04"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W05"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W06"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W07"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P01_W08"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W01"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W02"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W03"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W04"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W05"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W06"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P02_W07"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W01"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W02"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W03"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W04"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W05"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W06"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P03_W07"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P04_W01"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P04_W02"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P04_W03"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P04_W04"
+      ]
+     },
+     {
+      "class": "convex",
+      "assets": 1,
+      "decisions": 48,
+      "example": [
+       "P04_W05"
+      ]
+     }
+    ],
+    "n_branches": 114
+   },
+   "cascade_seconds": 22.972732299999734,
+   "cascade": {
+    "F": 0.8485854864120483,
+    "objective": 4219444.5,
+    "max_violation": 0.000282701279502362
+   },
+   "exact_branches": {
+    "F": 0.8485854864120483,
+    "objective": 4219444.5,
+    "max_violation": 0.000282701279502362,
+    "seconds": 0.013775000000350701,
+    "jacobian_seconds": 0.0,
+    "lp_seconds": 0.0,
+    "variables": 0,
+    "rows": 0,
+    "iterations": 0
+   },
+   "more_polish": {
+    "F": -0.7219406366348267,
+    "objective": 4246206.5,
+    "max_violation": 0.0556938536465168,
+    "seconds": 0.6823941000002378,
+    "iterations": 20
+   },
+   "polish_then_branches": {
+    "F": -0.7219406366348267,
+    "objective": 4246206.5,
+    "max_violation": 0.0556938536465168,
+    "seconds": 0.698204700000133
+   },
+   "slp_layer": {
+    "F": 0.8603150844573975,
+    "objective": 4277486.0,
+    "max_violation": 0.000282701279502362,
+    "seconds": 0.6330333999994764,
+    "variables": 216,
+    "rows": 1872,
+    "iterations": 3,
+    "lp_seconds": 0.19661979999909818,
+    "jacobian_seconds": 0.30851440000060393,
+    "history": [
+     {
+      "stage": "branches",
+      "iter": 1,
+      "F": 0.860302746295929,
+      "accepted": true,
+      "rows": 1872,
+      "trust": 0.25,
+      "t": 0.41265049999947223
+     },
+     {
+      "stage": "branches",
+      "iter": 2,
+      "F": 0.8603127598762512,
+      "accepted": true,
+      "rows": 1872,
+      "trust": 0.25,
+      "t": 0.5344113000001016
+     },
+     {
+      "stage": "branches",
+      "iter": 3,
+      "F": 0.8603150844573975,
+      "accepted": true,
+      "rows": 1872,
+      "trust": 0.25,
+      "t": 0.6330276999997295
+     }
+    ]
+   },
+   "slp_layer_polish_equal_time": {
+    "F": -0.7219406366348267,
+    "objective": 4246206.5,
+    "max_violation": 0.0556938536465168,
+    "seconds": 0.6671732999993765,
+    "iterations": 20
+   },
+   "half_cascade_plus_branches": {
+    "F": 0.8561891913414001,
+    "objective": 4294715.0,
+    "max_violation": 0.0009140429319813848,
+    "seconds": 8.68645749999996,
+    "cascade_only": {
+     "F": 0.8561891913414001,
+     "objective": 4294715.0,
+     "max_violation": 0.0009140429319813848
+    }
+   },
+   "slp_with_convex": {
+    "F": 0.8803247809410095,
+    "objective": 4355812.0,
+    "max_violation": 0.00010639090032782406,
+    "seconds": 24.44508080000014,
+    "variables": 3672,
+    "rows": 4464,
+    "iterations": 8,
+    "lp_seconds": 9.477681000000302,
+    "jacobian_seconds": 14.40971289999834,
+    "tangent_gap_F": 0.007408573893342143,
+    "tangent_gap_usd": 36649.59643444349,
+    "history": [
+     {
+      "stage": "branches",
+      "iter": 1,
+      "F": 0.8798895478248596,
+      "accepted": true,
+      "rows": 4464,
+      "trust": 0.25,
+      "t": 5.585363000000143
+     },
+     {
+      "stage": "branches",
+      "iter": 2,
+      "F": 0.8802311420440674,
+      "accepted": true,
+      "rows": 4464,
+      "trust": 0.25,
+      "t": 6.8996749000007185
+     },
+     {
+      "stage": "branches",
+      "iter": 3,
+      "F": 0.8803247809410095,
+      "accepted": true,
+      "rows": 4464,
+      "trust": 0.25,
+      "t": 8.283117800000582
+     },
+     {
+      "stage": "branches",
+      "iter": 4,
+      "F": 0.8803247809410095,
+      "accepted": false,
+      "rows": 4464,
+      "trust": 0.25,
+      "t": 9.622318300000188
+     },
+     {
+      "stage": "branches",
+      "iter": 5,
+      "F": 0.8803247809410095,
+      "accepted": false,
+      "rows": 4464,
+      "trust": 0.125,
+      "t": 13.51208829999996
+     },
+     {
+      "stage": "branches",
+      "iter": 6,
+      "F": 0.8803247809410095,
+      "accepted": false,
+      "rows": 4464,
+      "trust": 0.0625,
+      "t": 17.373376200000166
+     },
+     {
+      "stage": "branches",
+      "iter": 7,
+      "F": 0.8803247809410095,
+      "accepted": false,
+      "rows": 4464,
+      "trust": 0.03125,
+      "t": 20.92620480000005
+     },
+     {
+      "stage": "branches",
+      "iter": 8,
+      "F": 0.8803247809410095,
+      "accepted": false,
+      "rows": 4464,
+      "trust": 0.015625,
+      "t": 24.443473500000437
+     }
+    ]
+   }
+  }
+ ]
+}

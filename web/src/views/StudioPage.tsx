@@ -5,7 +5,7 @@ import { api, fmt } from "../api";
 import { CodeEditor } from "../components/CodeEditor";
 import { useStore } from "../store";
 
-type Tab = "library" | "commits" | "generated";
+type Tab = "library" | "commits" | "generated" | "lint";
 
 export function StudioPage() {
   const structure = useStore((s) => s.structure);
@@ -17,6 +17,7 @@ export function StudioPage() {
   const [diags, setDiags] = useState<Diagnostic[]>([]);
   const [checking, setChecking] = useState(false);
   const [tab, setTab] = useState<Tab>("library");
+  const [lint, setLint] = useState<{ severity: string; code: string; type?: string; asset?: string | null; message: string }[] | null>(null);
   const [commits, setCommits] = useState<any[]>([]);
   const [commit, setCommit] = useState<any>(null);
   const [gen, setGen] = useState<string>("");
@@ -31,6 +32,12 @@ export function StudioPage() {
   }, []);
   useEffect(() => { load(); }, [load, snap?.twin.version, snap?.twin.commits]);
   useEffect(() => { if (tab === "generated" && !gen) api.twinGenerated().then((g) => setGen(g.simulate)); }, [tab, gen]);
+  const version = snap?.twin.version;
+  useEffect(() => {
+    if (tab !== "lint") return;
+    setLint(null);
+    api.twinLint().then(setLint).catch((e) => setLint([{ severity: "warning", code: "lint", type: "", asset: null, message: String(e) }]));
+  }, [tab, version]);
 
   const isStd = cur in stdlib && !(cur in files);
   const text = edits[cur] ?? files[cur] ?? stdlib[cur] ?? "";
@@ -60,7 +67,7 @@ export function StudioPage() {
 
   return (
     <div className="h-full flex">
-      <div className="w-[190px] shrink-0 border-r border-line bg-panel flex flex-col">
+      <div className="w-[190px] max-[1180px]:w-[150px] shrink-0 border-r border-line bg-panel flex flex-col">
         <div className="panel-h">Twin sources</div>
         <div className="flex-1 overflow-auto py-1">
           {fileList.map((f) => {
@@ -83,17 +90,17 @@ export function StudioPage() {
 
       <div className="flex-1 min-w-0 flex flex-col">
         <div className="h-10 shrink-0 border-b border-line flex items-center gap-2 px-3">
-          <span className="text-[12.5px] font-semibold">{cur}</span>
-          {isStd && <span className="chip"><Lock size={10} />standard library</span>}
+          <span className="text-[12.5px] font-semibold truncate min-w-[60px]">{cur}</span>
+          {isStd && <span className="chip max-[1280px]:hidden"><Lock size={10} />standard library</span>}
           <div className="flex-1" />
-          <span className="text-[11.5px] flex items-center gap-1.5">
+          <span className="text-[11.5px] flex items-center gap-1.5 shrink-0 whitespace-nowrap">
             {checking ? <span className="text-dim">checking…</span> :
               errs.length ? <span className="text-crit flex items-center gap-1"><AlertCircle size={13} />{errs.length} error(s)</span> :
                 <span className="text-good flex items-center gap-1"><CheckCircle2 size={13} />compiles</span>}
             {warns.length > 0 && <span className="text-warn flex items-center gap-1 ml-2"><TriangleAlert size={13} />{warns.length}</span>}
           </span>
-          <input className="inp w-[260px]" placeholder="commit message" value={msg} onChange={(e) => setMsg(e.target.value)} />
-          <button className="btn btn-primary" disabled={!dirty.length || errs.length > 0} onClick={apply}><Rocket size={13} />Apply to live twin</button>
+          <input className="inp w-[260px] min-w-[70px] shrink" placeholder="commit message" value={msg} onChange={(e) => setMsg(e.target.value)} />
+          <button className="btn btn-primary shrink-0 whitespace-nowrap" disabled={!dirty.length || errs.length > 0} onClick={apply} title="Apply to live twin"><Rocket size={13} /><span className="max-[1280px]:hidden">Apply to live twin</span><span className="min-[1281px]:hidden">Apply</span></button>
         </div>
         <div className="flex-1 min-h-0">
           <CodeEditor value={text} onChange={onChange} readOnly={isStd} diagnostics={diags} file={cur} revealLine={reveal} />
@@ -111,13 +118,26 @@ export function StudioPage() {
         </div>
       </div>
 
-      <div className="w-[400px] shrink-0 border-l border-line bg-panel flex flex-col">
-        <div className="flex border-b border-line px-1">
-          {([["library", "Library"], ["commits", "Versions"], ["generated", "Generated code"]] as [Tab, string][]).map(([t, l]) =>
+      <div className="w-[400px] max-[1280px]:w-[320px] max-[1024px]:w-[270px] shrink-0 border-l border-line bg-panel flex flex-col">
+        <div className="flex border-b border-line px-1 overflow-x-auto">
+          {([["library", "Library"], ["commits", "Versions"], ["lint", "Review"], ["generated", "Generated code"]] as [Tab, string][]).map(([t, l]) =>
             <div key={t} className={`tab ${tab === t ? "active" : ""}`} onClick={() => setTab(t)}>{l}</div>)}
         </div>
         <div className="flex-1 min-h-0 overflow-auto">
           {tab === "library" && <LibraryPanel />}
+          {tab === "lint" && (
+            <div>
+              <div className="px-3 py-2 text-[11.5px] text-dim leading-snug">What compiles but may not do what you think: decisions without effect, unconnected inputs, assets without a tag, terminal values to check.</div>
+              {lint === null && <div className="px-3 py-2 text-[12px] text-dim">Checking the running twin…</div>}
+              {lint?.length === 0 && <div className="px-3 py-2 text-[12px] text-good flex items-center gap-1.5"><CheckCircle2 size={13} />Nothing to review.</div>}
+              {lint?.map((f, i) => (
+                <div key={i} className="px-3 py-1.5 border-b border-[#1a1a26] text-[12px] flex gap-2 items-start">
+                  {f.severity === "warning" ? <TriangleAlert size={13} className="text-warn shrink-0 mt-0.5" /> : <AlertCircle size={13} className="text-dim shrink-0 mt-0.5" />}
+                  <div className="min-w-0"><div className="leading-snug">{f.message}</div><div className="num text-[10.5px] text-dim">{f.code}</div></div>
+                </div>
+              ))}
+            </div>
+          )}
           {tab === "commits" && (
             <div>
               {commits.map((c) => (

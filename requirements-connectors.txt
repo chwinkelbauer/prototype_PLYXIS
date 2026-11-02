@@ -1,0 +1,2 @@
+# Optional: only for the OPC UA connector (plyxis/data/industrial.py). PI Web API and Sparkplug B need nothing extra.
+asyncua>=1.1

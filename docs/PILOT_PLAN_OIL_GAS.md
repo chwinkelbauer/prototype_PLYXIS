@@ -30,14 +30,14 @@ points, behind the customer's own control system and management of change (MOC).
 
 | Capability | Prototype 2 status | Needed for pilot |
 |---|---|---|
-| Model language (PLX) + compiler | complete: units, constraints, GIS, tables, packages, inheritance, discovery rules; compiled differentiable simulator; reference interpreter; test-suite | hardening: language versioning, model linting, larger standard library (gas lift, plunger lift, separators, LACT, pipelines with hydraulics) |
+| Model language (PLX) + compiler | complete: units, constraints, GIS, tables, packages, inheritance, discovery rules; compiled differentiable simulator; reference interpreter; test-suite; model lint; library with gas lift, plunger lift, separators, LACT, VRU, chemical skids, pipelines with hydraulics (tested on a small model, in no case study yet) | hardening: language versioning; the new library blueprints calibrated against a real field |
 | Twin build from data | from CSV tables + GeoJSON + PLX | importers for the customer's well master data, GIS feature services (Esri), facility lists; templates per asset class |
-| Live data | connector interface, emulated SCADA, HTTP push, CSV historian replay | **OPC UA, MQTT Sparkplug B, PI Web API / AVEVA connectors**; data-quality flags, gap handling, time-zone/clock sync |
-| Estimation | moving-horizon estimation, well tests, hidden states, anomaly detection, discovery | historian backfill calibration (6-12 months), well-test import from production accounting, uncertainty reporting |
-| Optimisation | cascade solves 40k decisions in ~55 s on a laptop CPU; neural sub-solvers add 2-4 % on re-plans | solve-time SLA monitoring, job scheduling, plan approval workflow, constraint editor for engineers |
-| Plans to action | set points, line-ups, truck trips, work orders, explanations | **recommendation workflow** (accept / modify / reject with reason), shift handover report, export to SAP PM / Maximo, mobile view for lease operators |
+| Live data | connector interface, emulated SCADA, HTTP push, CSV historian replay; PI Web API, Sparkplug B and OPC UA clients (read only, tested against local stand-ins, never against a real system); data-quality flags (stale, frozen, out of range, bad at source) | **first connection to a real system**; TLS and Kerberos; time-zone/clock sync; subscriptions for OPC UA |
+| Estimation | moving-horizon estimation, well tests, hidden states, anomaly detection, discovery; backfill from a historian export (`plyxis backfill`), backtest harness for gate G1 (`bench/backtest.py`); uncertainty reporting for directly sampled properties | a backfill of 6-12 real months; well-test import from production accounting; uncertainty of the MHE-estimated properties |
+| Optimisation | cascade solves 40k decisions in ~55 s on a laptop CPU; neural sub-solvers add 2-4 % on re-plans; what-if runs on the live twin; solve-time statistics in the console | job scheduling, solve-time alarms, constraint editor for engineers (today: the PLX editor) |
+| Plans to action | set points, line-ups, truck trips, work orders, explanations; **recommendation workflow** (accept / modify / reject with reason, pinned for the planner); advisory and shadow modes; shift report; plan validity; work orders as a flat file | SAP PM / Maximo interface proper, mobile view for lease operators |
 | Write-back | emulator only | Phase 4 only: bounded set-point write-back through the SCADA's own interface, with operator acknowledgement |
-| Platform | single process, local | containerised deployment (customer cloud tenant or on-prem), SSO/RBAC, audit log, backups, monitoring |
+| Platform | single process, local; append-only audit log; Dockerfile (not yet built: no Docker on the development machine) | tested containers (customer cloud tenant or on-prem), SSO/RBAC (decisions carry a free-text name today), backups, monitoring |
 | Security | n/a | IEC 62443-aligned zone/conduit design, penetration test, SOC 2 Type I readiness |
 
 Because PLYXIS uses no external AI service, the whole stack can run inside the customer's tenant

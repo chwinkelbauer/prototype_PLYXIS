@@ -1,0 +1,529 @@
+{
+ "scaling": [
+  {
+   "blocks": 120,
+   "edges": 226,
+   "dp": {
+    "value": 304.83615997556143,
+    "upper_bound": 312.5692845175506,
+    "certified_gap": 0.024740513303875108,
+    "feasible": true,
+    "seconds": 0.7687579999983427,
+    "forests": 3,
+    "forest_edges": 226,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     941.943133,
+     414.897488,
+     327.696215,
+     312.569285
+    ]
+   },
+   "coordinate": {
+    "value": 188.8642823258204,
+    "feasible": true,
+    "seconds": 0.0009023999991768505
+   },
+   "multistart": {
+    "value": 237.97946922420005,
+    "seconds": 0.015559200001007412
+   },
+   "milp": {
+    "seconds": 9.709415600002103,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "value": 306.9794092705,
+    "feasible": true,
+    "bound": 306.9794092705,
+    "optimal": true
+   },
+   "sections": 20
+  },
+  {
+   "blocks": 360,
+   "edges": 690,
+   "dp": {
+    "value": 952.7195531731618,
+    "upper_bound": 970.7626127459245,
+    "certified_gap": 0.018586479676762174,
+    "feasible": true,
+    "seconds": 1.7563334999977087,
+    "forests": 3,
+    "forest_edges": 690,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     2851.01591,
+     1271.107016,
+     1014.341387,
+     970.762613
+    ]
+   },
+   "coordinate": {
+    "value": 588.2942376742324,
+    "feasible": true,
+    "seconds": 0.002062100000330247
+   },
+   "multistart": {
+    "value": 736.118857625266,
+    "seconds": 0.04312019999997574
+   },
+   "milp": {
+    "seconds": 120.21339620000072,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 956.3915586098435,
+    "feasible": true,
+    "bound": 959.1729797197045,
+    "optimal": false
+   },
+   "sections": 60
+  },
+  {
+   "blocks": 1200,
+   "edges": 2314,
+   "dp": {
+    "value": 3239.4373611909223,
+    "upper_bound": 3295.3949875888757,
+    "certified_gap": 0.016980552136754815,
+    "feasible": true,
+    "seconds": 6.216639099999156,
+    "forests": 3,
+    "forest_edges": 2314,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9546.43665,
+     4263.785734,
+     3447.984036,
+     3295.394988
+    ]
+   },
+   "coordinate": {
+    "value": 1888.311557241816,
+    "feasible": true,
+    "seconds": 0.007612400000652997
+   },
+   "multistart": {
+    "value": 2519.004723100102,
+    "seconds": 0.14620239999931073
+   },
+   "milp": {
+    "seconds": 121.0089169999992,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 3006.2304465091397,
+    "feasible": true,
+    "bound": 3254.829093226336,
+    "optimal": false
+   },
+   "sections": 200
+  },
+  {
+   "blocks": 3600,
+   "edges": 6954,
+   "dp": {
+    "value": 9611.794357465173,
+    "upper_bound": 9808.154793192256,
+    "certified_gap": 0.020020119978466814,
+    "feasible": true,
+    "seconds": 20.392458599999372,
+    "forests": 3,
+    "forest_edges": 6954,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     28634.842843,
+     12797.817726,
+     10265.892863,
+     9808.154793
+    ]
+   },
+   "coordinate": {
+    "value": 5931.679757769402,
+    "feasible": true,
+    "seconds": 0.023020199998427415
+   },
+   "multistart": {
+    "value": 7371.201753529433,
+    "seconds": 0.4436941999992996
+   },
+   "milp": {
+    "seconds": 125.05051199999798,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 1858.778517964846,
+    "feasible": true,
+    "bound": 132776.03978444444,
+    "optimal": false
+   },
+   "sections": 600
+  },
+  {
+   "blocks": 9000,
+   "edges": 17394,
+   "dp": {
+    "value": 24001.67863468631,
+    "upper_bound": 24575.89432895659,
+    "certified_gap": 0.02336499687800625,
+    "feasible": true,
+    "seconds": 57.66956709999795,
+    "forests": 3,
+    "forest_edges": 17394,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     71716.778114,
+     32092.237092,
+     25767.323612,
+     24575.894329
+    ]
+   },
+   "coordinate": {
+    "value": 14793.090879376836,
+    "feasible": true,
+    "seconds": 0.09983980000106385
+   },
+   "multistart": {
+    "value": 18333.180736810926,
+    "seconds": 1.4387329000019236
+   },
+   "milp": {
+    "seconds": 220.9741552000014,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 20715.137782496575,
+    "feasible": true,
+    "bound": 331975.54861007555,
+    "optimal": false
+   },
+   "sections": 1500
+  },
+  {
+   "blocks": 30000,
+   "edges": 57994,
+   "dp": {
+    "value": 79787.69678246828,
+    "upper_bound": 81609.46963196523,
+    "certified_gap": 0.02232305708776947,
+    "feasible": true,
+    "seconds": 182.93054190000112,
+    "forests": 3,
+    "forest_edges": 57994,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     239981.906504,
+     106798.78405,
+     85661.507431,
+     81609.469632
+    ]
+   },
+   "coordinate": {
+    "value": 49257.609322236545,
+    "feasible": true,
+    "seconds": 0.29697049999958836
+   },
+   "multistart": {
+    "value": 60622.814643789345,
+    "seconds": 4.63543049999862
+   },
+   "sections": 5000
+  },
+  {
+   "blocks": 90000,
+   "edges": 173994,
+   "dp": {
+    "value": 239360.25479205695,
+    "upper_bound": 246045.7213187553,
+    "certified_gap": 0.02717164310302005,
+    "feasible": true,
+    "seconds": 563.2761699999974,
+    "forests": 3,
+    "forest_edges": 173994,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     719984.509299,
+     320574.867994,
+     257564.106899,
+     246045.721319
+    ]
+   },
+   "coordinate": {
+    "value": 146512.4759568227,
+    "feasible": true,
+    "seconds": 0.9612073999996937
+   },
+   "multistart": {
+    "value": 181789.01452050125,
+    "seconds": 14.418980200000078
+   },
+   "sections": 15000
+  }
+ ],
+ "coupling": [
+  {
+   "blocks": 1200,
+   "edges": 2554,
+   "dp": {
+    "value": 3178.5316461153643,
+    "upper_bound": 3252.2062823040283,
+    "certified_gap": 0.02265374019770637,
+    "feasible": true,
+    "seconds": 7.78094240000064,
+    "forests": 3,
+    "forest_edges": 2554,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9548.407078,
+     4266.259729,
+     3410.296372,
+     3252.206282
+    ]
+   },
+   "coordinate": {
+    "value": 1927.4137331473084,
+    "feasible": true,
+    "seconds": 0.009727500000735745
+   },
+   "multistart": {
+    "value": 2471.0583269200743,
+    "seconds": 0.1976938000007067
+   },
+   "milp": {
+    "seconds": 124.77380569999877,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 2887.736112440871,
+    "feasible": true,
+    "bound": 3207.549708545823,
+    "optimal": false
+   },
+   "weak": 0.0
+  },
+  {
+   "blocks": 1200,
+   "edges": 2554,
+   "dp": {
+    "value": 3181.4445848159594,
+    "upper_bound": 3259.2150276385883,
+    "certified_gap": 0.023861709694857472,
+    "feasible": true,
+    "seconds": 6.259499899999355,
+    "forests": 3,
+    "forest_edges": 2554,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9546.115633,
+     4267.367999,
+     3416.831773,
+     3259.215028
+    ]
+   },
+   "coordinate": {
+    "value": 1931.8230428623683,
+    "feasible": true,
+    "seconds": 0.007595499999297317
+   },
+   "multistart": {
+    "value": 2476.0197698389015,
+    "seconds": 0.14002520000212826
+   },
+   "milp": {
+    "seconds": 120.76180269999895,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 2875.5775897566496,
+    "feasible": true,
+    "bound": 3213.2451067275283,
+    "optimal": false
+   },
+   "weak": 0.1
+  },
+  {
+   "blocks": 1200,
+   "edges": 2554,
+   "dp": {
+    "value": 3191.8824827212566,
+    "upper_bound": 3289.4203425445558,
+    "certified_gap": 0.02965199021899647,
+    "feasible": true,
+    "seconds": 6.2813105000022915,
+    "forests": 3,
+    "forest_edges": 2554,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9544.043604,
+     4290.716907,
+     3453.856502,
+     3289.420343
+    ]
+   },
+   "coordinate": {
+    "value": 1935.230870732807,
+    "feasible": true,
+    "seconds": 0.007553499999630731
+   },
+   "multistart": {
+    "value": 2511.865881925336,
+    "seconds": 0.14645290000044042
+   },
+   "milp": {
+    "seconds": 122.35798640000212,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 2636.740894355118,
+    "feasible": true,
+    "bound": 3237.350284797488,
+    "optimal": false
+   },
+   "weak": 0.3
+  },
+  {
+   "blocks": 1200,
+   "edges": 2554,
+   "dp": {
+    "value": 3241.9338281987366,
+    "upper_bound": 3359.2277868427195,
+    "certified_gap": 0.03491694106109592,
+    "feasible": true,
+    "seconds": 6.3366372999989835,
+    "forests": 3,
+    "forest_edges": 2554,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9549.357102,
+     4361.277516,
+     3531.890914,
+     3359.227787
+    ]
+   },
+   "coordinate": {
+    "value": 1953.0415317944594,
+    "feasible": true,
+    "seconds": 0.008280100002593827
+   },
+   "multistart": {
+    "value": 2491.4364239801416,
+    "seconds": 0.15233440000156406
+   },
+   "milp": {
+    "seconds": 120.85628789999828,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 2195.0809435764754,
+    "feasible": true,
+    "bound": 3303.5903573265286,
+    "optimal": false
+   },
+   "weak": 0.6
+  },
+  {
+   "blocks": 1200,
+   "edges": 2554,
+   "dp": {
+    "value": 3361.178520416165,
+    "upper_bound": 3491.8746472710327,
+    "certified_gap": 0.037428642221452334,
+    "feasible": true,
+    "seconds": 6.34378149999975,
+    "forests": 3,
+    "forest_edges": 2554,
+    "edges_left": 0,
+    "off_forest_bound": 0.0,
+    "dual_iterations": 4,
+    "lns": 30,
+    "prices": [
+     0.0
+    ],
+    "upper_bounds": [
+     9596.965074,
+     4483.664259,
+     3670.524149,
+     3491.874647
+    ]
+   },
+   "coordinate": {
+    "value": 2027.4530530226757,
+    "feasible": true,
+    "seconds": 0.007704199997533578
+   },
+   "multistart": {
+    "value": 2556.890313567371,
+    "seconds": 0.1525617000006605
+   },
+   "milp": {
+    "seconds": 121.2236926000005,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "value": 678.7587664078073,
+    "feasible": true,
+    "bound": 52645.63847570016,
+    "optimal": false
+   },
+   "weak": 1.0
+  }
+ ],
+ "dual": "smooth"
+}

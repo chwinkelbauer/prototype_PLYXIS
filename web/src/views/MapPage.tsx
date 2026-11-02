@@ -125,6 +125,14 @@ export function MapPage() {
     return () => { markers.current.forEach((mk) => mk.remove()); markers.current = []; m.remove(); map.current = null; setReady(false); };
   }, [structure, basemap]);
 
+  // the docked bars (start, guided demo) change the map's height; MapLibre only follows the window by itself
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(() => map.current?.resize());
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
   // ---------------------------------------------------------------- labels (HTML markers: no glyph server needed)
   useEffect(() => {
     const m = map.current;

@@ -200,8 +200,9 @@ def main() -> None:
         x, y = along("C", 170.0, 4.0)
         lat, lon = ll(x, y)
         fh.write(f"    init ST_C560_10 as stope {{ at = ({lat}, {lon}, -560); grade = 1.95; rate_max = 280 [t/h];\n"
-                 f"      tram = 0.31 [km]; up = 0; broken = 42000 [t]; tag = \"COR.C560.ST10\"; label = \"Central 560 stope 10\"; }};\n")
-        fh.write("    connect(ST_C560_10.ore_out, OP_C1.feed);\n    connect(ST_C560_10.lhd_req, LHD_C.requests);\n"
+                 f"      tram = 0.31 [km]; up = 0; broken = 42000 [t]; tag = \"COR.C560.ST10\"; label = \"Central 560 stope 10\";\n"
+                 f"      cost_t = 8.2 [USD/t]; lhd_cost = 152 [USD/h]; ring_cost = 24600 [USD]; }};\n")
+        fh.write("    connect(ST_C560_10.ore_out, OP_C1.feed);\n    connect(ST_C560_10.lhd_req, LHD_C.requests);\n    connect(ST_C560_10.crew_req, CREW_C.requests);\n"
                  "    connect(ST_C560_10.air_req, VD_C560.demand);\n};\n\n")
         fh.write("\n".join(truth) + "\n")
     print(f"stopes {len(stopes)} (open {sum(s['up'] for s in stopes)}), levels {len(levels)}, orepasses {len(orepasses)}, "

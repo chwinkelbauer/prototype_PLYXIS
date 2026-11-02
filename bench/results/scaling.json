@@ -9,14 +9,14 @@
    "decision_variables": 4983,
    "discrete": 1272,
    "constraint_signals": 7344,
-   "compile_s": 0.15033709999988787,
-   "simulate_ms_B1": 9.776299998823864,
-   "simulate_ms_B16": 12.631533335176451,
-   "gradient_ms": 14.926400001665266,
+   "compile_s": 0.16212600000289967,
+   "simulate_ms_B1": 6.863466666497213,
+   "simulate_ms_B16": 12.141900000036307,
+   "gradient_ms": 14.71973333415614,
    "generated_code_lines": 432,
-   "solve_s": 12.145472500000324,
-   "objective": 4398701.5,
-   "max_violation": 0.0013944695238023996,
+   "solve_s": 12.269639000001916,
+   "objective": 4376012.5,
+   "max_violation": 0.0009819132974371314,
    "feasible": true,
    "stages": [
     {
@@ -28,29 +28,29 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 7.377017799997702,
-     "objective": 4324735.5,
-     "max_violation": 0.01619170978665352,
+     "seconds": 7.47481450000123,
+     "objective": 4314209.0,
+     "max_violation": 0.0017509269528090954,
      "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 2.430805899995903,
-     "objective": 4398701.5,
-     "max_violation": 0.0013944695238023996,
+     "seconds": 2.4359383000009984,
+     "objective": 4356839.5,
+     "max_violation": 0.0018395815277472138,
      "method": "ga",
      "population": 12,
      "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 2.3340956999963964,
-     "objective": 4398701.5,
-     "max_violation": 0.0013944695238023996,
+     "seconds": 2.3556643999982043,
+     "objective": 4376012.5,
+     "max_violation": 0.0009819132974371314,
      "restored": false
     }
    ],
-   "ga_seconds": 12.145472500000324,
+   "ga_seconds": 12.269639000001916,
    "ga_objective": 3981420.75,
    "ga_max_violation": 0.5634146928787231
   },
@@ -63,14 +63,14 @@
    "decision_variables": 9966,
    "discrete": 2544,
    "constraint_signals": 14400,
-   "compile_s": 0.17169940000167117,
-   "simulate_ms_B1": 8.709666666012103,
-   "simulate_ms_B16": 20.33029999923504,
-   "gradient_ms": 18.112233335462708,
+   "compile_s": 0.19903379999959725,
+   "simulate_ms_B1": 8.464933333016234,
+   "simulate_ms_B16": 19.393966666636214,
+   "gradient_ms": 20.223966667496523,
    "generated_code_lines": 432,
-   "solve_s": 13.228088500000013,
-   "objective": 8308219.0,
-   "max_violation": 0.0006272951723076403,
+   "solve_s": 13.243478300002607,
+   "objective": 8191367.0,
+   "max_violation": 0.0013673760695382953,
    "feasible": true,
    "stages": [
     {
@@ -82,29 +82,29 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 7.288569700001972,
-     "objective": 8138219.5,
-     "max_violation": 0.0018173258285969496,
+     "seconds": 7.3008976000019175,
+     "objective": 8147006.5,
+     "max_violation": 0.0015743535477668047,
      "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 3.2974866000004113,
-     "objective": 8204840.5,
-     "max_violation": 0.001290593994781375,
+     "seconds": 3.342080400001578,
+     "objective": 8191367.0,
+     "max_violation": 0.0013673760695382953,
      "method": "ga",
      "population": 12,
      "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 2.637144799999078,
-     "objective": 8308219.0,
-     "max_violation": 0.0006272951723076403,
+     "seconds": 2.5944084000002476,
+     "objective": 8191367.0,
+     "max_violation": 0.0013673760695382953,
      "restored": false
     }
    ],
-   "ga_seconds": 13.228088500000013,
+   "ga_seconds": 13.243478300002607,
    "ga_objective": 8099721.5,
    "ga_max_violation": 1.2443971633911133
   },
@@ -117,14 +117,14 @@
    "decision_variables": 19932,
    "discrete": 5088,
    "constraint_signals": 28512,
-   "compile_s": 0.24190500000258908,
-   "simulate_ms_B1": 9.803000000829343,
-   "simulate_ms_B16": 33.800666666744895,
-   "gradient_ms": 18.592133332276717,
+   "compile_s": 0.235456599999452,
+   "simulate_ms_B1": 9.997799999837298,
+   "simulate_ms_B16": 34.459899999395326,
+   "gradient_ms": 20.874266666699743,
    "generated_code_lines": 432,
-   "solve_s": 18.87969709999743,
-   "objective": 16447144.0,
-   "max_violation": 4.9017493438441306e-05,
+   "solve_s": 19.02051349999965,
+   "objective": 16207545.0,
+   "max_violation": 0.00017158282571472228,
    "feasible": true,
    "stages": [
     {
@@ -136,31 +136,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 10.13571619999857,
-     "objective": 15324287.0,
-     "max_violation": 0.002127315616235137,
+     "seconds": 10.231193899999198,
+     "objective": 15104586.0,
+     "max_violation": 0.0024277877528220415,
      "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 5.460395800000697,
-     "objective": 15492836.0,
-     "max_violation": 0.000596557161770761,
+     "seconds": 5.497730299997784,
+     "objective": 15584680.0,
+     "max_violation": 0.0001253864902537316,
      "method": "ga",
      "population": 12,
      "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 3.272893399996974,
-     "objective": 16447144.0,
-     "max_violation": 4.9017493438441306e-05,
+     "seconds": 3.2824803999974392,
+     "objective": 16207545.0,
+     "max_violation": 0.00017158282571472228,
      "restored": false
     }
    ],
-   "ga_seconds": 18.87969709999743,
-   "ga_objective": 15662726.0,
-   "ga_max_violation": 2.2773590087890625
+   "ga_seconds": 19.02051349999965,
+   "ga_objective": 15659298.0,
+   "ga_max_violation": 2.277333974838257
   },
   {
    "fields": 8,
@@ -171,14 +171,14 @@
    "decision_variables": 39864,
    "discrete": 10176,
    "constraint_signals": 56736,
-   "compile_s": 0.324865000002319,
-   "simulate_ms_B1": 15.803233332311112,
-   "simulate_ms_B16": 87.46913333258514,
-   "gradient_ms": 30.965366665138088,
+   "compile_s": 0.40024220000123023,
+   "simulate_ms_B1": 11.610800000198651,
+   "simulate_ms_B16": 105.35300000022592,
+   "gradient_ms": 33.710066666875115,
    "generated_code_lines": 432,
-   "solve_s": 38.30324829999881,
-   "objective": 30278620.0,
-   "max_violation": 0.00033847149461507797,
+   "solve_s": 38.28584150000097,
+   "objective": 30539758.0,
+   "max_violation": 0.0007366393692791462,
    "feasible": true,
    "stages": [
     {
@@ -190,31 +190,31 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 18.944096100000024,
-     "objective": 28867916.0,
-     "max_violation": 0.002116924384608865,
+     "seconds": 18.88324300000022,
+     "objective": 28764740.0,
+     "max_violation": 0.004593644756823778,
      "starts": 8
     },
     {
      "stage": "discrete",
-     "seconds": 14.609541899997566,
-     "objective": 29400664.0,
-     "max_violation": 0.0026853138115257025,
+     "seconds": 14.626325199998973,
+     "objective": 29300374.0,
+     "max_violation": 0.0006261402158997953,
      "method": "ga",
      "population": 12,
      "generations": 1
     },
     {
      "stage": "polish",
-     "seconds": 4.7255934000058915,
-     "objective": 30278620.0,
-     "max_violation": 0.00033847149461507797,
+     "seconds": 4.752137999999832,
+     "objective": 30539758.0,
+     "max_violation": 0.0007366393692791462,
      "restored": false
     }
    ],
-   "ga_seconds": 38.30324829999881,
-   "ga_objective": 32348718.0,
-   "ga_max_violation": 2.4346537590026855
+   "ga_seconds": 38.28584150000097,
+   "ga_objective": 32347334.0,
+   "ga_max_violation": 2.435436248779297
   }
  ]
 }

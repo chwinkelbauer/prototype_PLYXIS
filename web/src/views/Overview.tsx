@@ -8,10 +8,13 @@ import { AlertFeed, Timeline } from "../components/Feed";
 import { KpiAB } from "../components/Kpi";
 import { useStore } from "../store";
 
-const rel = (a: number, b: number) => (Math.abs(b) > 1e-9 ? ((a - b) / Math.abs(b)) * 100 : 0);
+const rel = (a: number, b: number) => (Math.abs(b) > 1e-9 ? ((a - b) / Math.abs(b)) * 100 : NaN);
 
 /** Relative difference with its label; status colour only when PLYXIS is better or worse. */
 function Delta({ pct, label, better = "higher" }: { pct: number; label: string; better?: "higher" | "lower" }) {
+  if (!Number.isFinite(pct)) {   // nothing to compare with yet: not a 0 % result
+    return <span className="whitespace-nowrap"><span className="num text-dim">–</span><span className="text-muted"> {label}</span></span>;
+  }
   const good = better === "higher" ? pct >= 0 : pct <= 0;
   return (
     <span className="whitespace-nowrap">
@@ -54,7 +57,7 @@ function OverviewOilGas() {
   const valueOption = useMemo(() => base({
     grid: { left: 60, right: 16, top: 30, bottom: 24 },
     xAxis: { type: "value", min: "dataMin", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.clock(v) }, splitLine: { show: false } },
-    yAxis: { type: "value", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
+    yAxis: { type: "value", minInterval: 1, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
     tooltip: { trigger: "axis", valueFormatter: (v: any) => fmt.usd(Number(v)) },
     series: [
       { name: "Value captured (cumulative profit difference)", type: "line", showSymbol: false, data: hist.map((h) => [h.t, h.pc - h.lc]),
@@ -237,7 +240,7 @@ function OverviewGeneric({ cfg }: { cfg: KpiConfig }) {
   const valueOption = useMemo(() => base({
     grid: { left: 60, right: 16, top: 30, bottom: 24 },
     xAxis: { type: "value", min: "dataMin", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.clock(v) }, splitLine: { show: false } },
-    yAxis: { type: "value", axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
+    yAxis: { type: "value", minInterval: 1, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
     tooltip: { trigger: "axis", valueFormatter: (v: any) => fmt.usd(Number(v)) },
     series: [
       { name: "Value captured (cumulative profit difference)", type: "line", showSymbol: false, data: hist.map((h) => [h.t, h.pc - h.lc]),

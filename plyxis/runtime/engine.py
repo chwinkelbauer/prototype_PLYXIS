@@ -29,9 +29,11 @@ from ..data.anomaly import AnomalyDetector
 from ..data.connectors import EmulatorConnector, HttpPushConnector, MarketConnector
 from ..data.emulator import Birth, PlantEmulator, Telemetry
 from ..data.forecast import Forecaster
+from ..data.quality import QualityMonitor
 from ..lang import units as U
 from ..optim import dispatch as DSP
 from ..optim.explain import explain_instance
+from .advisory import Advisory, AuditLog
 from .planner import Planner
 from .scenario import PriceModel, Scenario
 from .twin_manager import TwinManager
@@ -42,8 +44,9 @@ MARKET_TAGS = {"oil_price": "MKT.WTI", "gas_price": "MKT.WAHA", "power_price": "
 class Engine:
     def __init__(self, scenario_dir: str, seed: int = 0, use_neural: bool = True, auto_discovery: bool = True,
                  speed: float = 600.0, sync_plans: bool = False, online_learning: bool = True,
-                 log: Optional[Callable] = None):
-        torch.set_num_threads(max(1, (os.cpu_count() or 4) // 2))
+                 log: Optional[Callable] = None, audit_path: Optional[str] = None):
+        torch.set_num_threads(int(os.environ.get("PLYXIS_THREADS", max(1, (os.cpu_count() or 4) // 2))))
+        self.audit_path = audit_path
         self.sc = Scenario.load(scenario_dir)
         self.seed = seed
         self.use_neural = use_neural
@@ -73,17 +76,20 @@ class Engine:
         self.prices = PriceModel(sc.prices, seed=11 + self.seed)
         pf = lambda name, clock: self.prices.canonical(name, clock)  # noqa: E731
         metrics = sc.raw.get("kpi", {}).get("metrics")
+        assays = sc.raw.get("assays")
         self.plants = {
             "plyxis": PlantEmulator(sc.truth_files, sc.truth_env, dt=sc.dt_emu, seed=self.seed, name="plyxis",
-                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics),
+                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics, assays=assays),
             "legacy": PlantEmulator(sc.truth_files, sc.truth_env, dt=sc.dt_emu, seed=self.seed, name="legacy",
-                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics),
+                                    hidden=list(sc.hidden), defines_prices=pf, kpi_metrics=metrics, assays=assays),
         }
         for p in self.plants.values():
             p.t = self.t
         Legacy = sc.legacy_class()
         self.legacy_ops = Legacy(self.plants["legacy"], sc.legacy_cfg) if Legacy else None
-        self.twin = TwinManager(sc.twin_files, sc.twin_env, sc.twin_sim, dt_data=sc.dt_emu)
+        self.twin = TwinManager(sc.twin_files, sc.twin_env, sc.twin_sim, dt_data=sc.dt_emu,
+                                test_sigma=(assays or {}).get("sigma"))
+        self.margin_log: list = []
         net_path = os.path.join(sc.root, "models", "subsolver.pt")
         cfg = dataclasses.replace(Planner.LIVE, **sc.raw["planner"]) if sc.raw.get("planner") else None
         self.planner = Planner(self.twin, cfg=cfg, net_path=net_path if self.use_neural else None,
@@ -96,10 +102,15 @@ class Engine:
                                       sc.raw.get("market_desc", "WTI, Waha hub, ERCOT West (synthetic)"))
         self.http = HttpPushConnector()
         self.connectors = [self.scada, self.market, self.http]
+        if sc.raw.get("connectors"):         # a site's real systems (read only), from its scenario file
+            from ..data.industrial import build_connector
+            self.connectors += [build_connector(c) for c in sc.raw["connectors"]]
         prog = self.twin.model.program
         self.forecaster = Forecaster(sorted(prog.env_inputs),
                                      {k: float(prog.E0[k]) for k in prog.env_inputs})
         self.anomaly = AnomalyDetector(self.twin.tags, self.twin.model.flat)
+        self.quality = QualityMonitor(self.twin.tags, self.twin.estimator._const_lo)
+        self.advisory = Advisory(self, mode=sc.raw.get("mode", "autonomous"), audit=AuditLog(self.audit_path))
         self.alerts: deque = deque(maxlen=400)
         self.timeline: list = []
         self.fired: set = set()
@@ -177,9 +188,41 @@ class Engine:
     URGENT = ("disruption", "twin rewritten", "market notice", "midstream notice", "returned to service",
               "twin edited", "initial")
 
+    def _update_margins(self) -> None:
+        """Planning margins from the twin's own uncertainty (scenario `margins`). An exact plan sits on its limit as
+        the twin sees it, so a blended quality needs distance from that limit: `z` standard errors of the blend the
+        last plan mines, with the standard error of each source from `Estimator.uncertainty`."""
+        prog, live, est = self.twin.model.program, self.twin.live, self.twin.estimator
+        for m in self.sc.raw.get("margins", []):
+            iid = prog.flat.by_path.get(m["asset"])
+            if iid is None:
+                continue
+            gid, li = prog.inst_group[iid]
+            plan, var, tot, n = self.planner.plan, 0.0, 0.0, 0
+            same = plan is not None and plan.problem.prog is prog
+            if plan is not None and not same:    # the twin was just rewritten: the last plan's blend does not map, keep the margin
+                continue
+            for g in prog.groups:
+                if g.is_env or g.ir.type.short != m["type"]:
+                    continue
+                grade = live.P[g.gid][m["property"]].reshape(-1)
+                sig = est.uncertainty(g.gid, m["property"]) * grade
+                # tonnes of each source in the last plan; before the first plan an even blend of what is open
+                w = prog.signal(plan.raw, g.gid, f"node:local:{m['flow']}")[0].sum(-1).reshape(-1) if same else \
+                    (live.S[g.gid]["up"].reshape(-1) > 0.5).float()
+                var += float(((w * sig) ** 2).sum())
+                tot += float(w.sum())
+                n += g.n
+            if tot <= 0.0 or n == 0:
+                continue
+            margin = float(m.get("z", 1.0)) * math.sqrt(var) / tot
+            live.P[gid][m["param"]].reshape(-1)[li] = margin
+            self.margin_log.append({"t": self.t, "asset": m["asset"], "param": m["param"], "margin": round(margin, 5)})
+
     def _replan(self, trigger: str) -> None:
         self._urgent = any(k in trigger for k in self.URGENT)
         try:
+            self._update_margins()
             pb_T = self.twin.model.program.T
             E = self._forecast(pb_T, self.twin.model.program.dt)
             busy = {j["job"]["resource"]: j["job"]["end"] for j in self.jobs.values() if j["status"] == "active"}
@@ -205,8 +248,9 @@ class Engine:
             plan = self.planner.solve(t_solve, E, trigger, busy=busy, callback=cb, worked_assets=worked,
                                       predicted=predicted, urgent=self._urgent, outages=outages,
                                       quick_first=self._urgent and not self.sync_plans and "initial" not in trigger,
-                                      on_interim=interim)
+                                      on_interim=interim, pins=self.advisory.pins(t_solve))
             self.last_plan_t = t_solve
+            self.advisory.on_plan(plan)
             # merge maintenance jobs: keep active/done, replace scheduled
             with self._lock:
                 for jid in [k for k, v in self.jobs.items() if v["status"] == "scheduled"]:
@@ -411,7 +455,12 @@ class Engine:
             self._events_due()
             # --- PLYXIS world: apply plan, run plant
             pp = self.plants["plyxis"]
-            vals, routes = self.planner.setpoints_at(self.t)
+            shadow = self.advisory.mode == "shadow" and self.legacy_ops is not None
+            if shadow:      # shadow mode: this plant is operated like the other one, plans are only compared
+                self.legacy_ops.control(self.t)
+                vals, routes = self.plants["legacy"].readback()
+            else:
+                vals, routes = self.advisory.setpoints(self.t)
             if vals:
                 pp.set_controls(vals, routes)
             self._maintenance()
@@ -421,9 +470,11 @@ class Engine:
                 self._timeline("failure", f"{ev.get('label') or ev['asset']}: {ev['detail']}", "", asset=ev["asset"])
             # --- legacy world
             pl = self.plants["legacy"]
-            if self.legacy_ops is not None:
+            if self.legacy_ops is not None and not shadow:
                 self.legacy_ops.control(self.t)
-            pl.step()
+            out_l = pl.step()
+            if hasattr(self.legacy_ops, "assays"):
+                self.legacy_ops.assays(out_l["telemetry"])
             # --- data integration (PLYXIS world)
             msgs = []
             for c in self.connectors:
@@ -450,6 +501,12 @@ class Engine:
                         self._on_discovery(prop)
                     continue
                 tele.append(m)
+            tele = [m for m in self.quality.filter(self.t, tele) if m.quality != "bad"]
+            for t_q, tag, issue in self.quality.drain():
+                self._alert("warning", "data quality", f"{tag}: {issue} - not used for estimation until it recovers",
+                            data={"tag": tag, "issue": issue})
+                self.advisory.audit.add("data_quality", t_q, tag=tag, issue=issue)
+            self.twin.estimator.distrust(self.quality.bad_tags())
             vals_rb, routes_rb = pp.readback()
             D, R = self.twin.live.controls_from_paths(vals_rb, routes_rb)
             E_now = {k: torch.tensor([self.prices.canonical(k, self.t)]) for k in self.twin.model.program.env_inputs}
@@ -528,6 +585,7 @@ class Engine:
                 prev = self.anomaly.predicted
                 self.anomaly = AnomalyDetector(self.twin.tags, self.twin.model.flat)
                 self.anomaly.predicted = prev            # keep condition trends across twin rewrites
+                self.quality.tags, self.quality.limits = self.twin.tags, self.twin.estimator._const_lo
                 self._timeline("twin", f"Twin rewritten (v{self.twin.version}): {', '.join(prop.assets)} added",
                                f"commit {res['commit']['id'] if res.get('commit') else ''}")
                 self.emit({"type": "twin", "commit": res.get("commit"), "structure_changed": True})
@@ -548,6 +606,7 @@ class Engine:
                 prev = self.anomaly.predicted
                 self.anomaly = AnomalyDetector(self.twin.tags, self.twin.model.flat)
                 self.anomaly.predicted = prev            # keep condition trends across twin rewrites
+                self.quality.tags, self.quality.limits = self.twin.tags, self.twin.estimator._const_lo
                 self._timeline("twin", f"Twin edited by {author} (v{self.twin.version})", message)
                 self.emit({"type": "twin", "commit": res.get("commit"), "structure_changed": True})
                 self.request_replan("twin edited")
@@ -680,12 +739,12 @@ class Engine:
                     yard = inst.at
             trucks = DSP.truck_positions(plan.trips.get("trips", []), self.t, plan.trips.get("trucks", 0), yard)
         assets = {}
-        for tag, (v, t) in self.latest.items():
+        for tag, (v, t) in list(self.latest.items()):   # the plant thread adds tags while the server reads
             info = self.twin.tags.get(tag)
             if info is None:
                 continue
             assets.setdefault(info.path, {})[tag.split(".", 2)[-1] if tag.count(".") >= 2 else tag] = round(v, 3)
-        jobs = [{**j["job"], "status": j["status"]} for j in self.jobs.values()]
+        jobs = [{**j["job"], "status": j["status"]} for j in list(self.jobs.values())]
         snap = {"type": "snapshot", "t": self.t, "clock": self.clock_str(), "running": self.running,
                 "holding": self.holding(),
                 "speed": self.speed, "kpis": self.kpis(), "trucks": trucks, "assets": assets,
@@ -693,6 +752,9 @@ class Engine:
                               "last_plan_t": self.last_plan_t, "neural": self.planner.net_info,
                               "progress_tail": [_jsonable(r) for r in self.planner.progress[-3:]]},
                 "twin": {"version": self.twin.version, "commits": len(self.twin.repo.commits)},
+                "advisory": {"mode": self.advisory.mode, "plan_valid": self.advisory.plan_valid(self.t),
+                             "pending": sum(1 for r in list(self.advisory.recs.values()) if r["status"] == "pending")},
+                "quality": {"bad_now": len(self.quality.bad_tags())},
                 "jobs": jobs, "prices": {k: round(self.prices.display(k, self.t), 4) for k in self.sc.prices},
                 "alerts_tail": list(self.alerts)[-6:]}
         if full:

@@ -109,3 +109,9 @@ input.inp:focus, textarea.inp:focus, select.inp:focus { border-color: #fe0265aa;
 .maplibregl-popup-content { background: #12121a; color: #f4f4f5; border: 1px solid #2e2e44; border-radius: 10px;
   padding: 8px 11px; font-size: 12px; box-shadow: 0 8px 28px #000a; }
 .maplibregl-popup-tip { border-top-color: #2e2e44 !important; border-bottom-color: #2e2e44 !important; }
+
+/* Narrow windows (or high display scaling): the page grids stack instead of squeezing tiles and charts side by side. */
+@media (max-width: 1100px) {
+  .grid.grid-cols-12 > [class*="col-span-"] { grid-column: span 12 / span 12; }
+}
+.hero .num, .hero .display { white-space: nowrap; }

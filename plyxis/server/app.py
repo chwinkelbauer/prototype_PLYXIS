@@ -8,16 +8,18 @@ import asyncio
 import contextlib
 import glob
 import json
+import math
 import os
 import time
+import traceback
 from typing import Optional
 
 from fastapi import Body, FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 
-from ..runtime import views
+from ..runtime import report, views, whatif
 from ..runtime.engine import Engine
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -42,7 +44,7 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
     app = FastAPI(title="PLYXIS", version="0.2", lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
     state = {"engine": None, "clients": set(), "loop": None, "booting": True, "boot_msg": "starting",
-             "scenario_dir": scenario_dir}
+             "boot_error": None, "scenario_dir": scenario_dir}
 
     def eng() -> Engine:
         e = state["engine"]
@@ -55,7 +57,7 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         loop = state["loop"]
         if loop is None:
             return
-        data = json.dumps(msg, default=_default)
+        data = _dumps(msg)
         for q in list(state["clients"]):
             try:
                 loop.call_soon_threadsafe(_put, q, data)
@@ -64,39 +66,63 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
 
     async def ticker():
         last_snap = 0.0
-        last = time.perf_counter()
+        failed = None
         while True:
             await asyncio.sleep(0.15)
             e = state["engine"]
-            if e is None:
+            if e is None or state["booting"]:     # a snapshot would take the console off its starting screen
                 continue
             now = time.perf_counter()
             if now - last_snap > 0.5:
                 last_snap = now
                 if state["clients"]:
-                    push(e.snapshot())
+                    try:
+                        push(e.snapshot())
+                        failed = None
+                    except Exception as ex:  # noqa: BLE001  one bad tick must not end the push channel for good
+                        if repr(ex) != failed:
+                            failed = repr(ex)
+                            traceback.print_exc()
+
+    def boot_status(message: str) -> None:
+        state["boot_msg"] = message
+        push({"type": "booting", "message": message})
 
     async def boot():
         loop = asyncio.get_running_loop()
-        state["boot_msg"] = "compiling twin, emulators and loading neural sub-solvers"
         sdir = state["scenario_dir"]
-        e = await loop.run_in_executor(None, lambda: Engine(sdir, speed=speed, use_neural=use_neural))
-        e.subscribe(push)
-        state["engine"] = e
-        state["boot_msg"] = "computing initial plan"
-        await loop.run_in_executor(None, lambda: e._replan("initial plan"))
+        e = None
+        try:
+            boot_status("compiling twin, emulators and loading neural sub-solvers")
+            e = await loop.run_in_executor(None, lambda: Engine(sdir, speed=speed, use_neural=use_neural, audit_path=_audit_path(sdir)))
+            e.subscribe(push)
+            state["engine"] = e
+            boot_status("computing initial plan")
+            await loop.run_in_executor(None, lambda: e._replan("initial plan"))
+            if e.planner.plan is None:            # _replan logs and survives: a later re-plan may fail, the first may not
+                why = next((a["message"] for a in reversed(e.alerts) if a["kind"] == "optimizer"), "no plan")
+                raise RuntimeError(f"the first plan failed: {why}")
+            e.start()
+            if autoplay:
+                e.running = True
+        except Exception as ex:  # noqa: BLE001  nobody awaits this task: unreported, the console would wait for ever
+            traceback.print_exc()
+            if e is not None:
+                e.unsubscribe(push)
+                e.stop()
+            state["engine"], state["booting"], state["boot_msg"] = None, False, "failed"
+            state["boot_error"] = f"{type(ex).__name__}: {ex}"
+            push({"type": "boot_error", "message": state["boot_error"]})
+            return
         state["booting"] = False
         state["boot_msg"] = "ready"
-        e.start()
-        if autoplay:
-            e.running = True
         push({"type": "ready"})
-
 
     # ------------------------------------------------------------------ meta / structure
     @app.get("/api/health")
     def health():
-        return {"ok": True, "booting": state["booting"], "message": state["boot_msg"]}
+        return {"ok": state["boot_error"] is None, "booting": state["booting"], "message": state["boot_msg"],
+                "error": state["boot_error"], "scenario": os.path.basename(os.path.abspath(state["scenario_dir"]))}
 
     @app.get("/api/scenarios")
     def scenarios():
@@ -119,6 +145,7 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
             raise HTTPException(409, "a scenario is still starting")
         old, state["engine"] = state["engine"], None
         state["booting"], state["boot_msg"], state["scenario_dir"] = True, "switching scenario", d
+        state["boot_error"] = None
         if old is not None:                       # the old engine must not push into the new session
             old.unsubscribe(push)
             old.running = False
@@ -145,7 +172,7 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
 
     @app.get("/api/snapshot")
     def snapshot(full: int = 0):
-        return json.loads(json.dumps(eng().snapshot(full=bool(full)), default=_default))
+        return _plain(eng().snapshot(full=bool(full)))
 
     # ------------------------------------------------------------------ control
     @app.post("/api/control")
@@ -198,14 +225,14 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         p = e.planner.plan
         if p is None:
             return {"plan": None}
-        return json.loads(json.dumps({"plan": p.summary(), "lineups": p.lineups[:400],
+        return _plain({"plan": p.summary(), "lineups": p.lineups[:400],
                                       "trips": p.trips.get("trips", [])[:400],
                                       "jobs": [{**v["job"], "status": v["status"]} for v in e.jobs.values()],
-                                      "history": list(e.plan_events)}, default=_default))
+                                      "history": list(e.plan_events)})
 
     @app.get("/api/plan/gantt")
     def gantt():
-        return json.loads(json.dumps(views.gantt(eng()), default=_default))
+        return _plain(views.gantt(eng()))
 
     @app.get("/api/plan/instructions")
     def instructions(asset: Optional[str] = None):
@@ -217,11 +244,11 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
 
     @app.get("/api/explain/{path:path}")
     def explain(path: str):
-        return json.loads(json.dumps(eng().explain(path), default=_default))
+        return _plain(eng().explain(path))
 
     @app.get("/api/asset/{path:path}")
     def asset(path: str):
-        return json.loads(json.dumps(views.asset_detail(eng(), path), default=_default))
+        return _plain(views.asset_detail(eng(), path))
 
     # ------------------------------------------------------------------ optimizer
     @app.get("/api/optimizer")
@@ -230,12 +257,15 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         pl = e.planner
         runs = list(pl.runs)
         sp = pl.base_pb.space if pl.base_pb is not None else None
-        return json.loads(json.dumps({
-            "running": pl.running, "progress": pl.progress[-400:], "runs": runs[-12:],
+        secs = sorted(r["seconds"] for r in runs)
+        sla = {"plans": len(secs), "p50_s": secs[len(secs) // 2], "p95_s": secs[min(len(secs) - 1, int(0.95 * len(secs)))],
+               "max_s": secs[-1], "replan_every_h": e.sc.replan_every} if secs else None
+        return _plain({
+            "running": pl.running, "progress": pl.progress[-400:], "runs": runs[-12:], "sla": sla,
             "space": sp.describe() if sp else None, "neural": pl.net_info, "learn": e.learn_log[-20:],
             "subsystems": pl.part.describe(e.twin.model.flat) if pl.base_pb is not None else [],
             "bottlenecks": pl.plan.bottlenecks if pl.plan else [],
-        }, default=_default))
+        })
 
     # ------------------------------------------------------------------ twin studio
     @app.get("/api/twin/files")
@@ -256,6 +286,11 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         files.update(body.get("files", {}))
         return {"diagnostics": e.twin.check(files)}
 
+    @app.get("/api/twin/lint")
+    def twin_lint():
+        from ..lang.lint import as_dicts, lint
+        return as_dicts(lint(eng().twin.model))
+
     @app.post("/api/twin/apply")
     def twin_apply(body: dict = Body(...)):
         return eng().edit_twin(body.get("files", {}), body.get("message", "edit"), body.get("author", "engineer"))
@@ -270,6 +305,44 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         if c is None:
             raise HTTPException(404)
         return c.to_dict(with_diff=True)
+
+    # ------------------------------------------------------------------ operating modes, decisions, handover
+    @app.get("/api/advisory")
+    def advisory():
+        return _plain(eng().advisory.view())
+
+    @app.post("/api/advisory/mode")
+    def advisory_mode(body: dict = Body(...)):
+        e = eng()
+        with e._lock:                    # never while the plant clock is stepping
+            return e.advisory.set_mode(str(body.get("mode", "")), str(body.get("actor", "operator")))
+
+    @app.post("/api/advisory/decide")
+    def advisory_decide(body: dict = Body(...)):
+        e = eng()
+        with e._lock:
+            return e.advisory.decide(body.get("ids", []), str(body.get("action", "")), str(body.get("actor", "operator")),
+                                     str(body.get("reason", "")), body.get("value"))
+
+    @app.get("/api/audit")
+    def audit(limit: int = 300, kind: Optional[str] = None):
+        return _plain(eng().advisory.audit.tail(limit, kind))
+
+    @app.get("/api/workorders.csv")
+    def workorders():
+        return PlainTextResponse(report.work_orders_csv(eng()), media_type="text/csv",
+                                 headers={"Content-Disposition": "attachment; filename=plyxis-work-orders.csv"})
+
+    @app.get("/api/report/shift")
+    def report_shift(hours: float = 12.0, format: str = "json"):
+        r = report.shift_report(eng(), hours)
+        if format == "md":
+            return PlainTextResponse(report.to_markdown(r), media_type="text/markdown")
+        return _plain(r)
+
+    @app.post("/api/whatif")
+    def what_if(body: dict = Body(...)):
+        return _plain(whatif.run(eng(), body.get("changes", []), str(body.get("name", "what-if"))))
 
     # ------------------------------------------------------------------ data integration
     @app.get("/api/data/connectors")
@@ -297,12 +370,26 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         h = eng().tag_history.get(tag)
         return {"tag": tag, "history": [list(p) for p in h] if h else []}
 
+    @app.get("/api/data/quality")
+    def data_quality():
+        return _plain(eng().quality.summary())
+
     @app.get("/api/data/calibration")
     def calibration():
         e = eng()
-        return json.loads(json.dumps({"log": e.calib_log[-50:], "direct": sorted(f"{a}.{b}" for a, b in e.twin.estimator.direct),
+        est = e.twin.estimator
+        uncertainty = []
+        for gid, pname in sorted(est.direct):
+            g = e.twin.model.program.gmap[gid]
+            if pname in g.ir.type.params and g.ir.type.params[pname].calibrate is not None:
+                u = est.uncertainty(gid, pname)
+                uncertainty.append({"property": f"{g.ir.type.short}.{pname}", "median_pct": round(float(u.median()) * 100, 1),
+                                    "best_pct": round(float(u.min()) * 100, 1), "worst_pct": round(float(u.max()) * 100, 1),
+                                    "sampled": sum(1 for k in est.test_var if k[1] == pname), "instances": g.n})
+        return _plain({"log": e.calib_log[-50:], "direct": sorted(f"{a}.{b}" for a, b in e.twin.estimator.direct),
+                       "uncertainty": uncertainty, "margins": e.margin_log[-1:],
                                       "calibrated": [f"{e.twin.model.program.gmap[g].ir.type.short}.{p}"
-                                                     for g, p, _, _ in e.twin.estimator.calib]}, default=_default))
+                                                     for g, p, _, _ in e.twin.estimator.calib]})
 
     @app.get("/api/data/discovery")
     def discovery():
@@ -341,7 +428,7 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
                 with open(f) as fh:
                     d = json.load(fh)
                 if name.startswith("showcase_run"):
-                    d = {k: d[k] for k in ("hours", "kpis", "calibration_error", "runs", "bridge", "skipped_events")
+                    d = {k: d[k] for k in ("hours", "kpis", "calibration_error", "runs", "bridge", "skipped_events", "seed")
                          if k in d}
                 out[name] = d
             except Exception:  # noqa: BLE001
@@ -355,10 +442,13 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
         q: asyncio.Queue = asyncio.Queue(maxsize=500)
         state["clients"].add(q)
         try:
-            if state["engine"] is not None:
-                await socket.send_text(json.dumps(state["engine"].snapshot(full=True), default=_default))
+            if state["boot_error"]:
+                first = {"type": "boot_error", "message": state["boot_error"]}
+            elif state["booting"] or state["engine"] is None:
+                first = {"type": "booting", "message": state["boot_msg"]}
             else:
-                await socket.send_text(json.dumps({"type": "booting", "message": state["boot_msg"]}))
+                first = state["engine"].snapshot(full=True)
+            await socket.send_text(_dumps(first))
             while True:
                 data = await q.get()
                 await socket.send_text(data)
@@ -385,6 +475,12 @@ def create_app(scenario_dir: Optional[str] = None, speed: float = 600.0, autopla
     return app
 
 
+def _audit_path(sdir: str) -> str:
+    """One audit file per console session and case study (runs/ is not in version control)."""
+    name = f"{os.path.basename(os.path.abspath(sdir))}-{time.strftime('%Y%m%d-%H%M%S')}.jsonl"
+    return os.path.join(ROOT, "runs", "audit", name)
+
+
 def _put(q: asyncio.Queue, data: str) -> None:
     if q.full():
         try:
@@ -404,6 +500,30 @@ def _default(o):
     if isinstance(o, (set, tuple)):
         return list(o)
     return str(o)
+
+
+def _finite(o):
+    if isinstance(o, float):
+        return o if math.isfinite(o) else None
+    if isinstance(o, list):
+        return [_finite(v) for v in o]
+    if isinstance(o, dict):
+        return {k: _finite(v) for k, v in o.items()}
+    return o
+
+
+def _plain(msg):
+    """JSON-compatible copy of a payload; NaN and infinities become null."""
+    return _finite(json.loads(json.dumps(msg, default=_default)))
+
+
+def _dumps(msg) -> str:
+    """Strict JSON: the browser's JSON.parse rejects a whole message for one NaN token, so a single bad
+    value would silently stop every snapshot."""
+    try:
+        return json.dumps(msg, default=_default, allow_nan=False)
+    except ValueError:
+        return json.dumps(_plain(msg), allow_nan=False)
 
 
 def _stdlib_sources() -> dict:

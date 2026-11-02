@@ -1,0 +1,7598 @@
+{
+ "scenario": "corvus",
+ "hours": 48.0,
+ "wall_seconds": 3458.0468757,
+ "neural": true,
+ "exact_branches": [
+  "lp",
+  "slp",
+  "slp_quality"
+ ],
+ "exact_margin": 0.0,
+ "seed": 1,
+ "skipped_events": [],
+ "kpis": {
+  "plyxis": {
+   "revenue": 9051399.376953125,
+   "cost": 2775512.527441025,
+   "emission_kg": 383426.0333251953,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 47.99999999999986,
+   "inventory_value": -184687.638671875,
+   "equipment_value": 0.0,
+   "profit": 6091199.210840225,
+   "carbon_cost": 17254.17149963378,
+   "profit_after_carbon": 6073945.039340603,
+   "flared_over_permit_mscf": 0.0,
+   "m_ore": 69371.1834531248,
+   "m_hoisted": 71525.20279687503,
+   "m_milled": 76791.92971874998,
+   "m_copper": 1003.452978027344,
+   "m_power": 2927.0803818359295
+  },
+  "legacy": {
+   "revenue": 8516918.3359375,
+   "cost": 2761323.9832321126,
+   "emission_kg": 394799.24182128906,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 47.99999999999986,
+   "inventory_value": -237938.6171875,
+   "equipment_value": 0.0,
+   "profit": 5517655.735517888,
+   "carbon_cost": 17765.965881957996,
+   "profit_after_carbon": 5499889.769635929,
+   "flared_over_permit_mscf": 0.0,
+   "m_ore": 73878.36379687472,
+   "m_hoisted": 69070.49410937508,
+   "m_milled": 75840.00299999953,
+   "m_copper": 944.2912878417977,
+   "m_power": 2927.4960634765594
+  },
+  "delta": {
+   "profit": 573543.4753223369,
+   "profit_after_carbon": 574055.2697046744,
+   "oil_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "emission_t": -11.37320849609375,
+   "m_ore": -4507.180343749918,
+   "m_hoisted": 2454.7086874999513,
+   "m_milled": 951.9267187504447,
+   "m_copper": 59.16169018554626,
+   "m_power": -0.4156816406298276
+  },
+  "value_per_day": 286771.73766116926
+ },
+ "terms": {
+  "plyxis": {
+   "metal": 9051399.376953125,
+   "ownership": -170208.0,
+   "power": -192730.4337310791,
+   "labour": -528000.01171875,
+   "overhead": -240000.01171875,
+   "mining": -568843.7156982422,
+   "loading": -46651.94338989258,
+   "blasting": -83025.00201416016,
+   "hauling": -29653.52886581421,
+   "wear": -21301.67257118225,
+   "energy": -395950.684173584,
+   "consumables": -499147.5235595703
+  },
+  "legacy": {
+   "metal": 8516918.3359375,
+   "ownership": -170208.0,
+   "power": -231364.53546142578,
+   "labour": -528000.01171875,
+   "overhead": -240000.01171875,
+   "mining": -605802.5943603516,
+   "loading": -51179.02368927002,
+   "blasting": 0.0,
+   "hauling": -30296.775113708398,
+   "wear": -20466.793621028657,
+   "energy": -391046.2141113281,
+   "consumables": -492960.0234375
+  }
+ },
+ "inventory_terms": {
+  "plyxis": {
+   "broken_value": -92107.0,
+   "stock_value": -50103.65625,
+   "bin_value": 25256.986328125,
+   "inventory": -67733.96875
+  },
+  "legacy": {
+   "broken_value": -208261.0,
+   "stock_value": 35629.46875,
+   "bin_value": 21705.4765625,
+   "inventory": -87012.5625
+  }
+ },
+ "bridge": [
+  {
+   "key": "metal",
+   "label": "Copper sales",
+   "delta": 534481
+  },
+  {
+   "key": "blasting",
+   "label": "Explosives and charging",
+   "delta": -83025
+  },
+  {
+   "key": "inventory_value",
+   "label": "Inventories (tanks, bins, stockpiles)",
+   "delta": 53251
+  },
+  {
+   "key": "power",
+   "label": "Power",
+   "delta": 38634
+  },
+  {
+   "key": "mining",
+   "label": "Mining consumables",
+   "delta": 36959
+  },
+  {
+   "key": "consumables",
+   "label": "Mill consumables",
+   "delta": -6188
+  },
+  {
+   "key": "energy",
+   "label": "Mill power",
+   "delta": -4904
+  },
+  {
+   "key": "loading",
+   "label": "Loader operating cost",
+   "delta": 4527
+  },
+  {
+   "key": "wear",
+   "label": "Crusher wear",
+   "delta": -835
+  },
+  {
+   "key": "hauling",
+   "label": "Trucking",
+   "delta": 643
+  }
+ ],
+ "calibration_error": {
+  "grade": {
+   "engineering": 0.1184,
+   "twin": 0.0995
+  },
+  "rate_max": {
+   "engineering": 0.0892,
+   "twin": 0.0755
+  }
+ },
+ "head_factor": {
+  "MILL": 0.9962198138237
+ },
+ "margins": [
+  {
+   "t": 6.0,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01925
+  },
+  {
+   "t": 9.000000006,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.03114
+  },
+  {
+   "t": 10.166666675,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.03174
+  },
+  {
+   "t": 13.166666681,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02483
+  },
+  {
+   "t": 15.166666685,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02
+  },
+  {
+   "t": 18.166666691,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02288
+  },
+  {
+   "t": 21.166666697,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01929
+  },
+  {
+   "t": 24.166666703,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02022
+  },
+  {
+   "t": 27.000000042,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02146
+  },
+  {
+   "t": 30.000000048,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02109
+  },
+  {
+   "t": 32.166666719,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02081
+  },
+  {
+   "t": 35.166666725,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.02085
+  },
+  {
+   "t": 39.000000066,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01435
+  },
+  {
+   "t": 42.000000072,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01378
+  },
+  {
+   "t": 45.000000078,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01337
+  },
+  {
+   "t": 46.166666747,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01309
+  },
+  {
+   "t": 49.166666753,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01327
+  },
+  {
+   "t": 52.166666759,
+   "asset": "MILL",
+   "param": "grade_margin",
+   "margin": 0.01322
+  }
+ ],
+ "plans": [
+  {
+   "id": 1,
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "trigger": "initial plan",
+   "objective": 7544535.5,
+   "feasible": true,
+   "seconds": 150.31370370000002,
+   "variables": 4992
+  },
+  {
+   "id": 2,
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "trigger": "rolling horizon",
+   "objective": 7519377.0,
+   "feasible": true,
+   "seconds": 152.59291430000007,
+   "variables": 4992
+  },
+  {
+   "id": 3,
+   "t": 10.166666675,
+   "clock": "Day 1 10:10",
+   "trigger": "disruption detected",
+   "objective": 7451940.0,
+   "feasible": true,
+   "seconds": 106.90337209999996,
+   "variables": 4992
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "trigger": "rolling horizon",
+   "objective": 7473751.5,
+   "feasible": true,
+   "seconds": 121.01127959999997,
+   "variables": 4992
+  },
+  {
+   "id": 5,
+   "t": 15.166666685,
+   "clock": "Day 1 15:10",
+   "trigger": "disruption detected",
+   "objective": 7508990.5,
+   "feasible": true,
+   "seconds": 110.74449730000003,
+   "variables": 4992
+  },
+  {
+   "id": 6,
+   "t": 18.166666691,
+   "clock": "Day 1 18:10",
+   "trigger": "rolling horizon",
+   "objective": 7525555.5,
+   "feasible": true,
+   "seconds": 89.47646469999995,
+   "variables": 4992
+  },
+  {
+   "id": 7,
+   "t": 21.166666697,
+   "clock": "Day 1 21:10",
+   "trigger": "disruption detected",
+   "objective": 7552485.5,
+   "feasible": true,
+   "seconds": 122.83370960000002,
+   "variables": 4992
+  },
+  {
+   "id": 8,
+   "t": 24.166666703,
+   "clock": "Day 2 00:10",
+   "trigger": "rolling horizon",
+   "objective": 7430832.5,
+   "feasible": true,
+   "seconds": 121.39306609999994,
+   "variables": 4992
+  },
+  {
+   "id": 9,
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "trigger": "market notice: power_price",
+   "objective": 7202712.5,
+   "feasible": true,
+   "seconds": 173.79015430000004,
+   "variables": 4992
+  },
+  {
+   "id": 10,
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "trigger": "rolling horizon",
+   "objective": 7205600.0,
+   "feasible": true,
+   "seconds": 167.25944470000013,
+   "variables": 4992
+  },
+  {
+   "id": 11,
+   "t": 32.166666719,
+   "clock": "Day 2 08:10",
+   "trigger": "disruption detected",
+   "objective": 7219173.5,
+   "feasible": true,
+   "seconds": 124.52226329999985,
+   "variables": 4992
+  },
+  {
+   "id": 12,
+   "t": 35.166666725,
+   "clock": "Day 2 11:10",
+   "trigger": "rolling horizon",
+   "objective": 7211916.0,
+   "feasible": true,
+   "seconds": 124.3518838,
+   "variables": 4992
+  },
+  {
+   "id": 13,
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "trigger": "twin rewritten (new asset)",
+   "objective": 7314850.0,
+   "feasible": true,
+   "seconds": 146.4889116999998,
+   "variables": 5008
+  },
+  {
+   "id": 14,
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "trigger": "rolling horizon",
+   "objective": 7349410.5,
+   "feasible": true,
+   "seconds": 129.62775349999993,
+   "variables": 5008
+  },
+  {
+   "id": 15,
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "trigger": "rolling horizon",
+   "objective": 7398150.5,
+   "feasible": true,
+   "seconds": 136.07584689999976,
+   "variables": 5008
+  },
+  {
+   "id": 16,
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "trigger": "rolling horizon",
+   "objective": 7483543.5,
+   "feasible": true,
+   "seconds": 216.4117640999998,
+   "variables": 5008
+  },
+  {
+   "id": 17,
+   "t": 46.166666747,
+   "clock": "Day 2 22:10",
+   "trigger": "disruption detected",
+   "objective": 7513274.0,
+   "feasible": true,
+   "seconds": 386.3959950999997,
+   "variables": 5008
+  },
+  {
+   "id": 18,
+   "t": 49.166666753,
+   "clock": "Day 3 01:10",
+   "trigger": "rolling horizon",
+   "objective": 7493086.0,
+   "feasible": true,
+   "seconds": 278.49508939999987,
+   "variables": 5008
+  },
+  {
+   "id": 19,
+   "t": 52.166666759,
+   "clock": "Day 3 04:10",
+   "trigger": "rolling horizon",
+   "objective": 7505736.0,
+   "feasible": true,
+   "seconds": 314.4711871999998,
+   "variables": 5008
+  }
+ ],
+ "runs": [
+  {
+   "id": 1,
+   "t": 6.0,
+   "trigger": "initial plan",
+   "objective": 7544535.5,
+   "feasible": true,
+   "seconds": 150.31370370000002,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 60.9380084,
+     "objective": 7218450.5,
+     "max_violation": 0.006035213824361563,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 25.749774599999967,
+     "objective": 7265380.0,
+     "max_violation": 0.001187109388411045,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 24.761379000000034,
+     "objective": 7467484.5,
+     "max_violation": 0.0017578905681148171,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 37.052233,
+     "objective": 7544535.5,
+     "max_violation": 5.681818038283382e-07,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.018059,
+     "lp_seconds": 6.917,
+     "jacobian_seconds": 28.348
+    }
+   ],
+   "second_opinion": false,
+   "evals": 6141
+  },
+  {
+   "id": 2,
+   "t": 9.000000006,
+   "trigger": "rolling horizon",
+   "objective": 7519377.0,
+   "feasible": true,
+   "seconds": 152.59291430000007,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 25.88176580000004,
+     "objective": 6853142.0,
+     "max_violation": 0.011775735765695572,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 40.307551099999955,
+     "objective": 7319652.0,
+     "max_violation": 0.008284609764814377,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 36.51773309999999,
+     "objective": 7483476.0,
+     "max_violation": 0.0006771875196136534,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 49.88309760000004,
+     "objective": 7519377.0,
+     "max_violation": 5.681818038283382e-07,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.013671,
+     "lp_seconds": 31.036,
+     "jacobian_seconds": 15.504
+    }
+   ],
+   "second_opinion": false,
+   "evals": 1930
+  },
+  {
+   "id": 3,
+   "t": 10.166666675,
+   "trigger": "disruption detected",
+   "objective": 7451940.0,
+   "feasible": true,
+   "seconds": 106.90337209999996,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 21.538569300000063,
+     "objective": 7423593.0,
+     "max_violation": 0.012834062799811363,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 22.371127399999978,
+     "objective": 7212877.0,
+     "max_violation": 0.0008068750030361116,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 25.60803080000005,
+     "objective": 7418568.0,
+     "max_violation": 0.0010696875397115946,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 37.382197299999916,
+     "objective": 7451940.0,
+     "max_violation": 5.344505780158215e-07,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.009488,
+     "lp_seconds": 18.981,
+     "jacobian_seconds": 16.199
+    }
+   ],
+   "second_opinion": false,
+   "evals": 2564
+  },
+  {
+   "id": 4,
+   "t": 13.166666681,
+   "trigger": "rolling horizon",
+   "objective": 7473751.5,
+   "feasible": true,
+   "seconds": 121.01127959999997,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 25.8967801,
+     "objective": 7302312.5,
+     "max_violation": 0.01606515608727932,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 26.775325100000032,
+     "objective": 7411975.0,
+     "max_violation": 0.0008216405985876918,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 29.341778599999998,
+     "objective": 7448726.0,
+     "max_violation": 0.0013210156466811895,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 38.99423409999997,
+     "objective": 7473751.5,
+     "max_violation": 1.3952096651337342e-06,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.020243,
+     "lp_seconds": 18.088,
+     "jacobian_seconds": 18.967
+    }
+   ],
+   "second_opinion": false,
+   "evals": 2564
+  },
+  {
+   "id": 5,
+   "t": 15.166666685,
+   "trigger": "disruption detected",
+   "objective": 7508990.5,
+   "feasible": true,
+   "seconds": 110.74449730000003,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 25.35376229999997,
+     "objective": 7326399.5,
+     "max_violation": 0.01672053337097168,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 24.775467700000036,
+     "objective": 7314248.5,
+     "max_violation": 3.818905679509044e-05,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 24.689947599999982,
+     "objective": 7489030.5,
+     "max_violation": 0.0011507031740620732,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 35.921807100000024,
+     "objective": 7508990.5,
+     "max_violation": 3.4279214560228866e-06,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.017495,
+     "lp_seconds": 16.101,
+     "jacobian_seconds": 17.374
+    }
+   ],
+   "second_opinion": false,
+   "evals": 2564
+  },
+  {
+   "id": 6,
+   "t": 18.166666691,
+   "trigger": "rolling horizon",
+   "objective": 7525555.5,
+   "feasible": true,
+   "seconds": 89.47646469999995,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 20.22554449999984,
+     "objective": 7159714.0,
+     "max_violation": 0.029360566288232803,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 25.792023799999924,
+     "objective": 7465482.0,
+     "max_violation": 0.00657908758148551,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 27.06232410000007,
+     "objective": 7510707.5,
+     "max_violation": 0.00038515625055879354,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 16.393807100000004,
+     "objective": 7525555.5,
+     "max_violation": 2.0835327632084955e-06,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.007731,
+     "lp_seconds": 9.588,
+     "jacobian_seconds": 5.732
+    }
+   ],
+   "second_opinion": false,
+   "evals": 1276
+  },
+  {
+   "id": 7,
+   "t": 21.166666697,
+   "trigger": "disruption detected",
+   "objective": 7552485.5,
+   "feasible": true,
+   "seconds": 122.83370960000002,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 24.974234600000045,
+     "objective": 7546453.0,
+     "max_violation": 0.038659609854221344,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 39.04766870000003,
+     "objective": 7383044.0,
+     "max_violation": 0.001382421818561852,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 31.357746800000086,
+     "objective": 7533823.0,
+     "max_violation": 0.0007503906381316483,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 27.45073360000015,
+     "objective": 7552485.5,
+     "max_violation": 1.0746056204880006e-06,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.010221,
+     "lp_seconds": 15.548,
+     "jacobian_seconds": 9.859
+    }
+   ],
+   "second_opinion": false,
+   "evals": 1930
+  },
+  {
+   "id": 8,
+   "t": 24.166666703,
+   "trigger": "rolling horizon",
+   "objective": 7430832.5,
+   "feasible": true,
+   "seconds": 121.39306609999994,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 23.278202199999896,
+     "objective": 7093412.0,
+     "max_violation": 0.023305390030145645,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 28.269221200000175,
+     "objective": 7430832.5,
+     "max_violation": 0.0007803906337358057,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 31.138660700000173,
+     "objective": 7430832.5,
+     "max_violation": 0.0007803906337358057,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 38.70282199999997,
+     "objective": 7430832.5,
+     "max_violation": 0.0007803906337358057,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 9.634,
+     "jacobian_seconds": 27.718
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3826
+  },
+  {
+   "id": 9,
+   "t": 27.000000042,
+   "trigger": "market notice: power_price",
+   "objective": 7202712.5,
+   "feasible": true,
+   "seconds": 173.79015430000004,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 24.918826599999875,
+     "objective": 7120561.0,
+     "max_violation": 0.018305703997612,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 55.107194700000036,
+     "objective": 7004283.5,
+     "max_violation": 0.0013193750055506825,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 38.122446900000114,
+     "objective": 7202712.5,
+     "max_violation": 0.0009867188055068254,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 55.63857619999999,
+     "objective": 7202712.5,
+     "max_violation": 0.0009867188055068254,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 12.253,
+     "jacobian_seconds": 41.495
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3826
+  },
+  {
+   "id": 10,
+   "t": 30.000000048,
+   "trigger": "rolling horizon",
+   "objective": 7205600.0,
+   "feasible": true,
+   "seconds": 167.25944470000013,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 39.42681240000002,
+     "objective": 7098872.0,
+     "max_violation": 0.022626249119639397,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 43.304501600000094,
+     "objective": 6990648.0,
+     "max_violation": 0.0006970312679186463,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 28.892862400000013,
+     "objective": 7205600.0,
+     "max_violation": 0.0007350000087171793,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 55.62895350000008,
+     "objective": 7205600.0,
+     "max_violation": 0.0007350000087171793,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 13.604,
+     "jacobian_seconds": 39.937
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3826
+  },
+  {
+   "id": 11,
+   "t": 32.166666719,
+   "trigger": "disruption detected",
+   "objective": 7219173.5,
+   "feasible": true,
+   "seconds": 124.52226329999985,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 26.022963000000118,
+     "objective": 7145887.0,
+     "max_violation": 0.034417811781167984,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 29.226858600000014,
+     "objective": 7049898.5,
+     "max_violation": 0.004483828321099281,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 30.678386400000136,
+     "objective": 7219173.5,
+     "max_violation": 0.0007753906538709998,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 38.590775499999836,
+     "objective": 7219173.5,
+     "max_violation": 0.0007753906538709998,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 10.411,
+     "jacobian_seconds": 26.633
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3826
+  },
+  {
+   "id": 12,
+   "t": 35.166666725,
+   "trigger": "rolling horizon",
+   "objective": 7211916.0,
+   "feasible": true,
+   "seconds": 124.3518838,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 22.07739619999984,
+     "objective": 7149751.0,
+     "max_violation": 0.02809624932706356,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 26.03250809999986,
+     "objective": 7212780.5,
+     "max_violation": 0.009644062258303165,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 27.61667340000008,
+     "objective": 7211916.0,
+     "max_violation": 0.0008078906103037298,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 48.62174640000012,
+     "objective": 7211916.0,
+     "max_violation": 0.0008078906103037298,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 11.94,
+     "jacobian_seconds": 35.229
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3826
+  },
+  {
+   "id": 13,
+   "t": 36.00000006,
+   "trigger": "twin rewritten (new asset)",
+   "objective": 7314850.0,
+   "feasible": true,
+   "seconds": 146.4889116999998,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 36.0862431999999,
+     "objective": 6887905.0,
+     "max_violation": 0.01729554682970047,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 28.88783050000029,
+     "objective": 7209969.5,
+     "max_violation": 0.011744765564799309,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 41.41286480000008,
+     "objective": 7258451.5,
+     "max_violation": 0.0009350781328976154,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 40.0983784,
+     "objective": 7314850.0,
+     "max_violation": 2.417278210486984e-06,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.01203,
+     "lp_seconds": 13.946,
+     "jacobian_seconds": 24.125
+    }
+   ],
+   "second_opinion": false,
+   "evals": 5991
+  },
+  {
+   "id": 14,
+   "t": 39.000000066,
+   "trigger": "rolling horizon",
+   "objective": 7349410.5,
+   "feasible": true,
+   "seconds": 129.62775349999993,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 30.535175900000013,
+     "objective": 6758440.5,
+     "max_violation": 0.011880859732627869,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 27.08388029999969,
+     "objective": 7131697.0,
+     "max_violation": 0.0010858593741431832,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 29.35019319999992,
+     "objective": 7327372.5,
+     "max_violation": 0.0016640624962747097,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 42.65442260000009,
+     "objective": 7349410.5,
+     "max_violation": 4.031493972433964e-06,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.017993,
+     "lp_seconds": 24.313,
+     "jacobian_seconds": 15.694
+    }
+   ],
+   "second_opinion": false,
+   "evals": 1946
+  },
+  {
+   "id": 15,
+   "t": 42.000000072,
+   "trigger": "rolling horizon",
+   "objective": 7398150.5,
+   "feasible": true,
+   "seconds": 136.07584689999976,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 36.43746249999958,
+     "objective": 7332557.0,
+     "max_violation": 0.01401921920478344,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 30.945930699999735,
+     "objective": 7374017.5,
+     "max_violation": 0.001333984429948032,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 27.266373400000248,
+     "objective": 7374017.5,
+     "max_violation": 0.001333984429948032,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 41.42260980000037,
+     "objective": 7398150.5,
+     "max_violation": 0.0006003124872222543,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.005046,
+     "lp_seconds": 15.054,
+     "jacobian_seconds": 23.91
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3230
+  },
+  {
+   "id": 16,
+   "t": 45.000000078,
+   "trigger": "rolling horizon",
+   "objective": 7483543.5,
+   "feasible": true,
+   "seconds": 216.4117640999998,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 25.218820699999924,
+     "objective": 7288750.5,
+     "max_violation": 0.013353437185287476,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 50.55398960000002,
+     "objective": 7270348.5,
+     "max_violation": 0.0011164844036102295,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 53.411844499999916,
+     "objective": 7473312.0,
+     "max_violation": 0.0004264756862539798,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 87.22422580000011,
+     "objective": 7483543.5,
+     "max_violation": 2.4187457370317134e-07,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.013823,
+     "lp_seconds": 24.55,
+     "jacobian_seconds": 59.078
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3872
+  },
+  {
+   "id": 17,
+   "t": 46.166666747,
+   "trigger": "disruption detected",
+   "objective": 7513274.0,
+   "feasible": true,
+   "seconds": 386.3959950999997,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 112.40587230000028,
+     "objective": 7101419.0,
+     "max_violation": 0.019514063373208046,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 107.42712489999985,
+     "objective": 7423526.5,
+     "max_violation": 0.010248437523841858,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 48.47290159999966,
+     "objective": 7509313.0,
+     "max_violation": 0.0009725000127218664,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 118.08236320000015,
+     "objective": 7513274.0,
+     "max_violation": 0.0007877344032749534,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.002093,
+     "lp_seconds": 57.428,
+     "jacobian_seconds": 55.189
+    }
+   ],
+   "second_opinion": false,
+   "evals": 3230
+  },
+  {
+   "id": 18,
+   "t": 49.166666753,
+   "trigger": "rolling horizon",
+   "objective": 7493086.0,
+   "feasible": true,
+   "seconds": 278.49508939999987,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 59.49375920000011,
+     "objective": 7213211.0,
+     "max_violation": 0.012140312232077122,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 98.33495159999984,
+     "objective": 7276151.0,
+     "max_violation": 0.00031906249932944775,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 51.892808499999774,
+     "objective": 7489942.5,
+     "max_violation": 0.0015525781782343984,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 68.7674264000002,
+     "objective": 7493086.0,
+     "max_violation": 0.0005114517407491803,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.016066,
+     "lp_seconds": 34.864,
+     "jacobian_seconds": 30.212
+    }
+   ],
+   "second_opinion": false,
+   "evals": 2588
+  },
+  {
+   "id": 19,
+   "t": 52.166666759,
+   "trigger": "rolling horizon",
+   "objective": 7505736.0,
+   "feasible": true,
+   "seconds": 314.4711871999998,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 5008,
+     "discrete": 748,
+     "subsystems": 387
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 82.31636560000015,
+     "objective": 7116737.0,
+     "max_violation": 0.019498594105243683,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 93.21667129999969,
+     "objective": 7419562.5,
+     "max_violation": 0.006402578204870224,
+     "method": "ga",
+     "population": 4,
+     "generations": 1
+    },
+    {
+     "stage": "polish",
+     "seconds": 64.66028779999988,
+     "objective": 7459417.0,
+     "max_violation": 0.0006067968788556755,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 74.27293920000011,
+     "objective": 7505736.0,
+     "max_violation": 1.1188909638804034e-06,
+     "variables": 4044,
+     "rows": 17173,
+     "gain": 0.007982,
+     "lp_seconds": 38.146,
+     "jacobian_seconds": 32.516
+    }
+   ],
+   "second_opinion": false,
+   "evals": 2588
+  }
+ ],
+ "timeline": [
+  {
+   "t": 6.0,
+   "clock": "Day 1 06:00",
+   "kind": "plan",
+   "title": "Re-plan #1 (initial plan)",
+   "text": "4,992 decisions optimised in 150.3 s"
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "kind": "plan",
+   "title": "Re-plan #2 (rolling horizon)",
+   "text": "4,992 decisions optimised in 152.6 s"
+  },
+  {
+   "t": 10.000000008,
+   "clock": "Day 1 10:00",
+   "kind": "event",
+   "title": "Main fan VR2 trips",
+   "text": "Motor protection trips the central exhaust fan. A third of the mine's air is gone for six hours.",
+   "asset": "FAN_C",
+   "manual": false
+  },
+  {
+   "t": 10.166666675,
+   "clock": "Day 1 10:10",
+   "kind": "plan",
+   "title": "Re-plan #3 (disruption detected)",
+   "text": "4,992 decisions optimised in 106.9 s"
+  },
+  {
+   "t": 13.166666681,
+   "clock": "Day 1 13:10",
+   "kind": "plan",
+   "title": "Re-plan #4 (rolling horizon)",
+   "text": "4,992 decisions optimised in 121.0 s"
+  },
+  {
+   "t": 15.000000018,
+   "clock": "Day 1 15:00",
+   "kind": "event",
+   "title": "Seismic event closes North 560 level",
+   "text": "A magnitude 1.6 event on North 560. The level is barricaded until the geotechnical inspection.",
+   "asset": "ST_N560_01",
+   "manual": false
+  },
+  {
+   "t": 15.166666685,
+   "clock": "Day 1 15:10",
+   "kind": "plan",
+   "title": "Re-plan #5 (disruption detected)",
+   "text": "4,992 decisions optimised in 110.7 s"
+  },
+  {
+   "t": 16.00000002,
+   "clock": "Day 1 16:00",
+   "kind": "event",
+   "title": "Main fan VR2 back in service",
+   "text": "",
+   "asset": "FAN_C",
+   "manual": false
+  },
+  {
+   "t": 18.166666691,
+   "clock": "Day 1 18:10",
+   "kind": "plan",
+   "title": "Re-plan #6 (rolling horizon)",
+   "text": "4,992 decisions optimised in 89.5 s"
+  },
+  {
+   "t": 21.00000003,
+   "clock": "Day 1 21:00",
+   "kind": "event",
+   "title": "Skip hoist stopped: rope inspection finding",
+   "text": "The rope inspection finds broken wires. Five hours without hoisting - every bin and ore pass now matters.",
+   "asset": "SH1",
+   "manual": false
+  },
+  {
+   "t": 21.166666697,
+   "clock": "Day 1 21:10",
+   "kind": "plan",
+   "title": "Re-plan #7 (disruption detected)",
+   "text": "4,992 decisions optimised in 122.8 s"
+  },
+  {
+   "t": 24.166666703,
+   "clock": "Day 2 00:10",
+   "kind": "plan",
+   "title": "Re-plan #8 (rolling horizon)",
+   "text": "4,992 decisions optimised in 121.4 s"
+  },
+  {
+   "t": 26.00000004,
+   "clock": "Day 2 02:00",
+   "kind": "event",
+   "title": "Skip hoist back in service",
+   "text": "",
+   "asset": "SH1",
+   "manual": false
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "kind": "market",
+   "title": "NEM forecast: critical peak tomorrow 16:00-19:00",
+   "text": "Heat wave in South Australia: the market operator forecasts 1,500 USD/MWh for three hours tomorrow evening."
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "kind": "plan",
+   "title": "Re-plan #9 (market notice: power_price)",
+   "text": "4,992 decisions optimised in 173.8 s"
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "kind": "plan",
+   "title": "Re-plan #10 (rolling horizon)",
+   "text": "4,992 decisions optimised in 167.3 s"
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "kind": "event",
+   "title": "Three Central loaders down",
+   "text": "Two transmission failures and a tyre change: the Central zone loses three of eleven loaders for ten hours.",
+   "asset": "LHD_C",
+   "manual": false
+  },
+  {
+   "t": 32.166666719,
+   "clock": "Day 2 08:10",
+   "kind": "plan",
+   "title": "Re-plan #11 (disruption detected)",
+   "text": "4,992 decisions optimised in 124.5 s"
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "kind": "event",
+   "title": "North 560 level re-opened after inspection",
+   "text": "",
+   "asset": "ST_N560_01",
+   "manual": false
+  },
+  {
+   "t": 35.166666725,
+   "clock": "Day 2 11:10",
+   "kind": "plan",
+   "title": "Re-plan #12 (rolling horizon)",
+   "text": "4,992 decisions optimised in 124.4 s"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "event",
+   "title": "New stope handed over on Central 560",
+   "text": "Development completed a new stope. It is not in the mine plan database yet - only its tags appear.",
+   "asset": "ST_C560_10",
+   "manual": false
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "twin",
+   "title": "Discovery: ST_C560_10",
+   "text": "    ## discovered from tag COR.C560.ST10.LHD.TPH (rule 'new_stope')\n    init ST_C560_10 as stope { tag = \"COR.C560.ST10\"; label = \"Stope C560-10\"; cost_t = 8.2 [USD/t] [USD/t]; lhd_cost = 152 [USD/h] [USD/h]; ring_cost = 24600 [USD] [USD]; at = (-30.948774, 136.798937); };\n    connect(ST_C560_10.ore_out, OP_C1.feed);\n    connect(ST_C560_10.lhd_req, LHD_C.requests);\n    connect(ST_C560_10.crew_req, CREW_C.requests);\n    connect(ST_C560_10.air_req, VD_C560.demand);"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "twin",
+   "title": "Twin rewritten (v2): ST_C560_10 added",
+   "text": "commit c0026"
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "kind": "plan",
+   "title": "Re-plan #13 (twin rewritten (new asset))",
+   "text": "5,008 decisions optimised in 146.5 s"
+  },
+  {
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "kind": "plan",
+   "title": "Re-plan #14 (rolling horizon)",
+   "text": "5,008 decisions optimised in 129.6 s"
+  },
+  {
+   "t": 40.000000068,
+   "clock": "Day 2 16:00",
+   "kind": "event",
+   "title": "Power at 1,500 USD/MWh",
+   "text": "Every fan, pump and the hoist now costs twelve times more per hour.",
+   "asset": null,
+   "manual": false
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "plan",
+   "title": "Re-plan #15 (rolling horizon)",
+   "text": "5,008 decisions optimised in 136.1 s"
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "kind": "event",
+   "title": "Central loaders back from the workshop",
+   "text": "",
+   "asset": "LHD_C",
+   "manual": false
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "kind": "plan",
+   "title": "Re-plan #16 (rolling horizon)",
+   "text": "5,008 decisions optimised in 216.4 s"
+  },
+  {
+   "t": 46.00000008,
+   "clock": "Day 2 22:00",
+   "kind": "event",
+   "title": "Pump station South 930 fails",
+   "text": "A pump seal fails. The sump keeps filling - nobody announced it, the twin sees the level rise.",
+   "asset": "PS_S3",
+   "manual": false
+  },
+  {
+   "t": 46.166666747,
+   "clock": "Day 2 22:10",
+   "kind": "plan",
+   "title": "Re-plan #17 (disruption detected)",
+   "text": "5,008 decisions optimised in 386.4 s"
+  },
+  {
+   "t": 49.166666753,
+   "clock": "Day 3 01:10",
+   "kind": "plan",
+   "title": "Re-plan #18 (rolling horizon)",
+   "text": "5,008 decisions optimised in 278.5 s"
+  },
+  {
+   "t": 52.166666759,
+   "clock": "Day 3 04:10",
+   "kind": "plan",
+   "title": "Re-plan #19 (rolling horizon)",
+   "text": "5,008 decisions optimised in 314.5 s"
+  }
+ ],
+ "hourly": [
+  {
+   "t": 7.000000002,
+   "clock": "Day 1 07:00",
+   "plyxis": {
+    "m_ore": 2421.1,
+    "m_hoisted": 1750.0,
+    "m_milled": 1600.0,
+    "m_copper": 491.5,
+    "m_power": 66.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123588.4,
+    "revenue_usd_h": 184499.4,
+    "cost_usd_h": 62040.1,
+    "inventory_usd_h": 1129.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 10.4,
+    "cum_profit": 124670
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 485.4,
+    "m_power": 56.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 127500.2,
+    "revenue_usd_h": 182188.0,
+    "cost_usd_h": 52485.0,
+    "inventory_usd_h": -2202.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.0,
+    "cum_profit": 125315
+   },
+   "delta_profit": -645,
+   "terms_h": {
+    "plyxis": {
+     "metal": 184528.3,
+     "ownership": -3546.0,
+     "power": -4164.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -19853.0,
+     "loading": -1704.5,
+     "blasting": -0.0,
+     "hauling": -378.7,
+     "wear": -290.7,
+     "energy": -5702.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 182187.8,
+     "ownership": -3546.0,
+     "power": -2793.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1103.6,
+     "blasting": -0.0,
+     "hauling": -244.5,
+     "wear": -163.4,
+     "energy": -5631.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 8.000000004,
+   "clock": "Day 1 08:00",
+   "plyxis": {
+    "m_ore": 2421.1,
+    "m_hoisted": 1750.0,
+    "m_milled": 1600.0,
+    "m_copper": 491.9,
+    "m_power": 66.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124143.3,
+    "revenue_usd_h": 184684.0,
+    "cost_usd_h": 62409.2,
+    "inventory_usd_h": 1868.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 10.5,
+    "cum_profit": 249369
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1356.2,
+    "m_milled": 1580.0,
+    "m_copper": 485.4,
+    "m_power": 55.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125754.8,
+    "revenue_usd_h": 182232.2,
+    "cost_usd_h": 52757.2,
+    "inventory_usd_h": -3720.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.5,
+    "cum_profit": 249228
+   },
+   "delta_profit": 141,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185117.0,
+     "ownership": -3546.0,
+     "power": -4501.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -19853.0,
+     "loading": -1704.5,
+     "blasting": -0.0,
+     "hauling": -378.7,
+     "wear": -290.7,
+     "energy": -6124.8,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 182275.9,
+     "ownership": -3546.0,
+     "power": -2542.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1103.3,
+     "blasting": -0.0,
+     "hauling": -390.6,
+     "wear": -265.1,
+     "energy": -6048.2,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 9.000000006,
+   "clock": "Day 1 09:00",
+   "plyxis": {
+    "m_ore": 2421.1,
+    "m_hoisted": 1750.0,
+    "m_milled": 1600.0,
+    "m_copper": 493.6,
+    "m_power": 66.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125621.7,
+    "revenue_usd_h": 185058.6,
+    "cost_usd_h": 61855.6,
+    "inventory_usd_h": 2418.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 10.4,
+    "cum_profit": 376453
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1215.6,
+    "m_milled": 1580.0,
+    "m_copper": 485.3,
+    "m_power": 55.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125161.7,
+    "revenue_usd_h": 181957.1,
+    "cost_usd_h": 52416.9,
+    "inventory_usd_h": -4378.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.6,
+    "cum_profit": 373792
+   },
+   "delta_profit": 2662,
+   "terms_h": {
+    "plyxis": {
+     "metal": 186183.0,
+     "ownership": -3546.0,
+     "power": -3698.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -19852.8,
+     "loading": -1704.5,
+     "blasting": -0.0,
+     "hauling": -565.2,
+     "wear": -436.0,
+     "energy": -5068.8,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 181650.8,
+     "ownership": -3546.0,
+     "power": -2683.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1102.6,
+     "blasting": -0.0,
+     "hauling": -492.4,
+     "wear": -334.8,
+     "energy": -5005.4,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 10.000000008,
+   "clock": "Day 1 10:00",
+   "plyxis": {
+    "m_ore": 2412.0,
+    "m_hoisted": 1596.5,
+    "m_milled": 1600.0,
+    "m_copper": 496.8,
+    "m_power": 65.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 128705.1,
+    "revenue_usd_h": 185946.6,
+    "cost_usd_h": 59761.4,
+    "inventory_usd_h": 2519.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.8,
+    "cum_profit": 508363
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1242.8,
+    "m_milled": 1580.0,
+    "m_copper": 485.2,
+    "m_power": 57.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125919.9,
+    "revenue_usd_h": 181629.9,
+    "cost_usd_h": 51112.7,
+    "inventory_usd_h": -4597.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.3,
+    "cum_profit": 500518
+   },
+   "delta_profit": 7845,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187081.0,
+     "ownership": -3546.0,
+     "power": -2067.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -19699.9,
+     "loading": -1677.6,
+     "blasting": -0.0,
+     "hauling": -601.3,
+     "wear": -391.7,
+     "energy": -3168.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 181256.8,
+     "ownership": -3546.0,
+     "power": -1904.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1104.2,
+     "blasting": -0.0,
+     "hauling": -563.8,
+     "wear": -385.0,
+     "energy": -3128.4,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 11.00000001,
+   "clock": "Day 1 11:00",
+   "plyxis": {
+    "m_ore": 1799.0,
+    "m_hoisted": 1671.2,
+    "m_milled": 1600.0,
+    "m_copper": 498.3,
+    "m_power": 63.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 130530.5,
+    "revenue_usd_h": 185552.2,
+    "cost_usd_h": 55080.3,
+    "inventory_usd_h": 58.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 640827
+   },
+   "legacy": {
+    "m_ore": 1371.8,
+    "m_hoisted": 1156.6,
+    "m_milled": 1580.0,
+    "m_copper": 485.1,
+    "m_power": 59.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126153.8,
+    "revenue_usd_h": 180642.9,
+    "cost_usd_h": 47773.2,
+    "inventory_usd_h": -6715.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 626931
+   },
+   "delta_profit": 13896,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185027.2,
+     "ownership": -3546.0,
+     "power": -1251.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9720.1,
+     "loading": -806.6,
+     "blasting": -6150.0,
+     "hauling": -747.4,
+     "wear": -509.1,
+     "energy": -2112.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 179552.5,
+     "ownership": -3546.0,
+     "power": -1372.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9743.8,
+     "loading": -807.2,
+     "blasting": -0.0,
+     "hauling": -503.7,
+     "wear": -328.6,
+     "energy": -2085.6,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 12.000000012,
+   "clock": "Day 1 12:00",
+   "plyxis": {
+    "m_ore": 1500.4,
+    "m_hoisted": 1709.5,
+    "m_milled": 1600.0,
+    "m_copper": 499.0,
+    "m_power": 62.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131463.0,
+    "revenue_usd_h": 185002.1,
+    "cost_usd_h": 52892.9,
+    "inventory_usd_h": -646.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 773271
+   },
+   "legacy": {
+    "m_ore": 1297.2,
+    "m_hoisted": 1157.2,
+    "m_milled": 1580.0,
+    "m_copper": 484.7,
+    "m_power": 61.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126194.1,
+    "revenue_usd_h": 179719.8,
+    "cost_usd_h": 46062.0,
+    "inventory_usd_h": -7463.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 753184
+   },
+   "delta_profit": 20087,
+   "terms_h": {
+    "plyxis": {
+     "metal": 184449.4,
+     "ownership": -3546.0,
+     "power": -1018.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9720.1,
+     "loading": -806.6,
+     "blasting": -6150.0,
+     "hauling": -747.4,
+     "wear": -509.1,
+     "energy": -1689.6,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 178610.2,
+     "ownership": -3546.0,
+     "power": -1114.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10423.6,
+     "loading": -863.4,
+     "blasting": -0.0,
+     "hauling": -537.6,
+     "wear": -352.3,
+     "energy": -1668.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 13.000000014,
+   "clock": "Day 1 13:00",
+   "plyxis": {
+    "m_ore": 1347.2,
+    "m_hoisted": 1729.2,
+    "m_milled": 1600.0,
+    "m_copper": 499.3,
+    "m_power": 62.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132581.1,
+    "revenue_usd_h": 185215.9,
+    "cost_usd_h": 51759.6,
+    "inventory_usd_h": -875.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 907040
+   },
+   "legacy": {
+    "m_ore": 1293.6,
+    "m_hoisted": 1206.8,
+    "m_milled": 1580.0,
+    "m_copper": 483.8,
+    "m_power": 62.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126610.5,
+    "revenue_usd_h": 179472.5,
+    "cost_usd_h": 45376.0,
+    "inventory_usd_h": -7486.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.8,
+    "cum_profit": 880272
+   },
+   "delta_profit": 26769,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185374.3,
+     "ownership": -3546.0,
+     "power": -923.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9720.4,
+     "loading": -806.6,
+     "blasting": -6150.0,
+     "hauling": -945.6,
+     "wear": -638.0,
+     "energy": -1478.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 178963.5,
+     "ownership": -3546.0,
+     "power": -1010.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10806.8,
+     "loading": -893.6,
+     "blasting": -0.0,
+     "hauling": -567.4,
+     "wear": -370.7,
+     "energy": -1459.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 14.000000016,
+   "clock": "Day 1 14:00",
+   "plyxis": {
+    "m_ore": 1251.0,
+    "m_hoisted": 1739.3,
+    "m_milled": 1600.0,
+    "m_copper": 499.2,
+    "m_power": 63.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132866.0,
+    "revenue_usd_h": 185053.5,
+    "cost_usd_h": 51039.0,
+    "inventory_usd_h": -1148.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 1040216
+   },
+   "legacy": {
+    "m_ore": 1304.7,
+    "m_hoisted": 1248.9,
+    "m_milled": 1580.0,
+    "m_copper": 482.4,
+    "m_power": 62.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126316.5,
+    "revenue_usd_h": 178814.6,
+    "cost_usd_h": 45127.7,
+    "inventory_usd_h": -7370.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.8,
+    "cum_profit": 1006318
+   },
+   "delta_profit": 33898,
+   "terms_h": {
+    "plyxis": {
+     "metal": 184863.2,
+     "ownership": -3546.0,
+     "power": -992.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9385.4,
+     "loading": -768.3,
+     "blasting": -6150.0,
+     "hauling": -895.0,
+     "wear": -616.3,
+     "energy": -1478.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 177803.7,
+     "ownership": -3546.0,
+     "power": -917.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11435.1,
+     "loading": -944.5,
+     "blasting": -0.0,
+     "hauling": -606.1,
+     "wear": -396.3,
+     "energy": -1459.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 15.000000018,
+   "clock": "Day 1 15:00",
+   "plyxis": {
+    "m_ore": 1199.2,
+    "m_hoisted": 1744.5,
+    "m_milled": 1600.0,
+    "m_copper": 499.3,
+    "m_power": 63.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133004.7,
+    "revenue_usd_h": 185180.5,
+    "cost_usd_h": 50862.1,
+    "inventory_usd_h": -1313.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 1173352
+   },
+   "legacy": {
+    "m_ore": 1341.1,
+    "m_hoisted": 1319.2,
+    "m_milled": 1580.0,
+    "m_copper": 480.3,
+    "m_power": 61.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125677.3,
+    "revenue_usd_h": 178144.5,
+    "cost_usd_h": 45515.8,
+    "inventory_usd_h": -6951.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 1131375
+   },
+   "delta_profit": 41977,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185398.9,
+     "ownership": -3546.0,
+     "power": -1133.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9385.4,
+     "loading": -768.3,
+     "blasting": -6150.0,
+     "hauling": -895.0,
+     "wear": -616.3,
+     "energy": -1774.1,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 177036.9,
+     "ownership": -3546.0,
+     "power": -1059.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11067.5,
+     "loading": -930.6,
+     "blasting": -0.0,
+     "hauling": -616.3,
+     "wear": -404.0,
+     "energy": -1751.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 16.00000002,
+   "clock": "Day 1 16:00",
+   "plyxis": {
+    "m_ore": 1243.9,
+    "m_hoisted": 1747.2,
+    "m_milled": 1600.0,
+    "m_copper": 499.6,
+    "m_power": 62.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132706.1,
+    "revenue_usd_h": 185443.1,
+    "cost_usd_h": 51902.1,
+    "inventory_usd_h": -834.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 1305726
+   },
+   "legacy": {
+    "m_ore": 1263.3,
+    "m_hoisted": 1243.6,
+    "m_milled": 1580.0,
+    "m_copper": 477.9,
+    "m_power": 60.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124328.6,
+    "revenue_usd_h": 177359.8,
+    "cost_usd_h": 45314.8,
+    "inventory_usd_h": -7716.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 1254336
+   },
+   "delta_profit": 51390,
+   "terms_h": {
+    "plyxis": {
+     "metal": 185826.6,
+     "ownership": -3546.0,
+     "power": -1598.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10756.8,
+     "loading": -870.0,
+     "blasting": -6150.0,
+     "hauling": -763.4,
+     "wear": -533.8,
+     "energy": -2534.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 176152.1,
+     "ownership": -3546.0,
+     "power": -1449.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9915.5,
+     "loading": -821.5,
+     "blasting": -0.0,
+     "hauling": -522.2,
+     "wear": -342.9,
+     "energy": -2502.7,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 17.000000022,
+   "clock": "Day 1 17:00",
+   "plyxis": {
+    "m_ore": 1276.9,
+    "m_hoisted": 1748.6,
+    "m_milled": 1600.0,
+    "m_copper": 500.3,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131253.1,
+    "revenue_usd_h": 185953.1,
+    "cost_usd_h": 54190.7,
+    "inventory_usd_h": -509.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 1435424
+   },
+   "legacy": {
+    "m_ore": 1417.4,
+    "m_hoisted": 1397.8,
+    "m_milled": 1580.0,
+    "m_copper": 474.9,
+    "m_power": 61.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121522.3,
+    "revenue_usd_h": 176522.1,
+    "cost_usd_h": 48832.4,
+    "inventory_usd_h": -6167.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 1372978
+   },
+   "delta_profit": 62445,
+   "terms_h": {
+    "plyxis": {
+     "metal": 186611.3,
+     "ownership": -3546.0,
+     "power": -2929.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10756.8,
+     "loading": -870.0,
+     "blasting": -6150.0,
+     "hauling": -763.4,
+     "wear": -533.8,
+     "energy": -4646.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 175049.2,
+     "ownership": -3546.0,
+     "power": -2879.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1077.7,
+     "blasting": -0.0,
+     "hauling": -690.5,
+     "wear": -453.6,
+     "energy": -4588.3,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 18.000000024,
+   "clock": "Day 1 18:00",
+   "plyxis": {
+    "m_ore": 1293.2,
+    "m_hoisted": 1749.3,
+    "m_milled": 1600.0,
+    "m_copper": 500.9,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 128296.4,
+    "revenue_usd_h": 186786.3,
+    "cost_usd_h": 57996.3,
+    "inventory_usd_h": -493.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 1560570
+   },
+   "legacy": {
+    "m_ore": 1496.5,
+    "m_hoisted": 1480.9,
+    "m_milled": 1580.0,
+    "m_copper": 471.2,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116669.7,
+    "revenue_usd_h": 175700.3,
+    "cost_usd_h": 53660.6,
+    "inventory_usd_h": -5370.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 1484638
+   },
+   "delta_profit": 75932,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187708.1,
+     "ownership": -3546.0,
+     "power": -4800.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10769.7,
+     "loading": -871.2,
+     "blasting": -6150.0,
+     "hauling": -550.9,
+     "wear": -392.7,
+     "energy": -8448.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 174204.1,
+     "ownership": -3546.0,
+     "power": -5481.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1076.2,
+     "blasting": -0.0,
+     "hauling": -694.0,
+     "wear": -455.5,
+     "energy": -8342.4,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 19.000000026,
+   "clock": "Day 1 19:00",
+   "plyxis": {
+    "m_ore": 1363.3,
+    "m_hoisted": 1749.6,
+    "m_milled": 1600.0,
+    "m_copper": 501.3,
+    "m_power": 61.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124825.7,
+    "revenue_usd_h": 187246.4,
+    "cost_usd_h": 60690.0,
+    "inventory_usd_h": -1730.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 1681743
+   },
+   "legacy": {
+    "m_ore": 1537.1,
+    "m_hoisted": 1525.8,
+    "m_milled": 1580.0,
+    "m_copper": 467.0,
+    "m_power": 61.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111550.9,
+    "revenue_usd_h": 174441.2,
+    "cost_usd_h": 57932.3,
+    "inventory_usd_h": -4958.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 1590807
+   },
+   "delta_profit": 90937,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187718.1,
+     "ownership": -3546.0,
+     "power": -6446.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11929.7,
+     "loading": -968.4,
+     "blasting": -2050.0,
+     "hauling": -511.5,
+     "wear": -361.7,
+     "energy": -10982.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 172473.8,
+     "ownership": -3546.0,
+     "power": -6089.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1077.3,
+     "blasting": -0.0,
+     "hauling": -694.4,
+     "wear": -456.6,
+     "energy": -10845.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 20.000000028,
+   "clock": "Day 1 20:00",
+   "plyxis": {
+    "m_ore": 1407.9,
+    "m_hoisted": 1749.8,
+    "m_milled": 1600.0,
+    "m_copper": 501.4,
+    "m_power": 61.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 100973.3,
+    "revenue_usd_h": 187428.2,
+    "cost_usd_h": 83913.6,
+    "inventory_usd_h": -2541.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 1757601
+   },
+   "legacy": {
+    "m_ore": 1558.0,
+    "m_hoisted": 1509.7,
+    "m_milled": 1580.0,
+    "m_copper": 462.8,
+    "m_power": 60.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 87019.5,
+    "revenue_usd_h": 173009.9,
+    "cost_usd_h": 81207.0,
+    "inventory_usd_h": -4783.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 1652117
+   },
+   "delta_profit": 105484,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187583.0,
+     "ownership": -3546.0,
+     "power": -23928.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11929.7,
+     "loading": -968.4,
+     "blasting": -2050.0,
+     "hauling": -511.5,
+     "wear": -361.7,
+     "energy": -38860.8,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 171107.9,
+     "ownership": -3546.0,
+     "power": -22968.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1066.6,
+     "blasting": -0.0,
+     "hauling": -642.4,
+     "wear": -437.5,
+     "energy": -38375.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 21.00000003,
+   "clock": "Day 1 21:00",
+   "plyxis": {
+    "m_ore": 1430.5,
+    "m_hoisted": 1749.9,
+    "m_milled": 1600.0,
+    "m_copper": 501.3,
+    "m_power": 62.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114079.6,
+    "revenue_usd_h": 187762.5,
+    "cost_usd_h": 70821.6,
+    "inventory_usd_h": -2861.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 1885521
+   },
+   "legacy": {
+    "m_ore": 1568.7,
+    "m_hoisted": 1518.8,
+    "m_milled": 1580.0,
+    "m_copper": 459.7,
+    "m_power": 61.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 98689.9,
+    "revenue_usd_h": 172171.0,
+    "cost_usd_h": 68808.9,
+    "inventory_usd_h": -4672.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 1763156
+   },
+   "delta_profit": 122365,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188094.4,
+     "ownership": -3546.0,
+     "power": -4317.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11925.7,
+     "loading": -968.1,
+     "blasting": -2050.0,
+     "hauling": -630.4,
+     "wear": -456.9,
+     "energy": -6758.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 171124.4,
+     "ownership": -3546.0,
+     "power": -4092.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1066.2,
+     "blasting": -0.0,
+     "hauling": -653.6,
+     "wear": -445.9,
+     "energy": -6673.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 22.000000032,
+   "clock": "Day 1 22:00",
+   "plyxis": {
+    "m_ore": 1481.1,
+    "m_hoisted": 898.4,
+    "m_milled": 1600.0,
+    "m_copper": 501.2,
+    "m_power": 57.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121980.5,
+    "revenue_usd_h": 187673.1,
+    "cost_usd_h": 61519.2,
+    "inventory_usd_h": -4173.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.9,
+    "cum_profit": 2015817
+   },
+   "legacy": {
+    "m_ore": 1574.2,
+    "m_hoisted": 779.8,
+    "m_milled": 1580.0,
+    "m_copper": 457.8,
+    "m_power": 58.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 105552.6,
+    "revenue_usd_h": 171407.9,
+    "cost_usd_h": 60872.3,
+    "inventory_usd_h": -4983.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.2,
+    "cum_profit": 1875950
+   },
+   "delta_profit": 139867,
+   "terms_h": {
+    "plyxis": {
+     "metal": 187578.7,
+     "ownership": -3546.0,
+     "power": -1933.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12676.3,
+     "loading": -1032.6,
+     "blasting": -0.0,
+     "hauling": -310.9,
+     "wear": -247.8,
+     "energy": -5280.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 170602.6,
+     "ownership": -3546.0,
+     "power": -2339.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1066.3,
+     "blasting": -0.0,
+     "hauling": -660.9,
+     "wear": -450.9,
+     "energy": -5214.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 23.000000034,
+   "clock": "Day 1 23:00",
+   "plyxis": {
+    "m_ore": 1512.6,
+    "m_hoisted": 461.3,
+    "m_milled": 1600.0,
+    "m_copper": 501.2,
+    "m_power": 55.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 127077.4,
+    "revenue_usd_h": 188274.3,
+    "cost_usd_h": 56245.8,
+    "inventory_usd_h": -4951.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.3,
+    "cum_profit": 2148278
+   },
+   "legacy": {
+    "m_ore": 1577.0,
+    "m_hoisted": 400.3,
+    "m_milled": 1580.0,
+    "m_copper": 456.8,
+    "m_power": 56.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 110161.3,
+    "revenue_usd_h": 171604.6,
+    "cost_usd_h": 56305.6,
+    "inventory_usd_h": -5137.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.5,
+    "cum_profit": 1990968
+   },
+   "delta_profit": 157310,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188908.7,
+     "ownership": -3546.0,
+     "power": -1838.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12676.3,
+     "loading": -1032.6,
+     "blasting": -0.0,
+     "hauling": -310.9,
+     "wear": -247.8,
+     "energy": -4646.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 171812.1,
+     "ownership": -3546.0,
+     "power": -1927.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1066.4,
+     "blasting": -0.0,
+     "hauling": -665.3,
+     "wear": -453.9,
+     "energy": -4588.3,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 24.000000036,
+   "clock": "Day 2 00:00",
+   "plyxis": {
+    "m_ore": 1528.8,
+    "m_hoisted": 236.8,
+    "m_milled": 1600.0,
+    "m_copper": 501.2,
+    "m_power": 54.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 129932.0,
+    "revenue_usd_h": 188510.4,
+    "cost_usd_h": 53284.2,
+    "inventory_usd_h": -5294.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.8,
+    "cum_profit": 2281219
+   },
+   "legacy": {
+    "m_ore": 1578.5,
+    "m_hoisted": 205.5,
+    "m_milled": 1580.0,
+    "m_copper": 456.3,
+    "m_power": 55.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 112783.4,
+    "revenue_usd_h": 171639.6,
+    "cost_usd_h": 53678.4,
+    "inventory_usd_h": -5177.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.1,
+    "cum_profit": 2106518
+   },
+   "delta_profit": 174701,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188759.6,
+     "ownership": -3546.0,
+     "power": -1592.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12676.3,
+     "loading": -1032.6,
+     "blasting": -0.0,
+     "hauling": -392.7,
+     "wear": -302.3,
+     "energy": -4224.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 171676.6,
+     "ownership": -3546.0,
+     "power": -1752.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.6,
+     "blasting": -0.0,
+     "hauling": -669.6,
+     "wear": -455.6,
+     "energy": -4171.2,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 25.000000038,
+   "clock": "Day 2 01:00",
+   "plyxis": {
+    "m_ore": 1375.7,
+    "m_hoisted": 121.6,
+    "m_milled": 1599.9,
+    "m_copper": 501.1,
+    "m_power": 55.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131068.2,
+    "revenue_usd_h": 188367.5,
+    "cost_usd_h": 50399.8,
+    "inventory_usd_h": -6899.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.0,
+    "cum_profit": 2413508
+   },
+   "legacy": {
+    "m_ore": 1579.2,
+    "m_hoisted": 105.5,
+    "m_milled": 1580.0,
+    "m_copper": 456.0,
+    "m_power": 53.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114107.8,
+    "revenue_usd_h": 171424.8,
+    "cost_usd_h": 51712.9,
+    "inventory_usd_h": -5604.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.9,
+    "cum_profit": 2222010
+   },
+   "delta_profit": 191498,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188214.3,
+     "ownership": -3546.0,
+     "power": -1883.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9530.8,
+     "loading": -776.8,
+     "blasting": -0.0,
+     "hauling": -466.4,
+     "wear": -341.2,
+     "energy": -4012.4,
+     "consumables": -10398.9
+    },
+    "legacy": {
+     "metal": 171198.0,
+     "ownership": -3546.0,
+     "power": -1499.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1087.1,
+     "blasting": -0.0,
+     "hauling": -0.0,
+     "wear": -0.0,
+     "energy": -3962.6,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 26.00000004,
+   "clock": "Day 2 02:00",
+   "plyxis": {
+    "m_ore": 1274.6,
+    "m_hoisted": 62.4,
+    "m_milled": 1599.9,
+    "m_copper": 501.1,
+    "m_power": 54.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131957.7,
+    "revenue_usd_h": 188314.7,
+    "cost_usd_h": 48432.2,
+    "inventory_usd_h": -7924.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.6,
+    "cum_profit": 2546388
+   },
+   "legacy": {
+    "m_ore": 1579.6,
+    "m_hoisted": 54.2,
+    "m_milled": 1580.0,
+    "m_copper": 455.9,
+    "m_power": 52.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114993.8,
+    "revenue_usd_h": 171334.2,
+    "cost_usd_h": 50388.9,
+    "inventory_usd_h": -5951.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.7,
+    "cum_profit": 2337931
+   },
+   "delta_profit": 208457,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188259.1,
+     "ownership": -3546.0,
+     "power": -1398.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9585.3,
+     "loading": -780.7,
+     "blasting": -0.0,
+     "hauling": -466.4,
+     "wear": -341.2,
+     "energy": -3801.2,
+     "consumables": -10398.9
+    },
+    "legacy": {
+     "metal": 171238.8,
+     "ownership": -3546.0,
+     "power": -1318.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.9,
+     "blasting": -0.0,
+     "hauling": -0.0,
+     "wear": -0.0,
+     "energy": -3754.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 27.000000042,
+   "clock": "Day 2 03:00",
+   "plyxis": {
+    "m_ore": 1223.2,
+    "m_hoisted": 807.1,
+    "m_milled": 1599.9,
+    "m_copper": 502.1,
+    "m_power": 57.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133311.1,
+    "revenue_usd_h": 189052.7,
+    "cost_usd_h": 47761.1,
+    "inventory_usd_h": -7980.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.8,
+    "cum_profit": 2681061
+   },
+   "legacy": {
+    "m_ore": 1579.8,
+    "m_hoisted": 879.3,
+    "m_milled": 1580.0,
+    "m_copper": 455.9,
+    "m_power": 56.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 115953.4,
+    "revenue_usd_h": 171653.7,
+    "cost_usd_h": 50585.2,
+    "inventory_usd_h": -5115.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.9,
+    "cum_profit": 2454903
+   },
+   "delta_profit": 226158,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190293.0,
+     "ownership": -3546.0,
+     "power": -2172.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9585.3,
+     "loading": -780.7,
+     "blasting": -0.0,
+     "hauling": -613.9,
+     "wear": -417.1,
+     "energy": -3590.0,
+     "consumables": -10398.9
+    },
+    "legacy": {
+     "metal": 172037.7,
+     "ownership": -3546.0,
+     "power": -2197.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.0,
+     "blasting": -0.0,
+     "hauling": -737.4,
+     "wear": -501.7,
+     "energy": -3545.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 28.000000044,
+   "clock": "Day 2 04:00",
+   "plyxis": {
+    "m_ore": 1220.6,
+    "m_hoisted": 1265.9,
+    "m_milled": 1599.9,
+    "m_copper": 503.5,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134478.6,
+    "revenue_usd_h": 189934.7,
+    "cost_usd_h": 48801.2,
+    "inventory_usd_h": -6654.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.5,
+    "cum_profit": 2816769
+   },
+   "legacy": {
+    "m_ore": 1579.9,
+    "m_hoisted": 1303.0,
+    "m_milled": 1580.0,
+    "m_copper": 456.2,
+    "m_power": 60.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116602.3,
+    "revenue_usd_h": 172083.5,
+    "cost_usd_h": 50808.9,
+    "inventory_usd_h": -4672.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 2572183
+   },
+   "delta_profit": 244586,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190839.8,
+     "ownership": -3546.0,
+     "power": -2243.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9990.2,
+     "loading": -806.5,
+     "blasting": -2050.0,
+     "hauling": -747.0,
+     "wear": -530.3,
+     "energy": -3590.0,
+     "consumables": -10398.9
+    },
+    "legacy": {
+     "metal": 172639.3,
+     "ownership": -3546.0,
+     "power": -2377.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.0,
+     "blasting": -0.0,
+     "hauling": -743.3,
+     "wear": -506.0,
+     "energy": -3545.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 29.000000046,
+   "clock": "Day 2 05:00",
+   "plyxis": {
+    "m_ore": 1219.5,
+    "m_hoisted": 1501.5,
+    "m_milled": 1599.8,
+    "m_copper": 503.6,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134794.3,
+    "revenue_usd_h": 190340.2,
+    "cost_usd_h": 49573.5,
+    "inventory_usd_h": -5972.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 2951936
+   },
+   "legacy": {
+    "m_ore": 1579.9,
+    "m_hoisted": 1520.5,
+    "m_milled": 1580.0,
+    "m_copper": 456.7,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117067.8,
+    "revenue_usd_h": 172606.5,
+    "cost_usd_h": 51092.0,
+    "inventory_usd_h": -4446.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 2689725
+   },
+   "delta_profit": 262212,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190472.6,
+     "ownership": -3546.0,
+     "power": -2518.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9990.2,
+     "loading": -806.5,
+     "blasting": -2050.0,
+     "hauling": -747.0,
+     "wear": -530.3,
+     "energy": -3801.2,
+     "consumables": -10398.9
+    },
+    "legacy": {
+     "metal": 173301.4,
+     "ownership": -3546.0,
+     "power": -2578.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.6,
+     "blasting": -0.0,
+     "hauling": -743.4,
+     "wear": -506.0,
+     "energy": -3754.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 30.000000048,
+   "clock": "Day 2 06:00",
+   "plyxis": {
+    "m_ore": 1218.9,
+    "m_hoisted": 1622.4,
+    "m_milled": 1599.5,
+    "m_copper": 502.5,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 134885.1,
+    "revenue_usd_h": 190886.3,
+    "cost_usd_h": 50355.4,
+    "inventory_usd_h": -5645.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 3086959
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1632.2,
+    "m_milled": 1580.0,
+    "m_copper": 457.5,
+    "m_power": 62.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117695.3,
+    "revenue_usd_h": 173811.8,
+    "cost_usd_h": 51787.8,
+    "inventory_usd_h": -4328.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 2808063
+   },
+   "delta_profit": 278896,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191214.6,
+     "ownership": -3546.0,
+     "power": -2781.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -9990.2,
+     "loading": -806.5,
+     "blasting": -2050.0,
+     "hauling": -672.1,
+     "wear": -506.3,
+     "energy": -4432.9,
+     "consumables": -10394.6
+    },
+    "legacy": {
+     "metal": 175255.0,
+     "ownership": -3546.0,
+     "power": -3128.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.2,
+     "blasting": -0.0,
+     "hauling": -743.0,
+     "wear": -505.9,
+     "energy": -4379.8,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 31.00000005,
+   "clock": "Day 2 07:00",
+   "plyxis": {
+    "m_ore": 1248.9,
+    "m_hoisted": 1684.5,
+    "m_milled": 1599.5,
+    "m_copper": 501.4,
+    "m_power": 62.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133216.0,
+    "revenue_usd_h": 190459.7,
+    "cost_usd_h": 52065.8,
+    "inventory_usd_h": -5177.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 3218423
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1689.5,
+    "m_milled": 1580.0,
+    "m_copper": 458.6,
+    "m_power": 64.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116644.2,
+    "revenue_usd_h": 174187.3,
+    "cost_usd_h": 53276.9,
+    "inventory_usd_h": -4266.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 2923574
+   },
+   "delta_profit": 294848,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189964.1,
+     "ownership": -3546.0,
+     "power": -3601.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10499.6,
+     "loading": -841.5,
+     "blasting": -2050.0,
+     "hauling": -705.6,
+     "wear": -528.7,
+     "energy": -5700.8,
+     "consumables": -10397.1
+    },
+    "legacy": {
+     "metal": 174773.7,
+     "ownership": -3546.0,
+     "power": -4121.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1086.4,
+     "blasting": -0.0,
+     "hauling": -744.7,
+     "wear": -507.3,
+     "energy": -5631.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 32.000000052,
+   "clock": "Day 2 08:00",
+   "plyxis": {
+    "m_ore": 1264.2,
+    "m_hoisted": 1716.4,
+    "m_milled": 1599.5,
+    "m_copper": 500.9,
+    "m_power": 62.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 131983.1,
+    "revenue_usd_h": 190151.4,
+    "cost_usd_h": 53230.8,
+    "inventory_usd_h": -4937.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 3349097
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1718.9,
+    "m_milled": 1580.0,
+    "m_copper": 459.8,
+    "m_power": 64.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116042.3,
+    "revenue_usd_h": 174557.7,
+    "cost_usd_h": 54291.9,
+    "inventory_usd_h": -4223.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 3038941
+   },
+   "delta_profit": 310156,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189889.0,
+     "ownership": -3546.0,
+     "power": -3768.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10499.6,
+     "loading": -841.5,
+     "blasting": -2050.0,
+     "hauling": -705.6,
+     "wear": -528.7,
+     "energy": -6123.1,
+     "consumables": -10397.1
+    },
+    "legacy": {
+     "metal": 175154.4,
+     "ownership": -3546.0,
+     "power": -4272.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1082.1,
+     "blasting": -0.0,
+     "hauling": -749.0,
+     "wear": -511.3,
+     "energy": -6048.2,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 33.000000054,
+   "clock": "Day 2 09:00",
+   "plyxis": {
+    "m_ore": 1265.3,
+    "m_hoisted": 1732.7,
+    "m_milled": 1599.2,
+    "m_copper": 500.8,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132282.3,
+    "revenue_usd_h": 190053.4,
+    "cost_usd_h": 52915.4,
+    "inventory_usd_h": -4855.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 3481686
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1734.1,
+    "m_milled": 1580.0,
+    "m_copper": 461.2,
+    "m_power": 64.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 116853.9,
+    "revenue_usd_h": 175031.2,
+    "cost_usd_h": 53980.9,
+    "inventory_usd_h": -4196.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.4,
+    "cum_profit": 3156619
+   },
+   "delta_profit": 325066,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189991.0,
+     "ownership": -3546.0,
+     "power": -2994.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10374.8,
+     "loading": -833.2,
+     "blasting": -2050.0,
+     "hauling": -759.9,
+     "wear": -551.7,
+     "energy": -5064.4,
+     "consumables": -10390.9
+    },
+    "legacy": {
+     "metal": 175744.3,
+     "ownership": -3546.0,
+     "power": -3535.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1082.1,
+     "blasting": -0.0,
+     "hauling": -746.4,
+     "wear": -510.0,
+     "energy": -5005.4,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 34.000000056,
+   "clock": "Day 2 10:00",
+   "plyxis": {
+    "m_ore": 1265.3,
+    "m_hoisted": 1741.1,
+    "m_milled": 1598.9,
+    "m_copper": 500.8,
+    "m_power": 62.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133498.4,
+    "revenue_usd_h": 189637.6,
+    "cost_usd_h": 51324.5,
+    "inventory_usd_h": -4814.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 3616473
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1741.8,
+    "m_milled": 1580.0,
+    "m_copper": 462.7,
+    "m_power": 64.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 118755.7,
+    "revenue_usd_h": 175200.2,
+    "cost_usd_h": 52261.8,
+    "inventory_usd_h": -4182.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.4,
+    "cum_profit": 3277350
+   },
+   "delta_profit": 339123,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189184.3,
+     "ownership": -3546.0,
+     "power": -1988.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10374.8,
+     "loading": -833.2,
+     "blasting": -2050.0,
+     "hauling": -759.9,
+     "wear": -551.7,
+     "energy": -3165.2,
+     "consumables": -10390.9
+    },
+    "legacy": {
+     "metal": 175592.9,
+     "ownership": -3546.0,
+     "power": -2209.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1082.5,
+     "blasting": -0.0,
+     "hauling": -744.1,
+     "wear": -508.4,
+     "energy": -3128.4,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 35.000000058,
+   "clock": "Day 2 11:00",
+   "plyxis": {
+    "m_ore": 1265.2,
+    "m_hoisted": 1745.4,
+    "m_milled": 1599.3,
+    "m_copper": 500.9,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 135164.9,
+    "revenue_usd_h": 189681.1,
+    "cost_usd_h": 49581.5,
+    "inventory_usd_h": -4934.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 3753401
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1745.8,
+    "m_milled": 1580.0,
+    "m_copper": 464.2,
+    "m_power": 64.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 121119.9,
+    "revenue_usd_h": 175791.8,
+    "cost_usd_h": 50495.1,
+    "inventory_usd_h": -4176.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.3,
+    "cum_profit": 3400930
+   },
+   "delta_profit": 352471,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189711.6,
+     "ownership": -3546.0,
+     "power": -1395.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10374.8,
+     "loading": -833.2,
+     "blasting": -2050.0,
+     "hauling": -583.0,
+     "wear": -421.2,
+     "energy": -2111.7,
+     "consumables": -10398.7
+    },
+    "legacy": {
+     "metal": 176627.7,
+     "ownership": -3546.0,
+     "power": -1412.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1082.5,
+     "blasting": -0.0,
+     "hauling": -751.0,
+     "wear": -513.5,
+     "energy": -2085.6,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 36.00000006,
+   "clock": "Day 2 12:00",
+   "plyxis": {
+    "m_ore": 1307.6,
+    "m_hoisted": 1747.7,
+    "m_milled": 1599.5,
+    "m_copper": 500.9,
+    "m_power": 61.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 136600.6,
+    "revenue_usd_h": 189874.1,
+    "cost_usd_h": 47771.8,
+    "inventory_usd_h": -5501.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 3891509
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1747.8,
+    "m_milled": 1580.0,
+    "m_copper": 465.7,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123149.7,
+    "revenue_usd_h": 176549.1,
+    "cost_usd_h": 49195.6,
+    "inventory_usd_h": -4203.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 3526189
+   },
+   "delta_profit": 365320,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190075.4,
+     "ownership": -3546.0,
+     "power": -979.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11143.6,
+     "loading": -902.2,
+     "blasting": -0.0,
+     "hauling": -573.0,
+     "wear": -415.3,
+     "energy": -1689.4,
+     "consumables": -10399.0
+    },
+    "legacy": {
+     "metal": 177554.6,
+     "ownership": -3546.0,
+     "power": -990.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1094.5,
+     "blasting": -0.0,
+     "hauling": -738.9,
+     "wear": -502.3,
+     "energy": -1668.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 37.000000062,
+   "clock": "Day 2 13:00",
+   "plyxis": {
+    "m_ore": 1382.0,
+    "m_hoisted": 1748.8,
+    "m_milled": 1599.8,
+    "m_copper": 500.9,
+    "m_power": 62.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 137275.1,
+    "revenue_usd_h": 189755.8,
+    "cost_usd_h": 47121.2,
+    "inventory_usd_h": -5359.5,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 4029495
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1748.9,
+    "m_milled": 1580.0,
+    "m_copper": 467.2,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124443.2,
+    "revenue_usd_h": 176995.5,
+    "cost_usd_h": 48333.9,
+    "inventory_usd_h": -4218.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 3651968
+   },
+   "delta_profit": 377527,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189632.5,
+     "ownership": -3546.0,
+     "power": -920.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12093.5,
+     "loading": -988.0,
+     "blasting": -0.0,
+     "hauling": -678.9,
+     "wear": -489.0,
+     "energy": -1478.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 177663.3,
+     "ownership": -3546.0,
+     "power": -865.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1094.5,
+     "blasting": -0.0,
+     "hauling": -730.3,
+     "wear": -495.9,
+     "energy": -1459.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 38.000000064,
+   "clock": "Day 2 14:00",
+   "plyxis": {
+    "m_ore": 1427.1,
+    "m_hoisted": 1749.4,
+    "m_milled": 1599.9,
+    "m_copper": 500.9,
+    "m_power": 62.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 137684.3,
+    "revenue_usd_h": 189771.8,
+    "cost_usd_h": 46877.8,
+    "inventory_usd_h": -5209.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 4167614
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.4,
+    "m_milled": 1580.0,
+    "m_copper": 468.6,
+    "m_power": 60.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125463.0,
+    "revenue_usd_h": 177565.5,
+    "cost_usd_h": 47869.1,
+    "inventory_usd_h": -4233.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 3778476
+   },
+   "delta_profit": 389138,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189772.9,
+     "ownership": -3546.0,
+     "power": -947.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12093.5,
+     "loading": -988.0,
+     "blasting": -0.0,
+     "hauling": -678.9,
+     "wear": -489.0,
+     "energy": -1478.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 178355.3,
+     "ownership": -3546.0,
+     "power": -825.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1094.2,
+     "blasting": -0.0,
+     "hauling": -722.4,
+     "wear": -490.4,
+     "energy": -1459.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 39.000000066,
+   "clock": "Day 2 15:00",
+   "plyxis": {
+    "m_ore": 1449.5,
+    "m_hoisted": 1749.7,
+    "m_milled": 1599.9,
+    "m_copper": 500.8,
+    "m_power": 62.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 137140.0,
+    "revenue_usd_h": 189255.8,
+    "cost_usd_h": 46939.9,
+    "inventory_usd_h": -5175.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 4304179
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.7,
+    "m_milled": 1580.0,
+    "m_copper": 470.0,
+    "m_power": 60.3,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125524.9,
+    "revenue_usd_h": 177622.5,
+    "cost_usd_h": 47849.6,
+    "inventory_usd_h": -4248.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 3904043
+   },
+   "delta_profit": 400136,
+   "terms_h": {
+    "plyxis": {
+     "metal": 188719.3,
+     "ownership": -3546.0,
+     "power": -1133.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12079.2,
+     "loading": -986.6,
+     "blasting": -0.0,
+     "hauling": -627.3,
+     "wear": -458.5,
+     "energy": -1774.1,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 177856.7,
+     "ownership": -3546.0,
+     "power": -1032.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1095.9,
+     "blasting": -0.0,
+     "hauling": -717.5,
+     "wear": -485.8,
+     "energy": -1751.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 40.000000068,
+   "clock": "Day 2 16:00",
+   "plyxis": {
+    "m_ore": 1453.3,
+    "m_hoisted": 1749.8,
+    "m_milled": 1600.0,
+    "m_copper": 501.0,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 136716.4,
+    "revenue_usd_h": 189374.3,
+    "cost_usd_h": 47189.8,
+    "inventory_usd_h": -5468.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 4440432
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.9,
+    "m_milled": 1580.0,
+    "m_copper": 471.3,
+    "m_power": 60.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125498.7,
+    "revenue_usd_h": 178176.1,
+    "cost_usd_h": 48409.7,
+    "inventory_usd_h": -4267.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 4029488
+   },
+   "delta_profit": 410944,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189633.7,
+     "ownership": -3546.0,
+     "power": -1483.9,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11973.5,
+     "loading": -977.5,
+     "blasting": -0.0,
+     "hauling": -315.7,
+     "wear": -249.0,
+     "energy": -2534.4,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 178917.0,
+     "ownership": -3546.0,
+     "power": -1431.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1095.4,
+     "blasting": -0.0,
+     "hauling": -699.5,
+     "wear": -472.8,
+     "energy": -2502.7,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 41.00000007,
+   "clock": "Day 2 17:00",
+   "plyxis": {
+    "m_ore": 1454.1,
+    "m_hoisted": 1239.5,
+    "m_milled": 1600.0,
+    "m_copper": 501.5,
+    "m_power": 56.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 101877.7,
+    "revenue_usd_h": 189713.8,
+    "cost_usd_h": 81952.9,
+    "inventory_usd_h": -5883.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.4,
+    "cum_profit": 4505531
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1749.9,
+    "m_milled": 1580.0,
+    "m_copper": 472.6,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 83967.6,
+    "revenue_usd_h": 178749.9,
+    "cost_usd_h": 90508.0,
+    "inventory_usd_h": -4274.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 4069775
+   },
+   "delta_profit": 435756,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190215.2,
+     "ownership": -3546.0,
+     "power": -17617.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11928.4,
+     "loading": -973.3,
+     "blasting": -0.0,
+     "hauling": -315.7,
+     "wear": -249.0,
+     "energy": -57600.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 179507.0,
+     "ownership": -3546.0,
+     "power": -33747.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1096.2,
+     "blasting": -0.0,
+     "hauling": -707.3,
+     "wear": -478.2,
+     "energy": -56880.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 42.000000072,
+   "clock": "Day 2 18:00",
+   "plyxis": {
+    "m_ore": 1447.9,
+    "m_hoisted": 1263.7,
+    "m_milled": 1600.0,
+    "m_copper": 502.7,
+    "m_power": 54.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 82602.8,
+    "revenue_usd_h": 189810.8,
+    "cost_usd_h": 100946.1,
+    "inventory_usd_h": -6261.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.9,
+    "cum_profit": 4567750
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 473.7,
+    "m_power": 60.0,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 62381.0,
+    "revenue_usd_h": 178878.5,
+    "cost_usd_h": 112227.6,
+    "inventory_usd_h": -4269.8,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.9,
+    "cum_profit": 4109230
+   },
+   "delta_profit": 458520,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190211.3,
+     "ownership": -3546.0,
+     "power": -20559.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -11857.2,
+     "loading": -969.6,
+     "blasting": -0.0,
+     "hauling": -58.9,
+     "wear": -37.0,
+     "energy": -57600.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 179161.8,
+     "ownership": -3546.0,
+     "power": -31189.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1096.2,
+     "blasting": -0.0,
+     "hauling": -709.3,
+     "wear": -479.5,
+     "energy": -56880.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 43.000000074,
+   "clock": "Day 2 19:00",
+   "plyxis": {
+    "m_ore": 1346.8,
+    "m_hoisted": 687.7,
+    "m_milled": 1599.7,
+    "m_copper": 503.7,
+    "m_power": 52.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 73762.1,
+    "revenue_usd_h": 190576.8,
+    "cost_usd_h": 110609.6,
+    "inventory_usd_h": -6205.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 5.2,
+    "cum_profit": 4632182
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 474.8,
+    "m_power": 59.6,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 52743.7,
+    "revenue_usd_h": 179654.8,
+    "cost_usd_h": 122641.0,
+    "inventory_usd_h": -4270.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.7,
+    "cum_profit": 4151843
+   },
+   "delta_profit": 480339,
+   "terms_h": {
+    "plyxis": {
+     "metal": 191394.8,
+     "ownership": -3546.0,
+     "power": -19221.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10172.9,
+     "loading": -813.8,
+     "blasting": -2050.0,
+     "hauling": -607.9,
+     "wear": -426.4,
+     "energy": -57576.3,
+     "consumables": -10395.7
+    },
+    "legacy": {
+     "metal": 180623.7,
+     "ownership": -3546.0,
+     "power": -31860.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1096.2,
+     "blasting": -0.0,
+     "hauling": -712.8,
+     "wear": -482.2,
+     "energy": -56880.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 44.000000076,
+   "clock": "Day 2 20:00",
+   "plyxis": {
+    "m_ore": 1295.1,
+    "m_hoisted": 1204.6,
+    "m_milled": 1599.5,
+    "m_copper": 504.3,
+    "m_power": 57.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 98890.9,
+    "revenue_usd_h": 190646.4,
+    "cost_usd_h": 85987.7,
+    "inventory_usd_h": -5767.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 6.9,
+    "cum_profit": 4757582
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 475.9,
+    "m_power": 60.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 83048.3,
+    "revenue_usd_h": 179908.6,
+    "cost_usd_h": 92520.0,
+    "inventory_usd_h": -4340.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 4266919
+   },
+   "delta_profit": 490663,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190735.8,
+     "ownership": -3546.0,
+     "power": -6284.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10172.9,
+     "loading": -813.8,
+     "blasting": -2050.0,
+     "hauling": -607.9,
+     "wear": -426.4,
+     "energy": -9711.2,
+     "consumables": -10395.7
+    },
+    "legacy": {
+     "metal": 180319.2,
+     "ownership": -3546.0,
+     "power": -6508.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1124.0,
+     "blasting": -0.0,
+     "hauling": -718.1,
+     "wear": -488.2,
+     "energy": -9593.8,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 45.000000078,
+   "clock": "Day 2 21:00",
+   "plyxis": {
+    "m_ore": 1259.5,
+    "m_hoisted": 1470.0,
+    "m_milled": 1599.6,
+    "m_copper": 504.6,
+    "m_power": 60.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 114165.1,
+    "revenue_usd_h": 190728.7,
+    "cost_usd_h": 71065.6,
+    "inventory_usd_h": -5498.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 7.8,
+    "cum_profit": 4887870
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 477.0,
+    "m_power": 63.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 100818.3,
+    "revenue_usd_h": 180283.6,
+    "cost_usd_h": 75088.4,
+    "inventory_usd_h": -4376.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.0,
+    "cum_profit": 4386501
+   },
+   "delta_profit": 501369,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190777.5,
+     "ownership": -3546.0,
+     "power": -4478.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -10053.5,
+     "loading": -804.8,
+     "blasting": -2050.0,
+     "hauling": -734.2,
+     "wear": -535.3,
+     "energy": -6757.1,
+     "consumables": -10398.1
+    },
+    "legacy": {
+     "metal": 180818.9,
+     "ownership": -3546.0,
+     "power": -5054.9,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1123.8,
+     "blasting": -0.0,
+     "hauling": -711.1,
+     "wear": -482.8,
+     "energy": -6673.9,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 46.00000008,
+   "clock": "Day 2 22:00",
+   "plyxis": {
+    "m_ore": 1389.5,
+    "m_hoisted": 1606.2,
+    "m_milled": 1599.8,
+    "m_copper": 504.7,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 123053.1,
+    "revenue_usd_h": 190704.3,
+    "cost_usd_h": 64647.1,
+    "inventory_usd_h": -3004.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 5020303
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 478.1,
+    "m_power": 64.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 111274.8,
+    "revenue_usd_h": 180618.8,
+    "cost_usd_h": 64941.0,
+    "inventory_usd_h": -4402.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.6,
+    "cum_profit": 4508786
+   },
+   "delta_profit": 511516,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190671.8,
+     "ownership": -3546.0,
+     "power": -3653.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12529.2,
+     "loading": -1016.9,
+     "blasting": -4100.0,
+     "hauling": -793.3,
+     "wear": -566.4,
+     "energy": -5280.0,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 181128.8,
+     "ownership": -3546.0,
+     "power": -3945.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1123.4,
+     "blasting": -0.0,
+     "hauling": -697.9,
+     "wear": -473.2,
+     "energy": -5214.0,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 47.000000082,
+   "clock": "Day 2 23:00",
+   "plyxis": {
+    "m_ore": 1447.1,
+    "m_hoisted": 1676.2,
+    "m_milled": 1599.9,
+    "m_copper": 504.8,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 128068.0,
+    "revenue_usd_h": 190470.6,
+    "cost_usd_h": 58812.5,
+    "inventory_usd_h": -3590.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.5,
+    "cum_profit": 5153651
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 479.2,
+    "m_power": 65.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 117234.6,
+    "revenue_usd_h": 180807.0,
+    "cost_usd_h": 59148.1,
+    "inventory_usd_h": -4424.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.8,
+    "cum_profit": 4632282
+   },
+   "delta_profit": 521370,
+   "terms_h": {
+    "plyxis": {
+     "metal": 190238.4,
+     "ownership": -3546.0,
+     "power": -2918.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12341.2,
+     "loading": -1010.0,
+     "blasting": -0.0,
+     "hauling": -711.8,
+     "wear": -511.2,
+     "energy": -4646.2,
+     "consumables": -10399.6
+    },
+    "legacy": {
+     "metal": 181192.3,
+     "ownership": -3546.0,
+     "power": -3394.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1123.1,
+     "blasting": -0.0,
+     "hauling": -684.8,
+     "wear": -464.0,
+     "energy": -4588.3,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 48.000000084,
+   "clock": "Day 3 00:00",
+   "plyxis": {
+    "m_ore": 1475.3,
+    "m_hoisted": 1708.1,
+    "m_milled": 1599.9,
+    "m_copper": 504.9,
+    "m_power": 62.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 130796.6,
+    "revenue_usd_h": 190131.4,
+    "cost_usd_h": 55176.8,
+    "inventory_usd_h": -4158.1,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 5287319
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 480.5,
+    "m_power": 65.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 120718.8,
+    "revenue_usd_h": 180930.3,
+    "cost_usd_h": 55838.5,
+    "inventory_usd_h": -4373.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.9,
+    "cum_profit": 4756650
+   },
+   "delta_profit": 530668,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189816.6,
+     "ownership": -3546.0,
+     "power": -2589.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12341.2,
+     "loading": -1010.0,
+     "blasting": -0.0,
+     "hauling": -711.8,
+     "wear": -511.2,
+     "energy": -4223.8,
+     "consumables": -10399.6
+    },
+    "legacy": {
+     "metal": 181278.8,
+     "ownership": -3546.0,
+     "power": -3155.1,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1124.3,
+     "blasting": -0.0,
+     "hauling": -693.8,
+     "wear": -469.8,
+     "energy": -4171.2,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 49.000000086,
+   "clock": "Day 3 01:00",
+   "plyxis": {
+    "m_ore": 1489.8,
+    "m_hoisted": 1699.6,
+    "m_milled": 1599.9,
+    "m_copper": 505.2,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 132020.2,
+    "revenue_usd_h": 189610.7,
+    "cost_usd_h": 53152.6,
+    "inventory_usd_h": -4437.9,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 5420623
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 482.0,
+    "m_power": 65.4,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 122664.7,
+    "revenue_usd_h": 180906.9,
+    "cost_usd_h": 53892.3,
+    "inventory_usd_h": -4350.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.8,
+    "cum_profit": 4881312
+   },
+   "delta_profit": 539310,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189106.4,
+     "ownership": -3546.0,
+     "power": -2437.9,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12341.2,
+     "loading": -1010.0,
+     "blasting": -0.0,
+     "hauling": -739.7,
+     "wear": -534.0,
+     "energy": -4012.4,
+     "consumables": -10399.0
+    },
+    "legacy": {
+     "metal": 181119.2,
+     "ownership": -3546.0,
+     "power": -2703.2,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1124.5,
+     "blasting": -0.0,
+     "hauling": -684.8,
+     "wear": -465.1,
+     "energy": -3962.6,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 50.000000088,
+   "clock": "Day 3 02:00",
+   "plyxis": {
+    "m_ore": 1493.6,
+    "m_hoisted": 1718.4,
+    "m_milled": 1599.9,
+    "m_copper": 505.4,
+    "m_power": 61.9,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133163.0,
+    "revenue_usd_h": 189666.3,
+    "cost_usd_h": 51901.6,
+    "inventory_usd_h": -4601.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 5554983
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 483.6,
+    "m_power": 63.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 124560.9,
+    "revenue_usd_h": 181478.9,
+    "cost_usd_h": 52575.9,
+    "inventory_usd_h": -4342.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 9.2,
+    "cum_profit": 5007831
+   },
+   "delta_profit": 547152,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189773.6,
+     "ownership": -3546.0,
+     "power": -2316.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12272.9,
+     "loading": -1011.5,
+     "blasting": -0.0,
+     "hauling": -704.1,
+     "wear": -516.6,
+     "energy": -3801.2,
+     "consumables": -10399.0
+    },
+    "legacy": {
+     "metal": 182328.8,
+     "ownership": -3546.0,
+     "power": -2366.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1124.3,
+     "blasting": -0.0,
+     "hauling": -681.8,
+     "wear": -462.3,
+     "energy": -3754.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 51.00000009,
+   "clock": "Day 3 03:00",
+   "plyxis": {
+    "m_ore": 1495.1,
+    "m_hoisted": 1733.5,
+    "m_milled": 1599.8,
+    "m_copper": 505.8,
+    "m_power": 62.2,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133760.8,
+    "revenue_usd_h": 189570.0,
+    "cost_usd_h": 51121.3,
+    "inventory_usd_h": -4688.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 5689365
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 485.3,
+    "m_power": 62.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 125830.9,
+    "revenue_usd_h": 181890.7,
+    "cost_usd_h": 51719.7,
+    "inventory_usd_h": -4340.0,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.9,
+    "cum_profit": 5134967
+   },
+   "delta_profit": 554398,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189560.7,
+     "ownership": -3546.0,
+     "power": -2267.7,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12272.9,
+     "loading": -1011.5,
+     "blasting": -0.0,
+     "hauling": -704.1,
+     "wear": -516.6,
+     "energy": -3590.0,
+     "consumables": -10399.0
+    },
+    "legacy": {
+     "metal": 182564.3,
+     "ownership": -3546.0,
+     "power": -2234.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1125.5,
+     "blasting": -0.0,
+     "hauling": -675.6,
+     "wear": -460.6,
+     "energy": -3545.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 52.000000092,
+   "clock": "Day 3 04:00",
+   "plyxis": {
+    "m_ore": 1495.9,
+    "m_hoisted": 1741.5,
+    "m_milled": 1599.8,
+    "m_copper": 506.3,
+    "m_power": 61.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133895.7,
+    "revenue_usd_h": 189297.0,
+    "cost_usd_h": 50598.6,
+    "inventory_usd_h": -4802.6,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 5823385
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 487.0,
+    "m_power": 62.1,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126405.4,
+    "revenue_usd_h": 182072.1,
+    "cost_usd_h": 51256.3,
+    "inventory_usd_h": -4410.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.6,
+    "cum_profit": 5261942
+   },
+   "delta_profit": 561443,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189085.2,
+     "ownership": -3546.0,
+     "power": -2116.6,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12272.9,
+     "loading": -1011.5,
+     "blasting": -0.0,
+     "hauling": -626.2,
+     "wear": -448.2,
+     "energy": -3590.0,
+     "consumables": -10399.0
+    },
+    "legacy": {
+     "metal": 182482.2,
+     "ownership": -3546.0,
+     "power": -2175.5,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1124.7,
+     "blasting": -0.0,
+     "hauling": -673.0,
+     "wear": -459.6,
+     "energy": -3545.5,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 53.000000094,
+   "clock": "Day 3 05:00",
+   "plyxis": {
+    "m_ore": 1521.6,
+    "m_hoisted": 1745.7,
+    "m_milled": 1599.9,
+    "m_copper": 506.8,
+    "m_power": 61.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133990.0,
+    "revenue_usd_h": 189348.9,
+    "cost_usd_h": 50733.7,
+    "inventory_usd_h": -4625.2,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.2,
+    "cum_profit": 5957476
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 488.7,
+    "m_power": 61.5,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 126978.3,
+    "revenue_usd_h": 182586.3,
+    "cost_usd_h": 51158.3,
+    "inventory_usd_h": -4449.7,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.4,
+    "cum_profit": 5389486
+   },
+   "delta_profit": 567990,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189374.2,
+     "ownership": -3546.0,
+     "power": -2272.8,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12760.2,
+     "loading": -1056.5,
+     "blasting": -0.0,
+     "hauling": -655.0,
+     "wear": -459.1,
+     "energy": -3801.6,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 183344.5,
+     "ownership": -3546.0,
+     "power": -2161.3,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1125.0,
+     "blasting": -0.0,
+     "hauling": -671.3,
+     "wear": -459.1,
+     "energy": -3754.1,
+     "consumables": -10270.0
+    }
+   }
+  },
+  {
+   "t": 54.000000096,
+   "clock": "Day 3 06:00",
+   "plyxis": {
+    "m_ore": 1538.4,
+    "m_hoisted": 1747.8,
+    "m_milled": 1600.0,
+    "m_copper": 506.7,
+    "m_power": 61.8,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 133847.8,
+    "revenue_usd_h": 189719.7,
+    "cost_usd_h": 51372.4,
+    "inventory_usd_h": -4499.4,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.3,
+    "cum_profit": 6091199
+   },
+   "legacy": {
+    "m_ore": 1580.0,
+    "m_hoisted": 1750.0,
+    "m_milled": 1580.0,
+    "m_copper": 490.3,
+    "m_power": 60.7,
+    "oil_bpd": 0.0,
+    "gas_mscfd": 0.0,
+    "water_bpd": 0.0,
+    "flare_mscfd": 0.0,
+    "oil_sold_bpd": 0.0,
+    "profit_usd_h": 127571.9,
+    "revenue_usd_h": 183586.1,
+    "cost_usd_h": 51541.9,
+    "inventory_usd_h": -4472.3,
+    "equipment_usd_h": 0.0,
+    "emission_t_h": 8.1,
+    "cum_profit": 5517656
+   },
+   "delta_profit": 573543,
+   "terms_h": {
+    "plyxis": {
+     "metal": 189958.9,
+     "ownership": -3546.0,
+     "power": -2746.0,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12760.2,
+     "loading": -1056.5,
+     "blasting": -0.0,
+     "hauling": -655.0,
+     "wear": -459.1,
+     "energy": -4435.2,
+     "consumables": -10400.0
+    },
+    "legacy": {
+     "metal": 184856.6,
+     "ownership": -3546.0,
+     "power": -2542.4,
+     "labour": -11000.0,
+     "overhead": -5000.0,
+     "mining": -12956.0,
+     "loading": -1125.2,
+     "blasting": -0.0,
+     "hauling": -669.3,
+     "wear": -458.7,
+     "energy": -4379.8,
+     "consumables": -10270.0
+    }
+   }
+  }
+ ],
+ "alerts": [
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S560.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S560.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S560.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S560.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST09.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N440.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N440.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N500.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N500.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N740.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N740.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N740.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N740.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C440.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C440.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C740.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C740.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C740.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C740.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N380.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N380.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N740.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N740.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST09.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S560.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S560.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST09.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N440.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N440.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N440.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N440.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N440.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N440.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N500.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N500.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST09.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N740.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N740.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C440.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C440.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C440.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C440.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C500.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C500.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C740.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C740.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S560.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S560.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N380.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N380.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N500.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N500.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N500.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N500.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N500.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N500.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N560.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N560.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N620.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N620.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N680.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N680.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.N740.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.N740.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C440.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C440.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C560.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C620.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C680.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C680.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C740.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C740.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C800.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C800.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C860.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST02.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.C920.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S560.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S560.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST04.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S620.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S620.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST06.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S680.ST07.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S680.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  }
+ ],
+ "commits": [
+  {
+   "id": "c0036",
+   "t": 50.000000088,
+   "wall": 1793619643.5411177,
+   "author": "auto: estimator",
+   "message": "calibration: 57 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0035",
+   "t": 49.000000086,
+   "wall": 1793619356.7249706,
+   "author": "auto: estimator",
+   "message": "calibration: 55 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 31,
+    "removed": 28
+   }
+  },
+  {
+   "id": "c0034",
+   "t": 48.000000084,
+   "wall": 1793619349.8090916,
+   "author": "auto: estimator",
+   "message": "calibration: 52 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 30,
+    "removed": 27
+   }
+  },
+  {
+   "id": "c0033",
+   "t": 47.000000082,
+   "wall": 1793619340.8321502,
+   "author": "auto: estimator",
+   "message": "calibration: 49 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 28,
+    "removed": 24
+   }
+  },
+  {
+   "id": "c0032",
+   "t": 46.00000008,
+   "wall": 1793618944.9272802,
+   "author": "auto: estimator",
+   "message": "calibration: 45 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 26,
+    "removed": 22
+   }
+  },
+  {
+   "id": "c0031",
+   "t": 45.000000078,
+   "wall": 1793618714.895474,
+   "author": "auto: estimator",
+   "message": "calibration: 41 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 25,
+    "removed": 19
+   }
+  },
+  {
+   "id": "c0030",
+   "t": 44.000000076,
+   "wall": 1793618711.420177,
+   "author": "auto: estimator",
+   "message": "calibration: 35 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 22,
+    "removed": 14
+   }
+  },
+  {
+   "id": "c0029",
+   "t": 43.000000074,
+   "wall": 1793618707.3597355,
+   "author": "auto: estimator",
+   "message": "calibration: 27 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 19,
+    "removed": 5
+   }
+  },
+  {
+   "id": "c0028",
+   "t": 40.000000068,
+   "wall": 1793618551.4882464,
+   "author": "auto: estimator",
+   "message": "calibration: 13 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 10,
+    "removed": 2
+   }
+  },
+  {
+   "id": "c0027",
+   "t": 37.000000062,
+   "wall": 1793618406.3471231,
+   "author": "auto: estimator",
+   "message": "calibration: 5 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 5,
+    "removed": 67
+   }
+  },
+  {
+   "id": "c0026",
+   "t": 36.00000006,
+   "wall": 1793618256.121784,
+   "author": "auto: discovery",
+   "message": "tie-in of ST_C560_10 discovered from tag COR.C560.ST10.LHD.TPH",
+   "files": [
+    "live.plx"
+   ],
+   "stats": {
+    "added": 6,
+    "removed": 1
+   }
+  },
+  {
+   "id": "c0025",
+   "t": 36.00000006,
+   "wall": 1793618255.3234227,
+   "author": "auto: estimator",
+   "message": "calibration: 67 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 33,
+    "removed": 29
+   }
+  },
+  {
+   "id": "c0024",
+   "t": 35.000000058,
+   "wall": 1793618125.0637546,
+   "author": "auto: estimator",
+   "message": "calibration: 63 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 30,
+    "removed": 30
+   }
+  },
+  {
+   "id": "c0023",
+   "t": 34.000000056,
+   "wall": 1793618121.2424717,
+   "author": "auto: estimator",
+   "message": "calibration: 63 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 31
+   }
+  },
+  {
+   "id": "c0022",
+   "t": 33.000000054,
+   "wall": 1793618117.6383817,
+   "author": "auto: estimator",
+   "message": "calibration: 65 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 32,
+    "removed": 32
+   }
+  },
+  {
+   "id": "c0021",
+   "t": 32.000000052,
+   "wall": 1793617988.717986,
+   "author": "auto: estimator",
+   "message": "calibration: 65 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 33,
+    "removed": 32
+   }
+  },
+  {
+   "id": "c0020",
+   "t": 31.00000005,
+   "wall": 1793617982.4365728,
+   "author": "auto: estimator",
+   "message": "calibration: 64 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 30,
+    "removed": 29
+   }
+  },
+  {
+   "id": "c0019",
+   "t": 30.000000048,
+   "wall": 1793617809.758572,
+   "author": "auto: estimator",
+   "message": "calibration: 63 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 25
+   }
+  },
+  {
+   "id": "c0018",
+   "t": 29.000000046,
+   "wall": 1793617804.7134957,
+   "author": "auto: estimator",
+   "message": "calibration: 59 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 29,
+    "removed": 23
+   }
+  },
+  {
+   "id": "c0017",
+   "t": 28.000000044,
+   "wall": 1793617799.0147696,
+   "author": "auto: estimator",
+   "message": "calibration: 53 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 25,
+    "removed": 18
+   }
+  },
+  {
+   "id": "c0016",
+   "t": 27.000000042,
+   "wall": 1793617616.6970503,
+   "author": "auto: estimator",
+   "message": "calibration: 46 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 22,
+    "removed": 15
+   }
+  },
+  {
+   "id": "c0015",
+   "t": 26.00000004,
+   "wall": 1793617610.6439981,
+   "author": "auto: estimator",
+   "message": "calibration: 39 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 27,
+    "removed": 25
+   }
+  },
+  {
+   "id": "c0014",
+   "t": 21.00000003,
+   "wall": 1793617335.962646,
+   "author": "auto: estimator",
+   "message": "calibration: 37 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 18,
+    "removed": 18
+   }
+  },
+  {
+   "id": "c0013",
+   "t": 20.000000028,
+   "wall": 1793617330.9423559,
+   "author": "auto: estimator",
+   "message": "calibration: 37 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 19,
+    "removed": 16
+   }
+  },
+  {
+   "id": "c0012",
+   "t": 19.000000026,
+   "wall": 1793617326.910618,
+   "author": "auto: estimator",
+   "message": "calibration: 34 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 16,
+    "removed": 15
+   }
+  },
+  {
+   "id": "c0011",
+   "t": 18.000000024,
+   "wall": 1793617231.5234492,
+   "author": "auto: estimator",
+   "message": "calibration: 33 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 15,
+    "removed": 15
+   }
+  },
+  {
+   "id": "c0010",
+   "t": 17.000000022,
+   "wall": 1793617228.5577607,
+   "author": "auto: estimator",
+   "message": "calibration: 33 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 14,
+    "removed": 15
+   }
+  },
+  {
+   "id": "c0009",
+   "t": 16.00000002,
+   "wall": 1793617224.6657515,
+   "author": "auto: estimator",
+   "message": "calibration: 34 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 16,
+    "removed": 17
+   }
+  },
+  {
+   "id": "c0008",
+   "t": 15.000000018,
+   "wall": 1793617108.6635892,
+   "author": "auto: estimator",
+   "message": "calibration: 35 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 16,
+    "removed": 13
+   }
+  },
+  {
+   "id": "c0007",
+   "t": 14.000000016,
+   "wall": 1793617103.2456472,
+   "author": "auto: estimator",
+   "message": "calibration: 32 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 15,
+    "removed": 12
+   }
+  },
+  {
+   "id": "c0006",
+   "t": 13.000000014,
+   "wall": 1793616976.2154558,
+   "author": "auto: estimator",
+   "message": "calibration: 29 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 14,
+    "removed": 11
+   }
+  },
+  {
+   "id": "c0005",
+   "t": 12.000000012,
+   "wall": 1793616969.3374908,
+   "author": "auto: estimator",
+   "message": "calibration: 26 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 14,
+    "removed": 10
+   }
+  },
+  {
+   "id": "c0004",
+   "t": 11.00000001,
+   "wall": 1793616963.7090797,
+   "author": "auto: estimator",
+   "message": "calibration: 22 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 13,
+    "removed": 4
+   }
+  },
+  {
+   "id": "c0003",
+   "t": 9.000000006,
+   "wall": 1793616692.4650164,
+   "author": "auto: estimator",
+   "message": "calibration: 13 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 7,
+    "removed": 4
+   }
+  },
+  {
+   "id": "c0002",
+   "t": 8.000000004,
+   "wall": 1793616687.9763753,
+   "author": "auto: estimator",
+   "message": "calibration: 10 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 7,
+    "removed": 4
+   }
+  },
+  {
+   "id": "c0001",
+   "t": 7.000000002,
+   "wall": 1793616685.8030875,
+   "author": "auto: estimator",
+   "message": "calibration: 7 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 7,
+    "removed": 0
+   }
+  },
+  {
+   "id": "c0000",
+   "t": 0.0,
+   "wall": 1793616531.7281992,
+   "author": "engineering",
+   "message": "initial twin",
+   "files": [
+    "field.plx",
+    "live.plx",
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 0,
+    "removed": 0
+   }
+  }
+ ],
+ "learn": []
+}

@@ -125,11 +125,16 @@ class LiveTwin:
 
 
 class Estimator:
-    def __init__(self, live: LiveTwin, tagmap: TagMap, dt_data: float):
+    def __init__(self, live: LiveTwin, tagmap: TagMap, dt_data: float, test_sigma: Optional[float] = None,
+                 prior_sigma: float = 0.15):
         self.live = live
         self.tags = tagmap
         self.dt = dt_data
         self.prog = live.prog
+        self.test_sigma = test_sigma     # relative error of one direct sample; None = accurate (blend strongly)
+        self.prior_sigma = prior_sigma   # uncertainty of an engineering value until samples show how wrong they are
+        self.test_var: dict = {}         # (path, property) -> relative variance after the samples so far
+        self.distrusted: set = set()     # (gid, state, instance) whose sensor is flagged: the model predicts them
         self.calib = []          # (gid, pname, lo, hi)
         # properties with their own measurement (e.g. well tests) are estimated from it directly,
         # not back-allocated from aggregates by the MHE
@@ -205,7 +210,13 @@ class Estimator:
                 # direct parameter measurement (well test): blend strongly towards it
                 P = self.live.P[info.gid][name]
                 old = float(P.reshape(-1)[info.li])
-                newv = 0.15 * old + 0.85 * float(v)
+                if self.test_sigma:      # noisy samples (assays): a Kalman update, repeated samples average out
+                    var = self.test_var.get((info.path, name), self.prior_sigma ** 2)
+                    gain = var / (var + self.test_sigma ** 2)
+                    newv = old + gain * (float(v) - old)
+                    self.test_var[(info.path, name)] = (1.0 - gain) * var
+                else:
+                    newv = 0.15 * old + 0.85 * float(v)
                 P.reshape(-1)[info.li] = newv
                 self.live.prior_P[info.gid][name].reshape(-1)[info.li] = newv
                 self.live.anchor_P[info.gid][name].reshape(-1)[info.li] = newv
@@ -218,6 +229,27 @@ class Estimator:
                               "R": applied_R.detach().clone(), "E": {k: torch.as_tensor(v).reshape(-1)[:1].clone()
                                                                      for k, v in E.items()}, "meas": meas})
         return changes
+
+    def distrust(self, bad_tags: set) -> None:
+        """Sensors the quality monitor has flagged: their states follow the model until the sensor recovers."""
+        self.distrusted = set()
+        for tag in bad_tags:
+            info = self.tags.get(tag)
+            if info is not None and info.key.startswith("state:"):
+                self.distrusted.add((info.gid, info.key.split(":", 1)[1], info.li))
+
+    def uncertainty(self, gid: str, pname: str) -> torch.Tensor:
+        """Relative standard error of a property per instance. Sampled: the posterior of its samples. Not sampled:
+        how far the samples so far put the engineering values off (their spread in log), `prior_sigma` until
+        at least eight samples exist."""
+        g = self.prog.gmap[gid]
+        paths = [self.prog.flat.instances[iid].path for iid in g.inst_ids]
+        base = self.prog.P0[gid][pname].reshape(-1)
+        cur = self.live.anchor_P[gid][pname].reshape(-1)
+        var = [self.test_var.get((p, pname)) for p in paths]
+        errs = [math.log(float(cur[i]) / max(float(base[i]), 1e-12)) for i, v in enumerate(var) if v is not None]
+        spread = math.sqrt(sum(e * e for e in errs) / len(errs)) if len(errs) >= 8 else self.prior_sigma
+        return torch.tensor([math.sqrt(v) if v is not None else spread for v in var])
 
     def reset_states(self, gid: str, li: int, values: dict) -> None:
         """A known discontinuity (pump replaced, unit restarted - e.g. a closed work order): set the live
@@ -267,7 +299,14 @@ class Estimator:
         rec = self.live.buf[-1]["S"]
         for g in phys.groups:
             for s, info in g.ir.states.items():
-                if not info.has_update or (g.gid, f"state:{s}") in self.measured_states:
+                if not info.has_update:
+                    continue
+                if (g.gid, f"state:{s}") in self.measured_states:
+                    for gid, name, li in self.distrusted:       # no usable reading: the twin's own prediction instead
+                        if gid == g.gid and name == s:
+                            v = float(fin[g.gid][s].reshape(-1)[li])
+                            self.live.S[g.gid][s].reshape(-1)[li] = v
+                            rec[g.gid][s].reshape(-1)[li] = v
                     continue
                 v = fin[g.gid][s].reshape(self.live.S[g.gid][s].shape).clone()
                 self.live.S[g.gid][s] = v

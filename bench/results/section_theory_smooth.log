@@ -1,0 +1,12 @@
+S     20 blocks     120 | DP       304.84 gap<= 2.474 %    0.77s | coord       188.86 | multi       237.98    0.0s | MILP       306.98 bound       306.98    9.7s opt True
+S     60 blocks     360 | DP       952.72 gap<= 1.859 %    1.76s | coord       588.29 | multi       736.12    0.0s | MILP       956.39 bound       959.17  120.2s opt False
+S    200 blocks    1200 | DP      3239.44 gap<= 1.698 %    6.22s | coord      1888.31 | multi      2519.00    0.1s | MILP      3006.23 bound      3254.83  121.0s opt False
+S    600 blocks    3600 | DP      9611.79 gap<= 2.002 %   20.39s | coord      5931.68 | multi      7371.20    0.4s | MILP      1858.78 bound    132776.04  125.1s opt False
+S   1500 blocks    9000 | DP     24001.68 gap<= 2.336 %   57.67s | coord     14793.09 | multi     18333.18    1.4s | MILP     20715.14 bound    331975.55  221.0s opt False
+S   5000 blocks   30000 | DP     79787.70 gap<= 2.232 %  182.93s | coord     49257.61 | multi     60622.81    4.6s | MILP          nan bound          nan    0.0s opt None
+S  15000 blocks   90000 | DP    239360.25 gap<= 2.717 %  563.28s | coord    146512.48 | multi    181789.01   14.4s | MILP          nan bound          nan    0.0s opt None
+weak 0.00 | DP    3178.53 off-forest bound     0.00 gap<= 2.27 % | MILP    2887.74 opt False
+weak 0.10 | DP    3181.44 off-forest bound     0.00 gap<= 2.39 % | MILP    2875.58 opt False
+weak 0.30 | DP    3191.88 off-forest bound     0.00 gap<= 2.97 % | MILP    2636.74 opt False
+weak 0.60 | DP    3241.93 off-forest bound     0.00 gap<= 3.49 % | MILP    2195.08 opt False
+weak 1.00 | DP    3361.18 off-forest bound     0.00 gap<= 3.74 % | MILP     678.76 opt False

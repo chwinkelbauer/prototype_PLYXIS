@@ -35,6 +35,13 @@ export function base(extra: echarts.EChartsOption = {}): echarts.EChartsOption {
   };
 }
 
+/** Horizontal axis labels: first and last stay inside the plot (no "D3 12:0" cut at the edge), colliding ones are dropped. */
+function withEdgeLabels(option: echarts.EChartsOption): echarts.EChartsOption {
+  const fix = (x: any) => (x?.type === "category" ? x : { ...x, axisLabel: { hideOverlap: true, alignMinLabel: "left", alignMaxLabel: "right", ...x?.axisLabel } });
+  const xa = option.xAxis as any;
+  return { ...option, xAxis: Array.isArray(xa) ? xa.map(fix) : fix(xa) };
+}
+
 export function EChart({ option, height = 220, className = "", onClick }: {
   option: echarts.EChartsOption; height?: number | string; className?: string;
   onClick?: (p: any) => void;
@@ -50,7 +57,7 @@ export function EChart({ option, height = 220, className = "", onClick }: {
     return () => { ro.disconnect(); ch.dispose(); inst.current = null; };
   }, []);
   useEffect(() => {
-    inst.current?.setOption(option, { notMerge: true, lazyUpdate: true });
+    inst.current?.setOption(withEdgeLabels(option), { notMerge: true, lazyUpdate: true });
   }, [option]);
   useEffect(() => {
     const ch = inst.current;

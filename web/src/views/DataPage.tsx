@@ -15,6 +15,7 @@ export function DataPage() {
   const [hist, setHist] = useState<[number, number][]>([]);
   const [cal, setCal] = useState<any>(null);
   const [disc, setDisc] = useState<any[]>([]);
+  const [quality, setQuality] = useState<{ tags: number; bad_now: number; flagged_total: number; issues: { tag: string; issue: string; since: number }[] } | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -23,6 +24,7 @@ export function DataPage() {
       api.tags(q).then((r) => alive && setTags(r)).catch(() => {});
       api.calibration().then((r) => alive && setCal(r)).catch(() => {});
       api.discovery().then((r) => alive && setDisc(r)).catch(() => {});
+      api.quality().then((r) => alive && setQuality(r)).catch(() => {});
     };
     load();
     const id = setInterval(load, 3000);
@@ -37,7 +39,7 @@ export function DataPage() {
     return () => { alive = false; clearInterval(id); };
   }, [sel]);
 
-  const anomalies = alerts.filter((a) => ["mismatch", "trend", "threshold", "calibration"].includes(a.kind)).slice(-40).reverse();
+  const anomalies = alerts.filter((a) => ["mismatch", "trend", "threshold", "calibration", "data quality"].includes(a.kind)).slice(-40).reverse();
   const lastCal = cal?.log?.[cal.log.length - 1];
   const changes = useMemo(() => (lastCal?.items ?? []).slice().sort((a: any, b: any) => Math.abs(b.change_pct ?? 0) - Math.abs(a.change_pct ?? 0)), [lastCal]);
 
@@ -56,6 +58,19 @@ export function DataPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="col-span-12 panel">
+          <div className="panel-h"><span>Data quality</span>
+            <span className="num normal-case font-normal">{quality ? `${fmt.n(quality.bad_now)} of ${fmt.n(quality.tags)} tags flagged · ${fmt.n(quality.flagged_total)} readings held back` : ""}</span></div>
+          <div className="px-3 py-2 text-[12px]">
+            {!quality?.issues.length && <span className="text-dim">Every tag reports, moves and stays inside its physical limits. A flagged reading is kept from the estimator; the twin predicts that signal until it recovers.</span>}
+            {!!quality?.issues.length && <div className="flex flex-wrap gap-x-5 gap-y-1">
+              {quality.issues.slice(0, 24).map((i) => (
+                <span key={i.tag} className="flex items-center gap-1.5"><span className="num text-[11.5px]">{i.tag}</span><span className="text-warn">{i.issue}</span><span className="num text-dim text-[11px]">{fmt.clock(i.since)}</span></span>
+              ))}
+            </div>}
+          </div>
         </div>
 
         <div className="col-span-7 panel flex flex-col" style={{ height: 470 }}>
@@ -107,8 +122,14 @@ export function DataPage() {
           <div className="px-3 py-2 text-[11.5px] text-dim leading-snug">
             Every hour the twin is replayed through the last hours with the controls actually applied in the plant and its
             calibratable properties are re-estimated ({(cal?.calibrated ?? []).slice(0, 6).join(", ")}…). Properties with their
-            own measurement are updated directly from it ({(cal?.direct ?? []).length ? "well tests: wc, gor" : "–"}).
+            own measurement are updated directly from it ({(cal?.direct ?? []).join(", ") || "–"}).
           </div>
+          {(cal?.uncertainty ?? []).length > 0 && (
+            <div className="px-3 pb-2 text-[11.5px] text-muted leading-snug">
+              Standard error: {cal.uncertainty.map((u: any) => `${u.property} ${u.median_pct} % median, ${u.best_pct} % best (${u.sampled} of ${u.instances} sampled)`).join(" · ")}
+              {cal.margins?.[0] ? ` · planned ${fmt.n(cal.margins[0].margin, 3)} inside the limits (${cal.margins[0].param.replace(/_/g, " ")})` : ""}
+            </div>
+          )}
           <div className="flex-1 overflow-auto">
             <table className="tbl">
               <thead><tr><th>asset</th><th>property</th><th className="!text-right">change</th><th>method</th></tr></thead>

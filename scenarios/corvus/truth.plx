@@ -6,9 +6,11 @@ use mining;
 define corvus_truth as corvus {
   contains:
     init ST_C560_10 as stope { at = (-30.948774, 136.798937, -560); grade = 1.95; rate_max = 280 [t/h];
-      tram = 0.31 [km]; up = 0; broken = 42000 [t]; tag = "COR.C560.ST10"; label = "Central 560 stope 10"; };
+      tram = 0.31 [km]; up = 0; broken = 42000 [t]; tag = "COR.C560.ST10"; label = "Central 560 stope 10";
+      cost_t = 8.2 [USD/t]; lhd_cost = 152 [USD/h]; ring_cost = 24600 [USD]; };
     connect(ST_C560_10.ore_out, OP_C1.feed);
     connect(ST_C560_10.lhd_req, LHD_C.requests);
+    connect(ST_C560_10.crew_req, CREW_C.requests);
     connect(ST_C560_10.air_req, VD_C560.demand);
 };
 

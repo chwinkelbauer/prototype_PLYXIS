@@ -3,10 +3,12 @@ import { BrainCircuit, Cpu, Layers3, RefreshCw, Scale, Workflow } from "lucide-r
 import { api, fmt } from "../api";
 import { base, C, EChart } from "../components/Chart";
 import { Stat } from "../components/Kpi";
+import { WhatIfPanel } from "../components/WhatIf";
 import { useStore } from "../store";
 
 const STAGE_COLOR: Record<string, string> = {
-  neural: "#fe0265", relaxation: "#3987e5", discrete: "#c97a14", polish: "#8b5cf6", done: "#199e70", compile: "#71717a",
+  neural: "#fe0265", relaxation: "#3987e5", discrete: "#c97a14", polish: "#8b5cf6", branches: "#199e70", done: "#199e70",
+  compile: "#71717a",
 };
 const STAGES = [
   { id: "compile", title: "Compile & decompose", text: "PLX netlist → decision space, subsystems, constraint scales" },
@@ -14,6 +16,7 @@ const STAGES = [
   { id: "relaxation", title: "Coordinated relaxation", text: "multi-start augmented Lagrangian on the differentiable twin" },
   { id: "discrete", title: "Discrete search", text: "memetic GA: randomised roundings, cooperative recombination, batched repair" },
   { id: "polish", title: "Polish & verify", text: "continuous refinement, exact simulation, shadow prices" },
+  { id: "branches", title: "Exact branches", text: "branches the twin's equations prove (piecewise) linear → LP / sequential LP (HiGHS), verified on the twin" },
 ];
 
 export function OptimizerPage() {
@@ -39,10 +42,10 @@ export function OptimizerPage() {
       if (r.max_violation !== undefined) viol.push([r.t_total as number, Math.max(1e-5, r.max_violation as number)]);
     }
     // two aligned panels on one time axis (objective above, constraint violation below) - never two y-scales on one plot
-    const x = (gridIndex: number, show: boolean) => ({ type: "value" as const, gridIndex, min: 0, name: show ? "seconds" : "", nameLocation: "end" as const,
+    const x = (gridIndex: number, show: boolean) => ({ type: "value" as const, gridIndex, min: 0, name: show ? "seconds" : "", nameLocation: "end" as const, nameGap: 6,
       nameTextStyle: { color: C.axis, fontSize: 10 }, axisLabel: { color: C.axis, fontSize: 10, show }, splitLine: { show: false } });
     return base({
-      grid: [{ left: 64, right: 40, top: 30, bottom: "36%" }, { left: 64, right: 40, top: "70%", bottom: 26 }],
+      grid: [{ left: 64, right: 56, top: 30, bottom: "36%" }, { left: 64, right: 56, top: "70%", bottom: 26 }],
       xAxis: [x(0, false), x(1, true)],
       yAxis: [
         { type: "value", gridIndex: 0, scale: true, axisLabel: { color: C.axis, fontSize: 10, formatter: (v: number) => fmt.usd(v) }, splitLine: { lineStyle: { color: C.grid } } },
@@ -67,11 +70,11 @@ export function OptimizerPage() {
         <div className="col-span-12 grid grid-cols-6 gap-3">
           <Stat label="Decision variables" icon={<Cpu size={12} />} value={fmt.n(sizes?.variables)} sub={`${fmt.n(sizes?.discrete)} integer / boolean / line-up`} />
           <Stat label="Subsystems" icon={<Layers3 size={12} />} value={fmt.n(subs.length)} sub="automatic decomposition" />
-          <Stat label="Last solve" icon={<Workflow size={12} />} value={last ? `${fmt.n(last.seconds, 1)} s` : "–"} sub={last ? `${fmt.n(last.evals)} twin simulations` : ""} />
+          <Stat label="Last solve" icon={<Workflow size={12} />} value={last ? `${fmt.n(last.seconds, 1)} s` : "–"} sub={d?.sla ? `median ${fmt.n(d.sla.p50_s, 1)} s · p95 ${fmt.n(d.sla.p95_s, 1)} s over ${d.sla.plans} plans` : ""} />
           <Stat label="Plans computed" icon={<RefreshCw size={12} />} value={fmt.n(d?.runs?.length ?? 0)} sub={last ? `last trigger: ${last.trigger}` : ""} />
           <Stat label="Neural sub-solvers" icon={<BrainCircuit size={12} />} color="text-opt"
             value={d?.neural?.loaded ? "active" : "off"} sub={d?.neural?.loaded ? `${d.neural.updates ?? 0} online updates · ${d.neural.trained_on ?? 0} plans learned` : "fallback: multi-start"} />
-          <Stat label="Last objective" icon={<Scale size={12} />} value={last ? fmt.usd(last.objective) : "–"} sub={last ? (last.feasible ? "feasible plan (72 h)" : "best compromise (soft)") : ""} />
+          <Stat label="Last objective" icon={<Scale size={12} />} value={last ? fmt.usd(last.objective) : "–"} sub={last ? (last.feasible ? "feasible plan" : "best compromise (soft)") : ""} />
         </div>
 
         <div className="col-span-8 panel">
@@ -126,10 +129,12 @@ export function OptimizerPage() {
           </div>
         </div>
 
+        <WhatIfPanel />
+
         <div className="col-span-12 panel">
           <div className="panel-h">Re-planning history</div>
           <table className="tbl">
-            <thead><tr><th>#</th><th>time</th><th>trigger</th><th className="!text-right">objective (72 h)</th><th>feasible</th><th className="!text-right">solve</th><th className="!text-right">simulations</th><th>stages</th></tr></thead>
+            <thead><tr><th>#</th><th>time</th><th>trigger</th><th className="!text-right">objective</th><th>feasible</th><th className="!text-right">solve</th><th className="!text-right">simulations</th><th>stages</th></tr></thead>
             <tbody>
               {(d?.runs ?? []).slice().reverse().map((r: any) => (
                 <tr key={r.id}><td className="num">{r.id}</td><td className="num text-muted">{fmt.clock(r.t)}</td><td>{r.trigger}</td>

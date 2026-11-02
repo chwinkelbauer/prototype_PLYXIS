@@ -1,0 +1,121 @@
+{
+ "signals": [
+  {
+   "signal": "Well liquid rates",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 4.88,
+   "limit": 8.0,
+   "n": 20729,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "KST.P07.W11.FLOW.LIQ",
+     "mape": 38.74
+    },
+    {
+     "tag": "KST.P02.W06.FLOW.LIQ",
+     "mape": 10.5
+    },
+    {
+     "tag": "KST.P12.W03.FLOW.LIQ",
+     "mape": 10.01
+    }
+   ]
+  },
+  {
+   "signal": "Compression suction gas",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 3.9,
+   "limit": 5.0,
+   "n": 430,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "KST.CS2.SUC.FLOW",
+     "mape": 4.19
+    },
+    {
+     "tag": "KST.CS1.SUC.FLOW",
+     "mape": 3.61
+    }
+   ]
+  },
+  {
+   "signal": "Battery separator gas",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 3.72,
+   "limit": 5.0,
+   "n": 645,
+   "pass": true,
+   "worst": [
+    {
+     "tag": "KST.CTBC.SEP.GAS",
+     "mape": 5.73
+    },
+    {
+     "tag": "KST.CTBS.SEP.GAS",
+     "mape": 3.76
+    },
+    {
+     "tag": "KST.CTBN.SEP.GAS",
+     "mape": 1.67
+    }
+   ]
+  },
+  {
+   "signal": "Disposal injection pressure",
+   "measure": "MAPE, 1 step ahead (%)",
+   "value": 16.89,
+   "limit": 10.0,
+   "n": 645,
+   "pass": false,
+   "worst": [
+    {
+     "tag": "KST.SWD2.INJ.PRESS",
+     "mape": 47.91
+    },
+    {
+     "tag": "KST.SWD3.INJ.PRESS",
+     "mape": 1.39
+    },
+    {
+     "tag": "KST.SWD1.INJ.PRESS",
+     "mape": 1.36
+    }
+   ]
+  },
+  {
+   "signal": "Oil tank level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 1.27,
+   "limit": 10.0,
+   "n": 102,
+   "pass": true
+  },
+  {
+   "signal": "Water tank level, 3 h ahead",
+   "measure": "MAE, % of capacity",
+   "value": 1.65,
+   "limit": 10.0,
+   "n": 102,
+   "pass": true
+  }
+ ],
+ "discovered_assets": [
+  "P07_W11"
+ ],
+ "tags_mapped": 614,
+ "tags_unmapped": [],
+ "all_assets_represented": true,
+ "gate_passed": false,
+ "twin_version": 2,
+ "scenario": "kestrel",
+ "seed": 0,
+ "train_h": 36.0,
+ "test_h": 36.0,
+ "export": {
+  "steps": 432,
+  "bytes": 1530635
+ },
+ "wall_seconds": 208.6
+}

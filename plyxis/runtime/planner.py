@@ -126,13 +126,16 @@ class Planner:
     def solve(self, t_clock: float, E: dict, trigger: str, busy: Optional[dict] = None,
               callback: Optional[Callable] = None, worked_assets: Optional[set] = None,
               predicted: Optional[dict] = None, urgent: bool = False, quick_first: bool = False,
-              on_interim: Optional[Callable] = None, outages: Optional[dict] = None) -> Plan:
+              on_interim: Optional[Callable] = None, outages: Optional[dict] = None,
+              pins: Optional[dict] = None) -> Plan:
         with self.lock:
             self.running = True
             self.progress = []
             t_wall = time.time()
             try:
                 pb = self.problem(t_clock, E)
+                if pins:
+                    pb.set_pins(pins, _route_keys(pb.prog))   # what an operator decided: the plan re-optimises around it
                 if outages:
                     # outages with a crew estimate: the asset is planned back at the estimated time
                     pb.set_state_schedule({p: (s, v, until - t_clock) for p, (s, v, until) in outages.items()})
@@ -173,6 +176,21 @@ class Planner:
                             on_interim(interim)
                 cas = Cascade(pb, net=self.net, partition=self.part, config=cfg)
                 res = cas.solve(warm=start, callback=cb)
+                # second opinion: the search is randomised and now and then loses its way (about one plan in 50 on the
+                # mine, not reproducible with the same seed: it once idled the mill for three hours before a price
+                # peak). A value far below the last plan's gets one more solve from another random stream; the better wins.
+                second = False
+                prev = self.plan.objective if self.plan is not None and not getattr(self.plan, "interim", False) else None
+                if cfg.second_opinion is not None and prev is not None and res.objective < prev - cfg.second_opinion * abs(prev):
+                    cfg2 = dataclasses.replace(cfg, seed=cfg.seed + self.pid + 1)
+                    alt = Cascade(pb, net=self.net, partition=self.part, config=cfg2).solve(warm=start, callback=cb)
+                    second = {"first": res.objective, "second": alt.objective, "kept": "first"}
+                    if (alt.feasible, alt.objective) > (res.feasible, res.objective):
+                        alt.seconds += res.seconds
+                        res, second["kept"] = alt, "second"
+                    else:
+                        res.seconds += alt.seconds
+                res.x = pb.pinned(res.x)
                 # maintenance: value repairs with the twin, schedule rigs and crews
                 jobs = MAINT.find_jobs(pb, res.x, predicted=predicted)
                 jobs = [j for j in jobs if j.jid not in self.committed_jobs and
@@ -189,7 +207,7 @@ class Planner:
                 self._plan_space = pb.space
                 self.plans.append(plan)
                 self.runs.append({"id": plan.pid, "t": t_clock, "trigger": trigger, "objective": plan.objective,
-                                  "feasible": plan.feasible, "seconds": res.seconds, "stages": res.stages,
+                                  "feasible": plan.feasible, "seconds": res.seconds, "stages": res.stages, "second_opinion": second,
                                   "evals": res.evals, "history": res.history[-400:]})
                 if self.online and self.net is not None:
                     ctx = NN.Context(pb.P, pb.S0, {k: v.view(1, -1) if isinstance(v, torch.Tensor) else v

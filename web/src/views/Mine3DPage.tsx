@@ -270,7 +270,7 @@ export function Mine3DPage() {
     <div className="absolute inset-0">
       <div ref={host} className="absolute inset-0" />
       <div ref={labelHost} className="absolute inset-0 pointer-events-none overflow-hidden" data-on="1" />
-      <div className="absolute top-3 left-3 panel w-[214px] z-10" style={{ background: "#12121aee" }}>
+      <div className="absolute top-3 left-3 panel w-[214px] z-10" style={{ background: "#12121a" }}>
         <div className="panel-h"><span className="flex items-center gap-1.5"><Layers size={12} />Layers</span>
           <button className="btn btn-ghost !p-0.5" title="Reset view" onClick={() => { ctx.current?.home(); ctx.current?.render(); }}><RotateCcw size={12} /></button></div>
         <div className="px-3 py-2 space-y-1.5">
@@ -287,7 +287,7 @@ export function Mine3DPage() {
           </div>
         </div>
       </div>
-      <div className="absolute top-3 right-3 panel z-10 px-3 py-2 text-[11.5px] space-y-1 w-[200px]" style={{ background: "#12121aee" }}>
+      <div className="absolute top-3 right-3 panel z-10 px-3 py-2 text-[11.5px] space-y-1 w-[200px]" style={{ background: "#12121a" }}>
         <div className="text-[10.5px] uppercase tracking-wider text-muted font-semibold">Underground now</div>
         <div className="flex justify-between"><span className="text-muted">stopes mucking</span><span className="num">{live.mucking}</span></div>
         <div className="flex justify-between"><span className="text-muted">open, idle</span><span className="num">{live.idle}</span></div>
@@ -296,7 +296,7 @@ export function Mine3DPage() {
         <div className="flex justify-between"><span className="text-muted">main fan air</span><span className="num">{fmt.n(fanAir)} m³/s</span></div>
         <div className="flex justify-between"><span className="text-muted">hoisting</span><span className="num">{fmt.n(hoist)} t/h</span></div>
       </div>
-      <div className="absolute bottom-3 left-3 panel z-10 px-3 py-2 text-[11px] space-y-1" style={{ background: "#12121aee" }}>
+      <div className="absolute bottom-3 left-3 panel z-10 px-3 py-2 text-[11px] space-y-1" style={{ background: "#12121a" }}>
         <div className="flex gap-3 flex-wrap">
           {colorBy === "activity" ? <>
             <span><span style={{ color: STATUS.mucking }}>■</span> mucking</span><span><span style={{ color: STATUS.idle }}>■</span> open, idle</span>

@@ -46,6 +46,40 @@ on this interface.
 For a pilot, an OPC UA client, an MQTT Sparkplug B subscriber or a PI Web API poller is a new
 class with the same `poll()` method (see [PILOT_PLAN_OIL_GAS.md](PILOT_PLAN_OIL_GAS.md)).
 
+### Plant systems (`plyxis/data/industrial.py`)
+
+All read only, all producing the same messages as the emulated gateway, with the source's quality flag. A site lists them
+in its `scenario.json` under `connectors`; nothing downstream changes.
+
+| Connector | Protocol | Tested against | Not yet tested against |
+|---|---|---|---|
+| `PiWebApiConnector` | PI Web API `streamsets/value` over HTTPS, basic authentication, digital states, `Good` / `Questionable` | a local HTTP server returning the documented JSON | a real PI server; Kerberos authentication is not implemented |
+| `SparkplugConnector` | MQTT 3.1.1 (QoS 0) with a Sparkplug B decoder written from the specification: births, aliases, deaths, nulls, sequence numbers; never publishes | a local socket that speaks enough MQTT, payloads encoded by the test | a real broker or edge gateway; TLS is not implemented |
+| `OpcUaConnector` | OPC UA through the optional `asyncua` package (`pip install -r requirements-connectors.txt`), polling `read_data_value` | `asyncua`'s own server on the same machine, no security policy (the test is skipped without the package) | a real server; certificates; subscriptions |
+
+## Data quality (`plyxis/data/quality.py`)
+
+A bad reading must not become twin state. In front of the estimator, per tag:
+
+| Flag | Rule | Then |
+|---|---|---|
+| stale | a tag that reported before has been silent for more than 1 h | the twin predicts the signal |
+| frozen | an analog value repeats exactly 12 times (2 h at the 10-minute data step); real instruments have noise | reading held back, the twin predicts the signal |
+| out of range | below a state's physical lower limit by more than the tolerance | reading held back, the twin predicts the signal |
+| bad at the source | the source says so (PI `Good`, OPC UA status, Sparkplug null) | reading held back, the twin predicts the signal |
+
+Flagged readings stay visible in the tag list, raise an alert and enter the audit log, and do not reach estimation or
+anomaly detection. For a measured state (a tank level) the estimator's prediction step takes over until the signal recovers.
+On clean data there are no flags (tested), so the A/B runs are unaffected. `POST /api/event` with `kind: "sensor"`
+(`freeze`, `dropout`, `value`) injects an instrument fault in a live demo.
+
+## History: backfill and backtest (`plyxis/data/historian.py`, `runtime/backfill.py`, `bench/backtest.py`)
+
+A historian export is one compressed CSV of measurements, direct samples, set points, line-ups and prices.
+`python -m plyxis backfill history.csv.gz --scenario kestrel` replays it through the live estimator and writes a
+`calibration.plx`. `bench/backtest.py` is pilot gate G1: the plant writes the file, a fresh twin sees only the file, is
+calibrated on the first half and frozen, and predicts the second half (results in [BENCHMARKS.md](BENCHMARKS.md)).
+
 ## Tag mapping (`TagMap`)
 
 Derived from the `telemetry:` sections: tag = instance tag prefix + signal suffix
@@ -64,6 +98,13 @@ stocks would turn into negative flows and blow up flow-weighted attributes such 
 well per hour in the showcase) re-anchors that property for that well. The same mechanism serves other
 industries: in the mine, muck-pile grab-sample assays (`ASSAY.CU`, rotating through the stopes) re-anchor
 stope grades, while the mill's on-stream analyser (`OSA.HEAD`) constrains the blend.
+
+**Offset-free correction.** Where a measured output summarises many uncertain parameters - the mill's head
+grade is the blend of dozens of stope grades - the twin also carries a calibrated ratio between the measured
+and the computed output (`concentrator.head_factor`, declared `calibrate in [0.8, 1.25]`). The estimator
+fits it like any other property; the planner then plans against the corrected output. This is the
+disturbance model of offset-free MPC: a plan that sits on a limit as the twin sees it (the head-grade
+window) stays inside it in reality even while the individual stope grades are still off.
 
 **Moving-horizon estimation (MHE)** every hour over the last 3 hours of data:
 
@@ -129,6 +170,20 @@ and is part of the evaluation tooling.
 A structural check backs this up: with the plant's true parameters, the twin's replay reproduces
 every one of ~1,000 plant signals exactly, so all remaining error is estimation error, not model
 error.
+
+## Direct samples and uncertainty (`Estimator.ingest`, `Estimator.uncertainty`)
+
+A direct sample of a property updates it at once. Well tests are accurate (1 % error) and replace most of the old value. Mine
+assays are composite muck samples at 5 % error (`scenario.json` -> `assays.sigma`): they use a Kalman update, so repeated
+samples average out and an old estimate is not thrown away for one noisy assay.
+
+Grade control samples where the mine works (`assays.policy: "working"`, three samples per hour, the working places sampled
+longest ago): with about 35 working places, every place about once a shift. Both worlds sample with the same rule; the
+baseline's grade control reconciles its block model with its own assays through the same update.
+
+`Estimator.uncertainty` gives the relative standard error per instance: the posterior of its samples if sampled, otherwise how
+far the samples so far put the engineering values off (their spread in log; the prior until eight samples exist). The Data view
+reports it, and it sizes the planning margin of the head grade ([OPTIMIZER.md](OPTIMIZER.md)).
 
 ## Anomaly detection (`plyxis/data/anomaly.py`)
 

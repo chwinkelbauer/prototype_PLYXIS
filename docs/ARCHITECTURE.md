@@ -42,8 +42,8 @@ platform.
 |---|---|---|
 | `plyxis/lang` | PLX language, compiler, runtime library | `lexer`, `parser` (recursive descent + Pratt, error recovery), `library` (packages, inheritance), `elaborate` (instances, `for`/`if` generation, tables, GIS, flat netlist), `behavior` (typed IR, units), `compiler` (signal graph, SCC scheduling, code generation), `program` (compiled simulator API), `interp` (reference interpreter), `units`, `printer` |
 | `plyxis/lang/stdlib` | Standard packages written in PLX | `core.plx`, `oilgas.plx` (wells, batteries, compression, flares, SWD, trucking, sales, rigs, crews), `mining.plx` (open pit; underground: stopes, ore passes, loader fleets, main fans, ventilation districts, crushers, conveyors, skip hoist, pump stations; processing) |
-| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `sections` (graph filter network, deterministic sections, exact section search), `explain`, `dispatch`, `maintenance`, `plan` |
-| `plyxis/native` | C++ kernels | `sections.cpp` (C++17 + OpenMP: budgeted union-find clustering, section scoring, exact argmax, Viterbi DP), ctypes wrapper with NumPy reference implementations; built with g++ / MinGW-w64 |
+| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `sections` (graph filter network, deterministic sections, exact section search), `decomp` (section tables + forest DP on the twin), `sectiondp` (forest DP, induced-forest moves, dual decomposition with certified bound), `structure` (problem classes proven from the planning IR), `branchlp` (exact / sequential LP of recognised branches, HiGHS), `explain`, `dispatch`, `maintenance`, `plan` |
+| `plyxis/native` | C++ kernels | `sections.cpp` (C++17 + OpenMP: budgeted union-find clustering, section scoring, exact argmax, Viterbi DP, forest max-sum DP, block coordinate ascent with capacities), ctypes wrapper with NumPy reference implementations; built with g++ / MinGW-w64 |
 | `plyxis/data` | Data integration | `connectors`, `emulator` (synthetic "real" plant), `estimation` (TagMap, LiveTwin, MHE), `anomaly`, `discovery`, `repo` (versioned twin source), `forecast` |
 | `plyxis/runtime` | Live operation | `engine` (two worlds, plant clock, events, KPIs), `planner` (rolling horizon, warm starts, online learning), `twin_manager` (code generation, hot swap), `scenario`, `views` |
 | `plyxis/server` | API | FastAPI REST + WebSocket push; serves the built console; lists case studies and switches between them (stops the running engine, boots the selected one) |
@@ -133,6 +133,25 @@ Details: [OPTIMIZER.md](OPTIMIZER.md).
   background. Headless benchmark runs execute planning and estimation inline (deterministic).
 * The console is a static build served by the API process (`web/dist`). Data arrives via
   REST plus a WebSocket snapshot stream.
+
+## E. People in the loop (`runtime/advisory.py`, `runtime/report.py`, `runtime/whatif.py`)
+
+| Mode | What reaches the plant | What the Shift page shows |
+|---|---|---|
+| autonomous (the showcase) | the plan | what the plan changes next |
+| advisory | what an operator accepted or modified | recommendations to accept, modify or reject, with reasons from the model's gradients |
+| shadow | manual operations; the plans are only computed | the value of the plan against holding what the operators run, on the calibrated twin |
+
+A rejected or modified decision (set point or line-up) needs a reason, is held until the end of the shift and is pinned
+for the planner (`Problem.set_pins`): the plan re-optimises everything else around it. Plans carry a validity time (12 h):
+an older plan is no recommendation when no new one is on its way, and the plant holds its last set points. Plans, decisions,
+mode changes and data-quality flags go to an append-only audit log (`runs/audit/*.jsonl` for a console session).
+
+The shift report (`GET /api/report/shift`, `?format=md`) is built from the engine's own accounts by fixed templates. Work
+orders are available as a flat file for an import into SAP PM or Maximo (`GET /api/workorders.csv`). What-if runs
+(`POST /api/whatif`, Optimizer page) value an outage or a price shock on the live twin without touching the plant: a new plan as
+forecast, the current plan under the change, and a new plan for the change, the two new plans with the same budget. Model lint (`python -m plyxis lint`, Twin
+Studio -> Review) finds what compiles but will not do what the engineer thinks.
 
 ## Design decisions
 

@@ -56,11 +56,32 @@ def main() -> None:
     ap.add_argument("--skip-events", default="", help="comma list of assets / price names whose events are dropped "
                                                         "(ablation of scenario events), e.g. GASPLANT,power_price")
     ap.add_argument("--tag", default="", help="suffix of the result file, e.g. 'core' -> showcase_run_core.json")
+    ap.add_argument("--no-branches", action="store_true", help="ablation: planner without the exact branch stage")
+    ap.add_argument("--exact", default=None, help="exact-branch classes for this run, e.g. lp,slp,slp_quality (default: the scenario's)")
+    ap.add_argument("--exact-margin", type=float, default=None, help="distance the exact stage keeps from state limits (share of their scale)")
+    ap.add_argument("--discrete", default=None, help="discrete stage for this run: ga, sections or ga+sections (default: the scenario's)")
+    ap.add_argument("--relax-tol", type=float, default=None, help="violation up to which the relaxation counts an iterate as feasible")
+    ap.add_argument("--set", action="append", default=[], metavar="NAME=VALUE", help="any other CascadeConfig field for this run, e.g. population=4")
+    ap.add_argument("--seed", type=int, default=0, help="scenario seed (prices, sensor and process noise; both worlds)")
     args = ap.parse_args()
     t0 = time.perf_counter()
     sdir = os.path.join(ROOT, "scenarios", args.scenario)
-    eng = Engine(sdir, sync_plans=True, use_neural=not args.no_neural)
+    eng = Engine(sdir, seed=args.seed, sync_plans=True, use_neural=not args.no_neural)
     args.hours = args.hours or eng.sc.end_hour
+    import dataclasses
+    if args.no_branches:
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, exact_branches=())
+    if args.exact is not None:
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, exact_branches=tuple(c for c in args.exact.split(",") if c))
+    if args.relax_tol is not None:
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, relax_tol=args.relax_tol)
+    for item in args.set:
+        name, _, value = item.partition("=")
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, **{name: type(getattr(eng.planner.cfg, name))(value)})
+    if args.discrete is not None:
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, discrete=args.discrete)
+    if args.exact_margin is not None:
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, exact_margin=args.exact_margin)
     skip = {s for s in args.skip_events.split(",") if s}
     if skip:
         eng.sc.events = [e for e in eng.sc.events if e.get("asset") not in skip and e.get("name") not in skip]
@@ -84,6 +105,7 @@ def main() -> None:
     k = eng.kpis()
     out = {
         "scenario": args.scenario, "hours": args.hours, "wall_seconds": time.perf_counter() - t0, "neural": not args.no_neural,
+        "exact_branches": list(eng.planner.cfg.exact_branches), "exact_margin": eng.planner.cfg.exact_margin, "seed": args.seed,
         "skipped_events": sorted(skip),
         "kpis": {"plyxis": k["plyxis"]["cum"], "legacy": k["legacy"]["cum"], "delta": k["delta"],
                  "value_per_day": k["value_per_day"]},
@@ -91,6 +113,11 @@ def main() -> None:
         "inventory_terms": {w: dict(eng.plants[w].kpi.inv_terms) for w in ("plyxis", "legacy")},
         "bridge": k["bridge"],
         "calibration_error": calibration_error(eng, compile_model(eng.sc.twin_files, env=eng.sc.twin_env)),
+        # offset-free corrections the twin estimated (e.g. the concentrator's analysed / computed head grade)
+        "head_factor": {eng.twin.model.program.flat.instances[g.inst_ids[0]].path:
+                        float(eng.twin.live.P[g.gid]["head_factor"].reshape(-1)[0])
+                        for g in eng.twin.model.program.groups if "head_factor" in eng.twin.live.P.get(g.gid, {})},
+        "margins": eng.margin_log,
         "plans": list(eng.plan_events),
         "runs": [{kk: v for kk, v in r.items() if kk != "history"} for r in eng.planner.runs],
         "timeline": eng.timeline, "hourly": hourly,
@@ -100,7 +127,8 @@ def main() -> None:
     }
     os.makedirs(os.path.join(ROOT, "bench", "results"), exist_ok=True)
     name = "showcase_run" + ("" if args.scenario == "kestrel" else f"_{args.scenario}") + \
-        ("_noneural" if args.no_neural else "") + (f"_{args.tag}" if args.tag else "") + ".json"
+        ("_noneural" if args.no_neural else "") + (f"_{args.tag}" if args.tag else "") + \
+        (f"_s{args.seed}" if args.seed else "") + ".json"
     with open(os.path.join(ROOT, "bench", "results", name), "w") as fh:
         json.dump(out, fh, indent=1, default=str)
     print(json.dumps(out["kpis"], indent=1, default=str))

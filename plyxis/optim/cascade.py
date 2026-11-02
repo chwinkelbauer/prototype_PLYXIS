@@ -51,6 +51,14 @@ class CascadeConfig:
     section_sweeps: int = 2
     section_window_h: float = 12.0
     section_budget: int = 64
+    late_sections: bool = False           # exact section search after the polish, accepted after its own polish
+    exact_branches: tuple = ()            # structure classes solved exactly after the polish, e.g. ("lp",):
+                                          # branches the structure analysis proves affine -> HiGHS LP (branchlp.py)
+    branch_iters: int = 6                 # sequential-LP iterations for the piecewise-affine classes
+    exact_margin: float = 0.0             # the exact stage keeps state limits this far inside (share of the limit's scale)
+    second_opinion: Optional[float] = None  # a plan worth this share less than the last one is solved once more (runtime/planner.py)
+    relax_tol: float = 2e-3               # violation up to which the relaxation counts an iterate as feasible when it picks its best:
+                                          # too tight, and a poor feasible iterate beats a far better one the repair could still fix
 
 
 @dataclass
@@ -114,7 +122,8 @@ class Cascade:
         x_def = sp.default_u(1)
         if len(starts) < cfg.multistart:
             eq = x_def.clone()
-            sp.split(eq)["route"][:] = 0.5 if sp.route is not None else 0
+            if sp.route is not None:
+                sp.split(eq)["route"][:] = 0.5
             starts.append(eq)
         if len(starts) < cfg.multistart:
             starts.append(x_def)
@@ -132,7 +141,7 @@ class Cascade:
         n_relax = cfg.relax_iters if warm is None else max(40, int(cfg.relax_iters * cfg.warm_relax))
         rel = alm(pb, X0, iters=n_relax, lr=cfg.relax_lr, rho=cfg.relax_rho, outer=10,
                   anneal=cfg.anneal, stage="relaxation", callback=lambda r: self._emit(callback, r),
-                  lam0=_expand_lam(lam0, X0.shape[0]) if lam0 else None)
+                  lam0=_expand_lam(lam0, X0.shape[0]) if lam0 else None, tol=cfg.relax_tol)
         stages.append({"stage": "relaxation", "seconds": time.perf_counter() - t, "objective": rel.objective,
                        "max_violation": rel.max_violation, "starts": X0.shape[0]})
 
@@ -223,9 +232,70 @@ class Cascade:
                 with torch.no_grad():
                     ef = pb.evaluate(x_final, relax=False)
                 obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
+        if cfg.late_sections and int(mask.sum()) > 0:
+            # exact section search on the polished plan: discrete moves are judged after their own polish, not before
+            from . import sections as SX
+            dx, info = SX.cached_solver(pb, window_h=cfg.section_window_h, budget=cfg.section_budget)
+            cb = lambda r: self._emit(callback, dict(r, stage="polish", method="late sections"))  # noqa: E731
+            xs = dx.solve(x_final, sweeps=cfg.section_sweeps, callback=cb).x
+            rep = alm(pb, xs, iters=max(10, cfg.polish_iters // 2), lr=0.01, rho=1.0, outer=10, mask=~mask, relax=False,
+                      stage="polish", callback=cb, lam0={k: v[:1] for k, v in pol.multipliers.items()} if pol.multipliers else None,
+                      patience=cfg.patience)
+            with torch.no_grad():
+                ev = pb.evaluate(torch.cat([x_final, rep.x[:1]], 0), relax=False)
+            sc = _score(pb, ev)
+            late_gain = float(ev.objective[1] - ev.objective[0])
+            if float(sc[1]) > float(sc[0]):
+                x_final, pol = ev.x[1:2].clone(), rep
+                with torch.no_grad():
+                    ef = pb.evaluate(x_final, relax=False)
+                obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
+            stages.append({"stage": "late sections", "seconds": time.perf_counter() - t, "objective": obj, "max_violation": mv,
+                           "gain": round(late_gain), "accepted": float(sc[1]) > float(sc[0]), **info})
+        guarded = False
+        if warm is not None:
+            # the running plan is a candidate too: a search that lost its way must not replace a better plan. The plan
+            # keeps its discrete decisions and is polished for the new situation; the penalised value decides.
+            w = sp.round_discrete(warm.view(1, -1))
+            with torch.no_grad():
+                e_w = pb.evaluate(w, relax=False)
+                sc_w, sc_f = _score(pb, e_w), _score(pb, ef)
+            # worth a polish if it already scores better, or is worth clearly more and only violates what a polish can repair
+            if float(sc_w[0]) > float(sc_f[0]) or float(e_w.objective[0]) > obj + 0.01 * abs(obj):
+                pol_w = alm(pb, w, iters=cfg.polish_iters, lr=0.01, rho=1.0, outer=10, mask=~mask, relax=False,
+                            stage="polish", callback=lambda r: self._emit(callback, dict(r, guard=True)),
+                            patience=cfg.patience)
+                with torch.no_grad():                  # the plan as it is, or after its polish (a polish can also lose feasibility)
+                    ew = pb.evaluate(torch.cat([w, pol_w.x[:1]], 0), relax=False)
+                sc = _score(pb, ew)
+                sc[ew.max_violation() > max(mv, 2e-3)] = -float("inf")
+                k = int(sc.argmax())
+                if float(sc[k]) > float(sc_f[0]):
+                    guarded, x_final, pol = True, ew.x[k:k + 1].clone(), pol_w
+                    with torch.no_grad():
+                        ef = pb.evaluate(x_final, relax=False)
+                    obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
         prices = shadow_prices(pb, pol.multipliers)
         stages.append({"stage": "polish", "seconds": time.perf_counter() - t, "objective": obj, "max_violation": mv,
-                       "restored": restored})
+                       "restored": restored, "kept_running_plan": guarded})
+        if cfg.exact_branches:
+            # branches the structure analysis proves affine (or piecewise affine) are re-solved exactly
+            from . import branchlp as BL
+            t = time.perf_counter()
+            var = BL.class_variables(pb, cfg.exact_branches)
+            if len(var):
+                br = BL.solve_branches(pb, x_final, var, affine=set(cfg.exact_branches) <= {"lp"},
+                                       iters=cfg.branch_iters, callback=lambda r: self._emit(callback, r),
+                                       margin=cfg.exact_margin)
+                if br.F > br.F0 + 1e-9:
+                    x_final = br.x
+                    with torch.no_grad():
+                        ef = pb.evaluate(x_final, relax=False)
+                    obj, mv = float(ef.objective[0]), float(ef.max_violation()[0])
+                stages.append({"stage": "branches", "seconds": time.perf_counter() - t, "objective": obj,
+                               "max_violation": mv, "variables": br.variables, "rows": br.rows,
+                               "gain": round(br.F - br.F0, 6), "lp_seconds": round(br.lp_seconds, 3),
+                               "jacobian_seconds": round(br.jac_seconds, 3)})
         self._emit(callback, {"stage": "done", "objective": obj, "max_violation": mv, "feasible": mv <= 2e-3})
         return CascadeResult(x_final, obj, mv, mv <= 2e-3, prices, pol.multipliers, self._hist, stages,
                              time.perf_counter() - self._t0, pb.n_evals - evals0)

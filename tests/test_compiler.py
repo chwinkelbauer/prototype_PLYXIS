@@ -63,6 +63,29 @@ def test_time_vectorisation_has_no_scans_for_kestrel(kestrel_model):
     assert "scan" not in kinds and kinds.count("acc") >= 3
 
 
+def test_pwl_slope_at_the_ends_of_its_table():
+    """In float32 a decision at its upper bound can lie within rounding of a table's end, and the end segment has to keep
+    its slope there. It used to be 0: a pump at full speed had no slope of its rate, only of its cost."""
+    from plyxis.lang import rt
+
+    def at(v, xs, ys):
+        x = torch.tensor(v, dtype=torch.float32, requires_grad=True)
+        y = rt.pwl(x, xs, *[torch.tensor(q, dtype=torch.float32) for q in ys])
+        y.backward()
+        return float(y.detach()), float(x.grad)
+
+    lo, hi = torch.tensor(0.35), torch.tensor(1.0)
+    for u in (0.0, 0.5, 0.999, 1.0):                     # the well's speed curve over the decision's whole range
+        assert at(float(lo + (hi - lo) * u), (0.35, 1.0), (0.22, 1.0))[1] == pytest.approx(1.2, rel=1e-4)
+    xs, ys = (0.0, 1.0, 2.0), (0.0, 2.0, 3.0)
+    assert at(0.0, xs, ys)[1] == pytest.approx(2.0)
+    assert at(0.5, xs, ys)[1] == pytest.approx(2.0)
+    assert at(1.0, xs, ys)[1] == pytest.approx(1.0)      # a breakpoint belongs to one segment, not to the sum of two
+    assert at(2.0, xs, ys)[1] == pytest.approx(1.0)
+    assert at(3.0, xs, ys) == (3.0, 0.0)                 # flat beyond the table
+    assert at(-1.0, xs, ys) == (0.0, 0.0)
+
+
 def test_gradients_flow_through_the_twin(small_model):
     from plyxis.optim.problem import Problem
     pb = Problem(small_model.program)

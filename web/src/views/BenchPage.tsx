@@ -15,6 +15,9 @@ export function BenchPage() {
   const acc = b.twin_accuracy;
   const bud = b.solver_budget;
   const core = b.showcase_run_core;
+  const mine = b.showcase_run_corvus;
+  const mineSeeds = [b.showcase_run_corvus, b.showcase_run_corvus_s1, b.showcase_run_corvus_s2].filter(Boolean);
+  const tests = [b.backtest_kestrel, b.backtest_corvus].filter(Boolean);
   return (
     <div className="h-full overflow-auto p-3">
       <div className="text-[12px] text-muted mb-3 flex items-center gap-2"><FlaskConical size={14} className="text-teal" />
@@ -23,6 +26,8 @@ export function BenchPage() {
       <div className="grid grid-cols-12 gap-3">
         {show && <AB show={show} />}
         {show?.bridge && <Bridge show={show} core={core} />}
+        {mine && <MineAB mine={mine} seeds={mineSeeds} />}
+        {tests.length > 0 && <Backtest tests={tests} />}
         {sol && <Solvers sol={sol} />}
         {bud && <Budget bud={bud} />}
         {abl && <Ablation abl={abl} />}
@@ -64,6 +69,76 @@ function AB({ show }: { show: any }) {
       <div className="px-3 py-2 text-[11.5px] text-dim">Value captured over the run: <span className="num text-plx">{fmt.usd(k.delta.profit_after_carbon ?? k.delta.profit)}</span> after carbon cost
         (operating profit <span className="num">{fmt.usd(k.delta.profit)}</span>). Both worlds are valued identically, incl. inventories and remaining pump life. Error of the well properties vs. the hidden truth, engineering model → live twin:
         {" "}{Object.entries(show.calibration_error ?? {}).map(([p, v]: any) => `${p} ${(v.engineering * 100).toFixed(1)} % → ${(v.twin * 100).toFixed(1)} %`).join(", ")}.</div>
+    </div>
+  );
+}
+
+/** Head grade behind copper in concentrate: copper = milled x g / 100 x recovery(g), the concentrator's recovery curve. */
+function headGrade(copper: number, milled: number): number {
+  const rec = (g: number) => (g <= 0.3 ? 0.7 : g <= 0.8 ? 0.7 + (0.18 * (g - 0.3)) / 0.5 : g <= 1.5 ? 0.88 + (0.04 * (g - 0.8)) / 0.7 : 0.92);
+  let lo = 0.3, hi = 3;
+  for (let i = 0; i < 50; i++) {
+    const m = (lo + hi) / 2;
+    if ((m / 100) * rec(m) * milled > copper) hi = m; else lo = m;
+  }
+  return lo;
+}
+
+function MineAB({ mine, seeds }: { mine: any; seeds: any[] }) {
+  const k = mine.kpis;
+  const rows = [
+    ["Operating profit", k.plyxis.profit, k.legacy.profit, "USD"],
+    ["Copper in concentrate", k.plyxis.m_copper, k.legacy.m_copper, "t"],
+    ["Ore milled", k.plyxis.m_milled, k.legacy.m_milled, "t"],
+    ["Ore mined", k.plyxis.m_ore, k.legacy.m_ore, "t"],
+    ["Cash operating cost", k.plyxis.cost, k.legacy.cost, "USD"],
+    ["Cost per tonne milled", k.plyxis.cost / k.plyxis.m_milled, k.legacy.cost / k.legacy.m_milled, "USD/t", 2],
+    ["Site power", k.plyxis.m_power, k.legacy.m_power, "MWh"],
+  ];
+  const pct = seeds.map((s) => (100 * s.kpis.delta.profit) / Math.abs(s.kpis.legacy.profit));
+  const mean = pct.reduce((a, b) => a + b, 0) / Math.max(1, pct.length);
+  return (
+    <>
+      <div className="col-span-6 panel">
+        <div className="panel-h">A/B: autonomous vs. conventional mine control · {fmt.n(mine.hours)} h Corvus scenario</div>
+        <table className="tbl">
+          <thead><tr><th>KPI</th><th className="!text-right">PLYXIS</th><th className="!text-right">conventional</th><th className="!text-right">difference</th></tr></thead>
+          <tbody>
+            {rows.map(([l, p, m, u, d = 0]: any) => (
+              <tr key={l}><td>{l}</td><td className="num text-right">{fmt.n(p, d)} <span className="text-dim">{u}</span></td>
+                <td className="num text-right text-muted">{fmt.n(m, d)}</td>
+                <td className="num text-right">{m ? fmt.pct(((p - m) / Math.abs(m)) * 100) : "–"}</td></tr>
+            ))}
+            <tr><td>Head grade (plan window 1.35-1.45)</td><td className="num text-right">{fmt.n(headGrade(k.plyxis.m_copper, k.plyxis.m_milled), 3)} <span className="text-dim">%</span></td>
+              <td className="num text-right text-muted">{fmt.n(headGrade(k.legacy.m_copper, k.legacy.m_milled), 3)}</td><td /></tr>
+          </tbody>
+        </table>
+        <div className="px-3 py-2 text-[11.5px] text-dim">Operating profit over {pct.length} seed{pct.length === 1 ? "" : "s"}: mean <span className="num text-plx">{fmt.pct(mean)}</span>{pct.length > 1 ? <> ({pct.map((v) => fmt.pct(v)).join(", ")})</> : ""}. Baseline cash cost annualised: USD {fmt.n((k.legacy.cost / k.legacy.hours * 8760) / 1e6)} M.</div>
+      </div>
+      <div className="col-span-6 panel">
+        <div className="panel-h">Where the mine's value comes from<span className="normal-case tracking-normal font-normal text-dim">PLYXIS − conventional, USD</span></div>
+        <BridgeChart rows={mine.bridge ?? []} height={290} top={9} />
+      </div>
+    </>
+  );
+}
+
+function Backtest({ tests }: { tests: any[] }) {
+  return (
+    <div className="col-span-12 panel">
+      <div className="panel-h">Backtest, pilot gate G1: a twin calibrated on history predicts unseen history, frozen</div>
+      <table className="tbl">
+        <thead><tr><th>case study</th><th>signal</th><th>measure</th><th className="!text-right">value</th><th className="!text-right">limit</th><th>result</th><th>worst tags</th></tr></thead>
+        <tbody>
+          {tests.flatMap((t) => t.signals.map((r: any) => (
+            <tr key={`${t.scenario}-${r.signal}`}><td className="capitalize">{t.scenario}</td><td>{r.signal}</td><td className="text-muted">{r.measure}</td>
+              <td className="num text-right">{fmt.n(r.value, 2)}</td><td className="num text-right text-muted">{fmt.n(r.limit)}</td>
+              <td className={r.pass ? "text-good" : "text-crit"}>{r.pass ? "pass" : "fail"}</td>
+              <td className="num text-[11px] text-dim">{(r.worst ?? []).slice(0, 2).map((w: any) => `${w.tag} ${fmt.n(w.mape, 1)}`).join(" · ")}</td></tr>
+          )))}
+        </tbody>
+      </table>
+      <div className="px-3 py-2 text-[11.5px] text-dim">The twin sees only a historian export of the plant under manual operations. It is calibrated on the first half and frozen for the second, so a step change nobody announces (a plugged disposal well) counts against it here; the live twin re-estimates it within hours.</div>
     </div>
   );
 }

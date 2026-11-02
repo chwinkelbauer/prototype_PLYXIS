@@ -56,11 +56,14 @@ discrete decisions, stage 3 is skipped and its budget goes to the polish.
 **Live configuration** (`runtime/planner.py`): relaxation 200 iterations, 8 starts, discrete search
 12 candidates × 1 generation with 80 repair iterations, polish 120 iterations: about 10 s for the
 4,983 decisions of the Kestrel twin on a laptop CPU. The budget was set by an ablation on sampled
-event situations (`bench/solver_budget.py`): the live configuration is worth +2.6 % per plan over the
-previous one (10.2 s instead of 7.1 s); a 3.4x larger budget adds only another 0.3 % - the live budget sits
-at the knee of the curve (results in [BENCHMARKS.md](BENCHMARKS.md)). The mine uses its own budget
-(`scenario.json` -> `planner`: 120 relaxation iterations, 4 starts, GA + exact sections, ~45-55 s for
-~5,000 decisions over 48 h); a first response is live within ~10 s.
+event situations (`bench/solver_budget.py`): the live configuration is worth +1.8 % per plan over the
+previous one (9.8 s instead of 7.3 s, and feasible in 5 of 5 situations instead of 4); a 3.4x larger budget
+adds only another 0.1 % - the live budget sits at the knee of the curve (results in
+[BENCHMARKS.md](BENCHMARKS.md)). The mine adds the exact-branch stage after the polish
+(`scenario.json` -> `planner.exact_branches`); on the oil field it is off (it lowered the A/B result). The mine uses its own budget
+(`scenario.json` -> `planner`: 120 relaxation iterations, 4 starts, GA + exact sections, exact branches;
+about 70-80 s per plan for ~5,000 decisions over 48 h, of which ~25-30 s are the sequential LP); a first
+response is live within ~10 s.
 
 ### Augmented Lagrangian (`gradient.py`)
 
@@ -104,10 +107,10 @@ starting point, never the final word.
 **Measured effect** (8 held-out event situations, equal budgets,
 `bench/results/neural_ablation.json`, retrained on the current model): the network proposes a plan for
 the whole field in about 20 ms. That plan is not feasible as it stands (0/8) - it is a starting point.
-After the same 1.4 s gradient repair it is feasible in 8 of 8 cases, against 5 of 8 when the previous plan
-is repaired (objective within 0.2 %). Inside the full cascade the neural start wins 5 of 8 cases, ties 2
-and loses 1 (median +3.0 %, mean +3.8 %, range -3.2 % to +15.2 %) at the same solve time. Earlier
-training runs on previous versions of the model showed the same direction with a different spread.
+After the same 1.5 s gradient repair it is feasible in 5 of 8 cases, against 3 of 8 when the previous plan
+is repaired. Inside the full cascade the neural start wins 7 of 8 cases and loses 1 (median +4.6 %, mean
++8.4 %, range -8.3 % to +24.9 %) at about the same solve time. Earlier training runs on previous versions
+of the model showed the same direction with a different spread.
 
 ### Deterministic sections: learned graph filter + exact section search (`sections.py`, `plyxis/native`)
 
@@ -156,6 +159,25 @@ over tree decompositions, which is exponential in the decomposition width but li
 (Bodlaender & Koster). PLYXIS differs in where the structure comes from: the graph is the twin's netlist,
 and the coupling labels are measured on the differentiable twin rather than on a MIP formulation.
 
+### Structure recognition and exact branches (`structure.py`, `branchlp.py`, `sectiondp.py`)
+
+Not every part of a site is the same kind of problem. The structure analysis reads the twin's equations
+(the compiler's planning IR) and proves, with disciplined-convex-programming rules, which asset types and
+branches are linear, piecewise linear (given the discrete choices and frozen blend qualities), convex or
+nonlinear (`python -m plyxis.optim.structure scenarios/corvus` prints the map). Proven-linear branches are
+solved as linear programmes by HiGHS - their LP is the twin's own Jacobian, exact on an affine branch -
+and the piecewise-linear layer by sequential LP with a trust region; every result is verified on the full
+twin. `CascadeConfig.exact_branches` runs this after the polish. On the mine 98.6 % of the decisions fall
+into these classes; sequential LP over them adds USD 47,000 per 48 h to the mine's A/B result and is
+switched off on the oil field, where it lowered the result (its LP plans sit on the tank limits;
+BENCHMARKS.md). The oil field's wells are the convex class: with on/off fixed their rate is linear in pump speed and their
+power, wear and failure risk are convex, so sequential LP applies there too, and `branchlp.tangent_gap` measures how far a
+plan is from the best the layer can do. `sectiondp.py` is the model-agnostic core for the discrete side: exact forest DP, exact moves over
+induced forests, dual decomposition with a certified bound - within 0.5-1.9 % of the optimum on scheduling
+models where an exact MILP can prove it, in linear time, and with the smoothed dual every plan of up to
+90,000 blocks is proven within 1.7-3.7 % of the optimum without an exact solver. Theory, theorems and their limits:
+[DECOMPOSITION.md](DECOMPOSITION.md); measurements: [BENCHMARKS.md](BENCHMARKS.md).
+
 ### Metaheuristics (`metaheur.py`)
 
 graviSearch (gravitational search), PSO, GA and DE, fully vectorised (one generation = one
@@ -195,6 +217,21 @@ one huge one (cooperative coevolution). The cascade uses this inside stage 3.
   the horizon, and in the mill-bound mine it made the planner idle the mill through a price peak. The only
   planning-only terminal term left (`value_to_go`, never in the realised KPIs) values broken ore at half
   its blasting cost, so rings are fired just in time.
+
+### Keeping the plan robust
+
+* **The relaxation's tolerance.** It picks its best iterate among those with violation up to `relax_tol`. At the default 0.002 a poor but strictly
+  feasible iterate can beat a far better one the discrete stage and polish could still repair: about one mine plan in 50 fell from USD 7.5 M to
+  5.5-6.8 M of plan value, once cutting the mill for three hours before a price peak. At 0.01 (mine) this has not happened in 57 plans; a cold mine plan goes from USD 6.1 M to 7.5 M.
+* **The running plan is a candidate.** After the polish, the plan the plant is executing (shifted, its discrete decisions
+  kept) is evaluated under the new situation. If it scores better or is clearly worth more, it is polished; it or its polished form replaces the new plan
+  if that scores better and is no less feasible.
+* **A second opinion** (`second_opinion`, mine): a plan worth more than that share less than the last one gets a second solve from another random stream; the better one wins.
+* **Margins for exact plans.** An LP optimum sits on the limits as the twin sees them. Two mechanisms keep a distance:
+  `concentrator.grade_margin` plans the head grade inside the window by `z` standard errors of the blend the last plan
+  mines (scenario `margins`, runtime `Engine._update_margins`, standard errors from `Estimator.uncertainty`); `exact_margin`
+  makes the exact stage keep state limits (tanks, bins) a share of their scale inside.
+* **Pins.** `Problem.set_pins` holds what an operator decided, in every evaluation of every stage.
 
 ## From plan to action
 
