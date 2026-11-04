@@ -1,0 +1,5 @@
+name,src,dst,freight,cap,label,slat,slon,dlat,dlon
+T_NL_DE,NL_SLABS,DE_SLABS,16,250,Slab transfer NL -> DE,52.477,4.598,51.488,6.738
+T_DE_NL,DE_SLABS,NL_SLABS,16,250,Slab transfer DE -> NL,51.488,6.738,52.477,4.598
+T_FR_DE,FR_SLABS,DE_SLABS,22,200,Slab transfer FR -> DE,51.03,2.3,51.488,6.738
+T_BR_IN,BR_SLABS,IN_SLABS,48,150,Slab transfer BR -> IN,-20.24,-40.25,41.63,-87.12

@@ -1,0 +1,23 @@
+C:\Users\cwink\AppData\Local\Temp\claude\c--Users-cwink-OneDrive-Dokumente--quarries-proto-proto2\d625f999-6786-4a32-a7cc-9767cc72d64d\scratchpad\runs\risk\plyxis\optim\sections.py:172: UserWarning: Sparse invariant checks are implicitly disabled. Memory errors (e.g. SEGFAULT) will occur when operating on a sparse tensor which violates the invariants, but checks incur performance overhead. To silence this warning, explicitly opt in or out. See `torch.sparse.check_sparse_tensor_invariants.__doc__` for guidance.  (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\aten\src\ATen\Context.cpp:855.)
+  A = torch.sparse_coo_tensor(torch.tensor(np.stack([rows, cols])), torch.tensor(vals, dtype=torch.float32), (n, n)).coalesce()
+C:\Users\cwink\AppData\Local\Temp\claude\c--Users-cwink-OneDrive-Dokumente--quarries-proto-proto2\d625f999-6786-4a32-a7cc-9767cc72d64d\scratchpad\runs\risk\plyxis\optim\sections.py:277: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  return net, {"mse": float(loss), "spearman": rank, "pairs": int(len(pairs))}
+Day 1 07:00  m_ore P    2,061 L    1,580 | m_hoisted P    1,722 L    1,750 | m_milled P    1,599 L    1,580 | delta profit        -588  [  216s]
+Day 1 08:00  m_ore P    2,061 L    1,580 | m_hoisted P    1,722 L    1,356 | m_milled P    1,599 L    1,580 | delta profit         155  [  221s]
+Day 1 09:00  m_ore P    2,061 L    1,580 | m_hoisted P    1,722 L    1,216 | m_milled P    1,599 L    1,580 | delta profit       2,242  [  445s]
+Day 1 10:00  m_ore P    1,970 L    1,580 | m_hoisted P    1,691 L    1,243 | m_milled P    1,599 L    1,580 | delta profit       6,854  [  451s]
+Day 1 11:00  m_ore P    1,525 L    1,372 | m_hoisted P    1,660 L    1,157 | m_milled P    1,600 L    1,580 | delta profit      13,184  [  695s]
+Day 1 12:00  m_ore P    1,318 L    1,297 | m_hoisted P    1,650 L    1,157 | m_milled P    1,600 L    1,580 | delta profit      19,415  [  700s]
+Day 1 13:00  m_ore P    1,212 L    1,294 | m_hoisted P    1,656 L    1,207 | m_milled P    1,600 L    1,580 | delta profit      25,201  [  705s]
+Day 1 14:00  m_ore P    1,118 L    1,305 | m_hoisted P    1,674 L    1,249 | m_milled P    1,600 L    1,580 | delta profit      31,135  [  926s]
+Day 1 15:00  m_ore P    1,064 L    1,341 | m_hoisted P    1,686 L    1,319 | m_milled P    1,600 L    1,580 | delta profit      37,987  [  929s]
+Day 1 16:00  m_ore P      988 L    1,263 | m_hoisted P    1,688 L    1,244 | m_milled P    1,600 L    1,580 | delta profit      45,805  [ 1120s]
+Day 1 17:00  m_ore P      941 L    1,417 | m_hoisted P    1,688 L    1,398 | m_milled P    1,600 L    1,580 | delta profit      55,004  [ 1124s]
+Day 1 18:00  m_ore P      918 L    1,497 | m_hoisted P    1,689 L    1,481 | m_milled P    1,599 L    1,580 | delta profit      65,456  [ 1129s]
+Day 1 19:00  m_ore P      972 L    1,537 | m_hoisted P    1,575 L    1,526 | m_milled P    1,599 L    1,580 | delta profit      77,081  [ 1441s]
+Day 1 20:00  m_ore P    1,009 L    1,558 | m_hoisted P    1,504 L    1,510 | m_milled P    1,599 L    1,580 | delta profit      88,914  [ 1446s]
+Day 1 21:00  m_ore P    1,028 L    1,569 | m_hoisted P    1,467 L    1,519 | m_milled P    1,599 L    1,580 | delta profit     103,328  [ 1452s]
+Day 1 22:00  m_ore P    1,009 L    1,574 | m_hoisted P      753 L      780 | m_milled P    1,600 L    1,580 | delta profit     118,612  [ 1748s]
+Day 1 23:00  m_ore P      995 L    1,577 | m_hoisted P      387 L      400 | m_milled P    1,600 L    1,580 | delta profit     133,940  [ 1757s]
+Day 2 00:00  m_ore P      988 L    1,578 | m_hoisted P      199 L      206 | m_milled P    1,600 L    1,580 | delta profit     149,059  [ 1762s]

@@ -1,0 +1,5 @@
+name,site,label,tag,lat,lon,cap,billets,yard
+ES_BAR,ES,Aviles (ES) bar and rod mill,AQ.ES.BAR,43.574999999999996,-5.922000000000001,140,ES_BILLETS,ES_LONG
+PL_BAR,PL,Warsaw (PL) bar and rod mill,AQ.PL.BAR,52.29,20.904,200,PL_BILLETS,PL_LONG
+TX_BAR,TX,Corpus Christi (US-TX) bar and rod mill,AQ.TX.BAR,27.844,-97.332,170,TX_BILLETS,TX_LONG
+SA_BAR,SA,Jubail (SA) bar and rod mill,AQ.SA.BAR,27.004,49.658,190,SA_BILLETS,SA_LONG

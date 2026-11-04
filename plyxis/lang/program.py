@@ -73,6 +73,12 @@ class Program:
                 self.terms.append(TermRef(g.gid, k, ti.kind, ti.name, ti.final, ti.unit))
             for ck, ci in g.ir.cons.items():
                 self.cons.append(ConRef(g.gid, ck, ci.name, ci.kind, ci.soft is not None, ci.is_bound, ci))
+        # totals by name (value bridge, KPI accounting) add up every term of a name: one name, one kind
+        kind_of: dict = {}
+        for tr in self.terms:
+            if not tr.final and kind_of.setdefault(tr.name, tr.kind) != tr.kind:
+                raise ValueError(f"term name '{tr.name}' is used as {kind_of[tr.name]} and as {tr.kind}: "
+                                 f"give each a name of its own (totals by name would add kg of CO2e to USD)")
         sim = self.flat.sim
         self.dt = sim.dt
         self.horizon = sim.horizon

@@ -1,0 +1,5 @@
+name,site,src,market,freight,cap,label,slat,slon,dlat,dlon
+L_ES_EU_LONG,ES,ES_LONG,EU_LONG,26,140,Aviles (ES) -> EU_LONG,43.581,-5.92,50.1,8.7
+L_PL_EU_LONG,PL,PL_LONG,EU_LONG,22,200,Warsaw (PL) -> EU_LONG,52.296,20.906,50.1,8.7
+L_TX_NA_LONG,TX,TX_LONG,NA_LONG,20,170,Corpus Christi (US-TX) -> NA_LONG,27.85,-97.33,39.0,-86.0
+L_SA_ME_LONG,SA,SA_LONG,ME_LONG,14,190,Jubail (SA) -> ME_LONG,27.01,49.66,25.2,55.3

@@ -57,8 +57,17 @@ class CascadeConfig:
     branch_iters: int = 6                 # sequential-LP iterations for the piecewise-affine classes
     exact_margin: float = 0.0             # the exact stage keeps state limits this far inside (share of the limit's scale)
     second_opinion: Optional[float] = None  # a plan worth this share less than the last one is solved once more (runtime/planner.py)
+    cold_starts: int = 1                  # a plan with no running plan to start from is solved from this many random streams, the
+                                          # best kept (runtime/planner.py): nothing to compare it with, so the second opinion never fires
     relax_tol: float = 2e-3               # violation up to which the relaxation counts an iterate as feasible when it picks its best:
                                           # too tight, and a poor feasible iterate beats a far better one the repair could still fix
+    risk_eps: Optional[float] = None      # chance constraints: every hard limit holds with probability >= 1 - eps under the twin's
+                                          # uncertainty (risk.py, runtime/planner.py); None = plan on the nominal twin only
+    risk_scope: str = "states"            # limits that get chance constraints: "states" (tanks, sumps, bins: spills, floods, dry runs),
+                                          # "upper" (only their upper limits: overflow) or "all" (also flow capacities - measured: far too cautious)
+    risk_recourse_h: float = 6.0          # state limits count only the spread that builds up within this time (re-plans correct the rest)
+    risk_sigma_cap: Optional[float] = None  # cap on the standard deviation of the plan value (USD); None = no cap
+    risk_r: int = 4                       # sigma-point directions for the cap
 
 
 @dataclass

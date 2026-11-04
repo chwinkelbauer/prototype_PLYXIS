@@ -1,0 +1,802 @@
+{
+  "name": "Aquila Steel - autonomous planning for a global steel producer",
+  "title": "Aquila Steel",
+  "region": "13 sites, 4 continents",
+  "subtitle": "synthetic global steel producer \u00b7 13 sites \u00b7 15 blast furnaces \u00b7 10 arc furnaces \u00b7 73 Mt/a capacity",
+  "description": "Synthetic global steel group: seven integrated sites (blast furnace -> converter -> caster -> strip mill and galvanising), six electric sites (direct reduction and scrap -> arc furnace -> caster -> strip or bar mill), ore, coke, scrap and HBI supply, eleven power zones in their local time, five gas hubs, the EU ETS, twelve regional markets and 29 sales and transfer lanes. Two identical copies of the group run side by side from the same state with the same events: one planned by PLYXIS, one by conventional corporate S&OP with site control rooms.",
+  "twin": {
+    "files": [
+      "field.plx"
+    ],
+    "env": "aquila",
+    "sim": "corp96"
+  },
+  "truth": {
+    "files": [
+      "field.plx",
+      "truth.plx"
+    ],
+    "env": "aquila_truth",
+    "hidden": []
+  },
+  "time": {
+    "dt_emulator_h": 0.16666666666666666,
+    "replan_every_h": 4.0,
+    "calibrate_every_h": 1.0,
+    "start_hour": 0.0,
+    "end_hour": 96.0
+  },
+  "prices": {
+    "power_nl": {
+      "base": 85,
+      "unit": "USD/MWh",
+      "daily": [
+        0.791,
+        0.76,
+        0.75,
+        0.771,
+        0.862,
+        1.065,
+        1.318,
+        1.338,
+        1.115,
+        0.862,
+        0.71,
+        0.629,
+        0.608,
+        0.659,
+        0.811,
+        1.065,
+        1.47,
+        1.673,
+        1.572,
+        1.318,
+        1.115,
+        0.994,
+        0.913,
+        0.831
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_de": {
+      "base": 90,
+      "unit": "USD/MWh",
+      "daily": [
+        0.791,
+        0.76,
+        0.75,
+        0.771,
+        0.862,
+        1.065,
+        1.318,
+        1.338,
+        1.115,
+        0.862,
+        0.71,
+        0.629,
+        0.608,
+        0.659,
+        0.811,
+        1.065,
+        1.47,
+        1.673,
+        1.572,
+        1.318,
+        1.115,
+        0.994,
+        0.913,
+        0.831
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_fr": {
+      "base": 70,
+      "unit": "USD/MWh",
+      "daily": [
+        0.791,
+        0.76,
+        0.75,
+        0.771,
+        0.862,
+        1.065,
+        1.318,
+        1.338,
+        1.115,
+        0.862,
+        0.71,
+        0.629,
+        0.608,
+        0.659,
+        0.811,
+        1.065,
+        1.47,
+        1.673,
+        1.572,
+        1.318,
+        1.115,
+        0.994,
+        0.913,
+        0.831
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_es": {
+      "base": 65,
+      "unit": "USD/MWh",
+      "daily": [
+        0.791,
+        0.76,
+        0.75,
+        0.771,
+        0.862,
+        1.065,
+        1.318,
+        1.338,
+        1.115,
+        0.862,
+        0.71,
+        0.629,
+        0.608,
+        0.659,
+        0.811,
+        1.065,
+        1.47,
+        1.673,
+        1.572,
+        1.318,
+        1.115,
+        0.994,
+        0.913,
+        0.831
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_pl": {
+      "base": 100,
+      "unit": "USD/MWh",
+      "daily": [
+        0.791,
+        0.76,
+        0.75,
+        0.771,
+        0.862,
+        1.065,
+        1.318,
+        1.338,
+        1.115,
+        0.862,
+        0.71,
+        0.629,
+        0.608,
+        0.659,
+        0.811,
+        1.065,
+        1.47,
+        1.673,
+        1.572,
+        1.318,
+        1.115,
+        0.994,
+        0.913,
+        0.831
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_miso": {
+      "base": 40,
+      "unit": "USD/MWh",
+      "daily": [
+        1.805,
+        1.377,
+        1.092,
+        0.902,
+        0.779,
+        0.712,
+        0.665,
+        0.627,
+        0.608,
+        0.598,
+        0.617,
+        0.684,
+        0.807,
+        0.902,
+        0.902,
+        0.874,
+        0.855,
+        0.874,
+        0.931,
+        1.026,
+        1.187,
+        1.425,
+        1.757,
+        1.994
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_ercot": {
+      "base": 35,
+      "unit": "USD/MWh",
+      "daily": [
+        1.805,
+        1.377,
+        1.092,
+        0.902,
+        0.779,
+        0.712,
+        0.665,
+        0.627,
+        0.608,
+        0.598,
+        0.617,
+        0.684,
+        0.807,
+        0.902,
+        0.902,
+        0.874,
+        0.855,
+        0.874,
+        0.931,
+        1.026,
+        1.187,
+        1.425,
+        1.757,
+        1.994
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.01
+    },
+    "power_mx": {
+      "base": 60,
+      "unit": "USD/MWh",
+      "daily": [
+        1.474,
+        1.616,
+        1.474,
+        1.189,
+        0.951,
+        0.837,
+        0.761,
+        0.723,
+        0.704,
+        0.694,
+        0.713,
+        0.761,
+        0.856,
+        0.932,
+        0.951,
+        0.951,
+        0.951,
+        0.97,
+        0.998,
+        1.027,
+        1.046,
+        1.065,
+        1.122,
+        1.236
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_br": {
+      "base": 55,
+      "unit": "USD/MWh",
+      "daily": [
+        1.064,
+        0.936,
+        0.887,
+        0.838,
+        0.789,
+        0.769,
+        0.769,
+        0.789,
+        0.838,
+        0.907,
+        0.986,
+        1.035,
+        1.035,
+        1.005,
+        0.936,
+        0.887,
+        0.887,
+        0.936,
+        1.005,
+        1.133,
+        1.38,
+        1.528,
+        1.429,
+        1.232
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_in": {
+      "base": 70,
+      "unit": "USD/MWh",
+      "daily": [
+        0.93,
+        1.011,
+        1.061,
+        1.011,
+        0.859,
+        0.708,
+        0.627,
+        0.607,
+        0.627,
+        0.708,
+        0.859,
+        1.061,
+        1.365,
+        1.618,
+        1.668,
+        1.516,
+        1.314,
+        1.112,
+        0.991,
+        0.91,
+        0.869,
+        0.849,
+        0.849,
+        0.869
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "power_sa": {
+      "base": 45,
+      "unit": "USD/MWh",
+      "daily": [
+        0.69,
+        0.708,
+        0.746,
+        0.802,
+        0.857,
+        0.932,
+        1.025,
+        1.137,
+        1.258,
+        1.379,
+        1.473,
+        1.51,
+        1.445,
+        1.305,
+        1.165,
+        1.072,
+        0.979,
+        0.913,
+        0.857,
+        0.82,
+        0.783,
+        0.746,
+        0.708,
+        0.69
+      ],
+      "walk": 0.12,
+      "spike_prob": 0.004
+    },
+    "hrc_eu": {
+      "base": 680,
+      "unit": "USD/t",
+      "walk": 2.0
+    },
+    "hrc_na": {
+      "base": 820,
+      "unit": "USD/t",
+      "walk": 2.5
+    },
+    "hrc_sa": {
+      "base": 690,
+      "unit": "USD/t",
+      "walk": 2.0
+    },
+    "hrc_in": {
+      "base": 600,
+      "unit": "USD/t",
+      "walk": 2.0
+    },
+    "hrc_me": {
+      "base": 640,
+      "unit": "USD/t",
+      "walk": 2.0
+    },
+    "scrap_eu": {
+      "base": 395,
+      "unit": "USD/t",
+      "walk": 1.5
+    },
+    "scrap_us": {
+      "base": 405,
+      "unit": "USD/t",
+      "walk": 1.5
+    },
+    "scrap_br": {
+      "base": 360,
+      "unit": "USD/t",
+      "walk": 1.2
+    },
+    "scrap_in": {
+      "base": 425,
+      "unit": "USD/t",
+      "walk": 1.5
+    },
+    "scrap_me": {
+      "base": 395,
+      "unit": "USD/t",
+      "walk": 1.5
+    },
+    "hbi_price": {
+      "base": 360,
+      "unit": "USD/t",
+      "walk": 1.2
+    },
+    "gas_ttf": {
+      "base": 10.5,
+      "unit": "USD/GJ",
+      "walk": 0.06
+    },
+    "gas_hh": {
+      "base": 2.6,
+      "unit": "USD/GJ",
+      "walk": 0.02
+    },
+    "gas_br": {
+      "base": 9.0,
+      "unit": "USD/GJ",
+      "walk": 0.04
+    },
+    "gas_in": {
+      "base": 11.5,
+      "unit": "USD/GJ",
+      "walk": 0.05
+    },
+    "gas_sa": {
+      "base": 2.0,
+      "unit": "USD/GJ",
+      "walk": 0.0
+    },
+    "eua_price": {
+      "base": 72,
+      "unit": "USD/tCO2e",
+      "walk": 0.3
+    }
+  },
+  "market_tags": {
+    "power_nl": "MKT.POWER.NL",
+    "power_de": "MKT.POWER.DE",
+    "power_fr": "MKT.POWER.FR",
+    "power_es": "MKT.POWER.ES",
+    "power_pl": "MKT.POWER.PL",
+    "power_miso": "MKT.POWER.MISO",
+    "power_ercot": "MKT.POWER.ERCOT",
+    "power_mx": "MKT.POWER.MX",
+    "power_br": "MKT.POWER.BR",
+    "power_in": "MKT.POWER.IN",
+    "power_sa": "MKT.POWER.SA",
+    "hrc_eu": "MKT.HRC.EU",
+    "hrc_na": "MKT.HRC.NA",
+    "hrc_sa": "MKT.HRC.SA",
+    "hrc_in": "MKT.HRC.IN",
+    "hrc_me": "MKT.HRC.ME",
+    "scrap_eu": "MKT.SCRAP.EU",
+    "scrap_us": "MKT.SCRAP.US",
+    "scrap_br": "MKT.SCRAP.BR",
+    "scrap_in": "MKT.SCRAP.IN",
+    "scrap_me": "MKT.SCRAP.ME",
+    "hbi_price": "MKT.HBI.PRICE",
+    "gas_ttf": "MKT.GAS.TTF",
+    "gas_hh": "MKT.GAS.HH",
+    "gas_br": "MKT.GAS.BR",
+    "gas_in": "MKT.GAS.IN",
+    "gas_sa": "MKT.GAS.SA",
+    "eua_price": "MKT.EUA.PRICE"
+  },
+  "price_history_days": 7,
+  "market_desc": "regional coil indices, scrap and HBI, day-ahead power per zone, gas hubs, EUA (synthetic)",
+  "kpi": {
+    "metrics": [
+      {
+        "key": "shipped",
+        "metric": "shipments",
+        "unit": "t",
+        "rate_unit": "t/h",
+        "label": "Steel shipped"
+      },
+      {
+        "key": "crude",
+        "metric": "crude_steel",
+        "unit": "t",
+        "rate_unit": "t/h",
+        "label": "Crude steel"
+      },
+      {
+        "key": "iron",
+        "metric": "hot_metal_made",
+        "unit": "t",
+        "rate_unit": "t/h",
+        "label": "Hot metal"
+      },
+      {
+        "key": "eaf",
+        "metric": "eaf_steel",
+        "unit": "t",
+        "rate_unit": "t/h",
+        "label": "Arc furnace steel"
+      },
+      {
+        "key": "power",
+        "metric": "group_power",
+        "unit": "MWh",
+        "rate_unit": "MW",
+        "label": "Group power",
+        "better": "lower"
+      }
+    ],
+    "primary": "shipped",
+    "product": "crude",
+    "secondary": "power",
+    "plan_series": "shipments",
+    "unit_cost_label": "Cost per tonne shipped"
+  },
+  "events": [
+    {
+      "t": 5.0,
+      "kind": "fail",
+      "asset": "DE_BF1",
+      "hours": 30.0,
+      "title": "Duisburg blast furnace 1: cooling stave leak",
+      "restore_title": "Duisburg blast furnace 1 back on wind",
+      "narrative": "Water in the furnace: the largest furnace in Europe goes off wind for about thirty hours."
+    },
+    {
+      "t": 18.0,
+      "kind": "capacity",
+      "asset": "NL_ORE",
+      "param": "delivery",
+      "factor": 0.2,
+      "hours": 36.0,
+      "notice": true,
+      "title": "Storm closes IJmuiden: no vessels for 36 hours",
+      "restore_title": "IJmuiden open again, vessels discharging",
+      "narrative": "A North Sea storm closes the port. Ore and pellet deliveries to Velsen fall to a fifth."
+    },
+    {
+      "t": 20.0,
+      "kind": "announce",
+      "name": "power_ercot",
+      "start": 45.0,
+      "end": 49.0,
+      "value": 1500.0,
+      "title": "ERCOT: scarcity prices forecast tomorrow 15:00-19:00 CST",
+      "narrative": "A Texas heat wave: the grid operator expects 1,500 USD/MWh for four hours tomorrow afternoon."
+    },
+    {
+      "t": 26.0,
+      "kind": "capacity",
+      "asset": "GJ_GAS",
+      "param": "cap",
+      "factor": 0.45,
+      "hours": 30.0,
+      "notice": true,
+      "title": "Hazira: gas curtailed to 45 % for pipeline maintenance",
+      "restore_title": "Hazira gas supply restored",
+      "narrative": "The pipeline operator curtails the site's gas for thirty hours. Direct reduction needs most of it."
+    },
+    {
+      "t": 34.0,
+      "kind": "fail",
+      "asset": "BR_HSM",
+      "hours": 12.0,
+      "title": "Tubarao hot strip mill: main drive fault",
+      "restore_title": "Tubarao hot strip mill rolling again",
+      "narrative": "A drive motor fails. Twelve hours without rolling; the slabs keep coming from the casters."
+    },
+    {
+      "t": 45.0,
+      "kind": "price",
+      "name": "power_ercot",
+      "value": 1500.0,
+      "hours": 4.0,
+      "title": "ERCOT at 1,500 USD/MWh",
+      "narrative": "An arc furnace hour in Corpus Christi now costs more than the steel it melts is worth."
+    },
+    {
+      "t": 50.0,
+      "kind": "capacity",
+      "asset": "NA_COAT",
+      "param": "contract",
+      "factor": 1.25,
+      "hours": 40.0,
+      "notice": true,
+      "title": "North American automotive customers pull orders forward",
+      "restore_title": "Coated call-offs back to plan",
+      "narrative": "Two car makers call off a quarter more coated coil for the next forty hours."
+    },
+    {
+      "t": 60.0,
+      "kind": "price",
+      "name": "scrap_eu",
+      "value": 470.0,
+      "hours": 36.0,
+      "title": "European scrap jumps to 470 USD/t",
+      "narrative": "Export demand empties the dealers' yards. Shredded scrap rises by a fifth overnight."
+    },
+    {
+      "t": 72.0,
+      "kind": "fail",
+      "asset": "MX_EAF1",
+      "hours": 8.0,
+      "title": "Monterrey arc furnace: transformer trip",
+      "restore_title": "Monterrey arc furnace melting again",
+      "narrative": "The furnace transformer trips on a fault. Eight hours without melting."
+    }
+  ],
+  "assays": {
+    "policy": "working",
+    "signal": "YARD.STOCK",
+    "per_hour": 3,
+    "sigma": 0.08
+  },
+  "planner": {
+    "relax_tol": 0.01,
+    "cold_starts": 2
+  },
+  "legacy": {
+    "utilisation": 0.97,
+    "peak_hours": {
+      "nl": [
+        7,
+        16,
+        17,
+        18
+      ],
+      "de": [
+        7,
+        16,
+        17,
+        18
+      ],
+      "fr": [
+        7,
+        16,
+        17,
+        18
+      ],
+      "es": [
+        7,
+        16,
+        17,
+        18
+      ],
+      "pl": [
+        7,
+        16,
+        17,
+        18
+      ],
+      "miso": [
+        0,
+        21,
+        22,
+        23
+      ],
+      "ercot": [
+        0,
+        21,
+        22,
+        23
+      ],
+      "mx": [
+        0,
+        1,
+        2,
+        23
+      ],
+      "br": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "in": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "sa": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "peak_factor": 0.3,
+    "dr_price": 300.0,
+    "cu_margin": 0.9,
+    "carbon_price": 30.0
+  },
+  "demo": [
+    {
+      "id": "intro",
+      "t": 0.0,
+      "title": "One plan for a whole steel group",
+      "view": "overview",
+      "text": "Aquila: 13 sites on four continents, 15 blast furnaces, 10 arc furnaces, 73 Mt of crude steel capacity a year. The same group also runs under conventional S&OP and site control rooms in parallel - same state, same events, same physics."
+    },
+    {
+      "id": "map",
+      "t": 1.0,
+      "title": "The whole value chain in one twin",
+      "view": "map",
+      "text": "Ore and coke yards, scrap bays, furnaces, casters, mills, the lanes to twelve regional markets and the transfers between sites - every asset of the group, compiled from PLX code and the asset register."
+    },
+    {
+      "id": "bf",
+      "t": 5.2,
+      "title": "Blast furnace off wind",
+      "view": "overview",
+      "text": "Duisburg loses its largest furnace for about 30 hours; both planning departments know when it is due back. PLYXIS re-plans the whole group at once - iron, slabs (Velsen and Dunkirk can ship slabs to Duisburg's strip mill) and markets. The Schedule shows what moved and why."
+    },
+    {
+      "id": "explain",
+      "t": 8.0,
+      "title": "Why this site and not that one?",
+      "view": "schedule",
+      "text": "Every decision carries its reasons: delivered margin per market, the shadow price of iron, of rolling capacity and of each lane - computed from the model's gradients."
+    },
+    {
+      "id": "storm",
+      "t": 18.2,
+      "title": "A port closes",
+      "view": "map",
+      "text": "No vessels at IJmuiden for 36 hours. The ore yard holds weeks of burden: nothing to do but watch it - the twin knows that and does not over-react."
+    },
+    {
+      "id": "ercot",
+      "t": 20.2,
+      "title": "A price signal a day ahead",
+      "view": "overview",
+      "text": "ERCOT forecasts 1,500 USD/MWh tomorrow afternoon, and both worlds know it a day ahead. The conventional control room will stop the Texas arc furnace for the window (demand response); PLYXIS plans the furnace's heats and the billet yard around it."
+    },
+    {
+      "id": "gas",
+      "t": 26.2,
+      "title": "Gas curtailed in India",
+      "view": "schedule",
+      "text": "Hazira's direct reduction loses half its gas. Its arc furnaces need more scrap - within the copper limit of their coil grades, measured by the lab - and merchant HBI where it pays."
+    },
+    {
+      "id": "drift",
+      "t": 30.0,
+      "title": "Reality drifts - the twin follows",
+      "view": "data",
+      "text": "Furnaces use more coke and more power than the engineering data say, scrap carries more copper than the specs. The estimator re-calibrates every hour from the plant's own measurements."
+    },
+    {
+      "id": "demand",
+      "t": 50.2,
+      "title": "Customers pull orders forward",
+      "view": "overview",
+      "text": "North American car makers want a quarter more coated coil for 40 hours. Which site supplies it, and what does it displace? PLYXIS answers that for the whole group in the next plan."
+    },
+    {
+      "id": "scrap",
+      "t": 60.2,
+      "title": "Scrap jumps 19 %",
+      "view": "overview",
+      "text": "European scrap costs 470 USD/t. Each site's metallic mix - hot metal, scrap, HBI - is re-planned against the new price, within its heat and copper balances."
+    },
+    {
+      "id": "value",
+      "t": 95.5,
+      "title": "Value",
+      "view": "overview",
+      "text": "Same group, same events. PLYXIS plans to the group's objective, profit after its internal carbon price, and runs Europe on more scrap and less hot metal: less CO2e and a better result after the carbon price, at an operating profit within a few per cent of a competent S&OP's."
+    }
+  ]
+}

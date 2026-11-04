@@ -6,6 +6,8 @@
     unused-property   a property no equation reads
     unconnected-input an input port without a connection: its flow is silently zero
     no-tag            an asset type with telemetry, an asset without a tag: no data will ever arrive
+    duplicate-tag     two assets with one tag: their telemetry cannot be told apart (e.g. "{s.tag}.X" in a loop
+                      over a table - strings interpolate loop names, not fields; use concat(s.tag, ".X"))
     unobservable      a property to calibrate on an asset without telemetry: nothing can correct it
     unpriced-soft     a soft constraint with price zero never binds
     terminal-value    a `final revenue` term: the plan can create value by parking material at the horizon end,
@@ -92,6 +94,14 @@ def lint(model, gradient_points: int = 3, seed: int = 0) -> list:
             if cal and not ir.telemetry:
                 out.append(Finding("info", "unobservable", tname, inst.path,
                                    f"{inst.path}: {', '.join(cal)} marked to calibrate, but this type has no telemetry"))
+    by_tag: dict = {}
+    for inst in flat.instances:
+        if inst.tag and not inst.is_junction:
+            by_tag.setdefault(inst.tag, []).append(inst.path)
+    for tag, paths in by_tag.items():
+        if len(paths) > 1:
+            out.append(Finding("warning", "duplicate-tag", flat.instances[flat.by_path[paths[0]]].type.short, paths[0],
+                               f"tag '{tag}' on {len(paths)} assets ({', '.join(paths[:4])}{', ...' if len(paths) > 4 else ''})"))
     if prog.flat.sim is not None and gradient_points > 0:
         out += _no_effect(model, gradient_points, seed)
     return _merge(out)

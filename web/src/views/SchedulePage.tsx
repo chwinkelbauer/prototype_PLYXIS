@@ -28,6 +28,7 @@ function color(row: GanttRow, s: GanttSegment, rowMax: number): string {
 
 export function SchedulePage() {
   const planVersion = useStore((s) => s.planVersion);
+  const every = useStore((s) => s.meta?.replan_every_h);
   const snap = useStore((s) => s.snap);
   const set = useStore((s) => s.set);
   const [g, setG] = useState<Gantt | null>(null);
@@ -138,7 +139,7 @@ export function SchedulePage() {
     <div className="h-full flex flex-col p-3 gap-2">
       <div className="flex items-center gap-3">
         <div className="text-[13px] font-semibold">Operating plan #{g.plan_id}</div>
-        <div className="text-[11.5px] text-dim">horizon {fmt.clock(t0)} – {fmt.clock(t1)} · re-optimised on every disruption and every 3 h</div>
+        <div className="text-[11.5px] text-dim">horizon {fmt.clock(t0)} – {fmt.clock(t1)} · re-optimised on every disruption and every {fmt.n(every ?? 3, 0)} h</div>
         <div className="flex-1" />
         <button className="btn" onClick={() => api.replan("manual request from schedule")}><RefreshCw size={13} />Re-plan now</button>
       </div>

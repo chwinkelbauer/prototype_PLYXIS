@@ -1,0 +1,12 @@
+name,site,label,tag,lat,lon,cap,slabs,coil
+NL_HSM,NL,Velsen (NL) hot strip mill,AQ.NL.HSM,52.469,4.617999999999999,820,NL_SLABS,NL_COIL
+DE_HSM,DE,Duisburg (DE) hot strip mill,AQ.DE.HSM,51.48,6.758,1350,DE_SLABS,DE_COIL
+FR_HSM,FR,Dunkirk (FR) hot strip mill,AQ.FR.HSM,51.022,2.32,900,FR_SLABS,FR_COIL
+ES_HSM,ES,Aviles (ES) hot strip mill,AQ.ES.HSM,43.573,-5.9,380,ES_SLABS,ES_COIL
+IN_HSM,IN,Burns Harbor (US-IN) hot strip mill,AQ.IN.HSM,41.622,-87.1,900,IN_SLABS,IN_COIL
+BR_HSM,BR,Tubarao (BR) hot strip mill,AQ.BR.HSM,-20.248,-40.230000000000004,520,BR_SLABS,BR_COIL
+OD_HSM,OD,Kalinganagar (IN-OD) hot strip mill,AQ.OD.HSM,20.951999999999998,86.04,950,OD_SLABS,OD_COIL
+AR_HSM,AR,Osceola (US-AR) hot strip mill,AQ.AR.HSM,35.695,-89.936,400,AR_SLABS,AR_COIL
+MX_HSM,MX,Monterrey (MX) hot strip mill,AQ.MX.HSM,25.69,-100.246,290,MX_SLABS,MX_COIL
+GJ_HSM,GJ,Hazira (IN-GJ) hot strip mill,AQ.GJ.HSM,21.11,72.664,450,GJ_SLABS,GJ_COIL
+SA_HSM,SA,Jubail (SA) hot strip mill,AQ.SA.HSM,27.0,49.664,180,SA_SLABS,SA_COIL

@@ -1,0 +1,185 @@
+Day 1 01:00  m_shipped P    6,671 L    6,488 | m_crude P    7,361 L    6,613 | m_iron P    4,791 L    5,144 | delta profit     -29,353  [  352s]
+Day 1 02:00  m_shipped P    6,671 L    6,499 | m_crude P    7,362 L    6,851 | m_iron P    4,791 L    5,220 | delta profit      17,734  [  354s]
+Day 1 03:00  m_shipped P    6,671 L    6,513 | m_crude P    7,353 L    6,966 | m_iron P    4,791 L    5,254 | delta profit      65,222  [  357s]
+Day 1 04:00  m_shipped P    6,671 L    6,528 | m_crude P    7,362 L    7,099 | m_iron P    4,791 L    5,262 | delta profit      97,193  [  516s]
+Day 1 05:00  m_shipped P    6,654 L    6,543 | m_crude P    7,333 L    7,158 | m_iron P    4,790 L    5,261 | delta profit     144,068  [  517s]
+Day 1 06:00  m_shipped P    6,646 L    6,489 | m_crude P    7,071 L    6,989 | m_iron P    4,641 L    5,079 | delta profit     202,821  [  692s]
+Day 1 07:00  m_shipped P    6,642 L    6,468 | m_crude P    6,901 L    6,915 | m_iron P    4,564 L    5,002 | delta profit     262,897  [  694s]
+Day 1 08:00  m_shipped P    6,639 L    6,462 | m_crude P    6,810 L    6,785 | m_iron P    4,524 L    4,964 | delta profit     314,992  [  696s]
+Day 1 09:00  m_shipped P    6,638 L    6,464 | m_crude P    6,784 L    6,809 | m_iron P    4,504 L    4,944 | delta profit     365,604  [  698s]
+Day 1 10:00  m_shipped P    6,638 L    6,470 | m_crude P    6,845 L    6,737 | m_iron P    4,494 L    4,935 | delta profit     409,200  [  860s]
+Day 1 11:00  m_shipped P    6,637 L    6,477 | m_crude P    6,890 L    6,698 | m_iron P    4,488 L    4,930 | delta profit     450,074  [  862s]
+Day 1 12:00  m_shipped P    6,637 L    6,485 | m_crude P    6,915 L    6,677 | m_iron P    4,486 L    4,928 | delta profit     486,780  [  865s]
+Day 1 13:00  m_shipped P    6,637 L    6,492 | m_crude P    6,892 L    6,568 | m_iron P    4,484 L    4,927 | delta profit     518,161  [  867s]
+Day 1 14:00  m_shipped P    6,532 L    6,499 | m_crude P    6,830 L    6,605 | m_iron P    4,507 L    4,927 | delta profit     505,532  [ 1003s]
+Day 1 15:00  m_shipped P    6,463 L    6,506 | m_crude P    6,791 L    6,623 | m_iron P    4,522 L    4,927 | delta profit     484,921  [ 1005s]
+Day 1 16:00  m_shipped P    6,428 L    6,512 | m_crude P    6,684 L    6,631 | m_iron P    4,529 L    4,928 | delta profit     463,894  [ 1007s]
+Day 1 17:00  m_shipped P    6,410 L    6,518 | m_crude P    6,691 L    6,655 | m_iron P    4,533 L    4,928 | delta profit     443,363  [ 1008s]
+Day 1 18:00  m_shipped P    6,442 L    6,523 | m_crude P    6,584 L    6,666 | m_iron P    4,491 L    4,929 | delta profit     472,536  [ 1175s]
+Day 1 19:00  m_shipped P    6,465 L    6,528 | m_crude P    6,570 L    6,670 | m_iron P    4,462 L    4,930 | delta profit     507,702  [ 1411s]
+Day 1 20:00  m_shipped P    6,477 L    6,532 | m_crude P    6,593 L    6,766 | m_iron P    4,448 L    4,930 | delta profit     538,466  [ 1414s]
+Day 1 21:00  m_shipped P    6,433 L    6,536 | m_crude P    6,803 L    6,813 | m_iron P    4,507 L    4,931 | delta profit     516,779  [ 1565s]
+Day 1 22:00  m_shipped P    6,411 L    6,540 | m_crude P    6,929 L    6,690 | m_iron P    4,538 L    4,932 | delta profit     488,359  [ 1567s]
+Day 1 23:00  m_shipped P    6,399 L    6,544 | m_crude P    7,003 L    6,628 | m_iron P    4,554 L    4,933 | delta profit     441,314  [ 1569s]
+Day 2 00:00  m_shipped P    6,393 L    6,547 | m_crude P    7,035 L    6,518 | m_iron P    4,562 L    4,934 | delta profit     398,654  [ 1684s]
+Day 2 01:00  m_shipped P    6,390 L    6,550 | m_crude P    6,892 L    6,464 | m_iron P    4,556 L    4,935 | delta profit     372,877  [ 1686s]
+Day 2 02:00  m_shipped P    6,388 L    6,552 | m_crude P    6,896 L    6,600 | m_iron P    4,553 L    4,936 | delta profit     353,605  [ 1688s]
+Day 2 03:00  m_shipped P    6,359 L    6,555 | m_crude P    6,743 L    6,670 | m_iron P    4,588 L    4,936 | delta profit     361,057  [ 1806s]
+Day 2 04:00  m_shipped P    6,344 L    6,557 | m_crude P    6,777 L    6,791 | m_iron P    4,606 L    4,937 | delta profit     363,482  [ 1808s]
+Day 2 05:00  m_shipped P    6,336 L    6,559 | m_crude P    6,814 L    6,852 | m_iron P    4,615 L    4,938 | delta profit     360,102  [ 1810s]
+Day 2 06:00  m_shipped P    6,332 L    6,561 | m_crude P    6,749 L    6,880 | m_iron P    4,620 L    4,939 | delta profit     358,262  [ 1924s]
+Day 2 07:00  m_shipped P    6,408 L    6,563 | m_crude P    6,779 L    6,899 | m_iron P    4,614 L    4,940 | delta profit     388,270  [ 1926s]
+Day 2 08:00  m_shipped P    6,446 L    6,565 | m_crude P    6,795 L    6,819 | m_iron P    4,611 L    4,941 | delta profit     415,356  [ 1928s]
+Day 2 09:00  m_shipped P    6,466 L    6,566 | m_crude P    6,802 L    6,876 | m_iron P    4,609 L    4,941 | delta profit     447,319  [ 1930s]
+Day 2 10:00  m_shipped P    6,476 L    6,568 | m_crude P    6,909 L    6,811 | m_iron P    4,608 L    4,942 | delta profit     474,790  [ 2084s]
+Day 2 11:00  m_shipped P    6,456 L    6,459 | m_crude P    7,012 L    6,762 | m_iron P    4,599 L    4,923 | delta profit     559,727  [ 2264s]
+Day 2 12:00  m_shipped P    6,442 L    6,483 | m_crude P    7,150 L    6,902 | m_iron P    4,760 L    5,072 | delta profit     610,739  [ 2266s]
+Day 2 13:00  m_shipped P    6,434 L    6,508 | m_crude P    7,167 L    6,825 | m_iron P    4,842 L    5,100 | delta profit     656,032  [ 2268s]
+Day 2 14:00  m_shipped P    6,431 L    6,531 | m_crude P    7,170 L    6,849 | m_iron P    4,884 L    5,080 | delta profit     693,953  [ 2269s]
+Day 2 15:00  m_shipped P    6,429 L    6,553 | m_crude P    7,172 L    6,847 | m_iron P    4,906 L    5,057 | delta profit     716,444  [ 2438s]
+Day 2 16:00  m_shipped P    6,428 L    6,574 | m_crude P    7,083 L    6,839 | m_iron P    4,917 L    5,046 | delta profit     729,958  [ 2440s]
+Day 2 17:00  m_shipped P    6,427 L    6,593 | m_crude P    7,028 L    6,860 | m_iron P    4,923 L    5,041 | delta profit     736,463  [ 2441s]
+Day 2 18:00  m_shipped P    6,427 L    6,611 | m_crude P    6,962 L    6,870 | m_iron P    4,926 L    5,038 | delta profit     738,333  [ 2443s]
+Day 2 19:00  m_shipped P    6,433 L    6,627 | m_crude P    6,873 L    6,875 | m_iron P    4,871 L    5,037 | delta profit     765,896  [ 2609s]
+Day 2 20:00  m_shipped P    6,437 L    6,642 | m_crude P    6,917 L    6,970 | m_iron P    4,835 L    5,037 | delta profit     792,431  [ 2610s]
+Day 2 21:00  m_shipped P    6,439 L    6,656 | m_crude P    6,957 L    7,017 | m_iron P    4,817 L    5,037 | delta profit     809,548  [ 2612s]
+Day 2 22:00  m_shipped P    6,440 L    6,668 | m_crude P    6,907 L    6,861 | m_iron P    4,808 L    5,038 | delta profit     773,116  [ 2614s]
+Day 2 23:00  m_shipped P    6,441 L    6,759 | m_crude P    6,924 L    6,807 | m_iron P    4,803 L    5,057 | delta profit     678,880  [ 2778s]
+Day 3 00:00  m_shipped P    6,441 L    6,806 | m_crude P    6,973 L    6,728 | m_iron P    4,800 L    5,098 | delta profit     593,812  [ 2780s]
+Day 3 01:00  m_shipped P    6,441 L    6,831 | m_crude P    6,999 L    6,720 | m_iron P    4,799 L    5,148 | delta profit     503,892  [ 2781s]
+Day 3 02:00  m_shipped P    6,441 L    6,843 | m_crude P    6,946 L    6,938 | m_iron P    4,798 L    5,205 | delta profit     412,817  [ 2783s]
+Day 3 03:00  m_shipped P    6,557 L    6,849 | m_crude P    7,024 L    7,072 | m_iron P    4,847 L    5,249 | delta profit     409,042  [ 2920s]
+Day 3 04:00  m_shipped P    6,617 L    6,848 | m_crude P    7,093 L    7,223 | m_iron P    4,872 L    5,272 | delta profit     406,815  [ 2922s]
+Day 3 05:00  m_shipped P    6,648 L    6,843 | m_crude P    7,270 L    7,304 | m_iron P    4,885 L    5,284 | delta profit     411,094  [ 2923s]
+Day 3 06:00  m_shipped P    6,663 L    6,837 | m_crude P    7,268 L    7,338 | m_iron P    4,892 L    5,290 | delta profit     416,894  [ 3030s]
+Day 3 07:00  m_shipped P    6,649 L    6,830 | m_crude P    7,142 L    7,350 | m_iron P    4,870 L    5,293 | delta profit     417,131  [ 3137s]
+Day 3 08:00  m_shipped P    6,641 L    6,823 | m_crude P    7,077 L    7,292 | m_iron P    4,858 L    5,295 | delta profit     420,607  [ 3139s]
+Day 3 09:00  m_shipped P    6,570 L    6,817 | m_crude P    6,905 L    7,359 | m_iron P    4,739 L    5,296 | delta profit     407,185  [ 3243s]
+Day 3 10:00  m_shipped P    6,534 L    6,811 | m_crude P    6,894 L    7,306 | m_iron P    4,677 L    5,297 | delta profit     393,515  [ 3245s]
+Day 3 11:00  m_shipped P    6,515 L    6,805 | m_crude P    6,912 L    7,281 | m_iron P    4,646 L    5,297 | delta profit     378,367  [ 3246s]
+Day 3 12:00  m_shipped P    6,505 L    6,800 | m_crude P    6,917 L    7,261 | m_iron P    4,629 L    5,297 | delta profit     361,154  [ 3413s]
+Day 3 13:00  m_shipped P    6,568 L    6,795 | m_crude P    6,838 L    7,146 | m_iron P    4,671 L    5,298 | delta profit     358,825  [ 3415s]
+Day 3 14:00  m_shipped P    6,601 L    6,791 | m_crude P    6,795 L    7,192 | m_iron P    4,692 L    5,298 | delta profit     361,916  [ 3416s]
+Day 3 15:00  m_shipped P    6,617 L    6,787 | m_crude P    6,773 L    7,203 | m_iron P    4,703 L    5,298 | delta profit     362,690  [ 3418s]
+Day 3 16:00  m_shipped P    6,626 L    6,783 | m_crude P    6,662 L    7,213 | m_iron P    4,709 L    5,298 | delta profit     366,813  [ 3526s]
+Day 3 17:00  m_shipped P    6,557 L    6,780 | m_crude P    6,509 L    7,244 | m_iron P    4,658 L    5,299 | delta profit     349,295  [ 3527s]
+Day 3 18:00  m_shipped P    6,521 L    6,777 | m_crude P    6,511 L    7,262 | m_iron P    4,633 L    5,299 | delta profit     340,671  [ 3528s]
+Day 3 19:00  m_shipped P    6,503 L    6,774 | m_crude P    6,517 L    7,265 | m_iron P    4,619 L    5,299 | delta profit     332,202  [ 3529s]
+Day 3 20:00  m_shipped P    6,494 L    6,774 | m_crude P    6,555 L    7,358 | m_iron P    4,612 L    5,299 | delta profit     324,892  [ 3665s]
+Day 3 21:00  m_shipped P    6,635 L    6,775 | m_crude P    6,789 L    7,403 | m_iron P    4,691 L    5,300 | delta profit     350,042  [ 3667s]
+Day 3 22:00  m_shipped P    6,708 L    6,775 | m_crude P    6,933 L    7,267 | m_iron P    4,731 L    5,300 | delta profit     350,875  [ 3668s]
+Day 3 23:00  m_shipped P    6,745 L    6,776 | m_crude P    7,063 L    7,198 | m_iron P    4,752 L    5,300 | delta profit     346,911  [ 3669s]
+Day 4 00:00  m_shipped P    6,765 L    6,778 | m_crude P    7,138 L    7,082 | m_iron P    4,762 L    5,300 | delta profit     343,284  [ 3779s]
+Day 4 01:00  m_shipped P    6,764 L    6,684 | m_crude P    7,029 L    6,982 | m_iron P    4,724 L    5,300 | delta profit     386,371  [ 3888s]
+Day 4 02:00  m_shipped P    6,784 L    6,644 | m_crude P    6,987 L    7,098 | m_iron P    4,708 L    5,301 | delta profit     453,833  [ 3889s]
+Day 4 03:00  m_shipped P    6,794 L    6,631 | m_crude P    6,956 L    7,162 | m_iron P    4,700 L    5,301 | delta profit     517,555  [ 3891s]
+Day 4 04:00  m_shipped P    6,799 L    6,631 | m_crude P    6,945 L    7,188 | m_iron P    4,696 L    5,301 | delta profit     574,686  [ 3892s]
+Day 4 05:00  m_shipped P    6,708 L    6,637 | m_crude P    6,857 L    7,197 | m_iron P    4,663 L    5,301 | delta profit     618,953  [ 3999s]
+Day 4 06:00  m_shipped P    6,647 L    6,647 | m_crude P    6,711 L    7,201 | m_iron P    4,641 L    5,301 | delta profit     662,051  [ 4000s]
+Day 4 07:00  m_shipped P    6,616 L    6,656 | m_crude P    6,623 L    7,203 | m_iron P    4,630 L    5,301 | delta profit     710,211  [ 4002s]
+Day 4 08:00  m_shipped P    6,600 L    6,666 | m_crude P    6,577 L    7,102 | m_iron P    4,624 L    5,302 | delta profit     741,929  [ 4003s]
+Day 4 09:00  m_shipped P    6,606 L    6,771 | m_crude P    6,739 L    7,272 | m_iron P    4,646 L    5,302 | delta profit     693,573  [ 4108s]
+Day 4 10:00  m_shipped P    6,611 L    6,821 | m_crude P    6,882 L    7,264 | m_iron P    4,660 L    5,302 | delta profit     643,805  [ 4110s]
+Day 4 11:00  m_shipped P    6,613 L    6,843 | m_crude P    6,971 L    7,252 | m_iron P    4,668 L    5,302 | delta profit     594,237  [ 4111s]
+Day 4 12:00  m_shipped P    6,614 L    6,852 | m_crude P    7,019 L    7,244 | m_iron P    4,672 L    5,302 | delta profit     545,498  [ 4113s]
+Day 4 13:00  m_shipped P    6,622 L    6,853 | m_crude P    7,126 L    7,140 | m_iron P    4,765 L    5,302 | delta profit     503,478  [ 4248s]
+Day 4 14:00  m_shipped P    6,627 L    6,852 | m_crude P    7,174 L    7,176 | m_iron P    4,826 L    5,302 | delta profit     454,916  [ 4249s]
+Day 4 15:00  m_shipped P    6,630 L    6,849 | m_crude P    7,113 L    7,196 | m_iron P    4,857 L    5,302 | delta profit     413,239  [ 4251s]
+Day 4 16:00  m_shipped P    6,631 L    6,845 | m_crude P    7,102 L    7,207 | m_iron P    4,873 L    5,303 | delta profit     368,161  [ 4252s]
+Day 4 17:00  m_shipped P    6,745 L    6,841 | m_crude P    6,833 L    7,246 | m_iron P    4,774 L    5,303 | delta profit     361,637  [ 4386s]
+Day 4 18:00  m_shipped P    6,820 L    6,837 | m_crude P    6,765 L    7,254 | m_iron P    4,707 L    5,303 | delta profit     367,148  [ 4388s]
+Day 4 19:00  m_shipped P    6,695 L    6,834 | m_crude P    6,755 L    7,264 | m_iron P    4,725 L    5,303 | delta profit     348,495  [ 4494s]
+Day 4 20:00  m_shipped P    6,631 L    6,828 | m_crude P    6,784 L    7,365 | m_iron P    4,735 L    5,303 | delta profit     338,452  [ 4496s]
+Day 4 21:00  m_shipped P    6,598 L    6,821 | m_crude P    6,871 L    7,418 | m_iron P    4,740 L    5,303 | delta profit     324,108  [ 4497s]
+Day 4 22:00  m_shipped P    6,582 L    6,814 | m_crude P    6,931 L    7,270 | m_iron P    4,742 L    5,303 | delta profit     288,451  [ 4631s]
+Day 4 23:00  m_shipped P    6,688 L    6,807 | m_crude P    7,171 L    7,200 | m_iron P    4,824 L    5,303 | delta profit     232,587  [ 4632s]
+Day 5 00:00  m_shipped P    6,743 L    6,800 | m_crude P    7,318 L    7,072 | m_iron P    4,866 L    5,303 | delta profit     177,459  [ 4633s]
+{
+ "plyxis": {
+  "revenue": 447955905.875,
+  "cost": 455980294.1566162,
+  "emission_kg": 904636480.125,
+  "oil_bbl": 0.0,
+  "gas_mscf": 0.0,
+  "water_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "spilled_bbl": 0.0,
+  "hours": 96.00000000000054,
+  "inventory_value": 30361825.089709997,
+  "equipment_value": 0.0,
+  "profit": 22337436.808093786,
+  "carbon_cost": 27139094.403750032,
+  "profit_after_carbon": -4801657.595656217,
+  "flared_over_permit_mscf": 0.0,
+  "m_shipped": 629715.2548749967,
+  "m_crude": 664618.1023750012,
+  "m_iron": 450763.023062501,
+  "m_eaf": 148629.01828124947,
+  "m_power": 222794.39624999935
+ },
+ "legacy": {
+  "revenue": 454491083.5625,
+  "cost": 434530750.4571533,
+  "emission_kg": 963644728.625,
+  "oil_bbl": 0.0,
+  "gas_mscf": 0.0,
+  "water_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "spilled_bbl": 0.0,
+  "hours": 96.00000000000054,
+  "inventory_value": 2199644.842895508,
+  "equipment_value": 0.0,
+  "profit": 22159977.948242188,
+  "carbon_cost": 28909341.858749975,
+  "profit_after_carbon": -6749363.910507806,
+  "flared_over_permit_mscf": 0.0,
+  "m_shipped": 640313.139250001,
+  "m_crude": 672597.1550000001,
+  "m_iron": 494391.3632500001,
+  "m_eaf": 132821.08978124982,
+  "m_power": 219887.55375000017
+ },
+ "delta": {
+  "profit": 177458.85985159874,
+  "profit_after_carbon": 1947706.3148515886,
+  "oil_bbl": 0.0,
+  "flared_mscf": 0.0,
+  "emission_t": -59008.2485,
+  "m_shipped": -10597.88437500433,
+  "m_crude": -7979.052624998963,
+  "m_iron": -43628.340187499125,
+  "m_eaf": 15807.92849999966,
+  "m_power": 2906.842499999184
+ },
+ "value_per_day": 44364.71496289944
+}
+{
+ "blast_furnace.rate_max": {
+  "engineering": 0.0333,
+  "twin": 0.0333
+ },
+ "blast_furnace.coke_rate": {
+  "engineering": 0.0261,
+  "twin": 0.0057
+ },
+ "eaf.kwh_t": {
+  "engineering": 0.0485,
+  "twin": 0.0106
+ },
+ "eaf.cap": {
+  "engineering": 0.0373,
+  "twin": 0.0373
+ },
+ "scrap_yard.buy_cu": {
+  "engineering": 0.1478,
+  "twin": 0.0101
+ },
+ "dri_plant.gj_t": {
+  "engineering": 0.0142,
+  "twin": 0.0027
+ },
+ "hot_strip_mill.yield": {
+  "engineering": 0.0038,
+  "twin": 0.0038
+ }
+}

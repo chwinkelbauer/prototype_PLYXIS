@@ -150,6 +150,30 @@ def test_a_plan_far_below_the_last_one_gets_a_second_opinion(monkeypatch):
     assert len(calls) == 1 and e.planner.runs[-1]["second_opinion"] is False
 
 
+def test_a_cold_plan_is_solved_from_more_random_streams(monkeypatch):
+    from plyxis.runtime import planner as PL
+    e = _engine()
+    e.planner.cfg = dataclasses.replace(e.planner.cfg, cold_starts=2)
+    real = PL.Cascade.solve
+    calls = []
+
+    def first_lost(self, warm=None, lam0=None, callback=None):
+        r = real(self, warm=warm, lam0=lam0, callback=callback)
+        calls.append((self.cfg.seed, warm is None))
+        if len(calls) == 1:                      # the first stream's search lost its way
+            r.objective = r.objective - 1e9
+        return r
+    monkeypatch.setattr(PL.Cascade, "solve", first_lost)
+    e.request_replan("initial plan")
+    run = e.planner.runs[-1]
+    assert len(calls) == 2 and calls[0][0] != calls[1][0] and all(cold for _s, cold in calls)
+    assert run["cold_starts"] and run["objective"] > run["cold_starts"][0] - 1e6   # the second stream's plan is kept
+    # a plan that starts from the running plan is solved once
+    calls.clear()
+    e.request_replan("test")
+    assert len(calls) == 1 and e.planner.runs[-1]["cold_starts"] == []
+
+
 def test_stale_plan_is_no_recommendation():
     e = _engine()
     e.run_headless(0.5)

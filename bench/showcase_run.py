@@ -21,30 +21,53 @@ from plyxis.lang import units as U  # noqa: E402
 from plyxis.runtime.engine import Engine  # noqa: E402
 
 
+# properties each case study's twin calibrates online, by asset type (the oil field's and the mine's keep their bare names)
+CALIBRATED = {"esp_well": ("q_max", "wc", "gor"), "stope": ("grade", "rate_max"),
+              "blast_furnace": ("rate_max", "coke_rate"), "eaf": ("kwh_t", "cap"), "scrap_yard": ("buy_cu",),
+              "dri_plant": ("gj_t",), "hot_strip_mill": ("yield",)}
+
+
 def calibration_error(eng, base) -> dict:
-    """Mean absolute relative error of the well properties vs the plant's actual values:
+    """Mean absolute relative error of the calibrated properties vs the plant's actual values:
     engineering model (field.plx as delivered) vs the live twin after the run."""
     live, prog, pp = eng.twin.live, eng.twin.model.program, eng.plants["plyxis"]
     out = {}
-    kind = "esp_well" if any(g.ir.type.short == "esp_well" for g in prog.groups) else "stope"
-    params = ("q_max", "wc", "gor") if kind == "esp_well" else ("grade", "rate_max")
-    for param in params:
-        e0, e1 = [], []
-        for g in prog.groups:
-            if g.is_env or g.ir.type.short != kind:
-                continue
-            for li, iid in enumerate(g.inst_ids):
-                path = prog.flat.instances[iid].path
-                bi = base.flat.by_path.get(path)
-                if path not in pp.path_index or bi is None:
+    kinds = [k for k in CALIBRATED if any(g.ir.type.short == k for g in prog.groups)]
+    for kind in kinds:
+        if kind == "stope" and "esp_well" in kinds:
+            continue
+        for param in CALIBRATED[kind]:
+            e0, e1 = [], []
+            for g in prog.groups:
+                if g.is_env or g.ir.type.short != kind:
                     continue
-                gp, lp = pp.path_index[path]
-                bg, bl = base.program.inst_group[bi]
-                truth = float(pp.P[gp][param].reshape(-1)[lp])
-                e0.append(abs(float(base.program.P0[bg][param].reshape(-1)[bl]) - truth) / abs(truth))
-                e1.append(abs(float(live.P[g.gid][param].reshape(-1)[li]) - truth) / abs(truth))
-        if e0:
-            out[param] = {"engineering": round(statistics.mean(e0), 4), "twin": round(statistics.mean(e1), 4)}
+                for li, iid in enumerate(g.inst_ids):
+                    path = prog.flat.instances[iid].path
+                    bi = base.flat.by_path.get(path)
+                    if path not in pp.path_index or bi is None:
+                        continue
+                    gp, lp = pp.path_index[path]
+                    bg, bl = base.program.inst_group[bi]
+                    truth = float(pp.P[gp][param].reshape(-1)[lp])
+                    e0.append(abs(float(base.program.P0[bg][param].reshape(-1)[bl]) - truth) / abs(truth))
+                    e1.append(abs(float(live.P[g.gid][param].reshape(-1)[li]) - truth) / abs(truth))
+            if e0:
+                key = param if kind in ("esp_well", "stope") else f"{kind}.{param}"
+                out[key] = {"engineering": round(statistics.mean(e0), 4), "twin": round(statistics.mean(e1), 4)}
+    return out
+
+
+def protection(eng) -> dict:
+    """What each world's plant protection had to cut (steps per asset and limit), and any material a stock's lower
+    bound created (must be zero for a valid comparison)."""
+    out = {}
+    for w, p in eng.plants.items():
+        cuts: dict = {}
+        for _t, th in p.throttle_log:
+            for c in th:
+                k = f"{c['asset']}|{c['constraint']}"
+                cuts[k] = cuts.get(k, 0) + 1
+        out[w] = {"cuts": dict(sorted(cuts.items(), key=lambda kv: -kv[1])[:30]), "underflow": dict(p.underflow)}
     return out
 
 
@@ -77,7 +100,9 @@ def main() -> None:
         eng.planner.cfg = dataclasses.replace(eng.planner.cfg, relax_tol=args.relax_tol)
     for item in args.set:
         name, _, value = item.partition("=")
-        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, **{name: type(getattr(eng.planner.cfg, name))(value)})
+        cur = getattr(eng.planner.cfg, name)
+        conv = float if cur is None else type(cur)          # an option that is off by default (None) takes a number
+        eng.planner.cfg = dataclasses.replace(eng.planner.cfg, **{name: conv(value)})
     if args.discrete is not None:
         eng.planner.cfg = dataclasses.replace(eng.planner.cfg, discrete=args.discrete)
     if args.exact_margin is not None:
@@ -113,6 +138,7 @@ def main() -> None:
         "inventory_terms": {w: dict(eng.plants[w].kpi.inv_terms) for w in ("plyxis", "legacy")},
         "bridge": k["bridge"],
         "calibration_error": calibration_error(eng, compile_model(eng.sc.twin_files, env=eng.sc.twin_env)),
+        "protection": protection(eng),
         # offset-free corrections the twin estimated (e.g. the concentrator's analysed / computed head grade)
         "head_factor": {eng.twin.model.program.flat.instances[g.inst_ids[0]].path:
                         float(eng.twin.live.P[g.gid]["head_factor"].reshape(-1)[0])

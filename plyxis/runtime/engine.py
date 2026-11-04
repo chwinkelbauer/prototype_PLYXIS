@@ -97,6 +97,7 @@ class Engine:
         site = sc.raw.get("title", sc.name.split(" - ")[0])
         self.scada = EmulatorConnector(f"SCADA gateway - {site}", "OPC UA / MQTT Sparkplug B gateway (emulated)")
         tags = sc.raw.get("market_tags", MARKET_TAGS)
+        self.market_tags = dict(tags)            # tag -> price name for the forecaster: the scenario's own tags
         self.market = MarketConnector("Market data", lambda n, c: self.prices.display(n, c),
                                       {k: v for k, v in tags.items() if k in self.twin.model.program.env_inputs},
                                       sc.raw.get("market_desc", "WTI, Waha hub, ERCOT West (synthetic)"))
@@ -108,6 +109,16 @@ class Engine:
         prog = self.twin.model.program
         self.forecaster = Forecaster(sorted(prog.env_inputs),
                                      {k: float(prog.E0[k]) for k in prog.env_inputs})
+        # what the historian holds of the markets before the start (scenario `price_history_days`): a separate random
+        # stream (last week's prices, not the realised ones), so the first plan knows each price's daily shape
+        days = float(sc.raw.get("price_history_days", 0.0))
+        if days > 0:
+            n = int(round(days * 24))
+            past = PriceModel(sc.prices, seed=10_011 + self.seed, start_hour=self.t0 - n)
+            for h in range(n):
+                for name in sc.prices:
+                    if name in prog.env_inputs:
+                        self.forecaster.observe(name, self.t0 - n + h, past.canonical(name, float(h)))
         self.anomaly = AnomalyDetector(self.twin.tags, self.twin.model.flat)
         self.quality = QualityMonitor(self.twin.tags, self.twin.estimator._const_lo)
         self.advisory = Advisory(self, mode=sc.raw.get("mode", "autonomous"), audit=AuditLog(self.audit_path))
@@ -225,6 +236,7 @@ class Engine:
             self._update_margins()
             pb_T = self.twin.model.program.T
             E = self._forecast(pb_T, self.twin.model.program.dt)
+            self.planner.price_sigma = {k: self.forecaster.log_sigma(k) for k in self.forecaster.inputs if k.endswith("price")}
             busy = {j["job"]["resource"]: j["job"]["end"] for j in self.jobs.values() if j["status"] == "active"}
             self.emit({"type": "optimizer", "event": "start", "trigger": trigger, "t": self.t, "clock": self.clock_str()})
             t_solve = self.t
@@ -486,7 +498,7 @@ class Engine:
                     self._alert("info", "discovery", f"new device announced: {m.prefix} ({m.meta.get('type', '?')})")
                     continue
                 if m.tag.startswith("MKT."):
-                    name = next((k for k, v in MARKET_TAGS.items() if v == m.tag), None)
+                    name = next((k for k, v in self.market_tags.items() if v == m.tag), None)
                     if name:
                         u = self.prices.unit(name)
                         self.forecaster.observe(name, m.t, U.to_canonical(m.value, u) if u else m.value)

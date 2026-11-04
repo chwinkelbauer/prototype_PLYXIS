@@ -24,13 +24,31 @@ const SUB_COLORS = ["#fe0265", "#3987e5", "#c97a14", "#8b5cf6", "#199e70", "#ff6
 
 // label priority when labels collide (facilities and markets first)
 const LABEL_PRIO: Record<string, number> = { battery: 5, compressor_station: 5, gas_sales: 5, oil_sales: 5, swd_well: 4,
-  flare: 3, truck_fleet: 3, workover_rig: 2, pad: 1 };
+  flare: 3, truck_fleet: 3, workover_rig: 2, pad: 1, site_services: 6, steel_market: 5, scrap_market: 4 };
 
 const GROUPS = [
   { id: "wells", label: "Wells" }, { id: "pads", label: "Pads" }, { id: "facilities", label: "Facilities" },
   { id: "pipelines", label: "Pipelines" }, { id: "lanes", label: "Truck lanes" }, { id: "trucks", label: "Trucks" },
   { id: "crews", label: "Rigs & crews" }, { id: "labels", label: "Labels" },
 ];
+
+/** A twin that is not an oil field gets its own layers (the `layer` of each asset type) instead of wells and pads. */
+function isOilField(st: Structure | null): boolean {
+  return !!st?.assets.some((a) => a.type.endsWith("_well"));
+}
+
+function genericGroups(st: Structure | null): { id: string; label: string }[] {
+  const layers = [...new Set((st?.assets ?? []).filter((a) => a.at && !a.line && !a.is_link).map((a) => a.layer))].sort();
+  return [...layers.map((l) => ({ id: `layer:${l}`, label: l.charAt(0).toUpperCase() + l.slice(1) })),
+    { id: "lanes", label: "Lanes" }, { id: "labels", label: "Labels" }];
+}
+
+/** Run state of a unit from its run signal (`*.RUN`), if it has one. */
+function runState(a: Asset, snap: Snapshot | null): "running" | "down" | null {
+  const v = snap?.assets[a.path];
+  const k = v ? Object.keys(v).find((x) => x.endsWith(".RUN")) : undefined;
+  return k === undefined ? null : v![k] < 0.5 ? "down" : "running";
+}
 
 function wellStatus(a: Asset, snap: Snapshot | null): { status: string; rate: number; vib: number } {
   const v = snap?.assets[a.path] ?? {};
@@ -54,6 +72,11 @@ export function MapPage() {
   const [vis, setVis] = useState<Record<string, boolean>>({ wells: true, pads: true, facilities: true, pipelines: true, lanes: true, trucks: true, crews: true, labels: true });
   const [colorBy, setColorBy] = useState<"status" | "subsystem">("status");
   const [ready, setReady] = useState(false);
+  const oil = useMemo(() => isOilField(structure), [structure]);
+  const groups = useMemo(() => (oil ? GROUPS : genericGroups(structure)), [oil, structure]);
+  const shown = (id: string) => vis[id] ?? true;
+  const hiddenLayers = useMemo(() => groups.filter((g) => g.id.startsWith("layer:") && vis[g.id] === false).map((g) => g.id.slice(6)),
+    [groups, vis]);
 
   // ---------------------------------------------------------------- init map
   useEffect(() => {
@@ -74,6 +97,7 @@ export function MapPage() {
     const m = new maplibregl.Map({
       container: ref.current, style, attributionControl: { compact: true },
       bounds: [[Math.min(...lons) - 0.02, Math.min(...lats) - 0.02], [Math.max(...lons) + 0.02, Math.max(...lats) + 0.02]],
+      fitBoundsOptions: { padding: { top: 30, bottom: 70, left: 230, right: 30 } },     // clear of the layer panel
     });
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
     m.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
@@ -142,7 +166,7 @@ export function MapPage() {
     if (!vis.labels) return;
     const items: { el: HTMLDivElement; ll: [number, number]; prio: number; w: number }[] = [];
     for (const a of structure.assets) {
-      if (!a.at || a.is_link || ["esp_well", "rod_pump_well", "field_crew"].includes(a.type)) continue;
+      if (!a.at || a.is_link || ["esp_well", "rod_pump_well", "field_crew"].includes(a.type) || hiddenLayers.includes(a.layer)) continue;
       const el = document.createElement("div");
       el.style.cssText = "font:600 10.5px Inter;color:#f4f4f5;text-shadow:0 0 4px #000,0 0 2px #000;pointer-events:none;white-space:nowrap;transform:translate(0,-15px)";
       el.textContent = a.label;
@@ -169,7 +193,7 @@ export function MapPage() {
     m.on("move", schedule);
     schedule();
     return () => { m.off("move", schedule); if (raf) cancelAnimationFrame(raf); };
-  }, [ready, structure, vis.labels]);
+  }, [ready, structure, vis.labels, hiddenLayers]);
 
   // ---------------------------------------------------------------- live data
   useEffect(() => {
@@ -200,18 +224,25 @@ export function MapPage() {
     if (!m || !ready) return;
     const lay: Record<string, string[]> = { wells: ["wells", "edges"], pads: ["pads"], facilities: ["facilities"],
       pipelines: ["pipelines"], lanes: ["lanes"], trucks: ["trucks"], crews: ["crews", "jobs"] };
-    for (const [g, ids] of Object.entries(lay)) for (const id of ids) if (m.getLayer(id)) m.setLayoutProperty(id, "visibility", vis[g] ? "visible" : "none");
-  }, [vis, ready]);
+    for (const [g, ids] of Object.entries(lay)) for (const id of ids) if (m.getLayer(id)) m.setLayoutProperty(id, "visibility", shown(g) ? "visible" : "none");
+    if (!oil && m.getLayer("facilities"))
+      m.setFilter("facilities", ["all", ["==", ["get", "group"], "facilities"], ["!", ["in", ["get", "layer"], ["literal", hiddenLayers]]]]);
+  }, [vis, ready, oil, hiddenLayers]);
 
   const counts = useMemo(() => {
     const c = { running: 0, degraded: 0, down: 0 };
     for (const a of structure?.assets ?? []) {
+      if (!oil) {
+        const r = runState(a, snap);
+        if (r) c[r]++;
+        continue;
+      }
       if (a.type !== "esp_well") continue;
       const s = wellStatus(a, snap).status as keyof typeof c;
       if (s in c) c[s]++;
     }
     return c;
-  }, [structure, snap]);
+  }, [structure, snap, oil]);
 
   return (
     <div className="h-full relative">
@@ -219,9 +250,9 @@ export function MapPage() {
       <div className="absolute top-3 left-3 panel w-[210px] z-10" style={{ background: "#12121aee" }}>
         <div className="panel-h"><span className="flex items-center gap-1.5"><Layers size={12} />Layers</span></div>
         <div className="p-2 space-y-1">
-          {GROUPS.map((g) => (
+          {groups.map((g) => (
             <label key={g.id} className="flex items-center gap-2 text-[12px] cursor-pointer">
-              <input type="checkbox" checked={vis[g.id]} onChange={(e) => setVis({ ...vis, [g.id]: e.target.checked })} />{g.label}
+              <input type="checkbox" checked={shown(g.id)} onChange={(e) => setVis({ ...vis, [g.id]: e.target.checked })} />{g.label}
             </label>
           ))}
           <div className="pt-1.5 border-t border-line mt-1.5 text-[11px] text-dim">Colour assets by</div>
@@ -237,15 +268,23 @@ export function MapPage() {
         </div>
       </div>
       <div className="absolute bottom-3 left-3 panel z-10 px-3 py-2 text-[11px] space-y-1" style={{ background: "#12121aee" }}>
-        <div className="flex gap-3">
-          <span><span className="text-good">●</span> running <span className="num">{counts.running}</span></span>
-          <span><span className="text-warn">●</span> degraded <span className="num">{counts.degraded}</span></span>
-          <span><span className="text-crit">●</span> down <span className="num">{counts.down}</span></span>
-        </div>
-        <div className="flex gap-3 text-dim">
-          <span><span style={{ color: "#c97a14" }}>■</span> multiphase / oil</span><span><span style={{ color: "#8b5cf6" }}>■</span> gas</span>
-          <span><span style={{ color: "#3987e5" }}>■</span> water</span><span><span style={{ color: "#ff65a3" }}>┅</span> truck lane</span>
-        </div>
+        {counts.running + counts.degraded + counts.down > 0 ? (
+          <div className="flex gap-3">
+            <span><span className="text-good">●</span> running <span className="num">{counts.running}</span></span>
+            {oil && <span><span className="text-warn">●</span> degraded <span className="num">{counts.degraded}</span></span>}
+            <span><span className="text-crit">●</span> down <span className="num">{counts.down}</span></span>
+          </div>
+        ) : (
+          <div className="text-dim">run states appear with the first telemetry</div>
+        )}
+        {oil ? (
+          <div className="flex gap-3 text-dim">
+            <span><span style={{ color: "#c97a14" }}>■</span> multiphase / oil</span><span><span style={{ color: "#8b5cf6" }}>■</span> gas</span>
+            <span><span style={{ color: "#3987e5" }}>■</span> water</span><span><span style={{ color: "#ff65a3" }}>┅</span> truck lane</span>
+          </div>
+        ) : (
+          <div className="flex gap-3 text-dim"><span><span style={{ color: "#ff65a3" }}>┅</span> sales and transfer lanes</span></div>
+        )}
       </div>
     </div>
   );
@@ -290,10 +329,11 @@ function pointsGeo(st: Structure, snap: Snapshot | null, colorBy: "status" | "su
       const v = snap?.assets[a.path] ?? {};
       const parts = Object.entries(v).slice(0, 4).map(([k, x]) => `${k.split(".").slice(-2).join(".")} ${fmt.n(x, x < 10 ? 2 : 0)}`);
       if (parts.length) info = parts.join(" · ");
+      if (runState(a, snap) === "down") { color = "#ef4444"; info = `down · ${info}`; }
     }
     if (colorBy === "subsystem" && a.subsystem !== null && group !== "crews") color = SUB_COLORS[a.subsystem % SUB_COLORS.length];
     features.push({ type: "Feature", geometry: { type: "Point", coordinates: [a.at[1], a.at[0]] },
-      properties: { path: a.path, label: a.label, type: a.type, group, color, rate, info } });
+      properties: { path: a.path, label: a.label, type: a.type, layer: a.layer, group, color, rate, info } });
   }
   return { type: "FeatureCollection", features };
 }

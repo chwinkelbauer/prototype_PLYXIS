@@ -79,6 +79,7 @@ class PlantEmulator:
         self.ar_noise = {gid: torch.zeros_like(v) for gid, d in self.P.items() for k, v in d.items() if k == "q_max"}
         self.test_cursor = 0
         self.throttle_log: list = []
+        self.underflow: dict = {}
 
     # ------------------------------------------------------------------ controls
     def _build_controls(self) -> None:
@@ -339,6 +340,22 @@ class PlantEmulator:
             self.throttle_log = self.throttle_log[-500:]
         return raw
 
+    def _log_underflow(self, raw: dict) -> None:
+        """Material created by a state's lower bound (a stock drawn below empty), by asset type and state, canonical
+        units. Evidence only: the plant has no protection for it, so a model whose draws can exceed a stock must
+        saturate them (`sat`), and an A/B is only valid while this stays at zero in both worlds."""
+        for g in self.prog.groups:
+            for sname, sinfo in g.ir.states.items():
+                if sinfo.lo is None:
+                    continue
+                clip = raw.get(self.prog.node_var(g.gid, f"state:{sname}") + "_clip")
+                if clip is None:
+                    continue
+                c = float(torch.relu(-clip.reshape(clip.shape[0], -1, clip.shape[-1])[0, :, -1]).sum())
+                if c > 1e-3:
+                    k = f"{g.ir.type.short}.{sname}"
+                    self.underflow[k] = self.underflow.get(k, 0.0) + c
+
     def _violations(self, raw: dict) -> list:
         out = []
         ev = self.prog.evaluate(raw, self.dt)
@@ -423,6 +440,7 @@ class PlantEmulator:
         self._process_noise()
         raw = self._simulate()
         raw = self._protect(raw)
+        self._log_underflow(raw)
         ev = self.prog.evaluate(raw, self.dt, include_final=False)
         self.kpi.add(self, ev, raw)
         self.S = self.prog.final_states(raw)
@@ -490,12 +508,12 @@ class _Kpi:
     * equipment: the remaining life of every pump (health x pump cost); a pump replacement is charged
       at the pump cost when it happens;
     * terms that exist only for planning (expected failure cost, flaring-risk margin, nominal pump wear,
-      `value_to_go` terminal adjustments such as broken ore at half its cost) are excluded - their real
-      consequences show up directly here;
+      `value_to_go` terminal adjustments such as broken ore at half its cost, the steel customers' waiting time
+      `late_delivery`) are excluded - their real consequences show up directly here;
     * the carbon cost at the model's internal carbon price is reported separately
       (`profit_after_carbon`), because it is a decision price, not a cash flow.
     """
-    EXPECTATION_TERMS = {"risk", "flare_risk", "pump_wear", "value_to_go"}
+    EXPECTATION_TERMS = {"risk", "flare_risk", "pump_wear", "value_to_go", "late_delivery"}
 
     def __init__(self, metrics: Optional[list] = None):
         # scenario production metrics (model metric -> cumulative 'm_<key>' in `unit`, rate 'm_<key>' in `rate_unit`)

@@ -13,6 +13,13 @@
                 properties (log-multipliers) + unmeasured states at the window start
                 (e.g. pump health seen only through vibration).
 
+                Around the estimate an information filter keeps the posterior covariance of the
+                properties (`cov`, log space): the Gauss-Newton information of each window's residuals
+                (one batched replay, a column per property) plus the previous covariance with a small
+                drift, scaled down when the residuals show the data noisier than the noise model says.
+                Direct tests (well tests, assays) update it as measurements. `uncertainty_model` hands
+                it to planning (plyxis/optim/risk.py).
+
 The same code calibrates any PLX twin: what is estimated is declared in the model
 (`calibrate in [lo, hi]`, `telemetry:` bindings), not hard-coded here.
 """
@@ -166,6 +173,15 @@ class Estimator:
         self.tested: dict = {}   # (gid, param) -> instance rows with a recent direct measurement (well test)
         self.released: set = set()  # asset paths with a persistent model mismatch (set by the anomaly detector)
         self.last_report: list = []
+        # posterior covariance of the calibrated properties in log space (information filter around the MHE)
+        self.cov_index = [(gid, pname, li) for gid, pname, _lo, _hi in self.calib for li in range(self.prog.gmap[gid].n)]
+        self._cov_pos = {k: i for i, k in enumerate(self.cov_index)}
+        self.cov = torch.eye(len(self.cov_index), dtype=torch.float64) * prior_sigma ** 2
+        self.cov_drift = 0.01        # random-walk drift of a property per calibration (log); a released asset: 0.5
+        self.cov_info: dict = {}
+        self._cov_log: list = []     # direct tests (index, variance), re-applied over a covariance computed meanwhile
+        self.cov_matching = False    # inflate what planning sees per property when estimates move further than predicted
+        self._cm: dict = {}          # property -> EWMA of (estimate change)^2 / predicted variance of the change
 
     def _calib_bounds(self, g, pname, decl):
         from ..lang.consteval import const_eval
@@ -221,6 +237,11 @@ class Estimator:
                 self.live.prior_P[info.gid][name].reshape(-1)[info.li] = newv
                 self.live.anchor_P[info.gid][name].reshape(-1)[info.li] = newv
                 self.tested.setdefault((info.gid, name), set()).add(info.li)
+                i = self._cov_pos.get((info.gid, name, info.li))
+                if i is not None:             # the test is a measurement of the property: Kalman update of the covariance
+                    s2 = (self.test_sigma or 0.04) ** 2
+                    self._cov_test(i, s2)
+                    self._cov_log.append((i, s2))
                 changes["params"].append((info.path, name, old, newv, "well test"))
             else:
                 meas[(info.gid, info.li, info.key)] = float(v)
@@ -229,6 +250,37 @@ class Estimator:
                               "R": applied_R.detach().clone(), "E": {k: torch.as_tensor(v).reshape(-1)[:1].clone()
                                                                      for k, v in E.items()}, "meas": meas})
         return changes
+
+    def _cov_test(self, i: int, s2: float) -> None:
+        col = self.cov[:, i].clone()
+        self.cov = self.cov - torch.outer(col, col) / (float(self.cov[i, i]) + s2)
+
+    def uncertainty_model(self, price_sigma: Optional[dict] = None):
+        """The twin's uncertainty for planning: calibrated properties with their posterior covariance, directly
+        measured ones (water cut from well tests) independent - the sample's error after a test, the prior before."""
+        from ..optim.risk import Uncertainty
+        params, sds = list(self.cov_index), []
+        for gid, pname in sorted(self.direct):
+            if (gid, pname) in {(c[0], c[1]) for c in self.calib} or pname not in self.live.P.get(gid, {}):
+                continue
+            paths = [self.prog.flat.instances[iid].path for iid in self.prog.gmap[gid].inst_ids]
+            for li, path in enumerate(paths):
+                v = self.test_var.get((path, pname))
+                s = math.sqrt(v) if v is not None else (0.04 if li in self.tested.get((gid, pname), ()) else self.prior_sigma)
+                params.append((gid, pname, li))
+                sds.append(s)
+        n0 = len(self.cov_index)
+        cov = torch.zeros(len(params), len(params), dtype=torch.float64)
+        cov[:n0, :n0] = self.cov
+        if self.cov_matching and self._cm:
+            # model error the fit cannot see (a pump curve differing from the plant's: the rate absorbs it): what planning
+            # sees is inflated per property by the matching statistic; the filter itself keeps its own covariance
+            s = torch.tensor([math.sqrt(min(max(self._cm.get(p, 1.0), 1.0), 100.0)) for (_g, p, _l) in self.cov_index],
+                             dtype=torch.float64)
+            cov[:n0, :n0] = self.cov * torch.outer(s, s)
+        if sds:
+            cov[n0:, n0:] = torch.diag(torch.tensor(sds, dtype=torch.float64) ** 2)
+        return Uncertainty(params, cov, dict(price_sigma or {}))
 
     def distrust(self, bad_tags: set) -> None:
         """Sensors the quality monitor has flagged: their states follow the model until the sensor recovers."""
@@ -466,8 +518,78 @@ class Estimator:
                 for (gid, s) in hstate:
                     hidden_end[(gid, s)] = fin[gid][s].detach().clone()
                     hidden_ref[(gid, s)] = buf[-1]["S"][gid][s].detach().clone()
+            post = self._posterior(newP, P_base, D, R, E, S0, hstate, W, t0, meas_t, released)
         return {"newP": newP, "anchor": anchor, "released": released, "hidden_end": hidden_end,
-                "hidden_ref": hidden_ref, "t": buf[-1]["t"]}
+                "hidden_ref": hidden_ref, "t": buf[-1]["t"], "posterior": post, "cov_mark": len(self._cov_log)}
+
+    @torch.no_grad()
+    def _posterior(self, newP, P_base, D, R, E, S0, hstate, W, t0, meas_t, released, h: float = 0.02) -> Optional[dict]:
+        """Information-filter update of the property covariance at the new estimate: the Gauss-Newton
+        information J^T w J of the window's standardised residuals (J by one batched replay, a column per
+        property, Huber weights w), scaled down by the variance factor when the residuals are larger than the
+        noise model says, plus the previous covariance with the drift."""
+        n = len(self.cov_index)
+        if n == 0 or not meas_t:
+            return None
+        prog = self.live.phys
+        B = n + 1
+        P = {g: dict(d) for g, d in P_base.items()}
+        for (gid, pname), v in newP.items():
+            P[gid][pname] = v
+        rows: dict = {}
+        for j, (gid, pname, li) in enumerate(self.cov_index):
+            rows.setdefault((gid, pname), ([], []))
+            rows[(gid, pname)][0].append(j + 1)
+            rows[(gid, pname)][1].append(li)
+        for (gid, pname), (bj, lis) in rows.items():
+            base = torch.as_tensor(P[gid][pname], dtype=torch.float32)
+            ng = base.numel()
+            f = torch.ones(B, ng)
+            f[torch.tensor(bj), torch.tensor(lis)] = math.exp(h)
+            P[gid][pname] = base.reshape(1, ng, 1) * f.unsqueeze(-1)
+        S = {g: dict(d) for g, d in S0.items()}
+        for (gid, s), hv in hstate.items():
+            S[gid][s] = hv.detach().clamp(0.0, 1.0)
+        # the replay takes its batch from the controls: every input gets the batch of the perturbed properties
+        bat = lambda v: v.expand(B, *v.shape[1:]) if torch.is_tensor(v) and v.dim() > 1 and v.shape[0] == 1 else v  # noqa: E731
+        D = {g: {k: bat(v) for k, v in d.items()} for g, d in D.items()}
+        S = {g: {k: bat(v) for k, v in d.items()} for g, d in S.items()}
+        R = bat(R)
+        try:
+            raw = prog.simulate(D, R, P, S, E, T=W, dt=self.dt, t0=t0)
+        except RuntimeError:
+            return None
+        rs, ws = [], []
+        for (gid, key), (wi, ls, m, sig, c) in meas_t.items():
+            try:
+                x = prog.signal(raw, gid, key)
+            except KeyError:
+                continue
+            if x.dim() != 3:
+                continue
+            nn = x.shape[1]
+            pred = x[:, ls.clamp(max=nn - 1), wi] if x.shape[-1] > 1 else x[:, ls.clamp(max=nn - 1), 0]
+            pred = pred.expand(B, -1) if pred.shape[0] == 1 else pred
+            r = ((pred - m) / sig).double()
+            a = r[0].abs()
+            rs.append(r)
+            ws.append(torch.where(a <= c, torch.ones_like(a), c.double() / a.clamp(min=1e-12)))
+        if not rs:
+            return None
+        r, w = torch.cat(rs, 1), torch.cat(ws)
+        J = (r[1:] - r[:1]) / h                                       # [n, k]
+        k = r.shape[1]
+        s2 = max(1.0, float((w * r[0] ** 2).sum()) / k)               # variance factor of the window
+        H = (J * w) @ J.T / s2
+        prior = self.cov + torch.eye(n, dtype=torch.float64) * self.cov_drift ** 2
+        for i, (gid, pname, li) in enumerate(self.cov_index):
+            if li in released.get(gid, ()):    # a suspected step change: what was known no longer holds - a wide prior,
+                prior[i, :] = 0.0              # once (not growing with every calibration), uncorrelated with the rest
+                prior[:, i] = 0.0
+                prior[i, i] = 0.5 ** 2
+        lam = H + torch.linalg.inv(prior)
+        cov = torch.linalg.inv(0.5 * (lam + lam.T))
+        return {"cov": 0.5 * (cov + cov.T), "variance_factor": s2, "measurements": k, "prior_diag": prior.diagonal().clone()}
 
     @torch.no_grad()
     def calibrate_apply(self, res: dict) -> list:
@@ -477,6 +599,21 @@ class Estimator:
         live, prog = self.live, self.live.phys
         report = []
         released = res["released"]
+        post = res.get("posterior")
+        if post is not None and post["cov"].shape == self.cov.shape and "prior_diag" in post:
+            # covariance matching (Mehra 1972): the filter predicts how far an estimate moves per window (prior minus
+            # posterior variance); the ratio of the actual squared move to it, per property, averaged over time
+            exp_var = (post["prior_diag"] - post["cov"].diagonal()).clamp(min=1e-12)
+            ratios: dict = {}
+            for i, (gid, pname, li) in enumerate(self.cov_index):
+                if li in released.get(gid, ()) or (gid, pname) not in res["newP"]:
+                    continue
+                old = float(live.P[gid][pname].reshape(-1)[li])
+                new = float(res["newP"][(gid, pname)].reshape(-1)[li])
+                if old > 0 and new > 0:
+                    ratios.setdefault(pname, []).append(math.log(new / old) ** 2 / float(exp_var[i]))
+            for pname, rs in ratios.items():
+                self._cm[pname] = 0.9 * self._cm.get(pname, 1.0) + 0.1 * sum(rs) / len(rs)
         for (gid, pname), newP in res["newP"].items():
             if gid not in live.P or pname not in live.P[gid]:
                 continue
@@ -508,6 +645,14 @@ class Estimator:
                 path = prog.flat.instances[g.inst_ids[li]].path
                 report.append((path, s, float(cur.reshape(-1)[li]), float(new.reshape(-1)[li]), "state estimate"))
             live.S[gid][s] = new.clone()
+        post = res.get("posterior")
+        if post is not None and post["cov"].shape == self.cov.shape:
+            self.cov = post["cov"]
+            for i, s2 in self._cov_log[res.get("cov_mark", len(self._cov_log)):]:
+                self._cov_test(i, s2)          # tests that arrived while the window was being estimated
+            self.cov_info = {"t": res["t"], "variance_factor": post["variance_factor"], "measurements": post["measurements"]}
+        if len(self._cov_log) > 10000:
+            self._cov_log = self._cov_log[-1000:]
         for path, name, old, new, how in report:
             live.param_history.setdefault((path, name), []).append((res["t"], new))
         self.last_report = report

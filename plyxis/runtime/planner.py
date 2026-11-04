@@ -19,6 +19,7 @@ import torch
 
 from ..optim import maintenance as MAINT
 from ..optim import neural as NN
+from ..optim import risk as RK
 from ..optim.cascade import Cascade, CascadeConfig, CascadeResult
 from ..optim.gradient import alm, shadow_prices
 from ..optim.partition import build_partition
@@ -89,6 +90,7 @@ class Planner:
         self.committed_jobs: dict = {}        # job id -> job dict (started / done)
         self.pid = 0
         self.decoded = None
+        self.price_sigma: dict = {}           # std of the log price per sqrt(hour), estimated by the engine from observed prices
 
     # ------------------------------------------------------------------ problem
     def _ensure_problem(self) -> None:
@@ -174,8 +176,27 @@ class Planner:
                         pb.set_move_reference(q.x, lock_hours=self.move_lock_h, cost_usd=self.move_cost * 0.25)
                         if on_interim:
                             on_interim(interim)
+                risky = cfg.risk_eps is not None or cfg.risk_sigma_cap is not None
+                if risky and cfg.risk_eps is not None and start is not None:
+                    # chance constraints from the running plan, so every stage already keeps its distance from the limits
+                    pb.set_backoff(RK.backoffs(RK.propagate(pb, start, self._uncertainty(), recourse_h=cfg.risk_recourse_h,
+                                                            samples=0), cfg.risk_eps, keys=self._risk_keys(pb, cfg)))
                 cas = Cascade(pb, net=self.net, partition=self.part, config=cfg)
                 res = cas.solve(warm=start, callback=cb)
+                # a cold plan has no running plan to compare with, so the second opinion below cannot catch a poor one; the
+                # steel group's first plan for one seed came out 2-6 M below two other random streams' and shipped 700 t/h
+                # less European coil than its contracts - every later plan started from it
+                cold = []
+                if start is None:
+                    for k in range(1, max(1, cfg.cold_starts)):
+                        alt = Cascade(pb, net=self.net, partition=self.part,
+                                      config=dataclasses.replace(cfg, seed=cfg.seed + k)).solve(callback=cb)
+                        cold.append(alt.objective)
+                        if (alt.feasible, alt.objective) > (res.feasible, res.objective):
+                            alt.seconds += res.seconds
+                            res = alt
+                        else:
+                            res.seconds += alt.seconds
                 # second opinion: the search is randomised and now and then loses its way (about one plan in 50 on the
                 # mine, not reproducible with the same seed: it once idled the mill for three hours before a price
                 # peak). A value far below the last plan's gets one more solve from another random stream; the better wins.
@@ -190,6 +211,8 @@ class Planner:
                         res, second["kept"] = alt, "second"
                     else:
                         res.seconds += alt.seconds
+                if risky:
+                    res = self._risk_stage(pb, res, cfg, cb)
                 res.x = pb.pinned(res.x)
                 # maintenance: value repairs with the twin, schedule rigs and crews
                 jobs = MAINT.find_jobs(pb, res.x, predicted=predicted)
@@ -207,7 +230,7 @@ class Planner:
                 self._plan_space = pb.space
                 self.plans.append(plan)
                 self.runs.append({"id": plan.pid, "t": t_clock, "trigger": trigger, "objective": plan.objective,
-                                  "feasible": plan.feasible, "seconds": res.seconds, "stages": res.stages, "second_opinion": second,
+                                  "feasible": plan.feasible, "seconds": res.seconds, "stages": res.stages, "second_opinion": second, "cold_starts": cold,
                                   "evals": res.evals, "history": res.history[-400:]})
                 if self.online and self.net is not None:
                     ctx = NN.Context(pb.P, pb.S0, {k: v.view(1, -1) if isinstance(v, torch.Tensor) else v
@@ -216,6 +239,54 @@ class Planner:
                 return plan
             finally:
                 self.running = False
+
+    def _uncertainty(self):
+        return self.twin.estimator.uncertainty_model(self.price_sigma)
+
+    @staticmethod
+    def _risk_keys(pb: Problem, cfg: CascadeConfig):
+        if cfg.risk_scope == "all":
+            return None
+        return RK.state_limits(pb, upper_only=cfg.risk_scope == "upper")
+
+    def _risk_stage(self, pb: Problem, res: CascadeResult, cfg: CascadeConfig, cb: Callable) -> CascadeResult:
+        """Plan under the twin's uncertainty (risk.py): the limits' back-offs and the value's spread are computed at
+        the cascade's plan, the plan is polished against them (the cap through `RiskProblem`), and the better of the
+        two plans under the tightened limits is kept. The plan carries its value distribution."""
+        from ..optim.cascade import _score
+        t = time.perf_counter()
+        unc = self._uncertainty()
+        out = RK.propagate(pb, res.x, unc, recourse_h=cfg.risk_recourse_h, samples=0)
+        if cfg.risk_eps is not None:
+            pb.set_backoff(RK.backoffs(out, cfg.risk_eps, keys=self._risk_keys(pb, cfg)))
+        prob = RK.RiskProblem(pb, out, unc, cfg.risk_sigma_cap, r=cfg.risk_r) if cfg.risk_sigma_cap is not None else pb
+        mask = pb.space.discrete_mask()
+        pol = alm(prob, res.x[:1], iters=cfg.polish_iters, lr=0.01, rho=1.0, outer=10, mask=~mask, relax=False,
+                  stage="risk", callback=cb, patience=cfg.patience)
+        with torch.no_grad():
+            ev = prob.evaluate(torch.cat([res.x[:1], pol.x[:1]], 0), relax=False)
+        k = int(_score(prob, ev).argmax())
+        x = ev.x[k:k + 1].clone()
+        tight = float(ev.max_violation()[k])
+        sigma = ev.totals.get("value_sigma")
+        pb.set_backoff(None)
+        final = RK.propagate(pb, x, unc, recourse_h=cfg.risk_recourse_h, samples=64)
+        with torch.no_grad():
+            e = pb.evaluate(x, relax=False)
+        bo = RK.backoffs(out, cfg.risk_eps, keys=self._risk_keys(pb, cfg)) if cfg.risk_eps is not None else {}
+        info = {"stage": "risk", "seconds": time.perf_counter() - t, "accepted": k == 1, "factors": out.K,
+                "objective": float(e.objective[0]), "max_violation": float(e.max_violation()[0]),
+                "max_violation_tightened": tight, "eps": cfg.risk_eps, "scope": cfg.risk_scope, "sigma_cap": cfg.risk_sigma_cap,
+                "sigma_in_polish": float(sigma[k]) if sigma is not None else None,
+                "backoff_mean": float(sum(float(b.mean()) for b in bo.values()) / max(len(bo), 1)),
+                "value": {"mean": final.value["mean"], "std": final.value["std"], "q05": final.quantile(0.05),
+                          "q95": final.quantile(0.95), "nominal": final.value["f0"]}}
+        cb(dict(info))
+        res.x, res.objective, res.max_violation = x, info["objective"], info["max_violation"]
+        res.feasible = res.max_violation <= 2e-3
+        res.stages.append(info)
+        res.seconds += info["seconds"]
+        return res
 
     def _first_response(self, pb: Problem, warm: torch.Tensor, cb: Optional[Callable] = None) -> Optional[CascadeResult]:
         """Fast feasible re-plan after a disruption: repair the running plan (and the neural proposal)

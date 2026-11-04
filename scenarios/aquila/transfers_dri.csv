@@ -1,0 +1,2 @@
+name,src,dst,freight,cap,label,slat,slon,dlat,dlon
+T_TX_AR,TX_HBI,AR_HBI,26,120,HBI transfer TX -> AR,27.85,-97.33,35.705,-89.94

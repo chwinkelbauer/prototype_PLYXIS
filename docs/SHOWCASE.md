@@ -1,12 +1,13 @@
 # Showcase: demo scripts and assumptions
 
-Two case studies run on the same platform; pick one with the title in the top bar (the console stops the
+Three case studies run on the same platform; pick one with the title in the top bar (the console stops the
 running twin, compiles the other one and starts it - about 20 s for the mine):
 
 * **Kestrel Field** - 96-well Permian oil field, 72 h scenario (this page, first part).
 * **Corvus Mine** - large underground copper mine in 3D, 48 h scenario (second part, below).
+* **Aquila Steel** - a global steel group, 13 sites on four continents, 96 h scenario (third part, below).
 
-# In both case studies: people in the loop
+# In every case study: people in the loop
 
 The Shift page (left bar) is worth two minutes after the autonomous story, for anyone who asks "who is in control?":
 
@@ -239,12 +240,93 @@ surprise, productivity and water inflows off by realistic margins); `make_scenar
 | Outages | both control rooms get the crew's estimate of when a failed hoist, fan, pump, loader or closed level is back; the rules above need no forecast, PLYXIS plans the asset back at that time |
 
 Results of the reference run (48 h) are in [BENCHMARKS.md](BENCHMARKS.md#corvus-mine-showcase-run-48-h):
-+10.3 % operating profit (mean of three seeds, +10.1 to +10.6 %) at about equal cash cost: 6.4 % more copper, 7 % lower
++10.3 % operating profit (mean of three seeds, +9.8 to +10.8 %) at about equal cash cost: 6.4 % more copper, 7 % lower
 production cost per tonne of copper. About four fifths of the copper is head grade: PLYXIS blends near the top of the plan's
 window (1.43 %, limit 1.45 %), conventional control delivers 1.37 %, both inside the window. Present it as grade
 control and unit cost, not as a site-level cost reduction, and expect the question "what if we want 1.40 %?": with the window capped
-there the lead is +4.9 % (+4.7 to +5.2 %; see BENCHMARKS.md).
+there the lead is +4.9 % (+4.7 to +5.2 %; see BENCHMARKS.md). Also expect "why does conventional control miss its own 1.40 %?": the baseline does not use the mill's analyser yet, which may flatter this lead (BENCHMARKS.md, "What this lead does not settle").
 
 What PLYXIS adds: it plans all of this jointly over 48 h - which stopes to muck and fire, how many loader
 hours and how much air each gets, fan speeds, regulator settings, ore-pass draws, hoisting and pumping
 against the time-of-use price - and re-plans after every event.
+
+# Case study 3: Aquila Steel - planning a whole corporate
+
+The goal of the platform is to plan the operations of whole corporates, not single sites. Aquila is a synthetic global steel
+group with the structure of the large integrated producers: one twin, one plan, every site, market and lane of the group.
+
+| | |
+|---|---|
+| Sites | 13 on four continents. Integrated (blast furnace -> converter -> slab caster -> hot strip mill, most with a galvanising line): Velsen (NL), Duisburg (DE), Dunkirk (FR), Aviles (ES), Burns Harbor (US-IN), Tubarao (BR), Kalinganagar (IN-OD). Electric (scrap and DRI -> arc furnace -> slab or billet caster -> strip or bar mill): Warsaw (PL), Osceola (US-AR), Corpus Christi (US-TX), Monterrey (MX), Hazira (IN-GJ), Jubail (SA); Aviles also melts in an arc furnace |
+| Assets in the twin | 237 instances: 15 blast furnaces, 7 converter shops, 10 arc furnaces, 4 direct-reduction plants, 17 casters, 11 strip mills, 6 galvanising lines, 4 bar mills, 78 yards (ore, coke, pellets, scrap bays, DRI/HBI piles, slabs, billets, coil, coated coil, long products), 13 grid connections in 11 power zones, 13 gas supplies at 5 hubs, 5 scrap markets, 12 product markets, 24 sales lanes, 5 transfers between sites |
+| Twin | 2D GIS on the world map; the library `stdlib/steel.plx` (405 lines of PLX) and the group's `field.plx` (173 lines plus the asset register, one CSV per asset class, written by `generate.py`) |
+| Planning problem | 96 h at hourly resolution, 2,476 decisions: blast-furnace wind, converter scrap ratio, arc-furnace heats (hourly, for load shifting) and DRI share, DRI plant rates, strip, galvanising and bar mill rates, scrap and HBI purchases, every sales lane and transfer |
+| Markets | contract customers call off about 80 % of the group's capacity (a backlog is delivered later, what is left at the end costs liquidated damages); spot buyers take a limited extra volume 40 USD/t below the index - a market-limited group, as most of the industry is |
+| Prices | regional coil indices, scrap, HBI, gas hubs and EUAs walk; day-ahead power per zone follows each zone's daily shape in its local time (the European evening peak and the Texan afternoon peak fall on different hours); the EU sites pay for the emissions not covered by free allocation; the corporate's internal carbon price (30 USD/t) is a decision price, reported separately; both worlds plan with it |
+| Hidden truth | blast-furnace capacity and coke rate, arc-furnace power and productivity, DRI gas, strip-mill yield and the copper of each region's scrap differ from the engineering data by realistic margins (`truth.plx`); the lab analyses composite scrap samples, about every six hours per bay (both worlds) |
+
+How the economics are kept honest (both worlds, `steel.plx`): inventories are valued at their variable production cost,
+capped a little below their net realisable value (IAS 2) - valued higher, a plan makes slabs for the yard; valued lower, it
+sells the yard instead of melting. Yards hold the stock band of the corporate S&OP (the start stock to 110 % of it; in the plan a
+shortfall costs 30 USD per hour times its square over the target, an excess 0.5 USD/t per hour): working capital is set by
+finance, not by the operations plan. Without the floor a plan sells stock down instead of producing - it saves the production's carbon and the
+difference between the true cost and the book value, a gain that lasts only until the stock is rebuilt; without the top
+it makes steel for the yard in cheap hours, a paper gain at standard cost that nobody uses. Scrap bays and DRI piles
+hold their targets the same way, and a plan ends at the targets (planning only: 200 USD per t short at the horizon end) -
+otherwise it runs the yards down in its last day and over-produces at its front, the only part a rolling plan executes. In the plan only, every tonne-hour of contract backlog costs
+2 USD (customers waiting; not in the accounts): without it shipping now or tomorrow scores the same, and every rolling plan
+put deliveries off. A grid connection overrun is charged (1,500 USD/MWh above the agreement), copper above a caster's limit downgrades the cast (a cost per tonne and %-point), and a converter that
+cannot take its hot metal sends it to the pig caster.
+
+## Events (UTC; Day 1 00:00 = start)
+
+| Time | Event | What it tests |
+|---|---|---|
+| Day 1 05:00 | Duisburg blast furnace 1 off wind for 30 h (stave leak, crew estimate given) | re-allocation of iron, slabs and markets across sites |
+| Day 1 18:00 | storm closes IJmuiden for 36 h: Velsen ore deliveries at a fifth (notice) | a disruption the yard absorbs: no over-reaction |
+| Day 1 20:00 | ERCOT forecasts 1,500 USD/MWh for Day 2 21:00-01:00 (15:00-19:00 CST) | arc-furnace load shifting with a day of warning |
+| Day 2 02:00 | Hazira gas curtailed to 45 % for 30 h (notice) | DRI plant, metallic mix and copper limits under a gas constraint |
+| Day 2 10:00 | Tubarao strip mill down 12 h | slabs to the yard or to the export market |
+| Day 2 21:00 | ERCOT at 1,500 USD/MWh for 4 h | demand response |
+| Day 3 02:00 | North American car makers call off 25 % more coated coil for 40 h (notice) | which site supplies, what it displaces |
+| Day 3 12:00 | European scrap jumps to 470 USD/t for 36 h | metallic mix: hot metal vs. scrap vs. HBI per site |
+| Day 4 00:00 | Monterrey arc furnace transformer trip, 8 h | an electric site down |
+
+## Demo script (about 10 minutes)
+
+1. **One plan for a whole steel group** (Overview): shipments, crude steel, cost per tonne shipped, group power - both worlds.
+2. **The value chain on the world map** (Live map): sites, markets, the sales and transfer lanes; one layer per process step.
+3. **Blast furnace off wind** (Overview, then Schedule): the group is re-planned; the schedule shows each furnace, mill and lane
+   with its reasons (delivered margin, the shadow prices of iron and of rolling capacity).
+4. **A price signal a day ahead** (Overview): both worlds know the scarcity window a day ahead; the conventional control room
+   stops the Texan arc furnace for it, PLYXIS plans its heats and the billet yard around it.
+5. **Gas curtailed, scrap jumps, customers pull orders forward** - the value bridge shows what each part is worth.
+
+## Result (96 h, three seeds)
+
+[BENCHMARKS.md](BENCHMARKS.md#aquila-steel-group-showcase-run-96-h) has the numbers. PLYXIS has **no operating-profit lead** over
+the competent S&OP: -1.6 % on the mean of three seeds (-4.9 to +0.8 %). After the group's internal carbon price - the objective
+both worlds plan with - it is ahead on every seed (USD +1.0 to +1.9 M per 96 h) with 6.2 % less CO2e. The difference is the
+metallic mix: in Europe the plan runs the blast furnaces near turndown and the converters on more scrap, because with the EU's
+allowances and the carbon price hot metal costs it more than scrap; outside Europe every furnace runs at full wind. Present it as
+that trade, not as a margin gain, and expect two questions: furnace turndown costs no extra fuel in the model (optimistic for this
+strategy), and the European crunch in the first two days hits a plan with its furnaces down (one seed lost USD 1.4 M in eight hours).
+The allocation of markets to sites, which a good S&OP does by merit order, leaves little to improve in a group that is limited by
+its markets.
+
+## Assumptions behind "conventional corporate planning"
+
+`scenarios/aquila/legacy.py` encodes a competent group that plans with spreadsheets and standard costs instead of a corporate
+optimiser:
+
+| Area | Rule |
+|---|---|
+| S&OP | every 24 h, and at once after a notice or when a unit goes down or comes back, the planning department allocates each market's contract volume to the sales lanes in order of delivered margin (index price - freight - the site's standard variable cost - its standard CO2e at the internal carbon price, the price of the plan's objective), within each site's capacity (furnaces, converters, casters, mills at 97 % utilisation) and each lane's capacity - a contract also at a loss smaller than its liquidated damages; spot volume next where the margin after the spot discount is positive; a strip mill may roll a sister plant's slabs where that is the better margin; Tubarao slabs go to Burns Harbor and Texan DRI to Osceola wherever that is cheaper than the destination's own cost; blast furnaces stay at least at their 60 % turndown, and what that iron makes beyond the allocation is offered spot wherever it covers freight and rolling |
+| Make to order | each mill rolls what its lanes ship plus a correction towards its yard's stock target (over 24 h); an arc furnace is planned at what it can make on average (its capacity less the tariff's peak hours, within the site's grid connection), so the sales plan does not run its yards down; the melt shops make what the mills and slab lanes need, with the same correction for the slab and billet yards; blast furnaces by share of full wind, within 6 % of full wind per hour; converters at the standard 84 % hot metal, 78 % while a site's iron is short |
+| Arc furnaces | follow the published time-of-use tariff: 30 % in the four peak hours of their zone, made up in the other hours; stop during an announced price window above 300 USD/MWh (demand response); the site's grid connection is respected |
+| Metallics | DRI/HBI share at the furnace's maximum where DRI is cheaper than scrap (own plant, transfer or merchant HBI, including its extra power and its carbon), otherwise the least share that keeps the cast's copper 10 % inside the caster's limit, with the lab's running mean of the bay's copper (the same samples PLYXIS gets); DRI plants make what their furnaces and transfers draw, within the gas contract; scrap bays and HBI piles are bought back to their stock target |
+| Sales desk | lanes ship the allocation while the yard holds stock (spot only above 60 % of the target), sell what a yard holds above 115 % of its target, catch up a market's backlog, and never ship more than a market's call-offs plus its spot depth |
+| Notices and outages | both planning departments get every notice at the same time, and the crew's estimate of when a failed unit is back |
+
+The baseline needs no help from the plant: over 12 h in `tests/test_steel.py` its plant's protection layer cut nothing and no
+yard was drawn below empty; every A/B result file records the same for both worlds (`protection`).

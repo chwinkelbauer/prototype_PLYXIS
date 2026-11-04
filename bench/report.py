@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import statistics as st
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,7 +84,10 @@ def _branch_stats(d) -> str:
 
 def seed_summary(scenario: str) -> None:
     """Exact branches on vs. off over the seeds that were run (full event set only)."""
-    names = sorted(n for n in os.listdir(RES) if n.startswith("showcase_run") and n.endswith(".json"))
+    # only the main runs and their branch arms: a tagged variant (e.g. the capped grade window) is another scenario
+    base = "showcase_run" + ("" if scenario == "kestrel" else f"_{scenario}")
+    main = re.compile(rf"^{base}(_branches|_nobranches)?(_s\d+)?\.json$")
+    names = sorted(n for n in os.listdir(RES) if main.match(n))
     groups: dict = {}
     for n in names:
         d = _load(n)
@@ -193,6 +197,82 @@ def mine(d) -> None:
     for prm, v in d.get("calibration_error", {}).items():
         print(f"- {prm}: engineering model {v['engineering'] * 100:.1f} % -> live twin {v['twin'] * 100:.1f} %")
     print()
+
+
+def steel(d) -> None:
+    """Showcase A/B of the Aquila steel group: KPIs, unit cost and intensity per t shipped, bridge, plant protection."""
+    k = d["kpis"]
+    p, l = k["plyxis"], k["legacy"]
+    print(f"### Aquila steel group showcase ({d['hours']:.0f} h, seed {d.get('seed', 0)}, wall {d['wall_seconds']:.0f} s)\n")
+    print("| KPI | PLYXIS | conventional planning | difference |\n|---|---|---|---|")
+    rows = [("Operating profit (USD)", "profit"), ("Profit after carbon cost (USD)", "profit_after_carbon"),
+            ("Revenue (USD)", "revenue"), ("Cash operating cost (USD)", "cost"),
+            ("Inventory value change (USD)", "inventory_value"), ("Carbon cost at internal price (USD)", "carbon_cost")]
+    rows += [(f"{key[2:]} ({'MWh' if key == 'm_power' else 't'})", key) for key in p if key.startswith("m_")]
+    rows += [("Emissions (t CO2e)", "emission_kg")]
+    for label, key in rows:
+        f = 1e-3 if key == "emission_kg" else 1.0
+        a_, b_ = p.get(key, 0) * f, l.get(key, 0) * f
+        rel = f"{(a_ - b_) / abs(b_) * 100:+.1f} %" if abs(b_) > 1e-9 else ""
+        print(f"| {label} | {a_:,.0f} | {b_:,.0f} | {a_ - b_:+,.0f} ({rel}) |")
+    for w, lab in ((p, "PLYXIS"), (l, "conventional")):
+        if w.get("m_shipped"):
+            print(f"\n{lab}: cash cost USD {w['cost'] / w['m_shipped']:.1f} per t shipped, "
+                  f"{w['emission_kg'] / w['m_shipped']:.0f} kg CO2e per t shipped, "
+                  f"operating profit USD {w['profit'] / d['hours'] * 8760 / 1e9:.2f} bn/a")
+    if "bridge" in d:
+        print("\n| Where the operating-profit difference comes from | USD |\n|---|---|")
+        for r in d["bridge"]:
+            print(f"| {r['label']} | {r['delta']:+,.0f} |")
+    plans = d["plans"]
+    print(f"\nPlans: {len(plans)}, feasible {sum(1 for x in plans if x['feasible'])}, solve time mean "
+          f"{st.mean(x['seconds'] for x in plans):.1f} s, max {max(x['seconds'] for x in plans):.1f} s")
+    for w, v in d.get("protection", {}).items():
+        print(f"- plant protection, {w}: {sum(v['cuts'].values())} cuts, underflow {v['underflow'] or 'none'}")
+    for prm, v in d.get("calibration_error", {}).items():
+        print(f"- {prm}: engineering model {v['engineering'] * 100:.1f} % -> live twin {v['twin'] * 100:.1f} %")
+    print()
+
+
+def steel_seeds() -> None:
+    """The Aquila A/B over every seed that ran with the full scenario (no tag)."""
+    rows = []
+    for n in sorted(os.listdir(RES)):
+        if not (n == "showcase_run_aquila.json" or (n.startswith("showcase_run_aquila_s") and n[21:-5].isdigit())):
+            continue
+        d = _load(n)
+        p, l = d["kpis"]["plyxis"], d["kpis"]["legacy"]
+        rows.append((d.get("seed", 0), p, l, st.mean(x["seconds"] for x in d["plans"]), len(d["plans"])))
+    if not rows:
+        return
+    print("### Aquila over seeds (96 h, PLYXIS - conventional planning)\n")
+    print("| seed | operating profit | after carbon | CO2e (t) | shipped | crude steel | plans, mean s |\n|---|---|---|---|---|---|---|")
+    dp, dc = [], []
+    for seed, p, l, secs, n in sorted(rows, key=lambda r: r[0]):
+        rel = lambda k: (p[k] - l[k]) / abs(l[k]) * 100  # noqa: E731
+        dp.append(p["profit"] - l["profit"])
+        dc.append(p["profit_after_carbon"] - l["profit_after_carbon"])
+        print(f"| {seed} | {dp[-1]:+,.0f} ({rel('profit'):+.2f} %) | {dc[-1]:+,.0f} | "
+              f"{(p['emission_kg'] - l['emission_kg']) / 1e3:+,.0f} ({rel('emission_kg'):+.1f} %) | {rel('m_shipped'):+.2f} % | "
+              f"{rel('m_crude'):+.2f} % | {n}, {secs:.0f} |")
+    print(f"\nMean over {len(rows)} seeds: operating profit {st.mean(dp):+,.0f} (min {min(dp):+,.0f}, max {max(dp):+,.0f}), "
+          f"after carbon {st.mean(dc):+,.0f} (min {min(dc):+,.0f}, max {max(dc):+,.0f})\n")
+
+
+def policy_twin(d) -> None:
+    print(f"### Plan vs. conventional rules in the twin's own world ({d['scenario']}, {d['hours']:.0f} h, nominal, no events)\n")
+    print("| | operating profit (USD) | after carbon (USD) | CO2e (t) | seconds |\n|---|---|---|---|---|")
+    for w in ("policy", "plan"):
+        r = d[w]
+        print(f"| {w} | {r['profit']:,.0f} | {r['profit_after_carbon']:,.0f} | {r['emission_t']:,.0f} | {r['seconds']:.0f} |")
+    x = d["delta"]
+    print(f"| difference | {x['profit']:+,.0f} | {x['profit_after_carbon']:+,.0f} | {x['emission_t']:+,.0f} | |\n")
+    if "stocks" in d["plan"]:
+        print("| Yards, change over the run | rules (t) | plan (t) | plan - rules (USD at unit cost) |\n|---|---|---|---|")
+        for k in d["plan"]["stocks"]:
+            a, b = d["policy"]["stocks"].get(k, {"t": 0.0, "usd": 0.0}), d["plan"]["stocks"][k]
+            print(f"| {k} | {a['t']:+,.0f} | {b['t']:+,.0f} | {b['usd'] - a['usd']:+,.0f} |")
+        print()
 
 
 def decomposition(d) -> None:
@@ -349,8 +429,64 @@ def backtest(d) -> None:
           f"gate {'passed' if d['gate_passed'] else 'not passed'}.\n")
 
 
+def risk(d) -> None:
+    print(f"### Outcome distributions: sigma points vs Monte Carlo (property sigma {d['property_sigma']}, "
+          f"price sigma {d['price_sigma_per_sqrt_h']} per sqrt h)\n")
+    print("| twin | inputs | factors | limits: spread ratio median (p10-p90) | P(violation) error | plan value: reference std | "
+          "sigma points only | + 128 Sobol: error of mean / std | Monte Carlo, same total: error of mean / std |\n|---|---|---|---|---|---|---|---|---|")
+    for r in d.get("runs", []):
+        for name in ("properties", "properties_and_prices"):
+            x = r.get(name)
+            if not x:
+                continue
+            L, V, R = x["limits"], x["value"], x["reference"]
+            print(f"| {r['scenario']} | {name.replace('_', ' ')} | {L['factors']} | {L['std_ratio_median']:.3f} ({L['std_ratio_p10']:.3f}-{L['std_ratio_p90']:.3f}) | "
+                  f"{L['p_violation_abs_error_mean']:.3f} | {R['std']:,.0f} | {V['sigma_points_only']['std']['estimate']:,.0f} | "
+                  f"{V['sigma_points_and_sobol']['mean']['rms_error']:,.0f} / {V['sigma_points_and_sobol']['std']['rms_error']:,.0f} | "
+                  f"{V['monte_carlo_same_cost']['mean']['rms_error']:,.0f} / {V['monte_carlo_same_cost']['std']['rms_error']:,.0f} |")
+    for f in d.get("frontier", []):
+        print(f"\n| {f['scenario']}: cap on the value's std | expected value | std | 5 % quantile | max violation |\n|---|---|---|---|---|")
+        for p in f["points"]:
+            print(f"| {p['cap_fraction']:.2f} x uncapped | {p['mean']:,.0f} | {p['std']:,.0f} | {p['q05']:,.0f} | {p['max_violation']:.4f} |")
+    print()
+
+
+def coverage(d) -> None:
+    print(f"### Posterior coverage ({d['scenario']}, {d['hours']:.0f} h after {d['warmup']:.0f} h warm-up)\n")
+    print("| | within 1 sd (honest: 0.68) | within 2 sd (0.95) | z rms (1.0) | n |\n|---|---|---|---|---|")
+    for k in ("posterior", "prior"):
+        s = d[k]
+        print(f"| {'posterior covariance' if k == 'posterior' else 'fixed engineering sigma 0.15'} | {s['within_1sd']:.2f} | "
+              f"{s['within_2sd']:.2f} | {s['z_rms']:.2f} | {s['n']} |")
+    print("\n| property | posterior 1 sd / 2 sd / z rms | mean posterior sd | rms log error |\n|---|---|---|---|")
+    for k, v in d["by_property"].items():
+        p = v["posterior"]
+        print(f"| {k} | {p['within_1sd']:.2f} / {p['within_2sd']:.2f} / {p['z_rms']:.2f} | {v['mean_sd']:.3f} | {v['rms_log_error']:.3f} |")
+    print()
+
+
+def colgen(d) -> None:
+    print("### Column generation vs exact MILP (wells-like units, one gas limit per hour, 24 h)\n")
+    print("| assets | decisions | CG seconds | rounds | gap to proven bound | MILP seconds | MILP | CG below MILP |\n|---|---|---|---|---|---|---|---|")
+    for r in d.get("runs", []):
+        c, m = r["cg"], r.get("milp")
+        ms = f"{m['seconds']:.1f} | {'optimal' if m['optimal'] else 'time limit'} | {100 * c.get('below_milp', float('nan')):.2f} %" if m else "- | - | -"
+        print(f"| {r['assets']} | {r['decisions']:,} | {c['seconds']:.2f} | {c['rounds']} | {100 * c['gap']:.3f} % | {ms} |")
+    lp = d.get("learned_prices")
+    if lp:
+        print(f"\nLearned prices ({lp['test']} test situations, {lp['assets']} assets, trained on {lp['train']}):\n")
+        print("| start | rounds | seconds | gap |\n|---|---|---|---|")
+        for k in ("cold", "learned", "exact_prices"):
+            v = lp["mean"][k]
+            print(f"| {k.replace('_', ' ')} | {v['rounds']:.1f} | {v['seconds']:.2f} | {100 * v['gap']:.3f} % |")
+    print()
+
+
 def main() -> None:
-    for name, fn in (("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
+    for name, fn in (("risk.json", risk), ("uncertainty_coverage.json", coverage), ("uncertainty_coverage_matching.json", coverage),
+                     ("colgen.json", colgen),
+                     ("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
+                     ("showcase_run_aquila.json", steel), ("policy_in_twin_aquila.json", policy_twin),
                      ("backtest_kestrel.json", backtest), ("backtest_corvus.json", backtest),
                      ("decomposition.json", decomposition), ("section_theory.json", section_theory),
                      ("exact_branches.json", exact_branches), ("neural_ablation.json", neural),
@@ -365,6 +501,8 @@ def main() -> None:
         if name == "showcase_run_corvus.json":
             variants("corvus")
             seed_summary("corvus")
+        if name == "showcase_run_aquila.json":
+            steel_seeds()
 
 
 if __name__ == "__main__":

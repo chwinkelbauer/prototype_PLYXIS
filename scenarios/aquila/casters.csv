@@ -1,0 +1,14 @@
+name,site,kind,label,tag,lat,lon,cap,yard,cu_max
+NL_CC,NL,slab,Velsen (NL) slab casters,AQ.NL.CC,52.473,4.611,950,NL_SLABS,0.12
+DE_CC,DE,slab,Duisburg (DE) slab casters,AQ.DE.CC,51.483999999999995,6.751,1600,DE_SLABS,0.12
+FR_CC,FR,slab,Dunkirk (FR) slab casters,AQ.FR.CC,51.025999999999996,2.313,1050,FR_SLABS,0.12
+ES_CC,ES,slab,Aviles (ES) slab casters,AQ.ES.CC,43.577,-5.907,430,ES_SLABS,0.12
+IN_CC,IN,slab,Burns Harbor (US-IN) slab casters,AQ.IN.CC,41.626,-87.107,1050,IN_SLABS,0.12
+BR_CC,BR,slab,Tubarao (BR) slab casters,AQ.BR.CC,-20.244,-40.237,1350,BR_SLABS,0.12
+OD_CC,OD,slab,Kalinganagar (IN-OD) slab casters,AQ.OD.CC,20.956,86.033,1150,OD_SLABS,0.12
+AR_CC1,AR,slab,Osceola (US-AR) slab caster 1,AQ.AR.CC1,35.699,-89.943,231,AR_SLABS,0.12
+AR_CC2,AR,slab,Osceola (US-AR) slab caster 2,AQ.AR.CC2,35.695,-89.949,231,AR_SLABS,0.12
+MX_CC1,MX,slab,Monterrey (MX) slab caster 1,AQ.MX.CC1,25.694000000000003,-100.253,319,MX_SLABS,0.12
+GJ_CC1,GJ,slab,Hazira (IN-GJ) slab caster 1,AQ.GJ.CC1,21.114,72.657,253,GJ_SLABS,0.12
+GJ_CC2,GJ,slab,Hazira (IN-GJ) slab caster 2,AQ.GJ.CC2,21.11,72.651,253,GJ_SLABS,0.12
+SA_CC2,SA,slab,Jubail (SA) slab caster 2,AQ.SA.CC2,27.0,49.651,209,SA_SLABS,0.12

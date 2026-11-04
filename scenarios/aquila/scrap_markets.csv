@@ -1,0 +1,6 @@
+name,label,tag,lat,lon,avail,s_eu,s_us,s_br,s_in,s_me
+SCRAP_EU,Scrap market EU,AQ.SCRAP.EU,51.2,4.4,900,1,0,0,0,0
+SCRAP_US,Scrap market US,AQ.SCRAP.US,39.8,-86.2,950,0,1,0,0,0
+SCRAP_BR,Scrap market BR,AQ.SCRAP.BR,-23.0,-43.2,260,0,0,1,0,0
+SCRAP_IN,Scrap market IN,AQ.SCRAP.IN,19.0,72.8,500,0,0,0,1,0
+SCRAP_ME,Scrap market ME,AQ.SCRAP.ME,26.3,50.2,420,0,0,0,0,1

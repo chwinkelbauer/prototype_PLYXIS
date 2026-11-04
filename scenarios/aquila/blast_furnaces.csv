@@ -1,0 +1,16 @@
+name,site,label,tag,lat,lon,rate_max,coke_rate,ets
+NL_BF1,NL,Velsen (NL) blast furnace 1,AQ.NL.BF1,52.48,4.602,380,0.36,0.35
+NL_BF2,NL,Velsen (NL) blast furnace 2,AQ.NL.BF2,52.483,4.606,330,0.36,0.35
+DE_BF1,DE,Duisburg (DE) blast furnace 1,AQ.DE.BF1,51.491,6.742,460,0.36,0.35
+DE_BF2,DE,Duisburg (DE) blast furnace 2,AQ.DE.BF2,51.494,6.746,420,0.36,0.35
+DE_BF3,DE,Duisburg (DE) blast furnace 3,AQ.DE.BF3,51.497,6.75,340,0.36,0.35
+FR_BF1,FR,Dunkirk (FR) blast furnace 1,AQ.FR.BF1,51.033,2.304,420,0.36,0.35
+FR_BF2,FR,Dunkirk (FR) blast furnace 2,AQ.FR.BF2,51.036,2.308,360,0.36,0.35
+ES_BF1,ES,Aviles (ES) blast furnace 1,AQ.ES.BF1,43.584,-5.916,320,0.36,0.35
+IN_BF1,IN,Burns Harbor (US-IN) blast furnace 1,AQ.IN.BF1,41.633,-87.116,430,0.36,0.0
+IN_BF2,IN,Burns Harbor (US-IN) blast furnace 2,AQ.IN.BF2,41.636,-87.112,380,0.36,0.0
+BR_BF1,BR,Tubarao (BR) blast furnace 1,AQ.BR.BF1,-20.237,-40.246,390,0.38,0.0
+BR_BF2,BR,Tubarao (BR) blast furnace 2,AQ.BR.BF2,-20.234,-40.242,340,0.38,0.0
+BR_BF3,BR,Tubarao (BR) blast furnace 3,AQ.BR.BF3,-20.231,-40.238,300,0.38,0.0
+OD_BF1,OD,Kalinganagar (IN-OD) blast furnace 1,AQ.OD.BF1,20.963,86.024,470,0.38,0.0
+OD_BF2,OD,Kalinganagar (IN-OD) blast furnace 2,AQ.OD.BF2,20.966,86.028,410,0.38,0.0

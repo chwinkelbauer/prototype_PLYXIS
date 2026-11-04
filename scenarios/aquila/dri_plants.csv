@@ -1,0 +1,5 @@
+name,site,label,tag,lat,lon,cap,pellets,yard
+TX_DRI,TX,Corpus Christi (US-TX) direct reduction plant,AQ.TX.DRI,27.862,-97.324,230,TX_PELLETS,TX_HBI
+MX_DRI,MX,Monterrey (MX) direct reduction plant,AQ.MX.DRI,25.712,-100.244,240,MX_PELLETS,MX_HBI
+GJ_DRI,GJ,Hazira (IN-GJ) direct reduction plant,AQ.GJ.DRI,21.132,72.666,300,GJ_PELLETS,GJ_HBI
+SA_DRI,SA,Jubail (SA) direct reduction plant,AQ.SA.DRI,27.022,49.666,280,SA_PELLETS,SA_HBI

@@ -71,6 +71,7 @@ class Problem:
         self.move_cost = 0.0
         self.pin_mask: Optional[torch.Tensor] = None     # decisions an operator has decided (recommendation workflow)
         self.pin_val: Optional[torch.Tensor] = None
+        self.backoff: Optional[dict] = None              # (gid, con key) -> tightening [1, n, T] in scaled units (risk.py)
         self._inst_maps()
         self.calibrate_scales()
 
@@ -125,6 +126,11 @@ class Problem:
         if n:
             self.pin_mask, self.pin_val = mask, val
         return n
+
+    def set_backoff(self, backoff: Optional[dict]) -> None:
+        """Chance constraints: every hard limit tightened by its back-off (mean shift + z standard deviations of
+        the residual under the twin's uncertainty, `risk.backoffs`); None removes them."""
+        self.backoff = backoff or None
 
     def pinned(self, x: torch.Tensor) -> torch.Tensor:
         return x if self.pin_mask is None else x * (1.0 - self.pin_mask) + self.pin_val * self.pin_mask
@@ -183,9 +189,12 @@ class Problem:
         self.n_evals += x.shape[0]
         resid = {}
         cs = self.con_scale
+        bo = getattr(self, "backoff", None)
         for key, h in ev["resid"].items():
             s = cs.get(key)
             resid[key] = h / s if s is not None else h
+            if bo is not None and key in bo:
+                resid[key] = resid[key] + bo[key]
         obj = torch.as_tensor(ev["objective"])
         if obj.dim() == 0:
             obj = obj.expand(x.shape[0])

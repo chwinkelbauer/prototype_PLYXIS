@@ -227,11 +227,49 @@ one huge one (cooperative coevolution). The cascade uses this inside stage 3.
   kept) is evaluated under the new situation. If it scores better or is clearly worth more, it is polished; it or its polished form replaces the new plan
   if that scores better and is no less feasible.
 * **A second opinion** (`second_opinion`, mine): a plan worth more than that share less than the last one gets a second solve from another random stream; the better one wins.
+* **Cold starts** (`cold_starts`, steel group: 2): the first plan has no running plan to be compared with, so the second opinion cannot catch a
+  poor one. It is solved from that many random streams and the best is kept. On the steel group one seed's first plan came out USD 2-6 M below two
+  other streams' and shipped 700 t/h less European coil than its contracts; the later plans started from it (that seed's A/B: -3.0 M against
+  +0.3 and -0.8 M for the others).
 * **Margins for exact plans.** An LP optimum sits on the limits as the twin sees them. Two mechanisms keep a distance:
   `concentrator.grade_margin` plans the head grade inside the window by `z` standard errors of the blend the last plan
   mines (scenario `margins`, runtime `Engine._update_margins`, standard errors from `Estimator.uncertainty`); `exact_margin`
   makes the exact stage keep state limits (tanks, bins) a share of their scale inside.
 * **Pins.** `Problem.set_pins` holds what an operator decided, in every evaluation of every stage.
+
+## Planning under uncertainty (`risk.py`, `Estimator.cov`)
+
+Objective chosen by the founder: maximise expected profit, with a cap on the spread of profit and on the probability
+of breaking a hard limit. Three pieces:
+
+* **What is uncertain, and how much.** The estimator keeps a posterior covariance of every calibrated property (log
+  space): an information filter around the moving-horizon estimate - the Gauss-Newton information of each window's
+  residuals (one batched replay, a column per property), scaled down when the residuals are larger than the noise model
+  says, plus the previous covariance with a small drift. Well tests and assays update it as measurements; an asset the
+  anomaly detector flags gets a wide prior once (a suspected step change). Prices: the hourly innovations of the
+  de-seasonalised log price (`Forecaster.log_sigma`). Properties no measurement reaches keep their engineering prior
+  (the oil field's battery capacities, its wells' gas-oil ratios seen only through station totals).
+* **Distributions without sampling the twin per step.** Inputs are factorised into independent standard-normal factors,
+  and every outcome of a plan - each limit's residual per asset and hour, the plan value - is evaluated at +-1 standard
+  deviation per factor in one batched simulation (`propagate`, 2K + 1 simulations, K = 200-400 factors on the twins).
+  This is exact for affine outcomes and keeps every correlation (a rate error accumulates in a tank). For the limits it
+  matches Monte Carlo closely on both twins. For the plan value it does not where a total over many assets meets a kink
+  (flaring starts only when many wells err the same way), so the value's mean comes from Sobol samples with the
+  sigma-point surrogate as a regression control variate, and its spread and quantiles from the samples (BENCHMARKS.md).
+* **In the plan.** Chance constraints: the limits are tightened by their mean shift plus `z_eps` standard deviations
+  (`backoffs`, `Problem.set_backoff`), state limits counting only the spread that builds up within `risk_recourse_h` (re-plans
+  correct the rest). The spread of the plan value can be capped (`RiskProblem`: sigma points along four risk directions
+  inside the polish, the cap a hard constraint of the ALM). The planner computes back-offs from the running plan before the
+  cascade, re-computes them at its plan, polishes, and keeps the better plan under the tightened limits (`Planner._risk_stage`;
+  12-13 s per oil-field plan in the A/B, which shared the machine with other runs). Config: `risk_eps`, `risk_scope`, `risk_recourse_h`, `risk_sigma_cap`.
+* **Which limits.** Measured, not assumed: chance constraints on every limit at 5 % gave away about USD 45 k of the oil
+  field's lead in its first 16 hours - unobserved capacities keep their 15 % prior, so the back-offs on the batteries' liquid
+  capacity and on the gas takeaway were large. A flow above a capacity is cut by the plant's protection; it costs the cut flow, and the
+  next plan reacts. A state beyond its limit is a spill, a flood or a dry run. The default scope is therefore the state limits
+  (`risk_scope = "states"`); flow capacities stay in the expected-value objective. Even so the stage is off on both twins: on
+  state limits it was neutral on the oil field (+USD 7 k, within noise) and cost the mine USD 37 k, mostly through the stopes'
+  broken-ore lower bound - a non-negativity the plant keeps by itself (nothing is mucked that is not there), so a cut flow as well.
+  `risk_scope = "upper"` keeps only the upper state limits (overflow): on the mine USD 11 k instead of 37 k, still no gain.
 
 ## From plan to action
 

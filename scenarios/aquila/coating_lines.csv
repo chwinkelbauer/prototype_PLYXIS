@@ -1,0 +1,7 @@
+name,site,label,tag,lat,lon,cap,coil,yard
+NL_CGL,NL,Velsen (NL) galvanising line,AQ.NL.CGL,52.465,4.624,220,NL_COIL,NL_COATED
+DE_CGL,DE,Duisburg (DE) galvanising line,AQ.DE.CGL,51.476,6.764,320,DE_COIL,DE_COATED
+FR_CGL,FR,Dunkirk (FR) galvanising line,AQ.FR.CGL,51.018,2.326,160,FR_COIL,FR_COATED
+IN_CGL,IN,Burns Harbor (US-IN) galvanising line,AQ.IN.CGL,41.618,-87.094,260,IN_COIL,IN_COATED
+OD_CGL,OD,Kalinganagar (IN-OD) galvanising line,AQ.OD.CGL,20.947999999999997,86.046,200,OD_COIL,OD_COATED
+AR_CGL,AR,Osceola (US-AR) galvanising line,AQ.AR.CGL,35.691,-89.93,140,AR_COIL,AR_COATED

@@ -1,7 +1,7 @@
 {
  "scenario": "corvus",
  "hours": 48.0,
- "wall_seconds": 3892.3403051999994,
+ "wall_seconds": 2284.6089888999995,
  "neural": true,
  "exact_branches": [
   "lp",
@@ -13,26 +13,26 @@
  "skipped_events": [],
  "kpis": {
   "plyxis": {
-   "revenue": 9071645.341796875,
-   "cost": 2787431.235686302,
-   "emission_kg": 385793.75177001953,
+   "revenue": 9081584.525390625,
+   "cost": 2721801.2725553513,
+   "emission_kg": 391280.0944213867,
    "oil_bbl": 0.0,
    "gas_mscf": 0.0,
    "water_bbl": 0.0,
    "flared_mscf": 0.0,
    "spilled_bbl": 0.0,
    "hours": 47.99999999999986,
-   "inventory_value": -181974.82421875,
+   "inventory_value": -246900.150390625,
    "equipment_value": 0.0,
-   "profit": 6102239.281891823,
-   "carbon_cost": 17360.71882965087,
-   "profit_after_carbon": 6084878.563062172,
+   "profit": 6112883.102444649,
+   "carbon_cost": 17607.60424896238,
+   "profit_after_carbon": 6095275.498195688,
    "flared_over_permit_mscf": 0.0,
-   "m_ore": 71131.13270312494,
-   "m_hoisted": 71638.6635,
-   "m_milled": 76790.0489687497,
-   "m_copper": 1005.6697895507818,
-   "m_power": 2927.093382812495
+   "m_ore": 67770.56459374992,
+   "m_hoisted": 71740.16214062498,
+   "m_milled": 76786.4164999997,
+   "m_copper": 1006.7795490722654,
+   "m_power": 2946.92883789062
   },
   "legacy": {
    "revenue": 8516918.3359375,
@@ -57,33 +57,33 @@
    "m_power": 2927.4960634765594
   },
   "delta": {
-   "profit": 584583.5463739345,
-   "profit_after_carbon": 584988.7934262436,
+   "profit": 595227.3669267604,
+   "profit_after_carbon": 595385.7285597594,
    "oil_bbl": 0.0,
    "flared_mscf": 0.0,
-   "emission_t": -9.00549005126953,
-   "m_ore": -2747.2310937497823,
-   "m_hoisted": 2568.169390624913,
-   "m_milled": 950.0459687501716,
-   "m_copper": 61.37850170898412,
-   "m_power": -0.4026806640645191
+   "emission_t": -3.519147399902344,
+   "m_ore": -6107.7992031247995,
+   "m_hoisted": 2669.668031249894,
+   "m_milled": 946.4135000001697,
+   "m_copper": 62.48826123046763,
+   "m_power": 19.432774414060532
   },
-  "value_per_day": 292291.77318696806
+  "value_per_day": 297613.6834633811
  },
  "terms": {
   "plyxis": {
-   "metal": 9071645.341796875,
+   "metal": 9081584.525390625,
    "ownership": -170208.0,
-   "power": -197536.2541809082,
+   "power": -196332.0993499756,
    "labour": -528000.01171875,
    "overhead": -240000.01171875,
-   "mining": -583275.2984619141,
-   "loading": -49552.80246734619,
-   "blasting": -74483.33776855469,
-   "hauling": -28850.940957069397,
-   "wear": -20424.793241500854,
-   "energy": -395964.4759674072,
-   "consumables": -499135.30920410156
+   "mining": -555718.6428222656,
+   "loading": -47368.48956298828,
+   "blasting": -39291.669006347656,
+   "hauling": -29071.447066307068,
+   "wear": -20761.538654327393,
+   "energy": -395937.6661224365,
+   "consumables": -499111.6965332031
   },
   "legacy": {
    "metal": 8516918.3359375,
@@ -102,10 +102,10 @@
  },
  "inventory_terms": {
   "plyxis": {
-   "broken_value": -107692.25,
-   "stock_value": 6113.875,
-   "bin_value": -14138.66796875,
-   "inventory": -66257.78125
+   "broken_value": -134778.625,
+   "stock_value": -46212.3828125,
+   "bin_value": -997.486328125,
+   "inventory": -64911.65625
   },
   "legacy": {
    "broken_value": -208261.0,
@@ -118,66 +118,117 @@
   {
    "key": "metal",
    "label": "Copper sales",
-   "delta": 554727
-  },
-  {
-   "key": "blasting",
-   "label": "Explosives and charging",
-   "delta": -74483
-  },
-  {
-   "key": "inventory_value",
-   "label": "Inventories (tanks, bins, stockpiles)",
-   "delta": 55964
-  },
-  {
-   "key": "power",
-   "label": "Power",
-   "delta": 33828
+   "delta": 564666
   },
   {
    "key": "mining",
    "label": "Mining consumables",
-   "delta": 22527
+   "delta": 50084
+  },
+  {
+   "key": "blasting",
+   "label": "Explosives and charging",
+   "delta": -39292
+  },
+  {
+   "key": "power",
+   "label": "Power",
+   "delta": 35032
+  },
+  {
+   "key": "inventory_value",
+   "label": "Inventories (tanks, bins, stockpiles)",
+   "delta": -8962
   },
   {
    "key": "consumables",
    "label": "Mill consumables",
-   "delta": -6175
+   "delta": -6152
   },
   {
    "key": "energy",
    "label": "Mill power",
-   "delta": -4918
+   "delta": -4891
   },
   {
    "key": "loading",
    "label": "Loader operating cost",
-   "delta": 1626
+   "delta": 3811
   },
   {
    "key": "hauling",
    "label": "Trucking",
-   "delta": 1446
+   "delta": 1225
   },
   {
    "key": "wear",
    "label": "Crusher wear",
-   "delta": 42
+   "delta": -295
   }
  ],
  "calibration_error": {
   "grade": {
    "engineering": 0.1184,
-   "twin": 0.0944
+   "twin": 0.0959
   },
   "rate_max": {
    "engineering": 0.0892,
-   "twin": 0.0782
+   "twin": 0.078
+  }
+ },
+ "protection": {
+  "plyxis": {
+   "cuts": {
+    "South 860 level|con:ventilation": 102,
+    "South 920 level|con:ventilation": 93,
+    "Central 860 level|con:ventilation": 88,
+    "Concentrator|con:capacity": 60,
+    "North 560 level|con:ventilation": 58,
+    "South 740 level|con:ventilation": 57,
+    "South 560 level|con:ventilation": 51,
+    "North 500 level|con:ventilation": 45,
+    "South 680 level|con:ventilation": 44,
+    "North 620 level|con:ventilation": 44,
+    "North 380 level|con:ventilation": 39,
+    "Central 800 level|con:ventilation": 38,
+    "Main fan South (VR3)|con:capacity": 37,
+    "Central 740 level|con:ventilation": 37,
+    "South 800 level|con:ventilation": 37,
+    "North 740 level|con:ventilation": 33,
+    "Main fan Central (VR2)|con:capacity": 27,
+    "Central 440 level|con:ventilation": 21,
+    "Central 560 level|con:ventilation": 17,
+    "Central 680 level|con:ventilation": 14,
+    "Main fan North (VR1)|con:capacity": 11,
+    "North 680 level|con:ventilation": 7
+   },
+   "underflow": {}
+  },
+  "legacy": {
+   "cuts": {
+    "Main fan North (VR1)|con:capacity": 147,
+    "Main fan South (VR3)|con:capacity": 141,
+    "Crusher North|con:capacity": 138,
+    "Main fan Central (VR2)|con:capacity": 121,
+    "Production shaft hoist|bin": 103,
+    "CV_N|con:capacity": 97,
+    "North 680 level|con:ventilation": 29,
+    "North 500 level|con:ventilation": 22,
+    "North 620 level|con:ventilation": 21,
+    "South 560 level|con:ventilation": 19,
+    "North 740 level|con:ventilation": 18,
+    "South 920 level|con:ventilation": 18,
+    "South 680 level|con:ventilation": 17,
+    "North 440 level|con:ventilation": 17,
+    "South 860 level|con:ventilation": 16,
+    "South 740 level|con:ventilation": 14,
+    "North 560 level|con:ventilation": 13
+   },
+   "underflow": {}
   }
  },
  "head_factor": {
-  "MILL": 1.000044345855713
+  "MILL": 1.0029383897781372
  },
  "margins": [
   {
@@ -190,103 +241,103 @@
    "t": 9.000000006,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.03333
+   "margin": 0.03562
   },
   {
    "t": 10.166666675,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.03389
+   "margin": 0.03255
   },
   {
    "t": 13.166666681,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.03228
+   "margin": 0.0192
   },
   {
    "t": 15.166666685,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.02312
+   "margin": 0.01571
   },
   {
    "t": 18.166666691,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.02538
+   "margin": 0.01537
   },
   {
    "t": 21.166666697,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01683
+   "margin": 0.01599
   },
   {
    "t": 24.166666703,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01564
+   "margin": 0.01505
   },
   {
    "t": 27.000000042,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01535
+   "margin": 0.01481
   },
   {
    "t": 30.000000048,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01383
+   "margin": 0.01196
   },
   {
    "t": 32.166666719,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01387
+   "margin": 0.01185
   },
   {
    "t": 35.166666725,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01239
+   "margin": 0.01171
   },
   {
    "t": 39.000000066,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01121
+   "margin": 0.01193
   },
   {
    "t": 42.000000072,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01057
+   "margin": 0.01157
   },
   {
    "t": 45.000000078,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01011
+   "margin": 0.01077
   },
   {
    "t": 46.166666747,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.00983
+   "margin": 0.01193
   },
   {
    "t": 49.166666753,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.01048
+   "margin": 0.01464
   },
   {
    "t": 52.166666759,
    "asset": "MILL",
    "param": "grade_margin",
-   "margin": 0.00998
+   "margin": 0.01655
   }
  ],
  "plans": [
@@ -295,9 +346,9 @@
    "t": 6.0,
    "clock": "Day 1 06:00",
    "trigger": "initial plan",
-   "objective": 7521261.0,
+   "objective": 7529025.0,
    "feasible": true,
-   "seconds": 604.1856537999993,
+   "seconds": 112.11174279999977,
    "variables": 4992
   },
   {
@@ -305,9 +356,9 @@
    "t": 9.000000006,
    "clock": "Day 1 09:00",
    "trigger": "rolling horizon",
-   "objective": 7466633.0,
+   "objective": 7330456.0,
    "feasible": true,
-   "seconds": 510.01959329999954,
+   "seconds": 95.7563244999983,
    "variables": 4992
   },
   {
@@ -315,9 +366,9 @@
    "t": 10.166666675,
    "clock": "Day 1 10:10",
    "trigger": "disruption detected",
-   "objective": 7495846.0,
+   "objective": 7448473.0,
    "feasible": true,
-   "seconds": 388.09950209999806,
+   "seconds": 101.0894690999994,
    "variables": 4992
   },
   {
@@ -325,9 +376,9 @@
    "t": 13.166666681,
    "clock": "Day 1 13:10",
    "trigger": "rolling horizon",
-   "objective": 7499301.5,
+   "objective": 7621494.0,
    "feasible": true,
-   "seconds": 283.15494610000314,
+   "seconds": 99.87931170000229,
    "variables": 4992
   },
   {
@@ -335,9 +386,9 @@
    "t": 15.166666685,
    "clock": "Day 1 15:10",
    "trigger": "disruption detected",
-   "objective": 7452986.5,
+   "objective": 7592192.0,
    "feasible": true,
-   "seconds": 180.55332790000102,
+   "seconds": 102.92628569999943,
    "variables": 4992
   },
   {
@@ -345,9 +396,9 @@
    "t": 18.166666691,
    "clock": "Day 1 18:10",
    "trigger": "rolling horizon",
-   "objective": 7416656.0,
+   "objective": 7205907.0,
    "feasible": true,
-   "seconds": 186.86754150000343,
+   "seconds": 234.6194484000007,
    "variables": 4992
   },
   {
@@ -355,9 +406,9 @@
    "t": 21.166666697,
    "clock": "Day 1 21:10",
    "trigger": "disruption detected",
-   "objective": 7487292.0,
+   "objective": 7276885.0,
    "feasible": true,
-   "seconds": 159.89824959999532,
+   "seconds": 103.14564229999814,
    "variables": 4992
   },
   {
@@ -365,9 +416,9 @@
    "t": 24.166666703,
    "clock": "Day 2 00:10",
    "trigger": "rolling horizon",
-   "objective": 7498792.0,
+   "objective": 7323023.5,
    "feasible": true,
-   "seconds": 136.05858470000385,
+   "seconds": 106.08649389999482,
    "variables": 4992
   },
   {
@@ -375,9 +426,9 @@
    "t": 27.000000042,
    "clock": "Day 2 03:00",
    "trigger": "market notice: power_price",
-   "objective": 7218422.0,
+   "objective": 7173914.5,
    "feasible": true,
-   "seconds": 130.96734619999916,
+   "seconds": 104.20061850000639,
    "variables": 4992
   },
   {
@@ -385,9 +436,9 @@
    "t": 30.000000048,
    "clock": "Day 2 06:00",
    "trigger": "rolling horizon",
-   "objective": 7256271.5,
+   "objective": 7341877.0,
    "feasible": true,
-   "seconds": 132.8062338000018,
+   "seconds": 106.19748979999713,
    "variables": 4992
   },
   {
@@ -395,9 +446,9 @@
    "t": 32.166666719,
    "clock": "Day 2 08:10",
    "trigger": "disruption detected",
-   "objective": 7179880.5,
+   "objective": 7149434.0,
    "feasible": true,
-   "seconds": 133.68691659999604,
+   "seconds": 108.15424740000162,
    "variables": 4992
   },
   {
@@ -405,9 +456,9 @@
    "t": 35.166666725,
    "clock": "Day 2 11:10",
    "trigger": "rolling horizon",
-   "objective": 7292001.5,
+   "objective": 7141092.0,
    "feasible": true,
-   "seconds": 145.8314268000031,
+   "seconds": 103.60923940000066,
    "variables": 4992
   },
   {
@@ -415,9 +466,9 @@
    "t": 36.00000006,
    "clock": "Day 2 12:00",
    "trigger": "twin rewritten (new asset)",
-   "objective": 7377451.5,
+   "objective": 7275168.0,
    "feasible": true,
-   "seconds": 134.89521889999742,
+   "seconds": 112.76563059999899,
    "variables": 5008
   },
   {
@@ -425,9 +476,9 @@
    "t": 39.000000066,
    "clock": "Day 2 15:00",
    "trigger": "rolling horizon",
-   "objective": 7397895.5,
+   "objective": 7299987.5,
    "feasible": true,
-   "seconds": 123.90723910000088,
+   "seconds": 125.27945529999852,
    "variables": 5008
   },
   {
@@ -435,9 +486,9 @@
    "t": 42.000000072,
    "clock": "Day 2 18:00",
    "trigger": "rolling horizon",
-   "objective": 7537695.5,
+   "objective": 7550824.5,
    "feasible": true,
-   "seconds": 144.27678379999998,
+   "seconds": 98.4203445000021,
    "variables": 5008
   },
   {
@@ -445,9 +496,9 @@
    "t": 45.000000078,
    "clock": "Day 2 21:00",
    "trigger": "rolling horizon",
-   "objective": 7599183.5,
+   "objective": 7430055.0,
    "feasible": true,
-   "seconds": 104.79212320000079,
+   "seconds": 100.11678530000063,
    "variables": 5008
   },
   {
@@ -455,9 +506,9 @@
    "t": 46.166666747,
    "clock": "Day 2 22:10",
    "trigger": "disruption detected",
-   "objective": 7563895.5,
+   "objective": 7429824.0,
    "feasible": true,
-   "seconds": 93.67888249999669,
+   "seconds": 96.97397420000198,
    "variables": 5008
   },
   {
@@ -465,9 +516,9 @@
    "t": 49.166666753,
    "clock": "Day 3 01:10",
    "trigger": "rolling horizon",
-   "objective": 7569354.0,
+   "objective": 7323481.5,
    "feasible": true,
-   "seconds": 58.91727439999522,
+   "seconds": 97.67754949999653,
    "variables": 5008
   },
   {
@@ -475,9 +526,9 @@
    "t": 52.166666759,
    "clock": "Day 3 04:10",
    "trigger": "rolling horizon",
-   "objective": 7556405.0,
+   "objective": 7293242.5,
    "feasible": true,
-   "seconds": 59.54716339999868,
+   "seconds": 107.3440305999975,
    "variables": 5008
   }
  ],
@@ -486,9 +537,9 @@
    "id": 1,
    "t": 6.0,
    "trigger": "initial plan",
-   "objective": 7521261.0,
+   "objective": 7529025.0,
    "feasible": true,
-   "seconds": 604.1856537999993,
+   "seconds": 112.11174279999977,
    "stages": [
     {
      "stage": "compile",
@@ -499,16 +550,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 214.61409780000395,
-     "objective": 7221130.0,
-     "max_violation": 0.006036896724253893,
+     "seconds": 31.652642599998217,
+     "objective": 7221882.5,
+     "max_violation": 0.006030387710779905,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 281.8728450999988,
-     "objective": 7307868.5,
-     "max_violation": 0.0011500781401991844,
+     "seconds": 35.69274410000071,
+     "objective": 7280404.5,
+     "max_violation": 0.001656718784943223,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -518,40 +569,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
+     "setup_s": 5.57,
      "sections_gain": 0,
      "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 31.873956600000383,
-     "objective": 7409395.0,
-     "max_violation": 0.0006332812481559813,
+     "seconds": 17.348169299999427,
+     "objective": 7397840.5,
+     "max_violation": 0.001291093765757978,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 73.42717700000503,
-     "objective": 7521261.0,
-     "max_violation": 3.738788620921696e-07,
+     "seconds": 26.067087299998093,
+     "objective": 7529025.0,
+     "max_violation": 3.799447085839347e-07,
      "variables": 4032,
      "rows": 16885,
-     "gain": 0.010626,
-     "lp_seconds": 8.624,
-     "jacobian_seconds": 61.272
+     "gain": 0.025037,
+     "lp_seconds": 5.409,
+     "jacobian_seconds": 19.48
     }
    ],
    "second_opinion": false,
-   "evals": 6915
+   "evals": 7549
   },
   {
    "id": 2,
    "t": 9.000000006,
    "trigger": "rolling horizon",
-   "objective": 7466633.0,
+   "objective": 7330456.0,
    "feasible": true,
-   "seconds": 510.01959329999954,
+   "seconds": 95.7563244999983,
    "stages": [
     {
      "stage": "compile",
@@ -562,16 +613,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 268.13647330000094,
-     "objective": 7431390.5,
-     "max_violation": 0.007406328339129686,
+     "seconds": 28.62753789999988,
+     "objective": 7271825.5,
+     "max_violation": 0.008356718346476555,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 159.48874980000255,
-     "objective": 7267718.0,
-     "max_violation": 0.00028618460055440664,
+     "seconds": 30.080157600001257,
+     "objective": 7228050.0,
+     "max_violation": 0.0009074218687601388,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -581,40 +632,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -27600,
+     "setup_s": 5.57,
+     "sections_gain": -16800,
      "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 30.22735050000483,
-     "objective": 7419199.5,
-     "max_violation": 0.0005335156456567347,
+     "seconds": 17.162616600006004,
+     "objective": 7287594.0,
+     "max_violation": 0.0005639062728732824,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 52.16402779999771,
-     "objective": 7466633.0,
-     "max_violation": 6.231314273463795e-07,
+     "seconds": 19.883737199997995,
+     "objective": 7330456.0,
+     "max_violation": 1.6125663933053147e-06,
      "variables": 4032,
      "rows": 16885,
-     "gain": 0.008229,
-     "lp_seconds": 14.642,
-     "jacobian_seconds": 34.276
+     "gain": 0.013879,
+     "lp_seconds": 8.971,
+     "jacobian_seconds": 9.637
     }
    ],
    "second_opinion": false,
-   "evals": 3627
+   "evals": 3629
   },
   {
    "id": 3,
    "t": 10.166666675,
    "trigger": "disruption detected",
-   "objective": 7495846.0,
+   "objective": 7448473.0,
    "feasible": true,
-   "seconds": 388.09950209999806,
+   "seconds": 101.0894690999994,
    "stages": [
     {
      "stage": "compile",
@@ -625,16 +676,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 195.35252419999597,
-     "objective": 7476357.0,
-     "max_violation": 0.00923195295035839,
+     "seconds": 30.84172120000585,
+     "objective": 7409357.5,
+     "max_violation": 0.007250937633216381,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 141.84334380000655,
-     "objective": 7291891.0,
-     "max_violation": 0.0013957812916487455,
+     "seconds": 33.36403710000013,
+     "objective": 7327945.0,
+     "max_violation": 0.004347578156739473,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -644,40 +695,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": 0,
-     "sections_accepted": false
+     "setup_s": 5.57,
+     "sections_gain": -49158,
+     "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 24.504568199998175,
-     "objective": 7476200.0,
-     "max_violation": 0.001067343750037253,
+     "seconds": 17.23730500000238,
+     "objective": 7422856.5,
+     "max_violation": 0.0018053124658763409,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 26.396226600001683,
-     "objective": 7495846.0,
-     "max_violation": 1.7600010551177547e-06,
+     "seconds": 19.641112299999804,
+     "objective": 7448473.0,
+     "max_violation": 8.100708441816096e-07,
      "variables": 4032,
      "rows": 16885,
-     "gain": 0.0229,
-     "lp_seconds": 11.307,
-     "jacobian_seconds": 13.259
+     "gain": 0.031078,
+     "lp_seconds": 11.971,
+     "jacobian_seconds": 6.335
     }
    ],
    "second_opinion": false,
-   "evals": 3011
+   "evals": 3017
   },
   {
    "id": 4,
    "t": 13.166666681,
    "trigger": "rolling horizon",
-   "objective": 7499301.5,
+   "objective": 7621494.0,
    "feasible": true,
-   "seconds": 283.15494610000314,
+   "seconds": 99.87931170000229,
    "stages": [
     {
      "stage": "compile",
@@ -688,16 +739,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 130.30932310000208,
-     "objective": 7458216.5,
-     "max_violation": 0.018581818789243698,
+     "seconds": 28.954028000000108,
+     "objective": 7578672.0,
+     "max_violation": 0.008784218691289425,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 97.88903379999829,
-     "objective": 7453596.0,
-     "max_violation": 0.002381953177973628,
+     "seconds": 33.467028799997934,
+     "objective": 7348066.5,
+     "max_violation": 0.004252840764820576,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -707,40 +758,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": 0,
-     "sections_accepted": false
+     "setup_s": 5.57,
+     "sections_gain": -86951,
+     "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 21.796795899994322,
-     "objective": 7478604.5,
-     "max_violation": 0.001174453180283308,
+     "seconds": 17.283930199999304,
+     "objective": 7593057.5,
+     "max_violation": 0.0006342187407426536,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 33.157534199999645,
-     "objective": 7499301.5,
-     "max_violation": 6.854445473436499e-07,
+     "seconds": 20.172872500006633,
+     "objective": 7621494.0,
+     "max_violation": 9.908010270009981e-07,
      "variables": 4032,
      "rows": 16885,
-     "gain": 0.017789,
-     "lp_seconds": 18.038,
-     "jacobian_seconds": 12.855
+     "gain": 0.017762,
+     "lp_seconds": 12.087,
+     "jacobian_seconds": 6.73
     }
    ],
    "second_opinion": false,
-   "evals": 3008
+   "evals": 3018
   },
   {
    "id": 5,
    "t": 15.166666685,
    "trigger": "disruption detected",
-   "objective": 7452986.5,
+   "objective": 7592192.0,
    "feasible": true,
-   "seconds": 180.55332790000102,
+   "seconds": 102.92628569999943,
    "stages": [
     {
      "stage": "compile",
@@ -751,16 +802,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 77.4687883000006,
-     "objective": 7529873.0,
-     "max_violation": 0.006223828066140413,
+     "seconds": 28.5828302000009,
+     "objective": 7616025.5,
+     "max_violation": 0.009393749758601189,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 46.29621100000077,
-     "objective": 7351827.5,
-     "max_violation": 0.00024156250583473593,
+     "seconds": 31.72598149999976,
+     "objective": 7425124.5,
+     "max_violation": 0.0002338316262466833,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -770,229 +821,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
+     "setup_s": 5.57,
      "sections_gain": 0,
      "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 20.24039510000148,
-     "objective": 7452986.5,
-     "max_violation": 0.001143043045885861,
+     "seconds": 17.20164589999331,
+     "objective": 7592192.0,
+     "max_violation": 0.00037394679384306073,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 36.544828099998995,
-     "objective": 7452986.5,
-     "max_violation": 0.001143043045885861,
+     "seconds": 25.41395570000168,
+     "objective": 7592192.0,
+     "max_violation": 0.00037394679384306073,
      "variables": 4032,
      "rows": 16885,
      "gain": 0.0,
-     "lp_seconds": 12.758,
-     "jacobian_seconds": 22.662
-    }
-   ],
-   "second_opinion": false,
-   "evals": 4896
-  },
-  {
-   "id": 6,
-   "t": 18.166666691,
-   "trigger": "rolling horizon",
-   "objective": 7416656.0,
-   "feasible": true,
-   "seconds": 186.86754150000343,
-   "stages": [
-    {
-     "stage": "compile",
-     "seconds": 0.0,
-     "variables": 4992,
-     "discrete": 744,
-     "subsystems": 386
-    },
-    {
-     "stage": "relaxation",
-     "seconds": 87.19050920000154,
-     "objective": 7449422.5,
-     "max_violation": 0.007724609225988388,
-     "starts": 4
-    },
-    {
-     "stage": "discrete",
-     "seconds": 43.52372040000046,
-     "objective": 7331831.0,
-     "max_violation": 0.009029687382280827,
-     "method": "ga",
-     "population": 8,
-     "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
-     "colours": 10,
-     "discrete_units": 744,
-     "filter_spearman": 0.067,
-     "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -39901,
-     "sections_accepted": true
-    },
-    {
-     "stage": "polish",
-     "seconds": 22.706716199994844,
-     "objective": 7416656.0,
-     "max_violation": 0.0012229687999933958,
-     "restored": false,
-     "kept_running_plan": false
-    },
-    {
-     "stage": "branches",
-     "seconds": 33.44379099999787,
-     "objective": 7416656.0,
-     "max_violation": 0.0012229687999933958,
-     "variables": 4032,
-     "rows": 16885,
-     "gain": 0.0,
-     "lp_seconds": 9.021,
-     "jacobian_seconds": 23.286
-    }
-   ],
-   "second_opinion": false,
-   "evals": 4905
-  },
-  {
-   "id": 7,
-   "t": 21.166666697,
-   "trigger": "disruption detected",
-   "objective": 7487292.0,
-   "feasible": true,
-   "seconds": 159.89824959999532,
-   "stages": [
-    {
-     "stage": "compile",
-     "seconds": 0.0,
-     "variables": 4992,
-     "discrete": 744,
-     "subsystems": 386
-    },
-    {
-     "stage": "relaxation",
-     "seconds": 51.41935069999454,
-     "objective": 7445553.0,
-     "max_violation": 0.003729843767359853,
-     "starts": 4
-    },
-    {
-     "stage": "discrete",
-     "seconds": 43.86781879999762,
-     "objective": 7411974.5,
-     "max_violation": 0.001996640581637621,
-     "method": "ga",
-     "population": 8,
-     "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
-     "colours": 10,
-     "discrete_units": 744,
-     "filter_spearman": 0.067,
-     "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -10250,
-     "sections_accepted": true
-    },
-    {
-     "stage": "polish",
-     "seconds": 23.486004700003832,
-     "objective": 7487292.0,
-     "max_violation": 0.000867109396494925,
-     "restored": false,
-     "kept_running_plan": false
-    },
-    {
-     "stage": "branches",
-     "seconds": 41.122169700000086,
-     "objective": 7487292.0,
-     "max_violation": 0.000867109396494925,
-     "variables": 4032,
-     "rows": 16885,
-     "gain": 0.0,
-     "lp_seconds": 8.784,
-     "jacobian_seconds": 30.731
-    }
-   ],
-   "second_opinion": false,
-   "evals": 4897
-  },
-  {
-   "id": 8,
-   "t": 24.166666703,
-   "trigger": "rolling horizon",
-   "objective": 7498792.0,
-   "feasible": true,
-   "seconds": 136.05858470000385,
-   "stages": [
-    {
-     "stage": "compile",
-     "seconds": 0.0,
-     "variables": 4992,
-     "discrete": 744,
-     "subsystems": 386
-    },
-    {
-     "stage": "relaxation",
-     "seconds": 38.32748939999874,
-     "objective": 7452656.0,
-     "max_violation": 0.0037196094635874033,
-     "starts": 4
-    },
-    {
-     "stage": "discrete",
-     "seconds": 36.1490696999972,
-     "objective": 7472933.5,
-     "max_violation": 0.0016059374902397394,
-     "method": "ga",
-     "population": 8,
-     "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
-     "colours": 10,
-     "discrete_units": 744,
-     "filter_spearman": 0.067,
-     "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": 0,
-     "sections_accepted": false
-    },
-    {
-     "stage": "polish",
-     "seconds": 20.272218400001293,
-     "objective": 7498792.0,
-     "max_violation": 0.0008226562640629709,
-     "restored": false,
-     "kept_running_plan": false
-    },
-    {
-     "stage": "branches",
-     "seconds": 41.307652399998915,
-     "objective": 7498792.0,
-     "max_violation": 0.0008226562640629709,
-     "variables": 4032,
-     "rows": 16885,
-     "gain": 0.0,
-     "lp_seconds": 9.459,
-     "jacobian_seconds": 30.399
+     "lp_seconds": 7.613,
+     "jacobian_seconds": 16.954
     }
    ],
    "second_opinion": false,
    "evals": 4904
   },
   {
-   "id": 9,
-   "t": 27.000000042,
-   "trigger": "market notice: power_price",
-   "objective": 7218422.0,
+   "id": 6,
+   "t": 18.166666691,
+   "trigger": "rolling horizon",
+   "objective": 7205907.0,
    "feasible": true,
-   "seconds": 130.96734619999916,
+   "seconds": 234.6194484000007,
    "stages": [
     {
      "stage": "compile",
@@ -1003,16 +865,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 41.33630209999683,
-     "objective": 7187127.5,
-     "max_violation": 0.005665040109306574,
+     "seconds": 31.603478400000313,
+     "objective": 7265054.5,
+     "max_violation": 0.004178984556347132,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 39.456890000001295,
-     "objective": 7101816.0,
-     "max_violation": 0.007512968964874744,
+     "seconds": 31.381846099997347,
+     "objective": 7205907.0,
+     "max_violation": 0.0007914843736216426,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -1022,40 +884,233 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -84989,
-     "sections_accepted": true
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 21.484413399994082,
-     "objective": 7218422.0,
-     "max_violation": 0.0006885156035423279,
+     "seconds": 16.867534500001057,
+     "objective": 7205907.0,
+     "max_violation": 0.0007914843736216426,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 28.687031399997068,
-     "objective": 7218422.0,
-     "max_violation": 0.0006885156035423279,
+     "seconds": 25.197229999997944,
+     "objective": 7205907.0,
+     "max_violation": 0.0007914843736216426,
      "variables": 4032,
      "rows": 16885,
      "gain": 0.0,
-     "lp_seconds": 8.027,
-     "jacobian_seconds": 19.688
+     "lp_seconds": 7.247,
+     "jacobian_seconds": 17.093
+    }
+   ],
+   "second_opinion": {
+    "first": 7189166.0,
+    "second": 7205907.0,
+    "kept": "second"
+   },
+   "evals": 4904
+  },
+  {
+   "id": 7,
+   "t": 21.166666697,
+   "trigger": "disruption detected",
+   "objective": 7276885.0,
+   "feasible": true,
+   "seconds": 103.14564229999814,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 30.51253080000606,
+     "objective": 7230924.0,
+     "max_violation": 0.005708984564989805,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 30.787682700000005,
+     "objective": 7172248.5,
+     "max_violation": 0.001974609447643161,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.067,
+     "filter_pairs": 400,
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 16.720744800004468,
+     "objective": 7276885.0,
+     "max_violation": 0.001356562483124435,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 25.122707599999558,
+     "objective": 7276885.0,
+     "max_violation": 0.001356562483124435,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 7.024,
+     "jacobian_seconds": 17.252
     }
    ],
    "second_opinion": false,
-   "evals": 4893
+   "evals": 4896
+  },
+  {
+   "id": 8,
+   "t": 24.166666703,
+   "trigger": "rolling horizon",
+   "objective": 7323023.5,
+   "feasible": true,
+   "seconds": 106.08649389999482,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 31.330853299994487,
+     "objective": 7346500.0,
+     "max_violation": 0.007891484536230564,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 30.57165030000033,
+     "objective": 7323023.5,
+     "max_violation": 0.0018968749791383743,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.067,
+     "filter_pairs": 400,
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 17.261283400002867,
+     "objective": 7323023.5,
+     "max_violation": 0.0018968749791383743,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 26.920585400002892,
+     "objective": 7323023.5,
+     "max_violation": 0.0018968749791383743,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 8.641,
+     "jacobian_seconds": 17.394
+    }
+   ],
+   "second_opinion": false,
+   "evals": 4896
+  },
+  {
+   "id": 9,
+   "t": 27.000000042,
+   "trigger": "market notice: power_price",
+   "objective": 7173914.5,
+   "feasible": true,
+   "seconds": 104.20061850000639,
+   "stages": [
+    {
+     "stage": "compile",
+     "seconds": 0.0,
+     "variables": 4992,
+     "discrete": 744,
+     "subsystems": 386
+    },
+    {
+     "stage": "relaxation",
+     "seconds": 28.963321499999438,
+     "objective": 7146773.5,
+     "max_violation": 0.008179687894880772,
+     "starts": 4
+    },
+    {
+     "stage": "discrete",
+     "seconds": 30.506624199995713,
+     "objective": 7033603.5,
+     "max_violation": 0.0012219530763104558,
+     "method": "ga",
+     "population": 8,
+     "generations": 1,
+     "sections": 46,
+     "largest_section": 6,
+     "colours": 10,
+     "discrete_units": 744,
+     "filter_spearman": 0.067,
+     "filter_pairs": 400,
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
+    },
+    {
+     "stage": "polish",
+     "seconds": 17.697116900002584,
+     "objective": 7173914.5,
+     "max_violation": 0.001678671920672059,
+     "restored": false,
+     "kept_running_plan": false
+    },
+    {
+     "stage": "branches",
+     "seconds": 27.0315574999986,
+     "objective": 7173914.5,
+     "max_violation": 0.001678671920672059,
+     "variables": 4032,
+     "rows": 16885,
+     "gain": 0.0,
+     "lp_seconds": 8.03,
+     "jacobian_seconds": 18.017
+    }
+   ],
+   "second_opinion": false,
+   "evals": 4896
   },
   {
    "id": 10,
    "t": 30.000000048,
    "trigger": "rolling horizon",
-   "objective": 7256271.5,
+   "objective": 7341877.0,
    "feasible": true,
-   "seconds": 132.8062338000018,
+   "seconds": 106.19748979999713,
    "stages": [
     {
      "stage": "compile",
@@ -1066,16 +1121,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 38.27791309999884,
-     "objective": 7181155.0,
-     "max_violation": 0.0014937500236555934,
+     "seconds": 30.247037900000578,
+     "objective": 7319501.0,
+     "max_violation": 0.0075845313258469105,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 36.75832559999981,
-     "objective": 7216547.0,
-     "max_violation": 0.0012150781694799662,
+     "seconds": 30.332044399998267,
+     "objective": 7280849.5,
+     "max_violation": 0.004999843891710043,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -1085,40 +1140,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -13800,
-     "sections_accepted": true
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 21.328023699999903,
-     "objective": 7256271.5,
-     "max_violation": 0.0013428906677290797,
+     "seconds": 18.069682000001194,
+     "objective": 7341877.0,
+     "max_violation": 0.0017049218295142055,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 36.43990720000147,
-     "objective": 7256271.5,
-     "max_violation": 0.0013428906677290797,
+     "seconds": 27.546035300001677,
+     "objective": 7341877.0,
+     "max_violation": 0.0017049218295142055,
      "variables": 4032,
      "rows": 16885,
      "gain": 0.0,
-     "lp_seconds": 9.286,
-     "jacobian_seconds": 25.801
+     "lp_seconds": 8.689,
+     "jacobian_seconds": 17.952
     }
    ],
    "second_opinion": false,
-   "evals": 4897
+   "evals": 4888
   },
   {
    "id": 11,
    "t": 32.166666719,
    "trigger": "disruption detected",
-   "objective": 7179880.5,
+   "objective": 7149434.0,
    "feasible": true,
-   "seconds": 133.68691659999604,
+   "seconds": 108.15424740000162,
    "stages": [
     {
      "stage": "compile",
@@ -1129,16 +1184,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 37.56149729999743,
-     "objective": 7215878.0,
-     "max_violation": 0.008180937729775906,
+     "seconds": 28.80587209999794,
+     "objective": 7140267.0,
+     "max_violation": 0.0032135937362909317,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 40.267747800004145,
-     "objective": 7066200.0,
-     "max_violation": 0.006527343764901161,
+     "seconds": 32.70039230000111,
+     "objective": 7021092.5,
+     "max_violation": 0.0011377343907952309,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -1148,40 +1203,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": -30111,
+     "setup_s": 5.57,
+     "sections_gain": -12675,
      "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 22.599968599999556,
-     "objective": 7179880.5,
-     "max_violation": 0.000760468770749867,
+     "seconds": 18.451048599999922,
+     "objective": 7149434.0,
+     "max_violation": 0.0006571874837391078,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 33.255455899998196,
-     "objective": 7179880.5,
-     "max_violation": 0.000760468770749867,
+     "seconds": 28.194936499996402,
+     "objective": 7149434.0,
+     "max_violation": 0.0006571874837391078,
      "variables": 4032,
      "rows": 16885,
      "gain": 0.0,
-     "lp_seconds": 11.12,
-     "jacobian_seconds": 21.099
+     "lp_seconds": 9.441,
+     "jacobian_seconds": 17.819
     }
    ],
    "second_opinion": false,
-   "evals": 4908
+   "evals": 4905
   },
   {
    "id": 12,
    "t": 35.166666725,
    "trigger": "rolling horizon",
-   "objective": 7292001.5,
+   "objective": 7141092.0,
    "feasible": true,
-   "seconds": 145.8314268000031,
+   "seconds": 103.60923940000066,
    "stages": [
     {
      "stage": "compile",
@@ -1192,16 +1247,16 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 52.818440900002315,
-     "objective": 7203380.0,
-     "max_violation": 0.005249609239399433,
+     "seconds": 29.59443819999433,
+     "objective": 7113440.5,
+     "max_violation": 0.006978437304496765,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 41.42584699999861,
-     "objective": 7150768.0,
-     "max_violation": 0.0011564843589439988,
+     "seconds": 30.217367999997805,
+     "objective": 7127111.5,
+     "max_violation": 0.0009653133456595242,
      "method": "ga",
      "population": 8,
      "generations": 1,
@@ -1211,40 +1266,40 @@
      "discrete_units": 744,
      "filter_spearman": 0.067,
      "filter_pairs": 400,
-     "setup_s": 74.62,
-     "sections_gain": 11752,
-     "sections_accepted": true
+     "setup_s": 5.57,
+     "sections_gain": 0,
+     "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 21.75984530000278,
-     "objective": 7292001.5,
-     "max_violation": 0.001533515634946525,
+     "seconds": 17.34346910000022,
+     "objective": 7141092.0,
+     "max_violation": 0.0008583473972976208,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 29.824260700006562,
-     "objective": 7292001.5,
-     "max_violation": 0.001533515634946525,
+     "seconds": 26.452016600000206,
+     "objective": 7141092.0,
+     "max_violation": 0.0008583473972976208,
      "variables": 4032,
      "rows": 16885,
      "gain": 0.0,
-     "lp_seconds": 9.079,
-     "jacobian_seconds": 19.742
+     "lp_seconds": 7.77,
+     "jacobian_seconds": 17.806
     }
    ],
    "second_opinion": false,
-   "evals": 4889
+   "evals": 4888
   },
   {
    "id": 13,
    "t": 36.00000006,
    "trigger": "twin rewritten (new asset)",
-   "objective": 7377451.5,
+   "objective": 7275168.0,
    "feasible": true,
-   "seconds": 134.89521889999742,
+   "seconds": 112.76563059999899,
    "stages": [
     {
      "stage": "compile",
@@ -1255,59 +1310,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 35.20997759999591,
-     "objective": 7274242.0,
-     "max_violation": 0.005257890559732914,
+     "seconds": 29.563406699999177,
+     "objective": 7194888.0,
+     "max_violation": 0.004184062592685223,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 48.698571699998865,
-     "objective": 7170638.0,
-     "max_violation": 0.0012879687128588557,
+     "seconds": 33.33256280000205,
+     "objective": 7178519.0,
+     "max_violation": 0.002098281169310212,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
-     "sections_gain": 11925,
-     "sections_accepted": true
+     "setup_s": 5.09,
+     "sections_gain": 0,
+     "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 20.994596500000625,
-     "objective": 7279899.5,
-     "max_violation": 0.00041726563358679414,
+     "seconds": 17.502715000002354,
+     "objective": 7234947.0,
+     "max_violation": 0.001077187480404973,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 29.989563399998588,
-     "objective": 7377451.5,
-     "max_violation": 2.749632812992786e-06,
+     "seconds": 32.364855899999384,
+     "objective": 7275168.0,
+     "max_violation": 4.259510433257674e-07,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.009021,
-     "lp_seconds": 13.991,
-     "jacobian_seconds": 14.342
+     "gain": 0.026891,
+     "lp_seconds": 14.65,
+     "jacobian_seconds": 16.394
     }
    ],
    "second_opinion": false,
-   "evals": 7004
+   "evals": 7144
   },
   {
    "id": 14,
    "t": 39.000000066,
    "trigger": "rolling horizon",
-   "objective": 7397895.5,
+   "objective": 7299987.5,
    "feasible": true,
-   "seconds": 123.90723910000088,
+   "seconds": 125.27945529999852,
    "stages": [
     {
      "stage": "compile",
@@ -1318,59 +1373,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 36.844795899996825,
-     "objective": 7293638.0,
-     "max_violation": 0.0018015624955296516,
+     "seconds": 27.983130699998583,
+     "objective": 7252250.5,
+     "max_violation": 0.004887593910098076,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 47.02622960000008,
-     "objective": 7257780.5,
-     "max_violation": 0.0011021093232557178,
+     "seconds": 30.14485660000355,
+     "objective": 7059518.0,
+     "max_violation": 0.004087656270712614,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
+     "setup_s": 5.09,
      "sections_gain": 0,
      "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 18.920438499997545,
-     "objective": 7360322.0,
-     "max_violation": 0.0013235533842816949,
-     "restored": false,
+     "seconds": 44.81588020000345,
+     "objective": 7116351.5,
+     "max_violation": 0.002232031198218465,
+     "restored": true,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 21.112648399997852,
-     "objective": 7397895.5,
-     "max_violation": 4.81840334032313e-06,
+     "seconds": 22.333768099997542,
+     "objective": 7299987.5,
+     "max_violation": 3.023755652975524e-06,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.05031,
-     "lp_seconds": 11.762,
-     "jacobian_seconds": 7.98
+     "gain": 0.025015,
+     "lp_seconds": 10.664,
+     "jacobian_seconds": 10.204
     }
    ],
    "second_opinion": false,
-   "evals": 3011
+   "evals": 3293
   },
   {
    "id": 15,
    "t": 42.000000072,
    "trigger": "rolling horizon",
-   "objective": 7537695.5,
+   "objective": 7550824.5,
    "feasible": true,
-   "seconds": 144.27678379999998,
+   "seconds": 98.4203445000021,
    "stages": [
     {
      "stage": "compile",
@@ -1381,59 +1436,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 47.92535119999957,
-     "objective": 7395338.0,
-     "max_violation": 0.018202736973762512,
+     "seconds": 28.44186649999756,
+     "objective": 7482383.5,
+     "max_violation": 0.0029109374154359102,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 53.74740999999631,
-     "objective": 7482581.5,
-     "max_violation": 0.0006793750217184424,
+     "seconds": 27.69372260000091,
+     "objective": 7322978.5,
+     "max_violation": 0.0004394531133584678,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
+     "setup_s": 5.09,
      "sections_gain": 0,
      "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 18.726657299994258,
-     "objective": 7482581.5,
-     "max_violation": 0.0006793750217184424,
+     "seconds": 17.239272599996184,
+     "objective": 7417372.0,
+     "max_violation": 0.0006019531283527613,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 23.875118299998576,
-     "objective": 7537695.5,
-     "max_violation": 2.245061295980122e-06,
+     "seconds": 25.043455800005177,
+     "objective": 7550824.5,
+     "max_violation": 1.5201391079244786e-06,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.009101,
-     "lp_seconds": 14.77,
-     "jacobian_seconds": 7.587
+     "gain": 0.017353,
+     "lp_seconds": 10.416,
+     "jacobian_seconds": 13.352
     }
    ],
    "second_opinion": false,
-   "evals": 3008
+   "evals": 3796
   },
   {
    "id": 16,
    "t": 45.000000078,
    "trigger": "rolling horizon",
-   "objective": 7599183.5,
+   "objective": 7430055.0,
    "feasible": true,
-   "seconds": 104.79212320000079,
+   "seconds": 100.11678530000063,
    "stages": [
     {
      "stage": "compile",
@@ -1444,59 +1499,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 32.19149800000014,
-     "objective": 7474605.5,
-     "max_violation": 0.014016800560057163,
+     "seconds": 29.040052299998933,
+     "objective": 7339265.5,
+     "max_violation": 0.0022794532123953104,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 31.784505499999796,
-     "objective": 7506019.0,
-     "max_violation": 0.00025781249860301614,
+     "seconds": 28.895381299997098,
+     "objective": 7288978.5,
+     "max_violation": 0.0016167968278750777,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
+     "setup_s": 5.09,
      "sections_gain": 0,
      "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 17.99066770000354,
-     "objective": 7584152.5,
-     "max_violation": 0.0008867187425494194,
+     "seconds": 18.96050130000367,
+     "objective": 7288978.5,
+     "max_violation": 0.0016167968278750777,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 22.823309400002472,
-     "objective": 7599183.5,
-     "max_violation": 9.812150665311492e-07,
+     "seconds": 23.21879149999586,
+     "objective": 7430055.0,
+     "max_violation": 9.45452370615385e-07,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.011311,
-     "lp_seconds": 14.377,
-     "jacobian_seconds": 6.937
+     "gain": 0.025923,
+     "lp_seconds": 11.276,
+     "jacobian_seconds": 10.448
     }
    ],
    "second_opinion": false,
-   "evals": 3016
+   "evals": 3154
   },
   {
    "id": 17,
    "t": 46.166666747,
    "trigger": "disruption detected",
-   "objective": 7563895.5,
+   "objective": 7429824.0,
    "feasible": true,
-   "seconds": 93.67888249999669,
+   "seconds": 96.97397420000198,
    "stages": [
     {
      "stage": "compile",
@@ -1507,59 +1562,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 31.858964200000628,
-     "objective": 7496582.5,
-     "max_violation": 0.0027528125792741776,
+     "seconds": 28.84333609999885,
+     "objective": 7360304.5,
+     "max_violation": 0.004593125078827143,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 26.884426800002984,
-     "objective": 7466135.0,
-     "max_violation": 0.004590017255395651,
+     "seconds": 28.841552600002615,
+     "objective": 7275935.5,
+     "max_violation": 0.004742040298879147,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
-     "sections_gain": 135166,
-     "sections_accepted": true
+     "setup_s": 5.09,
+     "sections_gain": 0,
+     "sections_accepted": false
     },
     {
      "stage": "polish",
-     "seconds": 15.16075969999656,
-     "objective": 7531243.5,
-     "max_violation": 0.0008236718713305891,
+     "seconds": 16.342286300001433,
+     "objective": 7398914.5,
+     "max_violation": 0.0006754687638022006,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 19.77231749999919,
-     "objective": 7563895.5,
-     "max_violation": 1.6790455674708937e-06,
+     "seconds": 22.94473100000323,
+     "objective": 7429824.0,
+     "max_violation": 8.906211519388307e-07,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.026903,
-     "lp_seconds": 10.041,
-     "jacobian_seconds": 8.218
+     "gain": 0.011189,
+     "lp_seconds": 11.637,
+     "jacobian_seconds": 9.976
     }
    ],
    "second_opinion": false,
-   "evals": 3657
+   "evals": 3162
   },
   {
    "id": 18,
    "t": 49.166666753,
    "trigger": "rolling horizon",
-   "objective": 7569354.0,
+   "objective": 7323481.5,
    "feasible": true,
-   "seconds": 58.91727439999522,
+   "seconds": 97.67754949999653,
    "stages": [
     {
      "stage": "compile",
@@ -1570,59 +1625,59 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 17.7137212000016,
-     "objective": 7515155.5,
-     "max_violation": 0.018393559381365776,
+     "seconds": 28.31170640000346,
+     "objective": 7287763.5,
+     "max_violation": 0.007045078091323376,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 18.96235660000093,
-     "objective": 7363317.5,
-     "max_violation": 0.0005329687264747918,
+     "seconds": 29.508896300001652,
+     "objective": 7193531.0,
+     "max_violation": 0.0006592187564820051,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
-     "sections_gain": 0,
-     "sections_accepted": false
+     "setup_s": 5.09,
+     "sections_gain": -52200,
+     "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 10.826018300002033,
-     "objective": 7551833.5,
-     "max_violation": 0.0019528125412762165,
+     "seconds": 16.660890999999538,
+     "objective": 7283869.0,
+     "max_violation": 0.0016315624816343188,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 11.414182799999253,
-     "objective": 7569354.0,
-     "max_violation": 3.851002020383021e-06,
+     "seconds": 23.194009099999676,
+     "objective": 7323481.5,
+     "max_violation": 1.4459859585258528e-06,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.016233,
-     "lp_seconds": 6.335,
-     "jacobian_seconds": 4.177
+     "gain": 0.026704,
+     "lp_seconds": 11.224,
+     "jacobian_seconds": 10.539
     }
    ],
    "second_opinion": false,
-   "evals": 3024
+   "evals": 3184
   },
   {
    "id": 19,
    "t": 52.166666759,
    "trigger": "rolling horizon",
-   "objective": 7556405.0,
+   "objective": 7293242.5,
    "feasible": true,
-   "seconds": 59.54716339999868,
+   "seconds": 107.3440305999975,
    "stages": [
     {
      "stage": "compile",
@@ -1633,51 +1688,51 @@
     },
     {
      "stage": "relaxation",
-     "seconds": 17.519029600000067,
-     "objective": 7522823.5,
-     "max_violation": 0.0055870311334729195,
+     "seconds": 28.602254799996444,
+     "objective": 7261840.0,
+     "max_violation": 0.0038295311387628317,
      "starts": 4
     },
     {
      "stage": "discrete",
-     "seconds": 18.80349330000172,
-     "objective": 7369782.0,
-     "max_violation": 0.00023604715534020215,
+     "seconds": 31.14879249999649,
+     "objective": 7056356.0,
+     "max_violation": 0.00027210937696509063,
      "method": "ga",
      "population": 8,
      "generations": 1,
-     "sections": 46,
-     "largest_section": 6,
+     "sections": 187,
+     "largest_section": 1,
      "colours": 10,
      "discrete_units": 748,
-     "filter_spearman": 0.056,
+     "filter_spearman": 0.07,
      "filter_pairs": 400,
-     "setup_s": 7.78,
-     "sections_gain": 0,
-     "sections_accepted": false
+     "setup_s": 5.09,
+     "sections_gain": 10800,
+     "sections_accepted": true
     },
     {
      "stage": "polish",
-     "seconds": 10.971025000006193,
-     "objective": 7369782.0,
-     "max_violation": 0.00023604715534020215,
+     "seconds": 18.86571279999771,
+     "objective": 7254060.0,
+     "max_violation": 0.0010053125442937016,
      "restored": false,
      "kept_running_plan": false
     },
     {
      "stage": "branches",
-     "seconds": 12.252247899996291,
-     "objective": 7556405.0,
-     "max_violation": 1.7785106365408865e-06,
+     "seconds": 28.72497260000091,
+     "objective": 7293242.5,
+     "max_violation": 0.0007152442703954875,
      "variables": 4044,
      "rows": 17173,
-     "gain": 0.013191,
-     "lp_seconds": 7.086,
-     "jacobian_seconds": 4.232
+     "gain": 0.009166,
+     "lp_seconds": 18.194,
+     "jacobian_seconds": 9.281
     }
    ],
    "second_opinion": false,
-   "evals": 3024
+   "evals": 3179
   }
  ],
  "timeline": [
@@ -1686,14 +1741,14 @@
    "clock": "Day 1 06:00",
    "kind": "plan",
    "title": "Re-plan #1 (initial plan)",
-   "text": "4,992 decisions optimised in 604.2 s"
+   "text": "4,992 decisions optimised in 112.1 s"
   },
   {
    "t": 9.000000006,
    "clock": "Day 1 09:00",
    "kind": "plan",
    "title": "Re-plan #2 (rolling horizon)",
-   "text": "4,992 decisions optimised in 510.0 s"
+   "text": "4,992 decisions optimised in 95.8 s"
   },
   {
    "t": 10.000000008,
@@ -1709,14 +1764,14 @@
    "clock": "Day 1 10:10",
    "kind": "plan",
    "title": "Re-plan #3 (disruption detected)",
-   "text": "4,992 decisions optimised in 388.1 s"
+   "text": "4,992 decisions optimised in 101.1 s"
   },
   {
    "t": 13.166666681,
    "clock": "Day 1 13:10",
    "kind": "plan",
    "title": "Re-plan #4 (rolling horizon)",
-   "text": "4,992 decisions optimised in 283.2 s"
+   "text": "4,992 decisions optimised in 99.9 s"
   },
   {
    "t": 15.000000018,
@@ -1732,7 +1787,7 @@
    "clock": "Day 1 15:10",
    "kind": "plan",
    "title": "Re-plan #5 (disruption detected)",
-   "text": "4,992 decisions optimised in 180.6 s"
+   "text": "4,992 decisions optimised in 102.9 s"
   },
   {
    "t": 16.00000002,
@@ -1748,7 +1803,7 @@
    "clock": "Day 1 18:10",
    "kind": "plan",
    "title": "Re-plan #6 (rolling horizon)",
-   "text": "4,992 decisions optimised in 186.9 s"
+   "text": "4,992 decisions optimised in 234.6 s"
   },
   {
    "t": 21.00000003,
@@ -1764,14 +1819,14 @@
    "clock": "Day 1 21:10",
    "kind": "plan",
    "title": "Re-plan #7 (disruption detected)",
-   "text": "4,992 decisions optimised in 159.9 s"
+   "text": "4,992 decisions optimised in 103.1 s"
   },
   {
    "t": 24.166666703,
    "clock": "Day 2 00:10",
    "kind": "plan",
    "title": "Re-plan #8 (rolling horizon)",
-   "text": "4,992 decisions optimised in 136.1 s"
+   "text": "4,992 decisions optimised in 106.1 s"
   },
   {
    "t": 26.00000004,
@@ -1794,14 +1849,14 @@
    "clock": "Day 2 03:00",
    "kind": "plan",
    "title": "Re-plan #9 (market notice: power_price)",
-   "text": "4,992 decisions optimised in 131.0 s"
+   "text": "4,992 decisions optimised in 104.2 s"
   },
   {
    "t": 30.000000048,
    "clock": "Day 2 06:00",
    "kind": "plan",
    "title": "Re-plan #10 (rolling horizon)",
-   "text": "4,992 decisions optimised in 132.8 s"
+   "text": "4,992 decisions optimised in 106.2 s"
   },
   {
    "t": 32.000000052,
@@ -1817,7 +1872,7 @@
    "clock": "Day 2 08:10",
    "kind": "plan",
    "title": "Re-plan #11 (disruption detected)",
-   "text": "4,992 decisions optimised in 133.7 s"
+   "text": "4,992 decisions optimised in 108.2 s"
   },
   {
    "t": 35.000000058,
@@ -1833,7 +1888,7 @@
    "clock": "Day 2 11:10",
    "kind": "plan",
    "title": "Re-plan #12 (rolling horizon)",
-   "text": "4,992 decisions optimised in 145.8 s"
+   "text": "4,992 decisions optimised in 103.6 s"
   },
   {
    "t": 36.00000006,
@@ -1856,21 +1911,21 @@
    "clock": "Day 2 12:00",
    "kind": "twin",
    "title": "Twin rewritten (v2): ST_C560_10 added",
-   "text": "commit c0027"
+   "text": "commit c0026"
   },
   {
    "t": 36.00000006,
    "clock": "Day 2 12:00",
    "kind": "plan",
    "title": "Re-plan #13 (twin rewritten (new asset))",
-   "text": "5,008 decisions optimised in 134.9 s"
+   "text": "5,008 decisions optimised in 112.8 s"
   },
   {
    "t": 39.000000066,
    "clock": "Day 2 15:00",
    "kind": "plan",
    "title": "Re-plan #14 (rolling horizon)",
-   "text": "5,008 decisions optimised in 123.9 s"
+   "text": "5,008 decisions optimised in 125.3 s"
   },
   {
    "t": 40.000000068,
@@ -1886,7 +1941,7 @@
    "clock": "Day 2 18:00",
    "kind": "plan",
    "title": "Re-plan #15 (rolling horizon)",
-   "text": "5,008 decisions optimised in 144.3 s"
+   "text": "5,008 decisions optimised in 98.4 s"
   },
   {
    "t": 42.000000072,
@@ -1902,7 +1957,7 @@
    "clock": "Day 2 21:00",
    "kind": "plan",
    "title": "Re-plan #16 (rolling horizon)",
-   "text": "5,008 decisions optimised in 104.8 s"
+   "text": "5,008 decisions optimised in 100.1 s"
   },
   {
    "t": 46.00000008,
@@ -1918,21 +1973,21 @@
    "clock": "Day 2 22:10",
    "kind": "plan",
    "title": "Re-plan #17 (disruption detected)",
-   "text": "5,008 decisions optimised in 93.7 s"
+   "text": "5,008 decisions optimised in 97.0 s"
   },
   {
    "t": 49.166666753,
    "clock": "Day 3 01:10",
    "kind": "plan",
    "title": "Re-plan #18 (rolling horizon)",
-   "text": "5,008 decisions optimised in 58.9 s"
+   "text": "5,008 decisions optimised in 97.7 s"
   },
   {
    "t": 52.166666759,
    "clock": "Day 3 04:10",
    "kind": "plan",
    "title": "Re-plan #19 (rolling horizon)",
-   "text": "5,008 decisions optimised in 59.5 s"
+   "text": "5,008 decisions optimised in 107.3 s"
   }
  ],
  "hourly": [
@@ -1940,23 +1995,23 @@
    "t": 7.000000002,
    "clock": "Day 1 07:00",
    "plyxis": {
-    "m_ore": 2439.3,
+    "m_ore": 2371.6,
     "m_hoisted": 1750.0,
     "m_milled": 1600.0,
     "m_copper": 491.5,
-    "m_power": 67.9,
+    "m_power": 66.1,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 123056.3,
+    "profit_usd_h": 122828.5,
     "revenue_usd_h": 184500.1,
-    "cost_usd_h": 62716.8,
-    "inventory_usd_h": 1273.0,
+    "cost_usd_h": 63837.1,
+    "inventory_usd_h": 2165.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 10.9,
-    "cum_profit": 124276
+    "emission_t_h": 10.2,
+    "cum_profit": 124480
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -1977,19 +2032,19 @@
     "emission_t_h": 7.0,
     "cum_profit": 125315
    },
-   "delta_profit": -1039,
+   "delta_profit": -835,
    "terms_h": {
     "plyxis": {
-     "metal": 184532.5,
+     "metal": 184533.1,
      "ownership": -3546.0,
-     "power": -4387.1,
+     "power": -4112.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -20002.6,
-     "loading": -1741.9,
-     "blasting": -0.0,
-     "hauling": -531.7,
-     "wear": -405.1,
+     "mining": -19995.0,
+     "loading": -1725.9,
+     "blasting": -2050.0,
+     "hauling": -508.6,
+     "wear": -390.0,
      "energy": -5702.4,
      "consumables": -10400.0
     },
@@ -2013,23 +2068,23 @@
    "t": 8.000000004,
    "clock": "Day 1 08:00",
    "plyxis": {
-    "m_ore": 2439.3,
+    "m_ore": 2404.1,
     "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 491.9,
-    "m_power": 67.5,
+    "m_copper": 492.0,
+    "m_power": 65.7,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 123787.3,
-    "revenue_usd_h": 184686.2,
-    "cost_usd_h": 63005.7,
-    "inventory_usd_h": 2106.8,
+    "profit_usd_h": 123871.8,
+    "revenue_usd_h": 184703.3,
+    "cost_usd_h": 64415.3,
+    "inventory_usd_h": 3583.8,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 10.7,
-    "cum_profit": 248806
+    "emission_t_h": 10.1,
+    "cum_profit": 249419
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -2050,19 +2105,19 @@
     "emission_t_h": 6.5,
     "cum_profit": 249228
    },
-   "delta_profit": -422,
+   "delta_profit": 191,
    "terms_h": {
     "plyxis": {
-     "metal": 185109.3,
+     "metal": 185180.7,
      "ownership": -3546.0,
-     "power": -4558.3,
+     "power": -4285.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -20002.6,
-     "loading": -1741.9,
-     "blasting": -0.0,
-     "hauling": -531.7,
-     "wear": -405.1,
+     "mining": -19995.0,
+     "loading": -1725.9,
+     "blasting": -2050.0,
+     "hauling": -508.6,
+     "wear": -390.0,
      "energy": -6124.8,
      "consumables": -10400.0
     },
@@ -2086,23 +2141,23 @@
    "t": 9.000000006,
    "clock": "Day 1 09:00",
    "plyxis": {
-    "m_ore": 2430.3,
+    "m_ore": 2420.8,
     "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 493.4,
-    "m_power": 66.6,
+    "m_copper": 493.7,
+    "m_power": 66.5,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 125329.7,
-    "revenue_usd_h": 184968.1,
-    "cost_usd_h": 62214.1,
-    "inventory_usd_h": 2575.7,
+    "profit_usd_h": 125419.3,
+    "revenue_usd_h": 185078.4,
+    "cost_usd_h": 64039.8,
+    "inventory_usd_h": 4380.8,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 10.4,
-    "cum_profit": 375688
+    "emission_t_h": 10.3,
+    "cum_profit": 376383
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -2123,19 +2178,19 @@
     "emission_t_h": 6.6,
     "cum_profit": 373792
    },
-   "delta_profit": 1896,
+   "delta_profit": 2591,
    "terms_h": {
     "plyxis": {
-     "metal": 185812.6,
+     "metal": 186119.6,
      "ownership": -3546.0,
-     "power": -3612.3,
+     "power": -3824.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -19817.6,
-     "loading": -1725.1,
-     "blasting": -0.0,
-     "hauling": -666.7,
-     "wear": -506.9,
+     "mining": -19994.7,
+     "loading": -1725.9,
+     "blasting": -2050.0,
+     "hauling": -584.9,
+     "wear": -448.7,
      "energy": -5068.8,
      "consumables": -10400.0
     },
@@ -2159,23 +2214,23 @@
    "t": 10.000000008,
    "clock": "Day 1 10:00",
    "plyxis": {
-    "m_ore": 2466.3,
+    "m_ore": 2423.6,
     "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 496.2,
-    "m_power": 65.1,
+    "m_copper": 496.9,
+    "m_power": 65.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 128459.3,
-    "revenue_usd_h": 185741.6,
-    "cost_usd_h": 62244.7,
-    "inventory_usd_h": 4962.4,
+    "profit_usd_h": 128737.7,
+    "revenue_usd_h": 186005.3,
+    "cost_usd_h": 62898.1,
+    "inventory_usd_h": 5630.5,
     "equipment_usd_h": 0.0,
     "emission_t_h": 9.9,
-    "cum_profit": 507370
+    "cum_profit": 508541
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -2196,19 +2251,19 @@
     "emission_t_h": 7.3,
     "cum_profit": 500518
    },
-   "delta_profit": 6851,
+   "delta_profit": 8022,
    "terms_h": {
     "plyxis": {
-     "metal": 187038.8,
+     "metal": 187434.1,
      "ownership": -3546.0,
-     "power": -2062.8,
+     "power": -2070.2,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -20555.6,
-     "loading": -1743.7,
+     "mining": -19936.6,
+     "loading": -1694.9,
      "blasting": -4100.0,
-     "hauling": -433.6,
-     "wear": -288.9,
+     "hauling": -496.0,
+     "wear": -323.0,
      "energy": -3168.0,
      "consumables": -10400.0
     },
@@ -2232,23 +2287,23 @@
    "t": 11.00000001,
    "clock": "Day 1 11:00",
    "plyxis": {
-    "m_ore": 1845.2,
+    "m_ore": 1778.7,
     "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 498.6,
-    "m_power": 63.6,
+    "m_copper": 499.2,
+    "m_power": 64.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 130571.3,
-    "revenue_usd_h": 185679.5,
-    "cost_usd_h": 54030.4,
-    "inventory_usd_h": -1077.8,
+    "profit_usd_h": 130783.2,
+    "revenue_usd_h": 185891.0,
+    "cost_usd_h": 54971.1,
+    "inventory_usd_h": -136.7,
     "equipment_usd_h": 0.0,
     "emission_t_h": 9.2,
-    "cum_profit": 640164
+    "cum_profit": 641492
    },
    "legacy": {
     "m_ore": 1371.8,
@@ -2269,19 +2324,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 626931
    },
-   "delta_profit": 13233,
+   "delta_profit": 14561,
    "terms_h": {
     "plyxis": {
-     "metal": 185539.4,
+     "metal": 185630.5,
      "ownership": -3546.0,
-     "power": -1316.9,
+     "power": -1356.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -9823.9,
-     "loading": -829.0,
-     "blasting": -0.0,
-     "hauling": -563.2,
-     "wear": -369.0,
+     "mining": -9264.8,
+     "loading": -780.1,
+     "blasting": -2050.0,
+     "hauling": -703.8,
+     "wear": -466.7,
      "energy": -2112.0,
      "consumables": -10400.0
     },
@@ -2305,23 +2360,23 @@
    "t": 12.000000012,
    "clock": "Day 1 12:00",
    "plyxis": {
-    "m_ore": 1530.3,
-    "m_hoisted": 1699.8,
+    "m_ore": 1463.0,
+    "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 498.9,
-    "m_power": 62.5,
+    "m_copper": 499.6,
+    "m_power": 63.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131331.6,
-    "revenue_usd_h": 184986.5,
-    "cost_usd_h": 49262.9,
-    "inventory_usd_h": -4392.0,
+    "profit_usd_h": 131608.7,
+    "revenue_usd_h": 185247.3,
+    "cost_usd_h": 50584.2,
+    "inventory_usd_h": -3054.3,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.7,
-    "cum_profit": 772360
+    "emission_t_h": 8.8,
+    "cum_profit": 774009
    },
    "legacy": {
     "m_ore": 1297.2,
@@ -2342,19 +2397,19 @@
     "emission_t_h": 8.4,
     "cum_profit": 753184
    },
-   "delta_profit": 19175,
+   "delta_profit": 20824,
    "terms_h": {
     "plyxis": {
-     "metal": 183814.2,
+     "metal": 184304.4,
      "ownership": -3546.0,
-     "power": -1006.0,
+     "power": -1050.1,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -9823.9,
-     "loading": -829.0,
-     "blasting": -0.0,
-     "hauling": -563.2,
-     "wear": -369.0,
+     "mining": -9264.8,
+     "loading": -780.1,
+     "blasting": -2050.0,
+     "hauling": -703.8,
+     "wear": -466.7,
      "energy": -1689.6,
      "consumables": -10400.0
     },
@@ -2378,23 +2433,23 @@
    "t": 13.000000014,
    "clock": "Day 1 13:00",
    "plyxis": {
-    "m_ore": 1369.0,
-    "m_hoisted": 1708.1,
+    "m_ore": 1300.9,
+    "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 497.6,
-    "m_power": 62.2,
+    "m_copper": 498.9,
+    "m_power": 62.6,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131861.2,
-    "revenue_usd_h": 184587.0,
-    "cost_usd_h": 46872.7,
-    "inventory_usd_h": -5853.1,
+    "profit_usd_h": 132373.1,
+    "revenue_usd_h": 185073.1,
+    "cost_usd_h": 48206.3,
+    "inventory_usd_h": -4493.7,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 904810
+    "emission_t_h": 8.5,
+    "cum_profit": 907214
    },
    "legacy": {
     "m_ore": 1293.6,
@@ -2415,19 +2470,19 @@
     "emission_t_h": 8.8,
     "cum_profit": 880272
    },
-   "delta_profit": 24539,
+   "delta_profit": 26943,
    "terms_h": {
     "plyxis": {
-     "metal": 184007.0,
+     "metal": 184746.3,
      "ownership": -3546.0,
-     "power": -904.9,
+     "power": -901.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -9831.3,
-     "loading": -829.6,
-     "blasting": -0.0,
-     "hauling": -845.8,
-     "wear": -582.9,
+     "mining": -9265.0,
+     "loading": -780.1,
+     "blasting": -2050.0,
+     "hauling": -765.1,
+     "wear": -523.6,
      "energy": -1478.4,
      "consumables": -10400.0
     },
@@ -2451,23 +2506,23 @@
    "t": 14.000000016,
    "clock": "Day 1 14:00",
    "plyxis": {
-    "m_ore": 1247.8,
-    "m_hoisted": 1728.5,
+    "m_ore": 1208.0,
+    "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 496.7,
-    "m_power": 62.4,
+    "m_copper": 498.4,
+    "m_power": 62.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131885.6,
-    "revenue_usd_h": 184117.1,
-    "cost_usd_h": 46121.1,
-    "inventory_usd_h": -6110.4,
+    "profit_usd_h": 132565.2,
+    "revenue_usd_h": 184773.5,
+    "cost_usd_h": 45942.7,
+    "inventory_usd_h": -6265.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 1036714
+    "emission_t_h": 8.3,
+    "cum_profit": 1039963
    },
    "legacy": {
     "m_ore": 1304.7,
@@ -2488,19 +2543,19 @@
     "emission_t_h": 8.8,
     "cum_profit": 1006318
    },
-   "delta_profit": 30396,
+   "delta_profit": 33645,
    "terms_h": {
     "plyxis": {
-     "metal": 183724.0,
+     "metal": 184660.2,
      "ownership": -3546.0,
-     "power": -938.7,
+     "power": -906.4,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -9092.0,
-     "loading": -767.9,
-     "blasting": -2050.0,
-     "hauling": -692.4,
-     "wear": -491.3,
+     "mining": -9078.5,
+     "loading": -760.2,
+     "blasting": -0.0,
+     "hauling": -632.8,
+     "wear": -446.8,
      "energy": -1478.4,
      "consumables": -10400.0
     },
@@ -2524,23 +2579,23 @@
    "t": 15.000000018,
    "clock": "Day 1 15:00",
    "plyxis": {
-    "m_ore": 1180.2,
-    "m_hoisted": 1739.0,
+    "m_ore": 1158.9,
+    "m_hoisted": 1750.0,
     "m_milled": 1600.0,
-    "m_copper": 496.7,
+    "m_copper": 499.3,
     "m_power": 62.7,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 132012.0,
-    "revenue_usd_h": 184226.7,
-    "cost_usd_h": 46035.9,
-    "inventory_usd_h": -6178.7,
+    "profit_usd_h": 132979.7,
+    "revenue_usd_h": 185193.8,
+    "cost_usd_h": 44891.5,
+    "inventory_usd_h": -7322.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 1168836
+    "emission_t_h": 8.5,
+    "cum_profit": 1173327
    },
    "legacy": {
     "m_ore": 1341.1,
@@ -2561,19 +2616,19 @@
     "emission_t_h": 8.5,
     "cum_profit": 1131375
    },
-   "delta_profit": 37461,
+   "delta_profit": 41953,
    "terms_h": {
     "plyxis": {
-     "metal": 184489.9,
+     "metal": 186007.8,
      "ownership": -3546.0,
-     "power": -1133.3,
+     "power": -1151.8,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -9092.0,
-     "loading": -767.9,
-     "blasting": -2050.0,
-     "hauling": -692.4,
-     "wear": -491.3,
+     "mining": -9078.5,
+     "loading": -760.2,
+     "blasting": -0.0,
+     "hauling": -632.8,
+     "wear": -446.8,
      "energy": -1774.1,
      "consumables": -10400.0
     },
@@ -2597,23 +2652,23 @@
    "t": 16.00000002,
    "clock": "Day 1 16:00",
    "plyxis": {
-    "m_ore": 994.4,
-    "m_hoisted": 1738.9,
-    "m_milled": 1600.0,
-    "m_copper": 497.2,
-    "m_power": 62.6,
+    "m_ore": 978.4,
+    "m_hoisted": 1750.0,
+    "m_milled": 1598.7,
+    "m_copper": 500.3,
+    "m_power": 62.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131713.5,
-    "revenue_usd_h": 184550.3,
-    "cost_usd_h": 44386.7,
-    "inventory_usd_h": -8450.1,
+    "profit_usd_h": 132901.2,
+    "revenue_usd_h": 185700.7,
+    "cost_usd_h": 43668.7,
+    "inventory_usd_h": -9130.8,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 1300213
+    "emission_t_h": 8.2,
+    "cum_profit": 1306147
    },
    "legacy": {
     "m_ore": 1263.3,
@@ -2634,21 +2689,21 @@
     "emission_t_h": 8.1,
     "cum_profit": 1254336
    },
-   "delta_profit": 45877,
+   "delta_profit": 51812,
    "terms_h": {
     "plyxis": {
-     "metal": 185077.1,
+     "metal": 186189.4,
      "ownership": -3546.0,
-     "power": -1595.1,
+     "power": -1530.9,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -6198.6,
-     "loading": -523.2,
+     "mining": -6092.4,
+     "loading": -501.9,
      "blasting": -0.0,
-     "hauling": -708.5,
-     "wear": -511.3,
-     "energy": -2534.4,
-     "consumables": -10399.8
+     "hauling": -832.2,
+     "wear": -588.7,
+     "energy": -2529.6,
+     "consumables": -10380.4
     },
     "legacy": {
      "metal": 176152.1,
@@ -2670,23 +2725,23 @@
    "t": 17.000000022,
    "clock": "Day 1 17:00",
    "plyxis": {
-    "m_ore": 878.3,
-    "m_hoisted": 1743.5,
-    "m_milled": 1600.0,
-    "m_copper": 498.2,
-    "m_power": 62.3,
+    "m_ore": 863.9,
+    "m_hoisted": 1604.1,
+    "m_milled": 1597.9,
+    "m_copper": 500.6,
+    "m_power": 62.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 130383.6,
-    "revenue_usd_h": 185180.2,
-    "cost_usd_h": 44873.3,
-    "inventory_usd_h": -9923.3,
+    "profit_usd_h": 131141.4,
+    "revenue_usd_h": 186079.3,
+    "cost_usd_h": 44627.3,
+    "inventory_usd_h": -10310.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.2,
-    "cum_profit": 1429160
+    "emission_t_h": 8.4,
+    "cum_profit": 1435457
    },
    "legacy": {
     "m_ore": 1417.4,
@@ -2707,21 +2762,21 @@
     "emission_t_h": 8.4,
     "cum_profit": 1372978
    },
-   "delta_profit": 56181,
+   "delta_profit": 62479,
    "terms_h": {
     "plyxis": {
-     "metal": 186015.7,
+     "metal": 186392.1,
      "ownership": -3546.0,
-     "power": -2831.4,
+     "power": -3075.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -6198.6,
-     "loading": -523.2,
+     "mining": -6092.4,
+     "loading": -501.9,
      "blasting": -0.0,
-     "hauling": -708.5,
-     "wear": -511.3,
-     "energy": -4646.3,
-     "consumables": -10399.8
+     "hauling": -832.2,
+     "wear": -588.7,
+     "energy": -4637.7,
+     "consumables": -10380.4
     },
     "legacy": {
      "metal": 175049.2,
@@ -2743,23 +2798,23 @@
    "t": 18.000000024,
    "clock": "Day 1 18:00",
    "plyxis": {
-    "m_ore": 818.8,
-    "m_hoisted": 1613.8,
-    "m_milled": 1599.9,
-    "m_copper": 499.1,
-    "m_power": 61.1,
+    "m_ore": 805.0,
+    "m_hoisted": 1607.2,
+    "m_milled": 1597.5,
+    "m_copper": 500.4,
+    "m_power": 62.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 127493.8,
-    "revenue_usd_h": 186118.6,
-    "cost_usd_h": 47764.6,
-    "inventory_usd_h": -10860.3,
+    "profit_usd_h": 127719.4,
+    "revenue_usd_h": 186591.4,
+    "cost_usd_h": 47913.6,
+    "inventory_usd_h": -10958.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.8,
-    "cum_profit": 1553581
+    "emission_t_h": 8.2,
+    "cum_profit": 1559558
    },
    "legacy": {
     "m_ore": 1496.5,
@@ -2780,21 +2835,21 @@
     "emission_t_h": 8.6,
     "cum_profit": 1484638
    },
-   "delta_profit": 68944,
+   "delta_profit": 74920,
    "terms_h": {
     "plyxis": {
-     "metal": 187145.0,
+     "metal": 187013.7,
      "ownership": -3546.0,
-     "power": -4649.1,
+     "power": -5112.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -6198.6,
-     "loading": -523.2,
+     "mining": -6092.4,
+     "loading": -501.9,
      "blasting": -0.0,
-     "hauling": -558.5,
-     "wear": -399.4,
-     "energy": -8447.2,
-     "consumables": -10399.0
+     "hauling": -722.1,
+     "wear": -510.1,
+     "energy": -8432.4,
+     "consumables": -10380.8
     },
     "legacy": {
      "metal": 174204.1,
@@ -2816,23 +2871,23 @@
    "t": 19.000000026,
    "clock": "Day 1 19:00",
    "plyxis": {
-    "m_ore": 993.3,
-    "m_hoisted": 1540.9,
-    "m_milled": 1599.8,
-    "m_copper": 499.6,
-    "m_power": 61.2,
+    "m_ore": 825.2,
+    "m_hoisted": 1554.8,
+    "m_milled": 1598.3,
+    "m_copper": 500.2,
+    "m_power": 62.1,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 123883.4,
-    "revenue_usd_h": 186608.6,
-    "cost_usd_h": 55076.5,
-    "inventory_usd_h": -7648.6,
+    "profit_usd_h": 123902.9,
+    "revenue_usd_h": 186837.6,
+    "cost_usd_h": 52061.7,
+    "inventory_usd_h": -10873.0,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.9,
-    "cum_profit": 1673684
+    "emission_t_h": 8.1,
+    "cum_profit": 1679446
    },
    "legacy": {
     "m_ore": 1537.1,
@@ -2853,21 +2908,21 @@
     "emission_t_h": 8.4,
     "cum_profit": 1590807
    },
-   "delta_profit": 82877,
+   "delta_profit": 88639,
    "terms_h": {
     "plyxis": {
-     "metal": 187105.4,
+     "metal": 187047.7,
      "ownership": -3546.0,
-     "power": -6630.5,
+     "power": -6706.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10155.5,
-     "loading": -862.7,
-     "blasting": -4100.0,
-     "hauling": -748.0,
-     "wear": -535.3,
-     "energy": -10980.1,
-     "consumables": -10397.8
+     "mining": -7061.7,
+     "loading": -562.1,
+     "blasting": -0.0,
+     "hauling": -781.6,
+     "wear": -558.5,
+     "energy": -10978.4,
+     "consumables": -10396.2
     },
     "legacy": {
      "metal": 172473.8,
@@ -2889,23 +2944,23 @@
    "t": 20.000000028,
    "clock": "Day 1 20:00",
    "plyxis": {
-    "m_ore": 1112.6,
-    "m_hoisted": 1342.4,
-    "m_milled": 1599.7,
-    "m_copper": 499.7,
-    "m_power": 60.9,
+    "m_ore": 842.7,
+    "m_hoisted": 1516.9,
+    "m_milled": 1598.8,
+    "m_copper": 499.9,
+    "m_power": 62.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 100648.7,
-    "revenue_usd_h": 186819.8,
-    "cost_usd_h": 80622.0,
-    "inventory_usd_h": -5549.0,
+    "profit_usd_h": 99602.2,
+    "revenue_usd_h": 186871.3,
+    "cost_usd_h": 76499.1,
+    "inventory_usd_h": -10770.0,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.8,
-    "cum_profit": 1749772
+    "emission_t_h": 8.1,
+    "cum_profit": 1753453
    },
    "legacy": {
     "m_ore": 1558.0,
@@ -2926,21 +2981,21 @@
     "emission_t_h": 8.2,
     "cum_profit": 1652117
    },
-   "delta_profit": 97655,
+   "delta_profit": 101336,
    "terms_h": {
     "plyxis": {
-     "metal": 187039.0,
+     "metal": 186861.8,
      "ownership": -3546.0,
-     "power": -22224.9,
+     "power": -24644.8,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10155.5,
-     "loading": -862.7,
-     "blasting": -4100.0,
-     "hauling": -748.0,
-     "wear": -535.3,
-     "energy": -38852.7,
-     "consumables": -10397.8
+     "mining": -7061.7,
+     "loading": -562.1,
+     "blasting": -0.0,
+     "hauling": -781.6,
+     "wear": -558.5,
+     "energy": -38846.6,
+     "consumables": -10396.2
     },
     "legacy": {
      "metal": 171107.9,
@@ -2962,23 +3017,23 @@
    "t": 21.00000003,
    "clock": "Day 1 21:00",
    "plyxis": {
-    "m_ore": 1173.9,
-    "m_hoisted": 1261.2,
-    "m_milled": 1599.8,
-    "m_copper": 499.9,
-    "m_power": 61.2,
+    "m_ore": 851.7,
+    "m_hoisted": 1495.8,
+    "m_milled": 1599.3,
+    "m_copper": 499.6,
+    "m_power": 62.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 113551.3,
-    "revenue_usd_h": 187231.4,
-    "cost_usd_h": 69255.5,
-    "inventory_usd_h": -4424.6,
+    "profit_usd_h": 112804.9,
+    "revenue_usd_h": 187150.5,
+    "cost_usd_h": 63550.2,
+    "inventory_usd_h": -10795.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.9,
-    "cum_profit": 1876945
+    "emission_t_h": 8.3,
+    "cum_profit": 1880197
    },
    "legacy": {
     "m_ore": 1568.7,
@@ -2999,21 +3054,21 @@
     "emission_t_h": 8.2,
     "cum_profit": 1763156
    },
-   "delta_profit": 113790,
+   "delta_profit": 117042,
    "terms_h": {
     "plyxis": {
-     "metal": 187668.9,
+     "metal": 187414.6,
      "ownership": -3546.0,
-     "power": -4115.8,
+     "power": -4393.6,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10155.5,
-     "loading": -862.7,
-     "blasting": -4100.0,
-     "hauling": -795.6,
-     "wear": -571.5,
+     "mining": -7061.7,
+     "loading": -562.1,
+     "blasting": -0.0,
+     "hauling": -673.2,
+     "wear": -485.4,
      "energy": -6757.7,
-     "consumables": -10398.9
+     "consumables": -10399.0
     },
     "legacy": {
      "metal": 171124.4,
@@ -3035,23 +3090,23 @@
    "t": 22.000000032,
    "clock": "Day 1 22:00",
    "plyxis": {
-    "m_ore": 1229.8,
-    "m_hoisted": 647.5,
+    "m_ore": 925.9,
+    "m_hoisted": 768.0,
     "m_milled": 1599.5,
-    "m_copper": 499.8,
-    "m_power": 57.8,
+    "m_copper": 499.5,
+    "m_power": 58.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 121238.4,
-    "revenue_usd_h": 187162.5,
-    "cost_usd_h": 59990.7,
-    "inventory_usd_h": -5933.4,
+    "profit_usd_h": 120730.5,
+    "revenue_usd_h": 187018.4,
+    "cost_usd_h": 55465.2,
+    "inventory_usd_h": -10822.7,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 6.8,
-    "cum_profit": 2006282
+    "emission_t_h": 7.1,
+    "cum_profit": 2009271
    },
    "legacy": {
     "m_ore": 1574.2,
@@ -3072,21 +3127,21 @@
     "emission_t_h": 7.2,
     "cum_profit": 1875950
    },
-   "delta_profit": 130333,
+   "delta_profit": 133321,
    "terms_h": {
     "plyxis": {
-     "metal": 187080.8,
+     "metal": 186878.3,
      "ownership": -3546.0,
-     "power": -2122.4,
+     "power": -2154.6,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10626.9,
-     "loading": -900.2,
+     "mining": -8401.1,
+     "loading": -681.1,
      "blasting": -0.0,
-     "hauling": -451.4,
-     "wear": -325.2,
-     "energy": -5277.4,
-     "consumables": -10394.9
+     "hauling": -296.6,
+     "wear": -222.5,
+     "energy": -5279.3,
+     "consumables": -10398.7
     },
     "legacy": {
      "metal": 170602.6,
@@ -3108,23 +3163,23 @@
    "t": 23.000000034,
    "clock": "Day 1 23:00",
    "plyxis": {
-    "m_ore": 1262.0,
-    "m_hoisted": 332.4,
-    "m_milled": 1599.4,
-    "m_copper": 499.8,
-    "m_power": 55.8,
+    "m_ore": 973.9,
+    "m_hoisted": 394.3,
+    "m_milled": 1599.7,
+    "m_copper": 499.4,
+    "m_power": 56.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 126289.3,
-    "revenue_usd_h": 187768.2,
-    "cost_usd_h": 54515.1,
-    "inventory_usd_h": -6963.7,
+    "profit_usd_h": 125933.1,
+    "revenue_usd_h": 187595.0,
+    "cost_usd_h": 50875.3,
+    "inventory_usd_h": -10786.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 6.2,
-    "cum_profit": 2137900
+    "emission_t_h": 6.3,
+    "cum_profit": 2140691
    },
    "legacy": {
     "m_ore": 1577.0,
@@ -3145,21 +3200,21 @@
     "emission_t_h": 6.5,
     "cum_profit": 1990968
    },
-   "delta_profit": 146932,
+   "delta_profit": 149722,
    "terms_h": {
     "plyxis": {
-     "metal": 188407.2,
+     "metal": 188203.3,
      "ownership": -3546.0,
-     "power": -1846.4,
+     "power": -1832.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10626.9,
-     "loading": -900.2,
+     "mining": -8401.1,
+     "loading": -681.1,
      "blasting": -0.0,
-     "hauling": -451.4,
-     "wear": -325.2,
-     "energy": -4644.1,
-     "consumables": -10394.9
+     "hauling": -296.6,
+     "wear": -222.5,
+     "energy": -4645.8,
+     "consumables": -10398.7
     },
     "legacy": {
      "metal": 171812.1,
@@ -3181,23 +3236,23 @@
    "t": 24.000000036,
    "clock": "Day 2 00:00",
    "plyxis": {
-    "m_ore": 1278.5,
-    "m_hoisted": 170.7,
-    "m_milled": 1599.5,
-    "m_copper": 499.9,
-    "m_power": 54.9,
+    "m_ore": 998.5,
+    "m_hoisted": 202.4,
+    "m_milled": 1599.7,
+    "m_copper": 499.3,
+    "m_power": 55.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 129093.6,
-    "revenue_usd_h": 188027.4,
-    "cost_usd_h": 51220.8,
-    "inventory_usd_h": -7713.0,
+    "profit_usd_h": 128775.5,
+    "revenue_usd_h": 187818.6,
+    "cost_usd_h": 48205.2,
+    "inventory_usd_h": -10837.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 6.0,
-    "cum_profit": 2269953
+    "emission_t_h": 6.1,
+    "cum_profit": 2272470
    },
    "legacy": {
     "m_ore": 1578.5,
@@ -3218,21 +3273,21 @@
     "emission_t_h": 6.1,
     "cum_profit": 2106518
    },
-   "delta_profit": 163435,
+   "delta_profit": 165952,
    "terms_h": {
     "plyxis": {
-     "metal": 188306.9,
+     "metal": 188054.5,
      "ownership": -3546.0,
-     "power": -1723.2,
+     "power": -1776.4,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -10626.9,
-     "loading": -900.2,
+     "mining": -8401.1,
+     "loading": -681.1,
      "blasting": -0.0,
-     "hauling": -158.1,
-     "wear": -113.1,
-     "energy": -4223.0,
-     "consumables": -10397.5
+     "hauling": -199.7,
+     "wear": -154.5,
+     "energy": -4223.5,
+     "consumables": -10398.7
     },
     "legacy": {
      "metal": 171676.6,
@@ -3254,23 +3309,23 @@
    "t": 25.000000038,
    "clock": "Day 2 01:00",
    "plyxis": {
-    "m_ore": 1337.4,
-    "m_hoisted": 87.6,
-    "m_milled": 1599.6,
-    "m_copper": 499.9,
-    "m_power": 54.3,
+    "m_ore": 991.5,
+    "m_hoisted": 103.9,
+    "m_milled": 1599.8,
+    "m_copper": 499.3,
+    "m_power": 54.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 130465.2,
-    "revenue_usd_h": 187918.8,
-    "cost_usd_h": 49824.8,
-    "inventory_usd_h": -7628.8,
+    "profit_usd_h": 130139.7,
+    "revenue_usd_h": 187680.6,
+    "cost_usd_h": 46537.7,
+    "inventory_usd_h": -11003.2,
     "equipment_usd_h": 0.0,
     "emission_t_h": 5.9,
-    "cum_profit": 2401861
+    "cum_profit": 2404047
    },
    "legacy": {
     "m_ore": 1579.2,
@@ -3291,21 +3346,21 @@
     "emission_t_h": 5.9,
     "cum_profit": 2222010
    },
-   "delta_profit": 179852,
+   "delta_profit": 182037,
    "terms_h": {
     "plyxis": {
-     "metal": 187807.4,
+     "metal": 187535.5,
      "ownership": -3546.0,
-     "power": -1595.8,
+     "power": -1662.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11596.8,
-     "loading": -988.7,
+     "mining": -8022.4,
+     "loading": -662.0,
      "blasting": -0.0,
-     "hauling": -201.5,
-     "wear": -147.6,
+     "hauling": -244.2,
+     "wear": -187.3,
      "energy": -4012.4,
-     "consumables": -10399.0
+     "consumables": -10398.9
     },
     "legacy": {
      "metal": 171198.0,
@@ -3327,23 +3382,23 @@
    "t": 26.00000004,
    "clock": "Day 2 02:00",
    "plyxis": {
-    "m_ore": 1374.8,
-    "m_hoisted": 45.0,
-    "m_milled": 1599.7,
-    "m_copper": 500.0,
-    "m_power": 54.1,
+    "m_ore": 985.1,
+    "m_hoisted": 53.4,
+    "m_milled": 1599.8,
+    "m_copper": 499.3,
+    "m_power": 54.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131333.1,
-    "revenue_usd_h": 187886.3,
-    "cost_usd_h": 49038.4,
-    "inventory_usd_h": -7514.8,
+    "profit_usd_h": 130990.7,
+    "revenue_usd_h": 187631.7,
+    "cost_usd_h": 45534.8,
+    "inventory_usd_h": -11106.1,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 5.8,
-    "cum_profit": 2534111
+    "emission_t_h": 5.9,
+    "cum_profit": 2535938
    },
    "legacy": {
     "m_ore": 1579.6,
@@ -3364,21 +3419,21 @@
     "emission_t_h": 5.7,
     "cum_profit": 2337931
    },
-   "delta_profit": 196180,
+   "delta_profit": 198007,
    "terms_h": {
     "plyxis": {
-     "metal": 187852.1,
+     "metal": 187580.1,
      "ownership": -3546.0,
-     "power": -1530.2,
+     "power": -1620.2,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11596.8,
-     "loading": -988.7,
+     "mining": -8022.4,
+     "loading": -662.0,
      "blasting": -0.0,
-     "hauling": -201.5,
-     "wear": -147.6,
+     "hauling": -244.2,
+     "wear": -187.3,
      "energy": -3801.2,
-     "consumables": -10399.0
+     "consumables": -10398.9
     },
     "legacy": {
      "metal": 171238.8,
@@ -3400,23 +3455,23 @@
    "t": 27.000000042,
    "clock": "Day 2 03:00",
    "plyxis": {
-    "m_ore": 1394.0,
-    "m_hoisted": 847.3,
+    "m_ore": 981.8,
+    "m_hoisted": 856.5,
     "m_milled": 1599.8,
-    "m_copper": 500.6,
-    "m_power": 57.9,
+    "m_copper": 500.1,
+    "m_power": 58.5,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 132569.7,
-    "revenue_usd_h": 188486.0,
-    "cost_usd_h": 49060.6,
-    "inventory_usd_h": -6855.8,
+    "profit_usd_h": 132319.3,
+    "revenue_usd_h": 188306.2,
+    "cost_usd_h": 45392.3,
+    "inventory_usd_h": -10594.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.1,
-    "cum_profit": 2667933
+    "emission_t_h": 7.2,
+    "cum_profit": 2669588
    },
    "legacy": {
     "m_ore": 1579.8,
@@ -3437,21 +3492,21 @@
     "emission_t_h": 6.9,
     "cum_profit": 2454903
    },
-   "delta_profit": 213030,
+   "delta_profit": 214685,
    "terms_h": {
     "plyxis": {
-     "metal": 189488.1,
+     "metal": 189490.9,
      "ownership": -3546.0,
-     "power": -2243.9,
+     "power": -2281.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11596.8,
-     "loading": -988.7,
+     "mining": -8022.4,
+     "loading": -662.0,
      "blasting": -0.0,
-     "hauling": -483.6,
-     "wear": -330.8,
+     "hauling": -483.7,
+     "wear": -333.1,
      "energy": -3590.0,
-     "consumables": -10399.0
+     "consumables": -10398.9
     },
     "legacy": {
      "metal": 172037.7,
@@ -3473,23 +3528,23 @@
    "t": 28.000000044,
    "clock": "Day 2 04:00",
    "plyxis": {
-    "m_ore": 1403.4,
-    "m_hoisted": 1286.5,
+    "m_ore": 1130.6,
+    "m_hoisted": 1291.3,
     "m_milled": 1599.8,
-    "m_copper": 502.0,
-    "m_power": 59.7,
+    "m_copper": 501.8,
+    "m_power": 61.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 133800.7,
-    "revenue_usd_h": 189373.5,
-    "cost_usd_h": 49166.1,
-    "inventory_usd_h": -6406.7,
+    "profit_usd_h": 133594.4,
+    "revenue_usd_h": 189291.1,
+    "cost_usd_h": 46802.9,
+    "inventory_usd_h": -8893.8,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.7,
-    "cum_profit": 2803002
+    "emission_t_h": 8.0,
+    "cum_profit": 2804498
    },
    "legacy": {
     "m_ore": 1579.9,
@@ -3510,19 +3565,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 2572183
    },
-   "delta_profit": 230819,
+   "delta_profit": 232315,
    "terms_h": {
     "plyxis": {
-     "metal": 190493.9,
+     "metal": 190497.6,
      "ownership": -3546.0,
-     "power": -2173.2,
+     "power": -2347.8,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11589.4,
-     "loading": -985.8,
+     "mining": -10558.3,
+     "loading": -888.5,
      "blasting": -0.0,
-     "hauling": -593.9,
-     "wear": -400.0,
+     "hauling": -567.2,
+     "wear": -394.5,
      "energy": -3590.0,
      "consumables": -10399.0
     },
@@ -3546,23 +3601,23 @@
    "t": 29.000000046,
    "clock": "Day 2 05:00",
    "plyxis": {
-    "m_ore": 1408.2,
-    "m_hoisted": 1512.0,
+    "m_ore": 1207.0,
+    "m_hoisted": 1514.5,
     "m_milled": 1599.8,
-    "m_copper": 503.1,
-    "m_power": 60.2,
+    "m_copper": 502.9,
+    "m_power": 61.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134621.1,
-    "revenue_usd_h": 190134.2,
-    "cost_usd_h": 49337.0,
-    "inventory_usd_h": -6176.2,
+    "profit_usd_h": 134362.0,
+    "revenue_usd_h": 190051.6,
+    "cost_usd_h": 47669.1,
+    "inventory_usd_h": -8020.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.8,
-    "cum_profit": 2938483
+    "emission_t_h": 8.3,
+    "cum_profit": 2939673
    },
    "legacy": {
     "m_ore": 1579.9,
@@ -3583,19 +3638,19 @@
     "emission_t_h": 8.5,
     "cum_profit": 2689725
    },
-   "delta_profit": 248758,
+   "delta_profit": 249948,
    "terms_h": {
     "plyxis": {
-     "metal": 190960.2,
+     "metal": 190817.2,
      "ownership": -3546.0,
-     "power": -2201.9,
+     "power": -2428.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11589.4,
-     "loading": -985.8,
+     "mining": -10558.3,
+     "loading": -888.5,
      "blasting": -0.0,
-     "hauling": -593.9,
-     "wear": -400.0,
+     "hauling": -567.2,
+     "wear": -394.5,
      "energy": -3801.2,
      "consumables": -10399.0
     },
@@ -3619,23 +3674,23 @@
    "t": 30.000000048,
    "clock": "Day 2 06:00",
    "plyxis": {
-    "m_ore": 1410.7,
-    "m_hoisted": 1627.8,
+    "m_ore": 1246.2,
+    "m_hoisted": 1629.1,
     "m_milled": 1599.8,
-    "m_copper": 503.6,
-    "m_power": 61.8,
+    "m_copper": 503.2,
+    "m_power": 62.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 135185.4,
-    "revenue_usd_h": 191307.9,
-    "cost_usd_h": 50222.8,
-    "inventory_usd_h": -5899.7,
+    "profit_usd_h": 134993.4,
+    "revenue_usd_h": 191151.4,
+    "cost_usd_h": 48661.3,
+    "inventory_usd_h": -7496.7,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.3,
-    "cum_profit": 3074269
+    "emission_t_h": 8.4,
+    "cum_profit": 3075343
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -3656,21 +3711,21 @@
     "emission_t_h": 8.9,
     "cum_profit": 2808063
    },
-   "delta_profit": 266207,
+   "delta_profit": 267280,
    "terms_h": {
     "plyxis": {
-     "metal": 192511.1,
+     "metal": 192256.9,
      "ownership": -3546.0,
-     "power": -2900.4,
+     "power": -2794.8,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11589.4,
-     "loading": -985.8,
+     "mining": -10558.3,
+     "loading": -888.5,
      "blasting": -0.0,
-     "hauling": -767.5,
-     "wear": -534.7,
-     "energy": -4434.8,
-     "consumables": -10399.0
+     "hauling": -628.2,
+     "wear": -458.8,
+     "energy": -4434.7,
+     "consumables": -10398.9
     },
     "legacy": {
      "metal": 175255.0,
@@ -3692,23 +3747,23 @@
    "t": 31.00000005,
    "clock": "Day 2 07:00",
    "plyxis": {
-    "m_ore": 1423.7,
-    "m_hoisted": 1687.3,
-    "m_milled": 1599.5,
-    "m_copper": 503.7,
-    "m_power": 62.3,
+    "m_ore": 1259.2,
+    "m_hoisted": 1687.9,
+    "m_milled": 1599.8,
+    "m_copper": 503.3,
+    "m_power": 60.5,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 133912.2,
-    "revenue_usd_h": 191314.5,
-    "cost_usd_h": 52705.7,
-    "inventory_usd_h": -4696.7,
+    "profit_usd_h": 134060.1,
+    "revenue_usd_h": 191175.3,
+    "cost_usd_h": 49806.0,
+    "inventory_usd_h": -7309.2,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 3206837
+    "emission_t_h": 7.8,
+    "cum_profit": 3208412
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -3729,21 +3784,21 @@
     "emission_t_h": 9.3,
     "cum_profit": 2923574
    },
-   "delta_profit": 283262,
+   "delta_profit": 284838,
    "terms_h": {
     "plyxis": {
-     "metal": 191342.1,
+     "metal": 191250.5,
      "ownership": -3546.0,
-     "power": -3623.5,
+     "power": -3011.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11786.4,
-     "loading": -1009.8,
-     "blasting": -2050.0,
-     "hauling": -715.7,
-     "wear": -500.1,
-     "energy": -5699.4,
-     "consumables": -10394.5
+     "mining": -10438.2,
+     "loading": -885.3,
+     "blasting": -0.0,
+     "hauling": -595.5,
+     "wear": -436.5,
+     "energy": -5701.8,
+     "consumables": -10399.0
     },
     "legacy": {
      "metal": 174773.7,
@@ -3765,23 +3820,23 @@
    "t": 32.000000052,
    "clock": "Day 2 08:00",
    "plyxis": {
-    "m_ore": 1430.3,
-    "m_hoisted": 1717.8,
-    "m_milled": 1599.3,
-    "m_copper": 503.9,
-    "m_power": 62.3,
+    "m_ore": 1265.9,
+    "m_hoisted": 1718.1,
+    "m_milled": 1599.8,
+    "m_copper": 503.7,
+    "m_power": 59.3,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 132932.1,
-    "revenue_usd_h": 191292.8,
-    "cost_usd_h": 54281.7,
-    "inventory_usd_h": -4079.0,
+    "profit_usd_h": 133338.4,
+    "revenue_usd_h": 191201.7,
+    "cost_usd_h": 50650.3,
+    "inventory_usd_h": -7212.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 3338723
+    "emission_t_h": 7.3,
+    "cum_profit": 3340973
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -3802,21 +3857,21 @@
     "emission_t_h": 9.3,
     "cum_profit": 3038941
    },
-   "delta_profit": 299782,
+   "delta_profit": 302032,
    "terms_h": {
     "plyxis": {
-     "metal": 191356.7,
+     "metal": 191347.0,
      "ownership": -3546.0,
-     "power": -3820.4,
+     "power": -3116.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11786.4,
-     "loading": -1009.8,
-     "blasting": -2050.0,
-     "hauling": -715.7,
-     "wear": -500.1,
-     "energy": -6121.6,
-     "consumables": -10394.5
+     "mining": -10438.2,
+     "loading": -885.3,
+     "blasting": -0.0,
+     "hauling": -595.5,
+     "wear": -436.5,
+     "energy": -6124.2,
+     "consumables": -10399.0
     },
     "legacy": {
      "metal": 175154.4,
@@ -3838,23 +3893,23 @@
    "t": 33.000000054,
    "clock": "Day 2 09:00",
    "plyxis": {
-    "m_ore": 1474.4,
-    "m_hoisted": 1733.5,
-    "m_milled": 1599.5,
-    "m_copper": 504.5,
-    "m_power": 62.5,
+    "m_ore": 1349.8,
+    "m_hoisted": 1733.6,
+    "m_milled": 1599.7,
+    "m_copper": 504.2,
+    "m_power": 60.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 133418.2,
-    "revenue_usd_h": 191441.1,
-    "cost_usd_h": 57308.7,
-    "inventory_usd_h": -714.2,
+    "profit_usd_h": 133722.4,
+    "revenue_usd_h": 191363.2,
+    "cost_usd_h": 52221.9,
+    "inventory_usd_h": -5418.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 3472632
+    "emission_t_h": 7.6,
+    "cum_profit": 3475081
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -3875,21 +3930,21 @@
     "emission_t_h": 9.4,
     "cum_profit": 3156619
    },
-   "delta_profit": 316012,
+   "delta_profit": 318462,
    "terms_h": {
     "plyxis": {
-     "metal": 191684.6,
+     "metal": 191628.3,
      "ownership": -3546.0,
-     "power": -3190.8,
+     "power": -2948.2,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12586.3,
-     "loading": -1063.9,
-     "blasting": -8200.0,
-     "hauling": -791.9,
-     "wear": -547.9,
-     "energy": -5068.3,
-     "consumables": -10399.0
+     "mining": -11989.7,
+     "loading": -1026.0,
+     "blasting": -2050.0,
+     "hauling": -777.1,
+     "wear": -561.0,
+     "energy": -5067.2,
+     "consumables": -10396.7
     },
     "legacy": {
      "metal": 175744.3,
@@ -3911,23 +3966,23 @@
    "t": 34.000000056,
    "clock": "Day 2 10:00",
    "plyxis": {
-    "m_ore": 1505.1,
-    "m_hoisted": 1741.5,
-    "m_milled": 1599.7,
-    "m_copper": 504.9,
-    "m_power": 62.5,
+    "m_ore": 1404.5,
+    "m_hoisted": 1741.6,
+    "m_milled": 1599.6,
+    "m_copper": 504.8,
+    "m_power": 61.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134877.9,
-    "revenue_usd_h": 191206.4,
-    "cost_usd_h": 57795.3,
-    "inventory_usd_h": 1466.7,
+    "profit_usd_h": 134979.7,
+    "revenue_usd_h": 191153.7,
+    "cost_usd_h": 51916.6,
+    "inventory_usd_h": -4257.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 3609043
+    "emission_t_h": 8.2,
+    "cum_profit": 3611391
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -3948,21 +4003,21 @@
     "emission_t_h": 9.4,
     "cum_profit": 3277350
    },
-   "delta_profit": 331693,
+   "delta_profit": 334040,
    "terms_h": {
     "plyxis": {
-     "metal": 190998.8,
+     "metal": 190988.7,
      "ownership": -3546.0,
-     "power": -1981.3,
+     "power": -2114.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12626.0,
-     "loading": -1067.0,
-     "blasting": -8200.0,
-     "hauling": -791.9,
-     "wear": -547.9,
-     "energy": -3167.7,
-     "consumables": -10399.0
+     "mining": -11989.7,
+     "loading": -1026.0,
+     "blasting": -2050.0,
+     "hauling": -777.1,
+     "wear": -561.0,
+     "energy": -3167.0,
+     "consumables": -10396.7
     },
     "legacy": {
      "metal": 175592.9,
@@ -3984,23 +4039,23 @@
    "t": 35.000000058,
    "clock": "Day 2 11:00",
    "plyxis": {
-    "m_ore": 1523.2,
-    "m_hoisted": 1745.6,
-    "m_milled": 1599.5,
-    "m_copper": 505.2,
-    "m_power": 62.9,
+    "m_ore": 1432.5,
+    "m_hoisted": 1745.7,
+    "m_milled": 1599.7,
+    "m_copper": 505.3,
+    "m_power": 63.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 136706.2,
-    "revenue_usd_h": 191342.4,
-    "cost_usd_h": 57229.8,
-    "inventory_usd_h": 2593.6,
+    "profit_usd_h": 136725.1,
+    "revenue_usd_h": 191370.1,
+    "cost_usd_h": 50940.1,
+    "inventory_usd_h": -3704.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.6,
-    "cum_profit": 3747678
+    "emission_t_h": 9.0,
+    "cum_profit": 3749955
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4021,21 +4076,21 @@
     "emission_t_h": 9.3,
     "cum_profit": 3400930
    },
-   "delta_profit": 346748,
+   "delta_profit": 349025,
    "terms_h": {
     "plyxis": {
-     "metal": 191512.3,
+     "metal": 191659.8,
      "ownership": -3546.0,
-     "power": -1376.7,
+     "power": -1548.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12650.0,
-     "loading": -1068.9,
-     "blasting": -8200.0,
-     "hauling": -756.4,
-     "wear": -532.2,
-     "energy": -2111.0,
-     "consumables": -10395.2
+     "mining": -11989.7,
+     "loading": -1026.0,
+     "blasting": -2050.0,
+     "hauling": -725.6,
+     "wear": -519.9,
+     "energy": -2111.7,
+     "consumables": -10398.6
     },
     "legacy": {
      "metal": 176627.7,
@@ -4057,23 +4112,23 @@
    "t": 36.00000006,
    "clock": "Day 2 12:00",
    "plyxis": {
-    "m_ore": 1485.1,
+    "m_ore": 1557.3,
     "m_hoisted": 1747.8,
-    "m_milled": 1598.4,
-    "m_copper": 505.2,
-    "m_power": 62.9,
+    "m_milled": 1599.8,
+    "m_copper": 505.8,
+    "m_power": 65.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 138110.0,
-    "revenue_usd_h": 191524.2,
-    "cost_usd_h": 53544.9,
-    "inventory_usd_h": 130.7,
+    "profit_usd_h": 138254.5,
+    "revenue_usd_h": 191755.7,
+    "cost_usd_h": 50199.3,
+    "inventory_usd_h": -3301.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.6,
-    "cum_profit": 3887274
+    "emission_t_h": 9.4,
+    "cum_profit": 3889813
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4094,21 +4149,21 @@
     "emission_t_h": 8.9,
     "cum_profit": 3526189
    },
-   "delta_profit": 361084,
+   "delta_profit": 363623,
    "terms_h": {
     "plyxis": {
-     "metal": 191720.6,
+     "metal": 192216.0,
      "ownership": -3546.0,
-     "power": -1080.5,
+     "power": -1219.6,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11733.5,
-     "loading": -992.4,
-     "blasting": -2050.0,
-     "hauling": -762.7,
-     "wear": -534.5,
-     "energy": -1686.3,
-     "consumables": -10379.7
+     "mining": -14087.5,
+     "loading": -1214.4,
+     "blasting": -0.0,
+     "hauling": -740.1,
+     "wear": -527.9,
+     "energy": -1689.4,
+     "consumables": -10399.0
     },
     "legacy": {
      "metal": 177554.6,
@@ -4130,23 +4185,23 @@
    "t": 37.000000062,
    "clock": "Day 2 13:00",
    "plyxis": {
-    "m_ore": 1507.4,
+    "m_ore": 1651.6,
     "m_hoisted": 1748.9,
-    "m_milled": 1599.0,
-    "m_copper": 505.7,
-    "m_power": 62.6,
+    "m_milled": 1599.9,
+    "m_copper": 506.2,
+    "m_power": 66.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 138970.7,
-    "revenue_usd_h": 191584.1,
-    "cost_usd_h": 50668.5,
-    "inventory_usd_h": -1945.0,
+    "profit_usd_h": 139027.6,
+    "revenue_usd_h": 191781.4,
+    "cost_usd_h": 49929.5,
+    "inventory_usd_h": -2824.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 4027129
+    "emission_t_h": 9.7,
+    "cum_profit": 4029652
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4167,19 +4222,19 @@
     "emission_t_h": 8.5,
     "cum_profit": 3651968
    },
-   "delta_profit": 375161,
+   "delta_profit": 377684,
    "terms_h": {
     "plyxis": {
-     "metal": 191725.8,
+     "metal": 191824.1,
      "ownership": -3546.0,
-     "power": -919.1,
+     "power": -1110.5,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12744.7,
-     "loading": -1085.0,
+     "mining": -14487.4,
+     "loading": -1256.9,
      "blasting": -0.0,
-     "hauling": -843.1,
-     "wear": -589.3,
+     "hauling": -908.5,
+     "wear": -638.0,
      "energy": -1478.4,
      "consumables": -10400.0
     },
@@ -4203,23 +4258,23 @@
    "t": 38.000000064,
    "clock": "Day 2 14:00",
    "plyxis": {
-    "m_ore": 1530.2,
+    "m_ore": 1713.9,
     "m_hoisted": 1749.4,
-    "m_milled": 1599.5,
-    "m_copper": 506.1,
-    "m_power": 62.3,
+    "m_milled": 1599.9,
+    "m_copper": 506.5,
+    "m_power": 66.3,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 139557.1,
-    "revenue_usd_h": 191750.1,
-    "cost_usd_h": 49171.1,
-    "inventory_usd_h": -3021.9,
+    "profit_usd_h": 139536.5,
+    "revenue_usd_h": 191896.6,
+    "cost_usd_h": 49921.9,
+    "inventory_usd_h": -2438.2,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 4167304
+    "emission_t_h": 9.8,
+    "cum_profit": 4169724
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4240,19 +4295,19 @@
     "emission_t_h": 8.1,
     "cum_profit": 3778476
    },
-   "delta_profit": 388828,
+   "delta_profit": 391248,
    "terms_h": {
     "plyxis": {
-     "metal": 191929.4,
+     "metal": 192028.7,
      "ownership": -3546.0,
-     "power": -904.6,
+     "power": -1087.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12744.7,
-     "loading": -1085.0,
+     "mining": -14595.3,
+     "loading": -1265.8,
      "blasting": -0.0,
-     "hauling": -843.1,
-     "wear": -589.3,
+     "hauling": -900.0,
+     "wear": -632.0,
      "energy": -1478.4,
      "consumables": -10400.0
     },
@@ -4276,23 +4331,23 @@
    "t": 39.000000066,
    "clock": "Day 2 15:00",
    "plyxis": {
-    "m_ore": 1543.7,
+    "m_ore": 1747.2,
     "m_hoisted": 1749.7,
-    "m_milled": 1599.7,
-    "m_copper": 506.3,
-    "m_power": 62.6,
+    "m_milled": 1600.0,
+    "m_copper": 506.7,
+    "m_power": 66.0,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 139104.0,
-    "revenue_usd_h": 191329.6,
-    "cost_usd_h": 48645.0,
-    "inventory_usd_h": -3580.7,
+    "profit_usd_h": 139089.5,
+    "revenue_usd_h": 191469.5,
+    "cost_usd_h": 50125.1,
+    "inventory_usd_h": -2255.0,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 4305927
+    "emission_t_h": 9.7,
+    "cum_profit": 4308336
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4313,19 +4368,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 3904043
    },
-   "delta_profit": 401884,
+   "delta_profit": 404293,
    "terms_h": {
     "plyxis": {
-     "metal": 190913.0,
+     "metal": 191069.7,
      "ownership": -3546.0,
-     "power": -1135.1,
+     "power": -1262.4,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12774.7,
-     "loading": -1088.2,
+     "mining": -14615.8,
+     "loading": -1267.4,
      "blasting": -0.0,
-     "hauling": -801.6,
-     "wear": -570.1,
+     "hauling": -860.3,
+     "wear": -613.4,
      "energy": -1774.1,
      "consumables": -10400.0
     },
@@ -4349,23 +4404,23 @@
    "t": 40.000000068,
    "clock": "Day 2 16:00",
    "plyxis": {
-    "m_ore": 1530.4,
+    "m_ore": 1739.8,
     "m_hoisted": 1749.8,
-    "m_milled": 1599.9,
-    "m_copper": 506.6,
-    "m_power": 62.1,
+    "m_milled": 1600.0,
+    "m_copper": 507.0,
+    "m_power": 65.1,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 138711.1,
-    "revenue_usd_h": 191504.5,
-    "cost_usd_h": 48358.0,
-    "inventory_usd_h": -4435.3,
+    "profit_usd_h": 138717.9,
+    "revenue_usd_h": 191672.6,
+    "cost_usd_h": 50350.1,
+    "inventory_usd_h": -2604.6,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 4444213
+    "emission_t_h": 9.5,
+    "cum_profit": 4446648
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4386,19 +4441,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 4029488
    },
-   "delta_profit": 414725,
+   "delta_profit": 417160,
    "terms_h": {
     "plyxis": {
-     "metal": 191771.2,
+     "metal": 191979.6,
      "ownership": -3546.0,
-     "power": -1534.1,
+     "power": -1695.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12470.2,
-     "loading": -1060.6,
+     "mining": -14203.0,
+     "loading": -1222.0,
      "blasting": -0.0,
-     "hauling": -321.9,
-     "wear": -227.3,
+     "hauling": -575.5,
+     "wear": -408.5,
      "energy": -2534.4,
      "consumables": -10400.0
     },
@@ -4422,23 +4477,23 @@
    "t": 41.00000007,
    "clock": "Day 2 17:00",
    "plyxis": {
-    "m_ore": 1522.0,
+    "m_ore": 1736.1,
     "m_hoisted": 1749.9,
-    "m_milled": 1599.9,
-    "m_copper": 507.1,
-    "m_power": 58.2,
+    "m_milled": 1600.0,
+    "m_copper": 507.5,
+    "m_power": 60.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 101282.9,
-    "revenue_usd_h": 191818.1,
-    "cost_usd_h": 85647.2,
-    "inventory_usd_h": -4888.0,
+    "profit_usd_h": 99792.9,
+    "revenue_usd_h": 191983.7,
+    "cost_usd_h": 89406.7,
+    "inventory_usd_h": -2784.2,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.2,
-    "cum_profit": 4505986
+    "emission_t_h": 8.0,
+    "cum_profit": 4505357
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4459,19 +4514,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 4069775
    },
-   "delta_profit": 436212,
+   "delta_profit": 435583,
    "terms_h": {
     "plyxis": {
-     "metal": 192270.1,
+     "metal": 192391.8,
      "ownership": -3546.0,
-     "power": -23433.6,
+     "power": -26662.1,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12402.4,
-     "loading": -1054.8,
+     "mining": -14203.0,
+     "loading": -1222.0,
      "blasting": -0.0,
-     "hauling": -321.9,
-     "wear": -227.3,
+     "hauling": -575.5,
+     "wear": -408.5,
      "energy": -57600.0,
      "consumables": -10400.0
     },
@@ -4495,23 +4550,23 @@
    "t": 42.000000072,
    "clock": "Day 2 18:00",
    "plyxis": {
-    "m_ore": 1474.4,
-    "m_hoisted": 1559.6,
+    "m_ore": 1725.9,
+    "m_hoisted": 1156.0,
     "m_milled": 1600.0,
-    "m_copper": 507.7,
-    "m_power": 55.5,
+    "m_copper": 508.0,
+    "m_power": 55.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 82669.2,
-    "revenue_usd_h": 191731.6,
-    "cost_usd_h": 103209.1,
-    "inventory_usd_h": -5853.3,
+    "profit_usd_h": 83953.1,
+    "revenue_usd_h": 191817.6,
+    "cost_usd_h": 104154.0,
+    "inventory_usd_h": -3710.5,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 6.4,
-    "cum_profit": 4569003
+    "emission_t_h": 6.3,
+    "cum_profit": 4572594
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4532,19 +4587,19 @@
     "emission_t_h": 7.9,
     "cum_profit": 4109230
    },
-   "delta_profit": 459773,
+   "delta_profit": 463364,
    "terms_h": {
     "plyxis": {
-     "metal": 191719.3,
+     "metal": 191659.8,
      "ownership": -3546.0,
-     "power": -21476.6,
+     "power": -16861.9,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -11801.4,
-     "loading": -1005.0,
+     "mining": -14140.5,
+     "loading": -1217.0,
      "blasting": -0.0,
-     "hauling": -25.8,
-     "wear": -18.7,
+     "hauling": -18.0,
+     "wear": -13.0,
      "energy": -57600.0,
      "consumables": -10400.0
     },
@@ -4568,23 +4623,23 @@
    "t": 43.000000074,
    "clock": "Day 2 19:00",
    "plyxis": {
-    "m_ore": 1492.4,
-    "m_hoisted": 1038.0,
+    "m_ore": 1671.4,
+    "m_hoisted": 958.6,
     "m_milled": 1600.0,
-    "m_copper": 508.2,
-    "m_power": 53.4,
+    "m_copper": 508.3,
+    "m_power": 53.1,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 74677.0,
-    "revenue_usd_h": 192292.9,
-    "cost_usd_h": 111450.7,
-    "inventory_usd_h": -6165.2,
+    "profit_usd_h": 75718.3,
+    "revenue_usd_h": 192301.2,
+    "cost_usd_h": 112010.1,
+    "inventory_usd_h": -4572.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 5.7,
-    "cum_profit": 4635246
+    "emission_t_h": 5.6,
+    "cum_profit": 4639622
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4605,19 +4660,19 @@
     "emission_t_h": 7.7,
     "cum_profit": 4151843
    },
-   "delta_profit": 483403,
+   "delta_profit": 487779,
    "terms_h": {
     "plyxis": {
-     "metal": 192888.2,
+     "metal": 192823.4,
      "ownership": -3546.0,
-     "power": -19107.6,
+     "power": -18364.2,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12393.2,
-     "loading": -1046.1,
+     "mining": -13243.8,
+     "loading": -1134.6,
      "blasting": -0.0,
-     "hauling": -31.4,
-     "wear": -22.7,
+     "hauling": -12.6,
+     "wear": -9.1,
      "energy": -57600.0,
      "consumables": -10400.0
     },
@@ -4641,23 +4696,23 @@
    "t": 44.000000076,
    "clock": "Day 2 20:00",
    "plyxis": {
-    "m_ore": 1501.6,
-    "m_hoisted": 1384.5,
+    "m_ore": 1643.8,
+    "m_hoisted": 1343.7,
     "m_milled": 1600.0,
-    "m_copper": 508.3,
-    "m_power": 57.8,
+    "m_copper": 508.4,
+    "m_power": 53.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 100086.9,
-    "revenue_usd_h": 192158.3,
-    "cost_usd_h": 86053.2,
-    "inventory_usd_h": -6018.2,
+    "profit_usd_h": 101600.3,
+    "revenue_usd_h": 192190.9,
+    "cost_usd_h": 85822.1,
+    "inventory_usd_h": -4768.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 7.3,
-    "cum_profit": 4762159
+    "emission_t_h": 6.0,
+    "cum_profit": 4768531
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4678,19 +4733,19 @@
     "emission_t_h": 8.1,
     "cum_profit": 4266919
    },
-   "delta_profit": 495240,
+   "delta_profit": 501613,
    "terms_h": {
     "plyxis": {
-     "metal": 191895.5,
+     "metal": 192068.1,
      "ownership": -3546.0,
-     "power": -6100.5,
+     "power": -4131.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12393.2,
-     "loading": -1046.1,
+     "mining": -13230.4,
+     "loading": -1133.4,
      "blasting": -0.0,
-     "hauling": -31.4,
-     "wear": -22.7,
+     "hauling": -12.6,
+     "wear": -9.1,
      "energy": -9715.2,
      "consumables": -10400.0
     },
@@ -4714,23 +4769,23 @@
    "t": 45.000000078,
    "clock": "Day 2 21:00",
    "plyxis": {
-    "m_ore": 1507.0,
-    "m_hoisted": 1562.3,
+    "m_ore": 1577.2,
+    "m_hoisted": 1541.4,
     "m_milled": 1600.0,
-    "m_copper": 507.9,
-    "m_power": 60.5,
+    "m_copper": 508.5,
+    "m_power": 55.7,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 115273.6,
-    "revenue_usd_h": 191950.2,
-    "cost_usd_h": 71257.1,
-    "inventory_usd_h": -5419.4,
+    "profit_usd_h": 116733.6,
+    "revenue_usd_h": 192179.7,
+    "cost_usd_h": 70428.9,
+    "inventory_usd_h": -5017.2,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.0,
-    "cum_profit": 4893474
+    "emission_t_h": 6.5,
+    "cum_profit": 4901233
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4751,19 +4806,19 @@
     "emission_t_h": 9.0,
     "cum_profit": 4386501
    },
-   "delta_profit": 506972,
+   "delta_profit": 514732,
    "terms_h": {
     "plyxis": {
-     "metal": 191645.0,
+     "metal": 192175.2,
      "ownership": -3546.0,
-     "power": -4371.9,
+     "power": -3374.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12411.2,
-     "loading": -1047.9,
+     "mining": -12458.8,
+     "loading": -1070.0,
      "blasting": -0.0,
-     "hauling": -654.2,
-     "wear": -463.2,
+     "hauling": -405.1,
+     "wear": -284.6,
      "energy": -6758.4,
      "consumables": -10400.0
     },
@@ -4787,23 +4842,23 @@
    "t": 46.00000008,
    "clock": "Day 2 22:00",
    "plyxis": {
-    "m_ore": 1521.1,
-    "m_hoisted": 1653.6,
+    "m_ore": 1563.3,
+    "m_hoisted": 1642.9,
     "m_milled": 1600.0,
-    "m_copper": 507.4,
-    "m_power": 61.5,
+    "m_copper": 508.5,
+    "m_power": 58.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 124149.7,
-    "revenue_usd_h": 191689.5,
-    "cost_usd_h": 62558.8,
-    "inventory_usd_h": -4981.0,
+    "profit_usd_h": 125234.2,
+    "revenue_usd_h": 192124.1,
+    "cost_usd_h": 62061.8,
+    "inventory_usd_h": -4828.1,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.3,
-    "cum_profit": 5027002
+    "emission_t_h": 7.5,
+    "cum_profit": 5035441
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4824,19 +4879,19 @@
     "emission_t_h": 9.6,
     "cum_profit": 4508786
    },
-   "delta_profit": 518216,
+   "delta_profit": 526655,
    "terms_h": {
     "plyxis": {
-     "metal": 191322.0,
+     "metal": 192018.2,
      "ownership": -3546.0,
-     "power": -3332.9,
+     "power": -3255.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12595.2,
-     "loading": -1067.4,
+     "mining": -12699.0,
+     "loading": -1108.3,
      "blasting": -0.0,
-     "hauling": -679.7,
-     "wear": -479.6,
+     "hauling": -558.0,
+     "wear": -386.9,
      "energy": -5280.0,
      "consumables": -10400.0
     },
@@ -4860,23 +4915,23 @@
    "t": 47.000000082,
    "clock": "Day 2 23:00",
    "plyxis": {
-    "m_ore": 1587.0,
-    "m_hoisted": 1700.5,
+    "m_ore": 1540.1,
+    "m_hoisted": 1695.0,
     "m_milled": 1600.0,
-    "m_copper": 506.8,
-    "m_power": 61.1,
+    "m_copper": 508.3,
+    "m_power": 59.7,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 129044.4,
-    "revenue_usd_h": 191241.8,
-    "cost_usd_h": 59760.1,
-    "inventory_usd_h": -2437.3,
+    "profit_usd_h": 129890.4,
+    "revenue_usd_h": 191784.7,
+    "cost_usd_h": 57129.8,
+    "inventory_usd_h": -4764.5,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.1,
-    "cum_profit": 5161208
+    "emission_t_h": 7.7,
+    "cum_profit": 5170248
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4897,19 +4952,19 @@
     "emission_t_h": 9.8,
     "cum_profit": 4632282
    },
-   "delta_profit": 528927,
+   "delta_profit": 537966,
    "terms_h": {
     "plyxis": {
-     "metal": 190767.0,
+     "metal": 191358.2,
      "ownership": -3546.0,
-     "power": -2698.2,
+     "power": -2678.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13824.3,
-     "loading": -1162.0,
-     "blasting": -4100.0,
-     "hauling": -705.1,
-     "wear": -495.6,
+     "mining": -12389.3,
+     "loading": -1081.5,
+     "blasting": -0.0,
+     "hauling": -677.9,
+     "wear": -475.5,
      "energy": -4646.4,
      "consumables": -10400.0
     },
@@ -4933,23 +4988,23 @@
    "t": 48.000000084,
    "clock": "Day 3 00:00",
    "plyxis": {
-    "m_ore": 1634.1,
-    "m_hoisted": 1724.6,
+    "m_ore": 1525.9,
+    "m_hoisted": 1721.8,
     "m_milled": 1600.0,
-    "m_copper": 506.6,
-    "m_power": 61.0,
+    "m_copper": 508.1,
+    "m_power": 60.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 131621.0,
-    "revenue_usd_h": 190755.4,
-    "cost_usd_h": 58376.5,
-    "inventory_usd_h": -757.9,
+    "profit_usd_h": 132289.6,
+    "revenue_usd_h": 191320.8,
+    "cost_usd_h": 54294.5,
+    "inventory_usd_h": -4736.7,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.1,
-    "cum_profit": 5295550
+    "emission_t_h": 7.9,
+    "cum_profit": 5305068
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -4970,19 +5025,19 @@
     "emission_t_h": 9.9,
     "cum_profit": 4756650
    },
-   "delta_profit": 538900,
+   "delta_profit": 548418,
    "terms_h": {
     "plyxis": {
-     "metal": 190231.7,
+     "metal": 190877.2,
      "ownership": -3546.0,
-     "power": -2483.2,
+     "power": -2519.1,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13824.3,
-     "loading": -1162.0,
-     "blasting": -4100.0,
-     "hauling": -705.1,
-     "wear": -495.6,
+     "mining": -12389.3,
+     "loading": -1081.5,
+     "blasting": -0.0,
+     "hauling": -677.9,
+     "wear": -475.5,
      "energy": -4224.0,
      "consumables": -10400.0
     },
@@ -5006,23 +5061,23 @@
    "t": 49.000000086,
    "clock": "Day 3 01:00",
    "plyxis": {
-    "m_ore": 1639.8,
-    "m_hoisted": 1736.9,
+    "m_ore": 1518.4,
+    "m_hoisted": 1735.5,
     "m_milled": 1600.0,
-    "m_copper": 506.4,
-    "m_power": 61.5,
+    "m_copper": 508.3,
+    "m_power": 61.2,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 132634.7,
-    "revenue_usd_h": 190082.0,
-    "cost_usd_h": 57478.1,
-    "inventory_usd_h": 30.9,
+    "profit_usd_h": 133350.4,
+    "revenue_usd_h": 190787.9,
+    "cost_usd_h": 52822.6,
+    "inventory_usd_h": -4614.9,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.2,
-    "cum_profit": 5429259
+    "emission_t_h": 8.1,
+    "cum_profit": 5439527
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5043,19 +5098,19 @@
     "emission_t_h": 9.8,
     "cum_profit": 4881312
    },
-   "delta_profit": 547946,
+   "delta_profit": 558215,
    "terms_h": {
     "plyxis": {
-     "metal": 189383.4,
+     "metal": 190303.1,
      "ownership": -3546.0,
-     "power": -2486.2,
+     "power": -2486.9,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13418.2,
-     "loading": -1126.0,
-     "blasting": -4100.0,
-     "hauling": -808.3,
-     "wear": -588.3,
+     "mining": -12386.4,
+     "loading": -1081.2,
+     "blasting": -0.0,
+     "hauling": -816.4,
+     "wear": -581.4,
      "energy": -4012.8,
      "consumables": -10400.0
     },
@@ -5079,23 +5134,23 @@
    "t": 50.000000088,
    "clock": "Day 3 02:00",
    "plyxis": {
-    "m_ore": 1603.0,
-    "m_hoisted": 1743.3,
+    "m_ore": 1529.3,
+    "m_hoisted": 1742.6,
     "m_milled": 1600.0,
-    "m_copper": 506.5,
-    "m_power": 61.8,
+    "m_copper": 508.6,
+    "m_power": 62.9,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 133649.4,
-    "revenue_usd_h": 190061.0,
-    "cost_usd_h": 55609.3,
-    "inventory_usd_h": -802.3,
+    "profit_usd_h": 134293.2,
+    "revenue_usd_h": 190859.8,
+    "cost_usd_h": 53927.8,
+    "inventory_usd_h": -2638.8,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.3,
-    "cum_profit": 5563967
+    "emission_t_h": 8.6,
+    "cum_profit": 5574821
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5116,19 +5171,19 @@
     "emission_t_h": 9.2,
     "cum_profit": 5007831
    },
-   "delta_profit": 556135,
+   "delta_profit": 566990,
    "terms_h": {
     "plyxis": {
-     "metal": 190143.4,
+     "metal": 190964.2,
      "ownership": -3546.0,
-     "power": -2345.3,
+     "power": -2628.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12046.1,
-     "loading": -1011.5,
-     "blasting": -2050.0,
-     "hauling": -767.1,
-     "wear": -560.1,
+     "mining": -12701.1,
+     "loading": -1108.3,
+     "blasting": -4100.0,
+     "hauling": -833.5,
+     "wear": -593.8,
      "energy": -3801.6,
      "consumables": -10400.0
     },
@@ -5152,23 +5207,23 @@
    "t": 51.00000009,
    "clock": "Day 3 03:00",
    "plyxis": {
-    "m_ore": 1579.0,
-    "m_hoisted": 1746.6,
+    "m_ore": 1538.8,
+    "m_hoisted": 1746.2,
     "m_milled": 1600.0,
-    "m_copper": 506.9,
-    "m_power": 62.2,
+    "m_copper": 508.8,
+    "m_power": 64.4,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134258.6,
-    "revenue_usd_h": 189997.4,
-    "cost_usd_h": 54336.0,
-    "inventory_usd_h": -1402.8,
+    "profit_usd_h": 134680.8,
+    "revenue_usd_h": 190688.9,
+    "cost_usd_h": 54669.8,
+    "inventory_usd_h": -1338.2,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 5698851
+    "emission_t_h": 9.1,
+    "cum_profit": 5709917
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5189,19 +5244,19 @@
     "emission_t_h": 8.9,
     "cum_profit": 5134967
    },
-   "delta_profit": 563885,
+   "delta_profit": 574951,
    "terms_h": {
     "plyxis": {
-     "metal": 190063.9,
+     "metal": 190492.0,
      "ownership": -3546.0,
-     "power": -2277.1,
+     "power": -2593.3,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -12755.4,
-     "loading": -1071.5,
-     "blasting": -2050.0,
-     "hauling": -767.1,
-     "wear": -560.1,
+     "mining": -12701.1,
+     "loading": -1108.3,
+     "blasting": -4100.0,
+     "hauling": -833.5,
+     "wear": -593.8,
      "energy": -3590.4,
      "consumables": -10400.0
     },
@@ -5225,23 +5280,23 @@
    "t": 52.000000092,
    "clock": "Day 3 04:00",
    "plyxis": {
-    "m_ore": 1607.3,
-    "m_hoisted": 1748.2,
+    "m_ore": 1523.1,
+    "m_hoisted": 1748.0,
     "m_milled": 1600.0,
-    "m_copper": 507.6,
-    "m_power": 62.3,
+    "m_copper": 508.8,
+    "m_power": 65.5,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134402.3,
-    "revenue_usd_h": 189773.0,
-    "cost_usd_h": 54038.8,
-    "inventory_usd_h": -1331.9,
+    "profit_usd_h": 134471.5,
+    "revenue_usd_h": 190217.4,
+    "cost_usd_h": 54928.4,
+    "inventory_usd_h": -817.5,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 5833391
+    "emission_t_h": 9.5,
+    "cum_profit": 5844173
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5262,19 +5317,19 @@
     "emission_t_h": 8.6,
     "cum_profit": 5261942
    },
-   "delta_profit": 571449,
+   "delta_profit": 582232,
    "terms_h": {
     "plyxis": {
-     "metal": 189598.2,
+     "metal": 189710.1,
      "ownership": -3546.0,
-     "power": -2229.0,
+     "power": -2656.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13479.9,
-     "loading": -1132.4,
-     "blasting": -2050.0,
-     "hauling": -788.5,
-     "wear": -566.5,
+     "mining": -12171.1,
+     "loading": -1059.4,
+     "blasting": -4100.0,
+     "hauling": -858.5,
+     "wear": -636.3,
      "energy": -3590.4,
      "consumables": -10400.0
     },
@@ -5298,23 +5353,23 @@
    "t": 53.000000094,
    "clock": "Day 3 05:00",
    "plyxis": {
-    "m_ore": 1648.0,
-    "m_hoisted": 1749.1,
+    "m_ore": 1579.7,
+    "m_hoisted": 1749.0,
     "m_milled": 1600.0,
-    "m_copper": 508.0,
-    "m_power": 62.5,
+    "m_copper": 508.8,
+    "m_power": 65.6,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134458.1,
-    "revenue_usd_h": 189818.7,
-    "cost_usd_h": 54308.2,
-    "inventory_usd_h": -1052.4,
+    "profit_usd_h": 134371.9,
+    "revenue_usd_h": 190093.8,
+    "cost_usd_h": 54898.6,
+    "inventory_usd_h": -823.4,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.5,
-    "cum_profit": 5967913
+    "emission_t_h": 9.5,
+    "cum_profit": 5978440
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5335,19 +5390,19 @@
     "emission_t_h": 8.4,
     "cum_profit": 5389486
    },
-   "delta_profit": 578427,
+   "delta_profit": 588954,
    "terms_h": {
     "plyxis": {
-     "metal": 189827.3,
+     "metal": 189892.3,
      "ownership": -3546.0,
-     "power": -2409.6,
+     "power": -2681.0,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13920.6,
-     "loading": -1177.9,
+     "mining": -13608.7,
+     "loading": -1186.3,
      "blasting": -2050.0,
-     "hauling": -790.4,
-     "wear": -562.3,
+     "hauling": -866.1,
+     "wear": -638.0,
      "energy": -3801.6,
      "consumables": -10400.0
     },
@@ -5371,23 +5426,23 @@
    "t": 54.000000096,
    "clock": "Day 3 06:00",
    "plyxis": {
-    "m_ore": 1672.1,
+    "m_ore": 1618.6,
     "m_hoisted": 1749.5,
     "m_milled": 1600.0,
-    "m_copper": 508.0,
-    "m_power": 62.3,
+    "m_copper": 508.3,
+    "m_power": 62.8,
     "oil_bpd": 0.0,
     "gas_mscfd": 0.0,
     "water_bpd": 0.0,
     "flare_mscfd": 0.0,
     "oil_sold_bpd": 0.0,
-    "profit_usd_h": 134389.6,
-    "revenue_usd_h": 190219.1,
-    "cost_usd_h": 54950.6,
-    "inventory_usd_h": -878.9,
+    "profit_usd_h": 134409.5,
+    "revenue_usd_h": 190322.0,
+    "cost_usd_h": 55052.8,
+    "inventory_usd_h": -859.7,
     "equipment_usd_h": 0.0,
-    "emission_t_h": 8.4,
-    "cum_profit": 6102239
+    "emission_t_h": 8.5,
+    "cum_profit": 6112883
    },
    "legacy": {
     "m_ore": 1580.0,
@@ -5408,19 +5463,19 @@
     "emission_t_h": 8.1,
     "cum_profit": 5517656
    },
-   "delta_profit": 584584,
+   "delta_profit": 595227,
    "terms_h": {
     "plyxis": {
-     "metal": 190559.8,
+     "metal": 190386.0,
      "ownership": -3546.0,
-     "power": -2736.8,
+     "power": -2394.7,
      "labour": -11000.0,
      "overhead": -5000.0,
-     "mining": -13920.6,
-     "loading": -1177.9,
+     "mining": -13608.7,
+     "loading": -1186.3,
      "blasting": -2050.0,
-     "hauling": -790.4,
-     "wear": -562.3,
+     "hauling": -866.1,
+     "wear": -638.0,
      "energy": -4435.2,
      "consumables": -10400.0
     },
@@ -5442,66 +5497,6 @@
   }
  ],
  "alerts": [
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C560.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C560.ST03.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C560.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C560.ST05.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C620.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C620.ST02.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C740.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C740.ST02.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C740.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C740.ST03.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
   {
    "t": 53.166666761,
    "clock": "Day 3 05:10",
@@ -5579,18 +5574,6 @@
    "clock": "Day 3 05:10",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C860.ST08.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.166666761,
-   "clock": "Day 3 05:10",
-   "severity": "warning",
-   "kind": "data quality",
    "message": "COR.C920.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -5651,10 +5634,10 @@
    "clock": "Day 3 05:10",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.S800.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "message": "COR.S740.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
-    "tag": "COR.S800.ST02.CMS.BROKEN",
+    "tag": "COR.S740.ST09.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -5667,6 +5650,18 @@
    "asset": null,
    "data": {
     "tag": "COR.S800.ST07.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.166666761,
+   "clock": "Day 3 05:10",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S860.ST04.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S860.ST04.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -5903,6 +5898,18 @@
    "clock": "Day 3 05:20",
    "severity": "warning",
    "kind": "data quality",
+   "message": "COR.C560.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C560.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
    "message": "COR.C620.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -6011,6 +6018,18 @@
    "clock": "Day 3 05:20",
    "severity": "warning",
    "kind": "data quality",
+   "message": "COR.C920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C920.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
    "message": "COR.C920.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -6075,6 +6094,18 @@
    "asset": null,
    "data": {
     "tag": "COR.S740.ST08.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.333333428,
+   "clock": "Day 3 05:20",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST05.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -6335,10 +6366,10 @@
    "clock": "Day 3 05:30",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "message": "COR.C920.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
-    "tag": "COR.C860.ST08.CMS.BROKEN",
+    "tag": "COR.C920.ST01.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -6387,6 +6418,18 @@
    "asset": null,
    "data": {
     "tag": "COR.S740.ST06.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.500000095,
+   "clock": "Day 3 05:30",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S740.ST09.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S740.ST09.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -6471,18 +6514,6 @@
    "asset": null,
    "data": {
     "tag": "COR.N440.ST06.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.666666762,
-   "clock": "Day 3 05:40",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.N500.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.N500.ST08.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -6587,6 +6618,18 @@
    "clock": "Day 3 05:40",
    "severity": "warning",
    "kind": "data quality",
+   "message": "COR.C620.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C620.ST01.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
    "message": "COR.C620.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -6603,18 +6646,6 @@
    "asset": null,
    "data": {
     "tag": "COR.C620.ST07.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.666666762,
-   "clock": "Day 3 05:40",
-   "severity": "warning",
-   "kind": "data quality",
-   "message": "COR.C680.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.C680.ST08.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -6735,6 +6766,18 @@
    "asset": null,
    "data": {
     "tag": "COR.S740.ST03.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.666666762,
+   "clock": "Day 3 05:40",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S800.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S800.ST05.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -7031,6 +7074,18 @@
    "clock": "Day 3 05:50",
    "severity": "warning",
    "kind": "data quality",
+   "message": "COR.C740.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.C740.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
    "message": "COR.C800.ST01.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -7055,10 +7110,10 @@
    "clock": "Day 3 05:50",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.C860.ST08.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "message": "COR.C920.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
-    "tag": "COR.C860.ST08.CMS.BROKEN",
+    "tag": "COR.C920.ST02.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -7067,10 +7122,10 @@
    "clock": "Day 3 05:50",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.C920.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "message": "COR.C920.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
-    "tag": "COR.C920.ST02.CMS.BROKEN",
+    "tag": "COR.C920.ST03.CMS.BROKEN",
     "issue": "out of range"
    }
   },
@@ -7187,18 +7242,6 @@
    "clock": "Day 3 05:50",
    "severity": "warning",
    "kind": "data quality",
-   "message": "COR.S800.ST02.CMS.BROKEN: out of range - not used for estimation until it recovers",
-   "asset": null,
-   "data": {
-    "tag": "COR.S800.ST02.CMS.BROKEN",
-    "issue": "out of range"
-   }
-  },
-  {
-   "t": 53.833333429,
-   "clock": "Day 3 05:50",
-   "severity": "warning",
-   "kind": "data quality",
    "message": "COR.S800.ST03.CMS.BROKEN: out of range - not used for estimation until it recovers",
    "asset": null,
    "data": {
@@ -7241,27 +7284,25 @@
     "tag": "COR.S920.ST01.CMS.BROKEN",
     "issue": "out of range"
    }
+  },
+  {
+   "t": 53.833333429,
+   "clock": "Day 3 05:50",
+   "severity": "warning",
+   "kind": "data quality",
+   "message": "COR.S920.ST05.CMS.BROKEN: out of range - not used for estimation until it recovers",
+   "asset": null,
+   "data": {
+    "tag": "COR.S920.ST05.CMS.BROKEN",
+    "issue": "out of range"
+   }
   }
  ],
  "commits": [
   {
-   "id": "c0042",
-   "t": 54.000000096,
-   "wall": 1793426673.84884,
-   "author": "auto: estimator",
-   "message": "calibration: 37 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 20,
-    "removed": 19
-   }
-  },
-  {
-   "id": "c0041",
-   "t": 53.000000094,
-   "wall": 1793426672.0741343,
+   "id": "c0036",
+   "t": 46.00000008,
+   "wall": 1793767868.3171222,
    "author": "auto: estimator",
    "message": "calibration: 36 properties re-estimated from telemetry",
    "files": [
@@ -7269,71 +7310,29 @@
    ],
    "stats": {
     "added": 19,
-    "removed": 19
+    "removed": 17
    }
   },
   {
-   "id": "c0040",
-   "t": 52.000000092,
-   "wall": 1793426610.8591669,
-   "author": "auto: estimator",
-   "message": "calibration: 36 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 16,
-    "removed": 18
-   }
-  },
-  {
-   "id": "c0039",
-   "t": 51.00000009,
-   "wall": 1793426609.1261683,
-   "author": "auto: estimator",
-   "message": "calibration: 38 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 20,
-    "removed": 15
-   }
-  },
-  {
-   "id": "c0038",
-   "t": 50.000000088,
-   "wall": 1793426607.3760726,
-   "author": "auto: estimator",
-   "message": "calibration: 33 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 17,
-    "removed": 18
-   }
-  },
-  {
-   "id": "c0037",
-   "t": 49.000000086,
-   "wall": 1793426546.6179047,
+   "id": "c0035",
+   "t": 45.000000078,
+   "wall": 1793767763.575388,
    "author": "auto: estimator",
    "message": "calibration: 34 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 19,
-    "removed": 21
+    "added": 18,
+    "removed": 17
    }
   },
   {
-   "id": "c0036",
-   "t": 48.000000084,
-   "wall": 1793426543.4547362,
+   "id": "c0034",
+   "t": 44.000000076,
+   "wall": 1793767760.232969,
    "author": "auto: estimator",
-   "message": "calibration: 36 properties re-estimated from telemetry",
+   "message": "calibration: 33 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
@@ -7343,81 +7342,81 @@
    }
   },
   {
-   "id": "c0035",
-   "t": 47.000000082,
-   "wall": 1793426539.048047,
-   "author": "auto: estimator",
-   "message": "calibration: 33 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 20,
-    "removed": 17
-   }
-  },
-  {
-   "id": "c0034",
-   "t": 45.000000078,
-   "wall": 1793426334.879334,
+   "id": "c0033",
+   "t": 43.000000074,
+   "wall": 1793767756.9689302,
    "author": "auto: estimator",
    "message": "calibration: 30 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 14,
-    "removed": 13
-   }
-  },
-  {
-   "id": "c0033",
-   "t": 44.000000076,
-   "wall": 1793426331.5113246,
-   "author": "auto: estimator",
-   "message": "calibration: 29 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 14,
-    "removed": 11
+    "added": 18,
+    "removed": 14
    }
   },
   {
    "id": "c0032",
-   "t": 43.000000074,
-   "wall": 1793426328.3658242,
+   "t": 42.000000072,
+   "wall": 1793767654.7548969,
    "author": "auto: estimator",
    "message": "calibration: 26 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 16,
-    "removed": 6
+    "added": 15,
+    "removed": 13
    }
   },
   {
    "id": "c0031",
-   "t": 40.000000068,
-   "wall": 1793426174.6840725,
+   "t": 41.00000007,
+   "wall": 1793767650.9544134,
    "author": "auto: estimator",
-   "message": "calibration: 16 properties re-estimated from telemetry",
+   "message": "calibration: 24 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 15,
+    "removed": 10
+   }
+  },
+  {
+   "id": "c0030",
+   "t": 40.000000068,
+   "wall": 1793767647.6184802,
+   "author": "auto: estimator",
+   "message": "calibration: 19 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 12,
+    "removed": 7
+   }
+  },
+  {
+   "id": "c0029",
+   "t": 39.000000066,
+   "wall": 1793767515.0762737,
+   "author": "auto: estimator",
+   "message": "calibration: 14 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
     "added": 9,
-    "removed": 5
+    "removed": 6
    }
   },
   {
-   "id": "c0030",
-   "t": 39.000000066,
-   "wall": 1793426045.7778018,
+   "id": "c0028",
+   "t": 38.000000064,
+   "wall": 1793767512.6225302,
    "author": "auto: estimator",
-   "message": "calibration: 12 properties re-estimated from telemetry",
+   "message": "calibration: 11 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
@@ -7427,37 +7426,23 @@
    }
   },
   {
-   "id": "c0029",
-   "t": 38.000000064,
-   "wall": 1793426041.4154177,
-   "author": "auto: estimator",
-   "message": "calibration: 9 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 6,
-    "removed": 4
-   }
-  },
-  {
-   "id": "c0028",
-   "t": 37.000000062,
-   "wall": 1793426038.4051101,
-   "author": "auto: estimator",
-   "message": "calibration: 7 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 7,
-    "removed": 78
-   }
-  },
-  {
    "id": "c0027",
+   "t": 37.000000062,
+   "wall": 1793767510.0570884,
+   "author": "auto: estimator",
+   "message": "calibration: 8 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 8,
+    "removed": 77
+   }
+  },
+  {
+   "id": "c0026",
    "t": 36.00000006,
-   "wall": 1793425898.7848742,
+   "wall": 1793767394.2468226,
    "author": "auto: discovery",
    "message": "tie-in of ST_C560_10 discovered from tag COR.C560.ST10.LHD.TPH",
    "files": [
@@ -7469,51 +7454,51 @@
    }
   },
   {
-   "id": "c0026",
-   "t": 36.00000006,
-   "wall": 1793425898.290736,
-   "author": "auto: estimator",
-   "message": "calibration: 78 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 34,
-    "removed": 33
-   }
-  },
-  {
    "id": "c0025",
-   "t": 35.000000058,
-   "wall": 1793425749.243044,
+   "t": 36.00000006,
+   "wall": 1793767393.6974177,
    "author": "auto: estimator",
    "message": "calibration: 77 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 35,
-    "removed": 34
+    "added": 38,
+    "removed": 33
    }
   },
   {
    "id": "c0024",
-   "t": 34.000000056,
-   "wall": 1793425745.9993355,
+   "t": 35.000000058,
+   "wall": 1793767286.5741923,
    "author": "auto: estimator",
-   "message": "calibration: 76 properties re-estimated from telemetry",
+   "message": "calibration: 72 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 35,
-    "removed": 31
+    "added": 36,
+    "removed": 38
    }
   },
   {
    "id": "c0023",
-   "t": 33.000000054,
-   "wall": 1793425743.2364647,
+   "t": 34.000000056,
+   "wall": 1793767283.5219438,
+   "author": "auto: estimator",
+   "message": "calibration: 74 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 43,
+    "removed": 41
+   }
+  },
+  {
+   "id": "c0022",
+   "t": 31.00000005,
+   "wall": 1793767165.586486,
    "author": "auto: estimator",
    "message": "calibration: 72 properties re-estimated from telemetry",
    "files": [
@@ -7521,29 +7506,15 @@
    ],
    "stats": {
     "added": 35,
-    "removed": 34
-   }
-  },
-  {
-   "id": "c0022",
-   "t": 32.000000052,
-   "wall": 1793425606.1537385,
-   "author": "auto: estimator",
-   "message": "calibration: 71 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 42,
-    "removed": 44
+    "removed": 35
    }
   },
   {
    "id": "c0021",
-   "t": 28.000000044,
-   "wall": 1793425458.0858002,
+   "t": 30.000000048,
+   "wall": 1793767055.9636447,
    "author": "auto: estimator",
-   "message": "calibration: 73 properties re-estimated from telemetry",
+   "message": "calibration: 72 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
@@ -7554,10 +7525,24 @@
   },
   {
    "id": "c0020",
-   "t": 27.000000042,
-   "wall": 1793425323.342421,
+   "t": 29.000000046,
+   "wall": 1793767052.338096,
    "author": "auto: estimator",
-   "message": "calibration: 73 properties re-estimated from telemetry",
+   "message": "calibration: 72 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 35,
+    "removed": 35
+   }
+  },
+  {
+   "id": "c0019",
+   "t": 28.000000044,
+   "wall": 1793767049.3905764,
+   "author": "auto: estimator",
+   "message": "calibration: 72 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
@@ -7567,67 +7552,67 @@
    }
   },
   {
-   "id": "c0019",
-   "t": 26.00000004,
-   "wall": 1793425319.9879992,
-   "author": "auto: estimator",
-   "message": "calibration: 71 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 32,
-    "removed": 32
-   }
-  },
-  {
    "id": "c0018",
-   "t": 25.000000038,
-   "wall": 1793425316.398943,
+   "t": 27.000000042,
+   "wall": 1793766941.7087011,
    "author": "auto: estimator",
-   "message": "calibration: 71 properties re-estimated from telemetry",
+   "message": "calibration: 70 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 31,
-    "removed": 32
+    "added": 36,
+    "removed": 39
    }
   },
   {
    "id": "c0017",
-   "t": 24.000000036,
-   "wall": 1793425176.0983455,
+   "t": 25.000000038,
+   "wall": 1793766936.0137882,
    "author": "auto: estimator",
-   "message": "calibration: 72 properties re-estimated from telemetry",
+   "message": "calibration: 73 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 32,
-    "removed": 31
+    "added": 37,
+    "removed": 37
    }
   },
   {
    "id": "c0016",
-   "t": 23.000000034,
-   "wall": 1793425173.331559,
+   "t": 24.000000036,
+   "wall": 1793766826.2513971,
    "author": "auto: estimator",
-   "message": "calibration: 71 properties re-estimated from telemetry",
+   "message": "calibration: 73 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 37,
+    "removed": 34
+   }
+  },
+  {
+   "id": "c0015",
+   "t": 23.000000034,
+   "wall": 1793766822.8545244,
+   "author": "auto: estimator",
+   "message": "calibration: 70 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
     "added": 35,
-    "removed": 33
+    "removed": 31
    }
   },
   {
-   "id": "c0015",
-   "t": 21.00000003,
-   "wall": 1793425007.465856,
+   "id": "c0014",
+   "t": 22.000000032,
+   "wall": 1793766819.8230937,
    "author": "auto: estimator",
-   "message": "calibration: 69 properties re-estimated from telemetry",
+   "message": "calibration: 66 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
@@ -7637,191 +7622,177 @@
    }
   },
   {
-   "id": "c0014",
-   "t": 20.000000028,
-   "wall": 1793425002.4314814,
+   "id": "c0013",
+   "t": 21.00000003,
+   "wall": 1793766713.2883165,
    "author": "auto: estimator",
-   "message": "calibration: 66 properties re-estimated from telemetry",
+   "message": "calibration: 63 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 32,
+    "added": 30,
     "removed": 26
    }
   },
   {
-   "id": "c0013",
-   "t": 19.000000026,
-   "wall": 1793424998.8627067,
-   "author": "auto: estimator",
-   "message": "calibration: 60 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 29,
-    "removed": 27
-   }
-  },
-  {
    "id": "c0012",
-   "t": 18.000000024,
-   "wall": 1793424808.3206813,
+   "t": 20.000000028,
+   "wall": 1793766710.079939,
    "author": "auto: estimator",
-   "message": "calibration: 58 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 29,
-    "removed": 25
-   }
-  },
-  {
-   "id": "c0011",
-   "t": 17.000000022,
-   "wall": 1793424804.3716402,
-   "author": "auto: estimator",
-   "message": "calibration: 54 properties re-estimated from telemetry",
+   "message": "calibration: 59 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
     "added": 27,
-    "removed": 19
+    "removed": 21
+   }
+  },
+  {
+   "id": "c0011",
+   "t": 19.000000026,
+   "wall": 1793766707.452381,
+   "author": "auto: estimator",
+   "message": "calibration: 53 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 24,
+    "removed": 17
    }
   },
   {
    "id": "c0010",
-   "t": 16.00000002,
-   "wall": 1793424801.1251688,
+   "t": 18.000000024,
+   "wall": 1793766469.7483044,
    "author": "auto: estimator",
    "message": "calibration: 46 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 22,
-    "removed": 18
+    "added": 25,
+    "removed": 16
    }
   },
   {
    "id": "c0009",
    "t": 15.000000018,
-   "wall": 1793424615.8241756,
+   "wall": 1793766356.8169274,
    "author": "auto: estimator",
-   "message": "calibration: 42 properties re-estimated from telemetry",
+   "message": "calibration: 37 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 20,
-    "removed": 15
+    "added": 16,
+    "removed": 13
    }
   },
   {
    "id": "c0008",
    "t": 14.000000016,
-   "wall": 1793424611.2157185,
-   "author": "auto: estimator",
-   "message": "calibration: 37 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 18,
-    "removed": 18
-   }
-  },
-  {
-   "id": "c0007",
-   "t": 13.000000014,
-   "wall": 1793424321.4420407,
-   "author": "auto: estimator",
-   "message": "calibration: 37 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 21,
-    "removed": 18
-   }
-  },
-  {
-   "id": "c0006",
-   "t": 12.000000012,
-   "wall": 1793424315.8354545,
+   "wall": 1793766353.363847,
    "author": "auto: estimator",
    "message": "calibration: 34 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 21,
-    "removed": 15
-   }
-  },
-  {
-   "id": "c0005",
-   "t": 11.00000001,
-   "wall": 1793424310.5702314,
-   "author": "auto: estimator",
-   "message": "calibration: 28 properties re-estimated from telemetry",
-   "files": [
-    "calibration.plx"
-   ],
-   "stats": {
-    "added": 18,
+    "added": 14,
     "removed": 12
    }
   },
   {
-   "id": "c0004",
-   "t": 10.000000008,
-   "wall": 1793423917.6730313,
+   "id": "c0007",
+   "t": 13.000000014,
+   "wall": 1793766249.8808842,
    "author": "auto: estimator",
-   "message": "calibration: 22 properties re-estimated from telemetry",
+   "message": "calibration: 32 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
     "added": 15,
-    "removed": 10
+    "removed": 14
+   }
+  },
+  {
+   "id": "c0006",
+   "t": 12.000000012,
+   "wall": 1793766246.7408168,
+   "author": "auto: estimator",
+   "message": "calibration: 31 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 17,
+    "removed": 13
+   }
+  },
+  {
+   "id": "c0005",
+   "t": 11.00000001,
+   "wall": 1793766242.3185303,
+   "author": "auto: estimator",
+   "message": "calibration: 27 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 16,
+    "removed": 9
+   }
+  },
+  {
+   "id": "c0004",
+   "t": 10.000000008,
+   "wall": 1793766137.4585857,
+   "author": "auto: estimator",
+   "message": "calibration: 20 properties re-estimated from telemetry",
+   "files": [
+    "calibration.plx"
+   ],
+   "stats": {
+    "added": 11,
+    "removed": 8
    }
   },
   {
    "id": "c0003",
    "t": 9.000000006,
-   "wall": 1793423402.365359,
+   "wall": 1793766038.7442007,
    "author": "auto: estimator",
    "message": "calibration: 17 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
-    "added": 13,
-    "removed": 8
+    "added": 11,
+    "removed": 7
    }
   },
   {
    "id": "c0002",
    "t": 8.000000004,
-   "wall": 1793423397.6503773,
+   "wall": 1793766034.4903224,
    "author": "auto: estimator",
-   "message": "calibration: 12 properties re-estimated from telemetry",
+   "message": "calibration: 13 properties re-estimated from telemetry",
    "files": [
     "calibration.plx"
    ],
    "stats": {
     "added": 10,
-    "removed": 7
+    "removed": 6
    }
   },
   {
    "id": "c0001",
    "t": 7.000000002,
-   "wall": 1793423392.0391827,
+   "wall": 1793766030.6734736,
    "author": "auto: estimator",
    "message": "calibration: 9 properties re-estimated from telemetry",
    "files": [
@@ -7835,7 +7806,7 @@
   {
    "id": "c0000",
    "t": 0.0,
-   "wall": 1793422783.1760516,
+   "wall": 1793765915.6304967,
    "author": "engineering",
    "message": "initial twin",
    "files": [

@@ -1,0 +1,10 @@
+kestrel properties: 198 factors | limits: std ratio median 0.987 (p10 0.972, p90 1.004), P(violation) error 0.015 over 388 rows, 397 sims 0.6 s
+   value reference mean 4,219,513 std 215,070 q05 3,814,976 (8192 samples) | sigma points only: std 66,011 | with 128 Sobol (525 sims): rms error mean 9,379 std 36,136 q05 101,010 | plain MC same cost: mean 8,827 std 19,854 q05 94,362
+kestrel properties_and_prices: 216 factors | limits: std ratio median 0.986 (p10 0.970, p90 1.002), P(violation) error 0.017 over 388 rows, 433 sims 0.5 s
+   value reference mean 4,263,843 std 626,002 q05 3,311,084 (8192 samples) | sigma points only: std 578,538 | with 128 Sobol (561 sims): rms error mean 16,517 std 20,981 q05 35,302 | plain MC same cost: mean 31,653 std 29,658 q05 60,603
+corvus properties: 383 factors | limits: std ratio median 0.993 (p10 0.984, p90 1.002), P(violation) error 0.015 over 1057 rows, 767 sims 1.2 s
+   value reference mean 4,575,726 std 2,285,223 q05 22,431 (8192 samples) | sigma points only: std 4,472,094 | with 128 Sobol (895 sims): rms error mean 37,100 std 65,400 q05 277,074 | plain MC same cost: mean 62,274 std 72,733 q05 264,517
+corvus properties_and_prices: 395 factors | limits: std ratio median 0.992 (p10 0.982, p90 1.000), P(violation) error 0.014 over 1059 rows, 791 sims 1.5 s
+   value reference mean 4,671,765 std 2,442,869 q05 -135,663 (8192 samples) | sigma points only: std 4,549,110 | with 128 Sobol (919 sims): rms error mean 61,353 std 113,680 q05 182,820 | plain MC same cost: mean 81,519 std 38,150 q05 242,568
+
+[exited with code 0]

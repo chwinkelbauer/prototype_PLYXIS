@@ -1,0 +1,130 @@
+Day 1 07:00  oil_bpd P   18,330 L   16,341 | flare_mscfd P        0 L        0 | delta profit      16,749  [  129s]
+Day 1 08:00  oil_bpd P   18,327 L   16,344 | flare_mscfd P        0 L        0 | delta profit      23,772  [  133s]
+Day 1 09:00  oil_bpd P   18,332 L   16,343 | flare_mscfd P        0 L        0 | delta profit      30,966  [  255s]
+Day 1 10:00  oil_bpd P   18,546 L   16,345 | flare_mscfd P        0 L        0 | delta profit      36,632  [  259s]
+Day 1 11:00  oil_bpd P   18,655 L   16,336 | flare_mscfd P        0 L        0 | delta profit      43,955  [  262s]
+Day 1 12:00  oil_bpd P   18,715 L   16,329 | flare_mscfd P        0 L        0 | delta profit      50,731  [  450s]
+Day 1 13:00  oil_bpd P   18,766 L   16,329 | flare_mscfd P        0 L        0 | delta profit      57,109  [  453s]
+Day 1 14:00  oil_bpd P   18,824 L   17,388 | flare_mscfd P      813 L    2,859 | delta profit      62,614  [  559s]
+Day 1 15:00  oil_bpd P   18,844 L   17,917 | flare_mscfd P    1,112 L    4,259 | delta profit      64,200  [  564s]
+Day 1 16:00  oil_bpd P   18,833 L   17,820 | flare_mscfd P    1,242 L    4,455 | delta profit      68,473  [  567s]
+Day 1 17:00  oil_bpd P   18,849 L   17,732 | flare_mscfd P      867 L    4,478 | delta profit      69,882  [  898s]
+Day 1 18:00  oil_bpd P   18,844 L   17,712 | flare_mscfd P      445 L    4,545 | delta profit      73,020  [  901s]
+Day 1 19:00  oil_bpd P   18,822 L   17,676 | flare_mscfd P      229 L    4,606 | delta profit      76,146  [  904s]
+Day 1 20:00  oil_bpd P   16,935 L   14,729 | flare_mscfd P      117 L    2,365 | delta profit      86,373  [ 1075s]
+Day 1 21:00  oil_bpd P   15,962 L   13,212 | flare_mscfd P       60 L    1,214 | delta profit      95,773  [ 1079s]
+Day 1 22:00  oil_bpd P   15,462 L   12,423 | flare_mscfd P       31 L      623 | delta profit     105,047  [ 1190s]
+Day 1 23:00  oil_bpd P   15,260 L   12,009 | flare_mscfd P       16 L      320 | delta profit     108,660  [ 1194s]
+Day 2 00:00  oil_bpd P   15,158 L   11,790 | flare_mscfd P        8 L      164 | delta profit     119,759  [ 1198s]
+Day 2 01:00  oil_bpd P   15,119 L   11,673 | flare_mscfd P        4 L       84 | delta profit     128,366  [ 1372s]
+Day 2 02:00  oil_bpd P   15,107 L   11,615 | flare_mscfd P        2 L       43 | delta profit     136,610  [ 1376s]
+Day 2 03:00  oil_bpd P   15,109 L   11,590 | flare_mscfd P        1 L       22 | delta profit     144,927  [ 1379s]
+Day 2 04:00  oil_bpd P   15,132 L   11,578 | flare_mscfd P        1 L       11 | delta profit     154,293  [ 1492s]
+Day 2 05:00  oil_bpd P   15,154 L   11,586 | flare_mscfd P        0 L        6 | delta profit     163,226  [ 1496s]
+Day 2 06:00  oil_bpd P   16,798 L   13,894 | flare_mscfd P        0 L        3 | delta profit     168,108  [ 1778s]
+Day 2 07:00  oil_bpd P   17,688 L   15,083 | flare_mscfd P        0 L        2 | delta profit     173,659  [ 1941s]
+Day 2 08:00  oil_bpd P   18,093 L   15,702 | flare_mscfd P        0 L        1 | delta profit     180,530  [ 1945s]
+Day 2 09:00  oil_bpd P   18,360 L   16,025 | flare_mscfd P        0 L        0 | delta profit     186,237  [ 2058s]
+Day 2 10:00  oil_bpd P   18,504 L   16,181 | flare_mscfd P        0 L        0 | delta profit     191,077  [ 2061s]
+Day 2 11:00  oil_bpd P   18,559 L   16,253 | flare_mscfd P        0 L        0 | delta profit     197,161  [ 2276s]
+Day 2 12:00  oil_bpd P   18,583 L   16,289 | flare_mscfd P        0 L        0 | delta profit     203,875  [ 2280s]
+Day 2 13:00  oil_bpd P   18,599 L   16,308 | flare_mscfd P        0 L        0 | delta profit     211,142  [ 2284s]
+Day 2 14:00  oil_bpd P   18,613 L   16,323 | flare_mscfd P        0 L        0 | delta profit     218,451  [ 2390s]
+Day 2 15:00  oil_bpd P   18,629 L   16,341 | flare_mscfd P        0 L        0 | delta profit     223,887  [ 2394s]
+Day 2 16:00  oil_bpd P   18,575 L   16,336 | flare_mscfd P        0 L        0 | delta profit     229,737  [ 2530s]
+Day 2 17:00  oil_bpd P   18,554 L   16,337 | flare_mscfd P        0 L        0 | delta profit     235,963  [ 2534s]
+Day 2 18:00  oil_bpd P   18,542 L   16,345 | flare_mscfd P        0 L        0 | delta profit     242,292  [ 2653s]
+Day 2 19:00  oil_bpd P   18,720 L   16,401 | flare_mscfd P        0 L        0 | delta profit     249,468  [ 2811s]
+Day 2 20:00  oil_bpd P   18,819 L   16,437 | flare_mscfd P        0 L        0 | delta profit     254,782  [ 2815s]
+Day 2 21:00  oil_bpd P   18,890 L   16,460 | flare_mscfd P        0 L        0 | delta profit     262,650  [ 2931s]
+Day 2 22:00  oil_bpd P   18,977 L   16,465 | flare_mscfd P        0 L        0 | delta profit     268,772  [ 2935s]
+Day 2 23:00  oil_bpd P   19,022 L   16,460 | flare_mscfd P        0 L        0 | delta profit     276,228  [ 2941s]
+Day 3 00:00  oil_bpd P   19,040 L   16,459 | flare_mscfd P        0 L        0 | delta profit     281,486  [ 3119s]
+Day 3 01:00  oil_bpd P   19,071 L   16,448 | flare_mscfd P        0 L        0 | delta profit     287,070  [ 3123s]
+Day 3 02:00  oil_bpd P   19,094 L   16,451 | flare_mscfd P        0 L        0 | delta profit     293,471  [ 3127s]
+Day 3 03:00  oil_bpd P   19,075 L   16,447 | flare_mscfd P        0 L        0 | delta profit     301,018  [ 3232s]
+Day 3 04:00  oil_bpd P   19,069 L   16,450 | flare_mscfd P        0 L        0 | delta profit     306,953  [ 3236s]
+Day 3 05:00  oil_bpd P   19,079 L   16,459 | flare_mscfd P        0 L        0 | delta profit     312,167  [ 3240s]
+Day 3 06:00  oil_bpd P   19,064 L   16,459 | flare_mscfd P        0 L        0 | delta profit     318,244  [ 3440s]
+Day 3 07:00  oil_bpd P   19,119 L   17,791 | flare_mscfd P    1,045 L    3,405 | delta profit     323,353  [ 3563s]
+Day 3 08:00  oil_bpd P   19,149 L   18,517 | flare_mscfd P    1,210 L    5,041 | delta profit     367,739  [ 3566s]
+Day 3 09:00  oil_bpd P   19,134 L   18,386 | flare_mscfd P    1,263 L    4,936 | delta profit     367,823  [ 3570s]
+Day 3 10:00  oil_bpd P   18,955 L   18,231 | flare_mscfd P      814 L    4,780 | delta profit     366,385  [ 3778s]
+Day 3 11:00  oil_bpd P   18,867 L   18,180 | flare_mscfd P      418 L    4,680 | delta profit     367,515  [ 3781s]
+Day 3 12:00  oil_bpd P   18,803 L   18,132 | flare_mscfd P      215 L    4,628 | delta profit     369,424  [ 3785s]
+Day 3 13:00  oil_bpd P   18,819 L   17,827 | flare_mscfd P      110 L    2,376 | delta profit     375,249  [ 3914s]
+Day 3 14:00  oil_bpd P   18,841 L   17,647 | flare_mscfd P       57 L    1,220 | delta profit     378,430  [ 3918s]
+Day 3 15:00  oil_bpd P   18,655 L   17,693 | flare_mscfd P       29 L      626 | delta profit     382,765  [ 3922s]
+Day 3 16:00  oil_bpd P   18,511 L   17,763 | flare_mscfd P       34 L      322 | delta profit     382,689  [ 4018s]
+Day 3 17:00  oil_bpd P   18,436 L   17,808 | flare_mscfd P       27 L      165 | delta profit     383,351  [ 4022s]
+Day 3 18:00  oil_bpd P   16,958 L   16,361 | flare_mscfd P       20 L       85 | delta profit     387,537  [ 4025s]
+Day 3 19:00  oil_bpd P   16,161 L   15,618 | flare_mscfd P       10 L       44 | delta profit     395,338  [ 4125s]
+Day 3 20:00  oil_bpd P   15,929 L   16,558 | flare_mscfd P        5 L       22 | delta profit     392,248  [ 4130s]
+Day 3 21:00  oil_bpd P   16,712 L   17,033 | flare_mscfd P       52 L       11 | delta profit     391,602  [ 4135s]
+Day 3 22:00  oil_bpd P   17,567 L   17,409 | flare_mscfd P       44 L        6 | delta profit     393,572  [ 4275s]
+Day 3 23:00  oil_bpd P   18,064 L   17,618 | flare_mscfd P       23 L        3 | delta profit     394,602  [ 4278s]
+Day 4 00:00  oil_bpd P   18,435 L   17,706 | flare_mscfd P       12 L        2 | delta profit     396,736  [ 4281s]
+Day 4 01:00  oil_bpd P   18,684 L   17,756 | flare_mscfd P        6 L        1 | delta profit     396,938  [ 4371s]
+Day 4 02:00  oil_bpd P   18,799 L   17,775 | flare_mscfd P        3 L        0 | delta profit     399,830  [ 4374s]
+Day 4 03:00  oil_bpd P   18,849 L   17,774 | flare_mscfd P        2 L        0 | delta profit     402,144  [ 4377s]
+Day 4 04:00  oil_bpd P   18,875 L   17,760 | flare_mscfd P        1 L        0 | delta profit     403,516  [ 4500s]
+Day 4 05:00  oil_bpd P   18,889 L   17,752 | flare_mscfd P        0 L        0 | delta profit     405,002  [ 4503s]
+Day 4 06:00  oil_bpd P   18,915 L   17,756 | flare_mscfd P        0 L        0 | delta profit     406,614  [ 4506s]
+{
+ "plyxis": {
+  "revenue": 4024791.571258545,
+  "cost": 389481.6032831073,
+  "emission_kg": 453021.0786743164,
+  "oil_bbl": 54326.88635381989,
+  "gas_mscf": 103118.8546286061,
+  "water_bbl": 123131.7896000956,
+  "flared_mscf": 453.1812131736821,
+  "spilled_bbl": 0.0,
+  "hours": 71.99999999999986,
+  "inventory_value": -194569.21923828125,
+  "equipment_value": -318460.0,
+  "profit": 3122280.7487371564,
+  "carbon_cost": 27181.26472045898,
+  "profit_after_carbon": 3095099.4840166965,
+  "flared_over_permit_mscf": 52.31114389258383
+ },
+ "legacy": {
+  "revenue": 3346347.0968322754,
+  "cost": 439727.3264528513,
+  "emission_kg": 646135.4149780273,
+  "oil_bbl": 48834.82268420116,
+  "gas_mscf": 102736.63455859841,
+  "water_bbl": 113799.03586607584,
+  "flared_mscf": 2607.626644129046,
+  "spilled_bbl": 0.0,
+  "hours": 71.99999999999986,
+  "inventory_value": 69014.3583984375,
+  "equipment_value": -259967.0,
+  "profit": 2715667.1287778616,
+  "carbon_cost": 38768.124898681606,
+  "profit_after_carbon": 2676899.0038791792,
+  "flared_over_permit_mscf": 1857.6266441290456
+ },
+ "delta": {
+  "profit": 406613.6199592948,
+  "profit_after_carbon": 418200.4801375172,
+  "oil_bbl": 5492.063669618736,
+  "flared_mscf": -2154.445430955364,
+  "emission_t": -193.11433630371093
+ },
+ "value_per_day": 135537.8733197652
+}
+{
+ "q_max": {
+  "engineering": 0.1187,
+  "twin": 0.0253
+ },
+ "wc": {
+  "engineering": 0.0467,
+  "twin": 0.0199
+ },
+ "gor": {
+  "engineering": 0.1293,
+  "twin": 0.048
+ }
+}

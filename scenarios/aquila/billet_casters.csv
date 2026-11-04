@@ -1,0 +1,5 @@
+name,site,kind,label,tag,lat,lon,cap,yard,cu_max
+ES_BC,ES,billet,Aviles (ES) billet caster 1,AQ.ES.BC,43.574999999999996,-5.923,154,ES_BILLETS,0.35
+PL_CC1,PL,billet,Warsaw (PL) billet caster 1,AQ.PL.CC1,52.29,20.903,231,PL_BILLETS,0.35
+TX_CC1,TX,billet,Corpus Christi (US-TX) billet caster 1,AQ.TX.CC1,27.844,-97.333,187,TX_BILLETS,0.35
+SA_CC1,SA,billet,Jubail (SA) billet caster 1,AQ.SA.CC1,27.004,49.657000000000004,209,SA_BILLETS,0.35

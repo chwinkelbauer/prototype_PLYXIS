@@ -335,6 +335,65 @@ discrete choices interact - measured on scheduling models with known optima in B
 | the LP of an affine branch is its global optimum | proven (Proposition 2), verified on the twin |
 | sequential LP improves the realised result | measured: yes on the mine (+USD 47 k / 48 h, 3 seeds), no on the oil field (-USD 7 k / 72 h with 10 % margins on state limits, -USD 48 k without, 3 seeds) |
 
+## 11. Column generation with exact DP sub-problems (`colgen.py`, `learnprice.py`)
+
+Sections 3-6 decompose the *discrete* layer around a plan. This section decomposes the whole planning problem of
+assets that interact only through shared limits per hour - the structure of a field (wells sharing compressors,
+takeaway, disposal) and of a mine (stopes sharing fleets, air, a hoist and a mill), and of unit commitment in
+power systems, where the method comes from:
+
+    maximise  sum_b v_b(z_b)   subject to   sum_b a_b(z_b) <= C,   z_b in Z_b
+
+`Z_b` is everything asset `b` can do over the horizon (on/off with hold times and restarts, set points), `v_b` its
+exact value and `a_b in R^m` its use of the `m` shared limits (resource x hour). Nothing is assumed linear about an
+asset: `v_b` and `a_b` may contain pump curves, cubic power, quartic wear, failure risk.
+
+**Master and pricing (Dantzig-Wolfe).** The master problem chooses weights `lam_bj >= 0`, `sum_j lam_bj = 1`, on the
+complete schedules `j` found so far for each asset and keeps `sum lam_bj a_bj <= C`. It is a linear programme in the
+weights however nonlinear the assets are - linear in *how much of each schedule*, not in the physics. Its duals
+`pi >= 0` are prices of the shared limits. Pricing asks every asset alone for its best schedule at those prices,
+`max_z v_b(z) - pi . a_b(z)`; for an asset whose state is small (on/off, a hold counter, a discretised level) this is
+an exact dynamic programme over the hours, `O(T S^2)`, vectorised over all assets of a type in one pass. A schedule
+with positive reduced value enters the master; the loop stops when none does.
+
+**Proposition 7 (bound).** For every `pi >= 0`, `L(pi) = pi . C + sum_b max_z [v_b(z) - pi . a_b(z)]` is an upper
+bound on the best plan (weak duality; each asset's term is exact because its DP is). Column generation reports the
+best `L` found, so every plan carries its proven distance to the optimum.
+
+**Proposition 8 (polynomial relaxation).** If every asset's pricing problem is solvable in polynomial time, the
+master's optimum over *all* schedules - the convexified problem, whose value equals `min_pi L(pi)` - is computable in
+polynomial time (Groetschel, Lovasz, Schrijver 1981: optimisation over a polytope is polynomial given a polynomial
+optimisation oracle for it; here the oracle is the asset DPs). The column-generation loop used in practice (simplex
+master, Wentges dual smoothing) has no worst-case polynomial bound on its rounds; they are measured. In practice the cost
+is the master LP, not the DPs (they were a small fraction of the time in a profile at 640 assets): the master keeps only the schedules
+in use, those near zero reduced cost at the last prices, the newest and the all-off ones, and a pruned schedule comes
+back when its reduced cost turns positive (column management) - about two schedules per asset instead of all ever
+generated.
+
+**Proposition 9 (integer plan).** A basic optimal solution of the master has at most `m` assets with more than one
+schedule in use (the master has `n + m` rows). Fixing those `m` assets loses at most `(m + 1) max_b rho_b`, where
+`rho_b` is the non-convexity of asset `b` (Shapley-Folkman; Aubin & Ekeland 1976, Udell & Boyd 2016). The bound does
+not grow with the number of assets, so the *relative* gap falls as the site grows. The implementation takes each
+asset's dominant schedule, repairs any excess greedily (least value lost per unit of excess removed) and improves
+greedily (every asset's best swap that keeps all limits, in one vectorised pass) - polynomial; where assets are few
+per shared row (`n <= 4m`, Shapley-Folkman does not help) it also solves the restricted master as a MILP with a short
+time limit and keeps the better plan.
+
+**What stays exponential.** The exact optimum (NP-hard; unless P = NP); an asset whose own state is large (the DP is
+exponential in it: split such assets or coarsen their state); and any coupling kept as a table instead of a price
+(exponential in the interface - a flow over the horizon is a T-dimensional interface, so couplings go through prices).
+
+**Learned prices.** Column generation needs fewer rounds the closer it starts to the final prices. `learnprice.py`
+trains a small network locally on the prices column generation itself found (features per hour: how tight the
+limit is, what a unit of the shared resource is worth); a prediction only seeds the columns and the stability
+centre, so a poor one costs rounds, never correctness or the bound. The plan itself does not vary between runs:
+column generation and its DPs are deterministic.
+
+**Status.** Implemented as a model-agnostic core with one asset family (unit commitment: on/off with holds and restarts,
+a set point level per segment, nonlinear value and use tables) and measured against an exact MILP on that model
+(BENCHMARKS.md). Not yet built: deriving the families and shared rows from a PLX twin (storages such as tanks and
+sumps as their own blocks with priced flow balances; blended grades with the frozen-quality step of section 7).
+
 ## Literature
 
 * U. Bertele, F. Brioschi, *Nonserial Dynamic Programming*, Academic Press 1972.
@@ -365,3 +424,14 @@ discrete choices interact - measured on scheduling models with known optima in B
 * Q. Huangfu, J. A. J. Hall, Parallelizing the dual revised simplex method, *Math. Prog. Comp.* 10 (2018) (HiGHS).
 * D. I. Shuman et al., The emerging field of signal processing on graphs, *IEEE Signal Proc. Mag.* 30 (2013)
   (polynomial graph filters).
+* G. B. Dantzig, P. Wolfe, Decomposition principle for linear programs, *Operations Research* 8 (1960);
+  M. E. Luebbecke, J. Desrosiers, Selected topics in column generation, *Operations Research* 53 (2005).
+* M. Groetschel, L. Lovasz, A. Schrijver, The ellipsoid method and its consequences in combinatorial optimization,
+  *Combinatorica* 1 (1981).
+* P. Wentges, Weighted Dantzig-Wolfe decomposition for linear mixed-integer programming, *Int. Trans. Oper. Res.* 4 (1997)
+  (dual smoothing).
+* N. P. Padhy, Unit commitment - a bibliographical survey, *IEEE Trans. Power Systems* 19 (2004).
+* S. J. Julier, J. K. Uhlmann, Unscented filtering and nonlinear estimation, *Proc. IEEE* 92 (2004) (sigma points);
+  A. B. Owen, Scrambling Sobol' and Niederreiter-Xing points, *J. Complexity* 14 (1998) (randomised quasi-Monte Carlo).
+* J. A. Paulson, A. Mesbah, Nonlinear model predictive control with explicit backoffs for stochastic systems under
+  arbitrary uncertainty, IFAC NMPC 2018 (back-offs for chance constraints).

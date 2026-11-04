@@ -135,3 +135,16 @@ def test_sump_overflow_is_charged_in_the_kpi():
     inflow = float(pp.P[g]["inflow"].reshape(-1)[li])                            # m3/h (canonical)
     assert pp.kpi.cum["overflow_m3"] == pytest.approx(inflow * pp.dt, rel=1e-3)
     assert pp.kpi.terms["overflow"] == pytest.approx(-60.0 * inflow * pp.dt, rel=1e-3)
+
+
+def test_forecaster_sees_the_scenarios_own_market_tags():
+    """The mine's prices have their own tags (MKT.NEM.SA1, ...): the forecaster must receive them, not only the oil
+    field's defaults - it used to plan the mine with flat nominal prices."""
+    import os
+
+    from conftest import ROOT
+    from plyxis.runtime.engine import Engine
+    e = Engine(os.path.join(ROOT, "scenarios", "corvus"), sync_plans=True, use_neural=False, online_learning=False)
+    for _ in range(3):
+        e.step()
+    assert all(len(h) > 0 for h in e.forecaster.hist.values())

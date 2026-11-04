@@ -1,0 +1,8 @@
+name,site,label,tag,lat,lon,cap,ets,caster,yard
+NL_BOF,NL,Velsen (NL) converter shop,AQ.NL.BOF,52.475,4.608,950,0.35,NL_CC,NL_BOFSCRAP
+DE_BOF,DE,Duisburg (DE) converter shop,AQ.DE.BOF,51.486,6.748,1600,0.35,DE_CC,DE_BOFSCRAP
+FR_BOF,FR,Dunkirk (FR) converter shop,AQ.FR.BOF,51.028,2.31,1050,0.35,FR_CC,FR_BOFSCRAP
+ES_BOF,ES,Aviles (ES) converter shop,AQ.ES.BOF,43.579,-5.91,430,0.35,ES_CC,ES_BOFSCRAP
+IN_BOF,IN,Burns Harbor (US-IN) converter shop,AQ.IN.BOF,41.628,-87.11,1050,0.0,IN_CC,IN_BOFSCRAP
+BR_BOF,BR,Tubarao (BR) converter shop,AQ.BR.BOF,-20.242,-40.24,1350,0.0,BR_CC,BR_BOFSCRAP
+OD_BOF,OD,Kalinganagar (IN-OD) converter shop,AQ.OD.BOF,20.958,86.03,1150,0.0,OD_CC,OD_BOFSCRAP

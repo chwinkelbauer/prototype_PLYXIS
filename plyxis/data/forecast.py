@@ -29,6 +29,30 @@ class Forecaster:
     def _announced_at(self, name: str, t: float) -> bool:
         return any(s <= t < e for s, e, _ in self.announced.get(name, []))
 
+    def log_sigma(self, name: str, default: float = 0.02) -> float:
+        """How uncertain the forecast of a price is: the standard deviation of the hourly innovations of its log,
+        after the daily profile is removed (announced windows and non-positive prices left out), robust (MAD).
+        Used as a random walk by planning under uncertainty (optim/risk.py); `default` until a day of data exists."""
+        import math
+        hourly: dict = {}
+        for t, v in self.hist.get(name, ()):
+            if v > 0 and not self._announced_at(name, t):
+                hourly[int(math.floor(t))] = math.log(v)
+        if len(hourly) < 24:
+            return default
+        prof: dict = {}
+        for h, lv in hourly.items():
+            prof.setdefault(h % 24, []).append(lv)
+        mean = {k: sum(v) / len(v) for k, v in prof.items()}
+        hs = sorted(hourly)
+        d = [(hourly[b] - mean[b % 24]) - (hourly[a] - mean[a % 24]) for a, b in zip(hs, hs[1:]) if b == a + 1]
+        if len(d) < 12:
+            return default
+        d.sort()
+        med = d[len(d) // 2]
+        mad = sorted(abs(x - med) for x in d)[len(d) // 2]
+        return min(max(1.4826 * mad, 0.001), 0.2)
+
     def forecast(self, t0: float, T: int, dt: float) -> dict:
         out = {}
         hours = torch.tensor([t0 + i * dt for i in range(T)])
