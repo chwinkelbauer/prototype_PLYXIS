@@ -447,6 +447,264 @@ define steel as pkg {
       cost mill_fixed = fixed;
   };
 
+  # ================================================================== a works in detail
+  ## The units of one integrated works, machine by machine. Their durations are stated in time (a heat's tap to tap,
+  ## a tundish's life, how long a slab stays hot, how often a set point may change), never in steps: the solver
+  ## reads them and finds the step each unit needs (plyxis/lang/hierarchy.py: 15 minutes here, for the heats), so the
+  ## works becomes a plant at its own step without being declared one. The group-level blueprints above describe a shop or a
+  ## mill as one unit at hourly steps; these describe each furnace, vessel, caster, reheating furnace and the works'
+  ## gas and power, so the schedule is the one the shift runs: which vessel taps when, when a caster changes its
+  ## tundish, when the mill changes its rolls, which slabs go in hot. Same prices, costs and terms as above.
+  define proc_gas as res [GJ] { rate_unit = "GJ/h"; };     ## blast-furnace and converter gas (energy content)
+
+  ## Blast furnace at works level: as `blast_furnace`, and below full wind it burns more coke per tonne (fixed
+  ## heat losses over fewer tonnes: `turndown_coke` more at the turndown limit); its top gas goes to the works.
+  define bf_works as ent {
+    geom: point; layer = "ironmaking"; icon = "furnace";
+    properties:
+      rate_max  = 400 [t/h] calibrate in [200, 650];
+      rate_min  = 0.6;
+      ore_rate  = 1.58;
+      coke_rate = 0.36 calibrate in [0.28, 0.48];          ## at full wind
+      turndown_coke = 0.12;                                ## share more coke per t at the turndown limit
+      pci_rate  = 0.15; pci_cost = 140 [USD/t];
+      kwh_t = 85 [kWh/t]; cost_t = 14 [USD/t]; fixed = 6000 [USD/h];
+      co2_t = 1450 [kgCO2e/t]; ets_share = 0;              ## at full wind, net of the gas credit
+      gas_t = 2.5 [GJ/t];                                  ## top gas to the works network (after the hot stoves)
+      ramp = 0.06;                                         ## largest change of rate per hour, share of full wind
+    state: up = 1; last = 0.9 * rate_max [t/h];
+    decision: rate in [rate_min * rate_max, rate_max] default 0.85 * rate_max hold 2 [h];
+    nodes: out hm <- hot_metal; out ore_req <- iron_ore; out coke_req <- coke; out pw <- power; out bfg <- proc_gas;
+    telemetry: made <- "BF.HM.TPH" [t/h]; up <- "BF.RUN";
+    behavior:
+      made = rate * up;
+      hm.hot_metal = made;
+      ore_req.iron_ore = made * ore_rate;
+      fuel = coke_rate * (1 + turndown_coke * (1 - rate / rate_max) / (1 - rate_min));
+      coke_req.coke = made * fuel;
+      pw.power = made * kwh_t;
+      bfg.proc_gas = made * gas_t;
+      last <- rate;
+      constraint soft(40 [USD/t]) ramp_limit: abs(rate - last) <= ramp * rate_max * dt / 1 [h];
+      carbon = (fuel + pci_rate) / (coke_rate + pci_rate);
+      cost pci = made * pci_rate * pci_cost;
+      cost ironmaking = made * cost_t;
+      cost furnace_fixed = fixed;
+      emission furnace_co2 = made * co2_t * carbon;
+      cost ets = made * co2_t * carbon * ets_share * env.eua_price;
+      metric hot_metal = made [t/h];
+  };
+
+  ## Torpedo cars and the hot-metal mixer between the furnaces and the converters. Hot metal that waits cools (made
+  ## up for in the converter); what the converters cannot take is cast to pig iron.
+  define hot_metal_pool as ent {
+    geom: point; layer = "ironmaking"; icon = "ladle";
+    properties: cap = 3000 [t]; hold_cost = 1.5 [USD/t/h]; unit_cost = 330 [USD/t];
+    state: stock = 1200 [t] in [0, cap];
+    nodes: in feed <- hot_metal; in draws <- hot_metal;
+    telemetry: stock <- "HM.POOL" [t];
+    behavior:
+      stock <- stock + (sum(feed) - sum(draws)) * dt;
+      cost hm_cooling = stock * hold_cost;
+      final revenue inventory = stock * unit_cost;
+  };
+  define pig_caster as ent {
+    geom: point; layer = "ironmaking"; icon = "caster";
+    properties: cap = 200 [t/h]; pig_value = 300 [USD/t]; cost_t = 12 [USD/t];
+    decision: rate in [0, cap] default 0 hold 1 [h];
+    nodes: out draw <- hot_metal;
+    behavior:
+      draw.hot_metal = rate;
+      revenue pig_iron = rate * pig_value;
+      cost pig_casting = rate * cost_t;
+  };
+
+  ## One converter vessel. A heat (`heat` t of steel) takes `cycle` tap to tap: at most one tap in any window of that
+  ## length (a running count of taps, compared over the window). The hot-metal share of the charge is the vessel's own
+  ## decision; copper from the scrap above the grade's limit downgrades the heat.
+  define converter as ent {
+    geom: point; layer = "steelmaking"; icon = "converter";
+    properties:
+      heat = 350 [t]; cycle = 45 [min];
+      hm_min = 0.74; hm_max = 0.92; yield = 0.91;
+      scrap_cu = 0.17 calibrate in [0.05, 0.45];           ## copper of the bay's scrap, %, from the lab
+      cu_max = 0.12; downgrade = 3000 [USD/t];
+      kwh_t = 25 [kWh/t]; cost_t = 32 [USD/t]; fixed = 1300 [USD/h];
+      co2_t = 110 [kgCO2e/t]; ets_share = 0;
+      gas_t = 0.7 [GJ/t];                                  ## converter gas recovered per t of steel
+    state: up = 1; taps = 0;
+    decision: tap : bool default 0; hm_share in [hm_min, hm_max] default 0.84 hold 4 [h];
+    nodes: out hm_req <- hot_metal; out scrap_req <- scrap; out liq <- steel_liq; out pw <- power; out bofg <- proc_gas;
+    telemetry: made <- "BOF.TPH" [t/h]; up <- "BOF.RUN";
+    behavior:
+      taps <- taps + tap;
+      constraint cycle: taps + tap - delay(taps, cycle - dt) <= up;
+      made = tap * heat / dt;                              ## t/h in the step of the tap
+      charge = made / yield;
+      hm_req.hot_metal = charge * hm_share;
+      scrap_req.scrap = charge * (1 - hm_share);
+      liq.steel_liq = made;
+      pw.power = made * kwh_t;
+      bofg.proc_gas = made * gas_t;
+      cost steelmaking = made * cost_t;
+      cost vessel_fixed = fixed;
+      cost downgrade = pos(made * scrap_cu * (1 - hm_share) / yield - made * cu_max) * downgrade;
+      emission melt_co2 = made * co2_t;
+      cost ets = made * co2_t * ets_share * env.eua_price;
+  };
+
+  ## Ladle furnace and degasser with the ladles waiting for a caster: one heat at a time, and steel that waits is
+  ## kept hot in the ladle furnace.
+  define ladle_pool as ent {
+    geom: point; layer = "steelmaking"; icon = "ladle";
+    properties: cap = 1400 [t]; lf_cap = 1500 [t/h]; hold_cost = 6 [USD/t/h];
+      lf_cost = 8 [USD/t]; lf_kwh = 30 [kWh/t]; unit_cost = 450 [USD/t];
+    state: stock = 350 [t] in [0, cap];
+    nodes: in feed <- steel_liq; in draws <- steel_liq; out pw <- power;
+    telemetry: stock <- "LADLE.STOCK" [t];
+    behavior:
+      inflow = sum(feed);
+      stock <- stock + (inflow - sum(draws)) * dt;
+      constraint treatment: inflow <= lf_cap;
+      pw.power = inflow * lf_kwh;
+      cost ladle_treatment = inflow * lf_cost;
+      cost ladle_heating = stock * hold_cost;
+      final revenue inventory = stock * unit_cost;
+  };
+
+  ## Slab caster at works level: casts in sequences; a tundish lasts `tundish`, then the caster stops at least one
+  ## run block (an hour) for a new one; every start costs `restart`. The limit is written over a window of running
+  ## totals, which the compiler vectorises (a counter that resets would be scanned step by step).
+  define caster_works as ent {
+    geom: point; layer = "casting"; icon = "caster";
+    properties: cap = 800 [t/h]; v_min = 0.55; yield = 0.98; cost_t = 14 [USD/t]; kwh_t = 20 [kWh/t];
+      tundish = 10 [h]; restart = 25000 [USD];
+    state: up = 1; ran = 0;
+    decision: run : bool default 1 hold 1 [h]; speed in [v_min * cap, cap] default 0.8 * cap hold 30 [min];
+    nodes: out liq_req <- steel_liq; out cast <- slab; out pw <- power;
+    telemetry: cast_rate <- "CC.TPH" [t/h]; up <- "CC.RUN";
+    behavior:
+      steel = speed * run * up;
+      liq_req.steel_liq = steel;
+      cast_rate = steel * yield;
+      cast.slab = cast_rate;
+      pw.power = steel * kwh_t;
+      ran <- ran + run;
+      constraint tundish_life: ran + run - delay(ran, tundish) <= tundish / dt;
+      cost casting = steel * cost_t;
+      cost restarts = pos(run - prev(run, 1)) * restart / dt;
+  };
+
+  ## Slab yard with hot slabs: a cast slab can be charged hot into a reheating furnace for `cool` (eight hours). In
+  ## any such window the furnaces charge no more hot slabs than the casters cast (`hot0` were hot at the start).
+  ## Transfers from sister plants arrive cold. Valued and held to its target as `product_yard`.
+  define slab_store as ent {
+    geom: point; layer = "yards"; icon = "warehouse";
+    properties: cap = 300000 [t]; unit_cost = 500 [USD/t]; cool = 8 [h]; hot0 = 2000 [t];
+      reserve_t = 0 [t]; reserve_price = 30 [USD/t/h]; restock = 200 [USD/t];
+      stock_max = 1000000000 [t]; hold_price = 0.5 [USD/t/h];
+    state: stock = 80000 [t] in [0, cap]; cast = 0 [t]; charged = 0 [t];
+    nodes: in feed <- slab; in feed_cold <- slab; in draws_hot <- slab; in draws <- slab;
+    telemetry: stock <- "YARD.STOCK" [t];
+    behavior:
+      stock <- stock + (sum(feed) + sum(feed_cold) - sum(draws_hot) - sum(draws)) * dt;
+      cast <- cast + sum(feed) * dt;
+      charged <- charged + sum(draws_hot) * dt;
+      constraint hot_slabs: charged + sum(draws_hot) * dt <= cast + sum(feed) * dt + hot0;
+      constraint hot_window: charged - delay(charged, cool) <= cast - delay(cast, cool) + hot0;
+      final revenue inventory = unit_cost * stock;
+      constraint soft(reserve_price) working_stock: (reserve_t - stock) * pos(reserve_t - stock) / max(reserve_t, 1 [t]) <= 0 [t];
+      final cost value_to_go = restock * (min(pos(reserve_t - stock), max(0.1 * reserve_t, 1 [t])) * min(pos(reserve_t - stock), max(0.1 * reserve_t, 1 [t]))
+                                          / (2 * max(0.1 * reserve_t, 1 [t])) + pos(reserve_t - stock - max(0.1 * reserve_t, 1 [t])));
+      constraint soft(hold_price) stock_band: stock <= stock_max;
+  };
+
+  ## Walking-beam reheating furnace: slabs charged hot need little fuel, cold ones a lot; fired with the works' process
+  ## gas or natural gas. Charge and discharge are both its decisions, the slabs inside the buffer between them: it
+  ## discharges at most what it has held for `soak` hours. The mill rolls what the furnaces discharge. (A mill rate
+  ## against a delayed charge through a small roller table stalled the search - two decisions that had to move together
+  ## within a quarter of an hour: the plan rolled half the mill's capacity.)
+  define reheat_furnace as ent {
+    geom: point; layer = "rolling"; icon = "furnace";
+    properties: cap = 700 [t/h]; hold_t = 1600 [t]; soak = 2 [h];
+      gj_cold = 1.25 [GJ/t]; gj_hot = 0.7 [GJ/t]; cost_t = 4 [USD/t]; kwh_t = 12 [kWh/t]; unit_cost = 520 [USD/t];
+    state: up = 1; content = 1000 [t] in [0, hold_t];
+    decision: charge in [0, cap] default 0.7 * cap hold 30 [min]; discharge in [0, cap] default 0.7 * cap hold 30 [min];
+      hot_share in [0, 1] default 0.3 hold 1 [h]; pg_share in [0, 1] default 0.6 hold 2 [h];
+    nodes: out hot_req <- slab; out cold_req <- slab; out heated <- slab; out pg_req <- proc_gas; out ng_req <- fuel_gas;
+      out pw <- power;
+    telemetry: content <- "RF.CONTENT" [t];
+    behavior:
+      fed = charge * up;
+      out_rate = discharge * up;
+      content <- content + (fed - out_rate) * dt;
+      constraint residence: out_rate * soak <= content;
+      hot_req.slab = fed * hot_share;
+      cold_req.slab = fed * (1 - hot_share);
+      heated.slab = out_rate;
+      gas = fed * (gj_cold * (1 - hot_share) + gj_hot * hot_share);
+      pg_req.proc_gas = gas * pg_share;
+      ng_req.fuel_gas = gas * (1 - pg_share);
+      pw.power = fed * kwh_t;
+      cost reheating = fed * cost_t;
+      final revenue inventory = content * unit_cost;
+  };
+
+  ## Hot strip mill at works level: rolls what the reheating furnaces discharge; its work rolls are changed after
+  ## `campaign` tonnes, and while it changes them (a quarter of an hour) it rolls nothing.
+  define hsm_works as ent {
+    geom: point; layer = "rolling"; icon = "mill";
+    properties: cap = 1350 [t/h]; yield = 0.975 calibrate in [0.93, 0.995];
+      kwh_t = 105 [kWh/t]; cost_t = 22 [USD/t]; fixed = 3500 [USD/h];
+      campaign = 3000 [t]; roll_cost = 4000 [USD];
+    state: up = 1; wear = 0 [t];
+    decision: change : bool default 0 hold 15 [min];
+    nodes: in slabs <- slab; out coil <- hrc; out pw <- power;
+    telemetry: rolled <- "HSM.TPH" [t/h]; up <- "HSM.RUN";
+    behavior:
+      rolled = sum(slabs) * yield;
+      constraint capacity: sum(slabs) * yield <= cap * (1 - change) * up;
+      coil.hrc = rolled;
+      pw.power = rolled * kwh_t;
+      wear <- (wear + rolled * dt) * (1 - change);
+      constraint roll_campaign: wear <= campaign;
+      cost rolling = rolled * cost_t;
+      cost mill_fixed = fixed;
+      cost roll_changes = change * roll_cost / dt;
+      metric hot_rolled = rolled [t/h];
+  };
+
+  ## The works' process-gas network: furnace and converter gas in, the reheating furnaces take what they ask for (no
+  ## more than is made), the rest goes to the power plant.
+  define works_gas as ent {
+    geom: point; layer = "utilities"; icon = "gas";
+    nodes: in supply <- proc_gas; in requests <- proc_gas; out surplus <- proc_gas;
+    telemetry: made <- "GAS.MADE" [GJ/h];
+    behavior:
+      made = sum(supply);
+      constraint balance: sum(requests) <= made;
+      surplus.proc_gas = made - sum(requests);
+  };
+
+  ## Power plant on process gas: it burns what the network sends it, up to its capacity, and flares the rest (lost
+  ## energy, and its CO2 without the credit); its output offsets what the works buys from the grid (sold at the zone
+  ## price when it exceeds the works' load). Gas follows: no decision (a load and a flare decided separately around a
+  ## holder of eleven minutes stalled the search - the plan flared a third of the gas with half the plant idle).
+  define power_plant as ent {
+    geom: point; layer = "utilities"; icon = "power";
+    properties: cap = 450 [MW]; eff = 0.38; cost_mwh = 6 [USD/MWh]; flare_cost = 2 [USD/GJ]; flare_co2 = 200 [kgCO2e/GJ];
+    nodes: in fuel <- proc_gas; out pw <- power;
+    telemetry: mw <- "PP.MW" [MW];
+    behavior:
+      burned = min(sum(fuel), cap / eff);
+      mw = burned * eff;
+      flare = sum(fuel) - burned;
+      pw.power = -mw;
+      cost generation = mw * cost_mwh;
+      cost flaring = flare * flare_cost;
+      emission flared = flare * flare_co2;
+  };
+
   # ================================================================== lanes
   ## A lane ships one product from a yard to a market (sales: freight to the customer) or to another site's yard
   ## (transfer: rail or barge between sites of a region). Its rate is a decision; it draws from the source yard.

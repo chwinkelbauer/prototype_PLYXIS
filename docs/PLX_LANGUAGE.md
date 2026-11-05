@@ -46,6 +46,7 @@ define battery as ent {
   decision:                                                    # degrees of freedom for the optimizer
     oil_rate in [0, oil_pump] default 0.17 * oil_pump hold 2;  # bounds may use properties; hold = block length
     on : bool default 1 hold 6;                                # bool / int decisions
+    speed in [0, 1] default 0.8 hold 30 [min];                 # a hold in time: the same at any step
   nodes:                                                       # ports carry resource flows (rates)
     in  feed    <- oil, gas, water;
     out oil_out <- oil;                                        # fan-out to several destinations => routing decision
@@ -92,7 +93,8 @@ or `delay()` — exactly like combinational loops in hardware design.
 
 `min max abs sqrt exp log pos clamp sigmoid tanh floor ceil round sign step`, `if(c, a, b)`,
 `pwl(x, [xs], [ys])` (piecewise-linear curves, e.g. pump curves), `smin/smax(a, b, k)` (smooth min/max),
-`delay(x, k)`, `prev(x, init)`, `sum(port)` (all resources of a port), `sat(rate, available)`,
+`delay(x, k)` (k steps; or a duration: `delay(x, cycle)` with a property `cycle = 45 [min]` is 45 minutes at any
+step), `prev(x, init)`, `sum(port)` (all resources of a port), `sat(rate, available)`,
 `dt t time hour dow`, `env.<property>`. Environment-level behavior may aggregate over types, groups or single
 instances: `sum(flare.burned)`, `max(battery.oil_lvl)`, `CTB_N.oil_lvl`.
 
@@ -151,6 +153,11 @@ define kestrel as env {
 * The kind keywords (`env`, `site`, `ent`, `pkg`, `sim`, `scenario`, ...) cannot be extended by name:
   `define x as site` declares a new environment. Name environments something else (the compiler warns).
 
+* `define G as group { a, b, c }` names a set of instances; members may be wildcard patterns over instance
+  paths (`DE_*`, `L_?_DE`), matched against the instances created so far - put the group after them.
+* An aggregate over a known entity type with no instance in the program (`sum(eaf.made)` in a model, or a part of
+  one, without arc furnaces) is 0; a name that is no type is still an error.
+
 ## 4. Simulations
 
 ```plx
@@ -161,13 +168,53 @@ define ops72 as sim {
 };
 ```
 
+**The structure is found in the asset graph, not declared.** Write durations in time - a converter's tap to tap as
+a property `cycle = 45 [min]` read through `delay(taps, cycle - dt)`, a tundish's life `tundish = 10 [h]`, a set point
+that changes at most every half hour `hold 30 [min]` - and the twin means the same thing at any step. The twin is a
+graph of machines, stocks, markets and utilities; `plyxis.lang.blocks.find_structure` cuts it at the nodes that
+decouple their neighbours, in this order, and again inside every piece, which gives a tree of blocks (nothing in it
+knows what a plant or a line is):
+
+1. **exchanges several parts share** - nodes that take flows from at least two others, pass nothing on and keep no
+   stock (a market, a scrap market, a grid connection). The steel group falls apart at its markets into ten networks;
+   a site at its grid connection into its lines;
+2. **time scales** - nodes whose durations span no whole number of the part's steps need a finer step (the largest
+   one dividing the part's at which they do: the converter, 15 minutes). They seed a block at that step, which takes
+   in every node that sends into it and every receiver whose stock holds less than a day of its flow (a ladle
+   furnace, a torpedo pool), and stops at larger stocks and at stockless receivers. In `scenarios/aquila_works` the
+   Duisburg works gives two such blocks - iron, steel and casting, and hot rolling - cut apart at the slab yard;
+3. **stocks** - a node whose bounded stock holds at least a day of its flow, counted in the part's steps, separates
+   what feeds it from what draws from it: the oil field falls apart at its three batteries into its twelve well pads.
+
+What no rule splits is a cell (coupled within its step). Each block records what makes it faster to solve: exact
+per-unit dynamic programs where its equations hold a sequence rule, its structure class (LP, MILP, convex, ...),
+its own step, the flows at its fence against the decisions inside. `python -m plyxis structure <file.plx> [--detail]`
+prints the tree ([BENCHMARKS.md](BENCHMARKS.md#the-block-tree-of-every-twin)). The plan uses as input-output
+functions the blocks at a finer step than the part around them; the others are found and reported (coordinated by
+prices at the same step, they did not converge on the steel group).
+The model stays one twin: the netlist is split into a master program (the group at the simulation's step) and one
+program per block at its own step; every connection that leaves a block becomes a priced boundary, and the master sees
+each block as a mix of its schedules (`plyxis/optim/corporate.py`,
+[OPTIMIZER.md](OPTIMIZER.md#plants-at-their-own-step)). Every connection must leave its block (the rules make sure
+of it: a block takes in what sends into it). `compile_hierarchy(split=...)` also offers the earlier detectors
+(`"plants"`, `"regions"`, `"both"`), and a simulation may still declare plants by hand, which overrides them all:
+
+```plx
+define DE as group { DE_*, L_DE_*, T_DE_*, T_NL_DE, T_FR_DE };     # inside the environment, after the instances
+define corp96 as sim { env: aquila_works; horizon = 96 [h]; step = 1 [h];
+  objective: maximize sum(revenue) - sum(cost) - carbon_price * sum(emission);
+  plants: DE = 15 [min]; };                  # must divide the step
+```
+
 ## 5. What the compiler produces
 
 * **Structural output** — instances, ports, edges, GIS geometry, hierarchy, subsystems (`/api/structure`).
 * **Constraint output** — decision space with bounds, hard/soft constraints with scales, objective terms.
 * **Executable twin** — generated, time-vectorised Python/torch code (viewable in Twin Studio → *Generated
   code*). One behavior statement is executed once per asset group, over all instances, all time steps and a
-  whole batch of candidate plans; feedback loops are scheduled as cumulative sums or sequential scans.
+  whole batch of candidate plans; feedback loops are scheduled as cumulative sums (`x <- x + e`), associative
+  scans in log2(T) vectorised steps (`x <- c * x + b` with c and b free of x: a counter a decision resets, a stock
+  that decays) or, for anything else, sequential scans.
   The generated code is verified against an independent reference interpreter (`plyxis/lang/interp.py`) to
   machine precision in the test-suite.
 

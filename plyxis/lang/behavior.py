@@ -316,8 +316,16 @@ class BehaviorCompiler:
                     default = _scale_raw(default, dfac, d.default)
             hold, hold_h = 1.0, None
             if d.hold is not None:
-                hv = self.expr(d.hold, static=True)
-                if not isinstance(hv, C):
+                hu = d.hold_unit or (getattr(d.hold, "unit", None) if isinstance(d.hold, A.Num) else None)
+                if hu and isinstance(d.hold, A.Num):
+                    hold_h = float(d.hold.value) * U.factor(hu)       # `hold 30 [min]`: a duration
+                    if U.dims_of(hu) != U.dims_of("h"):
+                        self.diags.error(f"'hold' in [{hu}]: give a number of steps or a duration", d.loc, "E-DEC")
+                        hold_h = None
+                hv = self.expr(d.hold, static=True) if hold_h is None else C(hold_h)
+                if hold_h is not None:
+                    pass
+                elif not isinstance(hv, C):
                     self.diags.error("'hold' must be a constant", d.loc, "E-DEC")
                 else:
                     if d.hold_unit:
@@ -717,6 +725,10 @@ class BehaviorCompiler:
             if is_const(k) and k.value < 1:
                 self.diags.error("delay must be >= 1 step", e.loc, "E-CALL")
                 k = C(1.0)
+            if not is_const(k) and self.dims(k) == U.dims_of("h"):
+                # a duration (a property in minutes or hours): steps at whatever step the twin is compiled at. The
+                # plants' detector (lang/hierarchy.py) reads it to find the step a unit needs.
+                k = Op("div", [k, Ref("b", "dt")])
             if not is_const(init) and not (isinstance(init, Ref) and init.kind in ("param", "env")):
                 self.diags.error("delay initial value must be a constant or property", e.loc, "E-CALL")
                 init = C(0.0)

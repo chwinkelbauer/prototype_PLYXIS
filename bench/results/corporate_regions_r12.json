@@ -1,0 +1,4979 @@
+{
+ "scenario": "aquila",
+ "rounds_max": 12,
+ "workers": 6,
+ "compile_seconds": 0.46968940000078874,
+ "detected": [
+  "region DE+FR+NL: 53 units at the simulation's 60-minute step",
+  "  trades at EU_HRC.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region PL: 10 units at the simulation's 60-minute step",
+  "  trades at EU_LONG.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region BR+IN: 35 units at the simulation's 60-minute step",
+  "  trades at NA_COAT.rec: shared by 2 regional networks",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region AR+TX: 30 units at the simulation's 60-minute step",
+  "  trades at NA_COAT.rec: shared by 2 regional networks",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region MX: 12 units at the simulation's 60-minute step",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region OD: 18 units at the simulation's 60-minute step",
+  "  trades at IN_HRC.rec: shared by 2 regional networks",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_IN.requests: shared by 2 regional networks",
+  "region GJ: 16 units at the simulation's 60-minute step",
+  "  trades at IN_HRC.rec: shared by 2 regional networks",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_IN.requests: shared by 2 regional networks",
+  "region SA: 21 units at the simulation's 60-minute step",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "region ES1: 10 units at the simulation's 60-minute step",
+  "  trades at ES_GAS.requests: shared by 2 regional networks",
+  "  trades at ES_GRID.requests: shared by 2 regional networks",
+  "  trades at EU_HRC.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region ES2: 8 units at the simulation's 60-minute step",
+  "  trades at ES_GAS.requests: shared by 2 regional networks",
+  "  trades at ES_GRID.requests: shared by 2 regional networks",
+  "  trades at EU_LONG.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks"
+ ],
+ "decisions": {
+  "whole": 2476,
+  "master": 840,
+  "DE+FR+NL": 372,
+  "PL": 168,
+  "BR+IN": 228,
+  "AR+TX": 508,
+  "MX": 184,
+  "OD": 120,
+  "GJ": 316,
+  "SA": 340,
+  "ES1": 72,
+  "ES2": 168
+ },
+ "crossings": {
+  "DE+FR+NL": 2,
+  "PL": 2,
+  "BR+IN": 3,
+  "AR+TX": 3,
+  "MX": 2,
+  "OD": 3,
+  "GJ": 3,
+  "SA": 1,
+  "ES1": 4,
+  "ES2": 4
+ },
+ "whole": {
+  "objective": 1391988480.0,
+  "feasible": true,
+  "max_violation": 0.0005318750045262277,
+  "seconds": 44.03976970000076
+ },
+ "regions": {
+  "objective": 1392508160.0,
+  "feasible": false,
+  "master_feasible": false,
+  "block_violation": {
+   "DE+FR+NL": 0.0,
+   "PL": 0.0,
+   "BR+IN": 0.0,
+   "AR+TX": 0.0,
+   "MX": 0.0,
+   "OD": 0.0,
+   "GJ": 0.0,
+   "SA": 0.0,
+   "ES1": 0.0,
+   "ES2": 0.0
+  },
+  "mix_objective": 667226624.0,
+  "seconds": 1124.419316800002
+ },
+ "rounds": [
+  {
+   "round": 0,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 620523840.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001013888861052692,
+      "seconds": 26.936865400002716,
+      "flows_per_step": [
+       103680000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 555409080.0,
+      "boundary_at_prices": 41241472.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0010243055876344442,
+      "seconds": 29.521877400002268,
+      "flows_per_step": [
+       103680000.0,
+       110482752.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       0.5984999537467957
+      ]
+     },
+     {
+      "internal": 467497168.0,
+      "boundary_at_prices": 175130624.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.75413480000134,
+      "flows_per_step": [
+       96904776.0,
+       249600000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.8550000786781311
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 37186680.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.957026899999619,
+      "flows_per_step": [
+       26208000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 37182233.5,
+      "boundary_at_prices": -7242052.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.305477199999586,
+      "flows_per_step": [
+       26208000.0,
+       7010.83154296875
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       0.5747000575065613
+      ]
+     },
+     {
+      "internal": 22414369.5,
+      "boundary_at_prices": 7622964.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.223691999999573,
+      "flows_per_step": [
+       20608194.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 312200224.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.800181800001155,
+      "flows_per_step": [
+       30240000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 263361056.0,
+      "boundary_at_prices": 56460708.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001182812498882413,
+      "seconds": 34.025432800001,
+      "flows_per_step": [
+       30240000.0,
+       63701688.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049,
+       0.8295000195503235
+      ]
+     },
+     {
+      "internal": 253210272.0,
+      "boundary_at_prices": 91085336.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 32.0802345000011,
+      "flows_per_step": [
+       21065118.0,
+       70622528.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 118625416.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 26.705981399998564,
+      "flows_per_step": [
+       73632000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 98464326.0,
+      "boundary_at_prices": 1477082.75,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.293974599997455,
+      "flows_per_step": [
+       73632000.0,
+       16470791.0,
+       12904495.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049,
+       0.8295000195503235
+      ]
+     },
+     {
+      "internal": 81309598.0,
+      "boundary_at_prices": 20692302.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.395415900002263,
+      "flows_per_step": [
+       48804392.0,
+       34437788.0,
+       5428460.5
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 63497784.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.923916099996859,
+      "flows_per_step": [
+       36192000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 49060505.0,
+      "boundary_at_prices": 7774212.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.023930499999551,
+      "flows_per_step": [
+       36192000.0,
+       25874734.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049
+      ]
+     },
+     {
+      "internal": 42544820.0,
+      "boundary_at_prices": 17939454.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.506150400000479,
+      "flows_per_step": [
+       24102096.0,
+       27840000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 148347072.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 21.771109199999046,
+      "flows_per_step": [
+       33120000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 119813160.0,
+      "boundary_at_prices": 23077018.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0014429687289521098,
+      "seconds": 23.851265299999795,
+      "flows_per_step": [
+       33120000.0,
+       38074508.0,
+       20389010.0
+      ],
+      "price_mean": [
+       -0.29749998450279236,
+       0.5425000786781311,
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 99645076.0,
+      "boundary_at_prices": 57439152.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.312940499999968,
+      "flows_per_step": [
+       22129592.0,
+       56132544.0,
+       28800000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.8149999976158142
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 89331784.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.60234969999874,
+      "flows_per_step": [
+       57408000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 86484775.0,
+      "boundary_at_prices": -14184614.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.025470700002188,
+      "flows_per_step": [
+       57408000.0,
+       0.0,
+       4618112.5
+      ],
+      "price_mean": [
+       -0.29749998450279236,
+       0.5425000786781311,
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 59942623.0,
+      "boundary_at_prices": 11408521.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.080227999998897,
+      "flows_per_step": [
+       38362780.0,
+       5373714.5,
+       28800000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.8149999976158142
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 60335140.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.334708799997316,
+      "flows_per_step": [
+       0.0
+      ],
+      "price_mean": [
+       0.0
+      ]
+     },
+     {
+      "internal": 54355117.5,
+      "boundary_at_prices": 6750522.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.307672900002217,
+      "flows_per_step": [
+       11651495.0
+      ],
+      "price_mean": [
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 50649692.0,
+      "boundary_at_prices": 14083200.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.765913300001557,
+      "flows_per_step": [
+       17280000.0
+      ],
+      "price_mean": [
+       0.8149999976158142
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 70647760.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.29977449999933,
+      "flows_per_step": [
+       12384000.0,
+       4639525.0,
+       7030277.5,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 60798471.0,
+      "boundary_at_prices": 6719776.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.46837659999801,
+      "flows_per_step": [
+       12384000.0,
+       5506924.0,
+       8253372.0,
+       16922502.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       -0.04885999858379364,
+       -0.03424982354044914,
+       0.5984999537467957
+      ]
+     },
+     {
+      "internal": 49099538.0,
+      "boundary_at_prices": 25122238.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.94483549999859,
+      "flows_per_step": [
+       12384000.0,
+       8059629.0,
+       12547390.0,
+       36480000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8550000786781311
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 26452314.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.472547400000622,
+      "flows_per_step": [
+       17472000.0,
+       7889936.0,
+       3716488.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 24334322.0,
+      "boundary_at_prices": -3032355.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.015185100000963,
+      "flows_per_step": [
+       17472000.0,
+       4702981.5,
+       2099163.75,
+       3360000.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       -0.04885999858379364,
+       -0.03424982354044914,
+       0.5747000575065613
+      ]
+     },
+     {
+      "internal": 16416004.0,
+      "boundary_at_prices": 5294628.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 8.8445243999995,
+      "flows_per_step": [
+       12578248.0,
+       7982722.5,
+       3974230.0,
+       13414958.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "kept_out": {
+    "DE+FR+NL": 0,
+    "PL": 0,
+    "BR+IN": 0,
+    "AR+TX": 0,
+    "MX": 0,
+    "OD": 0,
+    "GJ": 0,
+    "SA": 0,
+    "ES1": 0,
+    "ES2": 0
+   },
+   "master": {
+    "objective": 606948928.0,
+    "feasible": false,
+    "max_violation": 0.01647466979920864,
+    "seconds": 26.3474180000012,
+    "violations": {
+     "plx_simplex_SA.con:convex": 0.0165,
+     "plx_simplex_GJ.con:convex": 0.0158,
+     "plx_simplex_BR_IN.con:convex": 0.0155,
+     "plx_simplex_ES1.con:convex": 0.0152
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.10475414246320724,
+      0.0346430204808712,
+      0.5779202580451965,
+      0.2847927212715149
+     ],
+     "PL": [
+      0.005766451358795166,
+      0.005773881450295448,
+      0.004364022985100746,
+      0.9805771708488464
+     ],
+     "BR+IN": [
+      0.28803619742393494,
+      0.09174088388681412,
+      0.6047471761703491,
+      0.01499170158058405
+     ],
+     "AR+TX": [
+      0.02529539354145527,
+      0.011198620311915874,
+      0.7966969013214111,
+      0.1668017953634262
+     ],
+     "MX": [
+      0.050078604370355606,
+      0.017328649759292603,
+      0.8877471089363098,
+      0.04338900372385979
+     ],
+     "OD": [
+      0.4354524314403534,
+      0.02785414271056652,
+      0.5184598565101624,
+      0.01789684221148491
+     ],
+     "GJ": [
+      0.050877686589956284,
+      0.03551482781767845,
+      0.3728983700275421,
+      0.540838897228241
+     ],
+     "SA": [
+      0.971303403377533,
+      0.010944277979433537,
+      0.009883022867143154,
+      0.005978281144052744
+     ],
+     "ES1": [
+      0.25399065017700195,
+      0.2440822869539261,
+      0.2738860845565796,
+      0.2271977812051773
+     ],
+     "ES2": [
+      0.007534425240010023,
+      0.004859547596424818,
+      0.009197879582643509,
+      0.9780559539794922
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.2847927212715149,
+     "PL": 0.9805771708488464,
+     "BR+IN": 0.01499170158058405,
+     "AR+TX": 0.1668017953634262,
+     "MX": 0.04338900372385979,
+     "OD": 0.01789684221148491,
+     "GJ": 0.540838897228241,
+     "SA": 0.005978281144052744,
+     "ES1": 0.2271977812051773,
+     "ES2": 0.9780559539794922
+    }
+   },
+   "phase1": {
+    "violation": 0.3410423696041107,
+    "violations": {
+     "scrap_market.con:supply": 0.341,
+     "plx_simplex_DE_FR_NL.con:convex": 0.3344,
+     "plx_simplex_GJ.con:convex": 0.2657,
+     "plx_simplex_OD.con:convex": 0.2617
+    }
+   }
+  },
+  {
+   "round": 1,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 467855440.0,
+      "boundary_at_prices": 128072168.0,
+      "reduced_cost": 15554741808.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.35888530000011,
+      "flows_per_step": [
+       86964600.0,
+       243079952.0
+      ],
+      "price_mean": [
+       -210.8650665283203,
+       0.6674792170524597
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 142066065.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.766651500001899,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -210.8650665283203,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 253792448.0,
+      "boundary_at_prices": 91061680.0,
+      "reduced_cost": 15667264.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.25967660000242,
+      "flows_per_step": [
+       21065118.0,
+       70600568.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 81361654.0,
+      "boundary_at_prices": 20645940.0,
+      "reduced_cost": 31959848.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.333212500001537,
+      "flows_per_step": [
+       49091580.0,
+       35308816.0,
+       4758748.5
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 42546440.0,
+      "boundary_at_prices": 17939454.0,
+      "reduced_cost": 3807014.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.082114500000898,
+      "flows_per_step": [
+       24102096.0,
+       27840000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100677452.0,
+      "boundary_at_prices": 56021652.0,
+      "reduced_cost": 2727731.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.530831899999612,
+      "flows_per_step": [
+       22427256.0,
+       82250808.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6105833053588867
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60331795.0,
+      "boundary_at_prices": 10386172.0,
+      "reduced_cost": 113970459.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.916925300000003,
+      "flows_per_step": [
+       38362780.0,
+       31821902.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6105833053588867
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52965608.0,
+      "boundary_at_prices": 8658876.0,
+      "reduced_cost": 2293047.4375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 21.501806999996916,
+      "flows_per_step": [
+       14126663.0
+      ],
+      "price_mean": [
+       0.6105833053588867
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49335512.0,
+      "boundary_at_prices": 18048106.0,
+      "reduced_cost": 2184546354.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.000951500001975,
+      "flows_per_step": [
+       11352000.0,
+       7818989.0,
+       12175938.0,
+       35423780.0
+      ],
+      "price_mean": [
+       -210.8650665283203,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6674792170524597
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 109485102.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 8.69946500000151,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -210.8650665283203,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 762926336.0,
+    "feasible": false,
+    "max_violation": 0.01813647523522377,
+    "seconds": 30.808915499997966,
+    "violations": {
+     "plx_simplex_DE_FR_NL.con:convex": 0.0181,
+     "plx_simplex_OD.con:convex": 0.0044,
+     "plx_simplex_PL.con:convex": 0.0044,
+     "plx_simplex_GJ.con:convex": 0.0043
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.09094280749559402,
+      0.03249330446124077,
+      0.44793546199798584,
+      0.24023307859897614,
+      0.18558770418167114
+     ],
+     "PL": [
+      0.0025408940855413675,
+      0.002543981885537505,
+      0.0016237610252574086,
+      0.9505544304847717,
+      0.042726222425699234
+     ],
+     "BR+IN": [
+      0.1544894576072693,
+      0.06068408489227295,
+      0.5322144627571106,
+      0.002373739844188094,
+      0.2514195442199707
+     ],
+     "AR+TX": [
+      0.022880621254444122,
+      0.0033858579117804766,
+      0.6497142314910889,
+      0.1166585385799408,
+      0.20719923079013824
+     ],
+     "MX": [
+      0.04155391454696655,
+      0.00561404787003994,
+      0.7203909754753113,
+      0.021799631416797638,
+      0.21019355952739716
+     ],
+     "OD": [
+      0.2582378387451172,
+      0.010410945862531662,
+      0.46850430965423584,
+      0.0012179800542071462,
+      0.2609400749206543
+     ],
+     "GJ": [
+      0.015606462024152279,
+      0.011790850199759007,
+      0.32662340998649597,
+      0.41597017645835876,
+      0.23137153685092926
+     ],
+     "SA": [
+      0.7739242911338806,
+      0.012496144510805607,
+      0.011419282294809818,
+      0.0007639611721970141,
+      0.2015235424041748
+     ],
+     "ES1": [
+      0.2293710559606552,
+      0.19963066279888153,
+      0.1988411694765091,
+      0.19480793178081512,
+      0.17783039808273315
+     ],
+     "ES2": [
+      0.0035276387352496386,
+      0.0016302658477798104,
+      0.0013382920296862721,
+      0.9262223839759827,
+      0.06568117439746857
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.24023307859897614,
+     "PL": 0.9505544304847717,
+     "BR+IN": 0.002373739844188094,
+     "AR+TX": 0.1166585385799408,
+     "MX": 0.021799631416797638,
+     "OD": 0.0012179800542071462,
+     "GJ": 0.41597017645835876,
+     "SA": 0.0007639611721970141,
+     "ES1": 0.19480793178081512,
+     "ES2": 0.9262223839759827
+    }
+   }
+  },
+  {
+   "round": 2,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469197056.0,
+      "boundary_at_prices": 124632016.0,
+      "reduced_cost": 8464930008.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.240917699997226,
+      "flows_per_step": [
+       92922936.0,
+       244668400.0
+      ],
+      "price_mean": [
+       -105.63004302978516,
+       0.6590312719345093
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 79898266.3125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.124809199998708,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -105.63004302978516,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 256524224.0,
+      "boundary_at_prices": 81494888.0,
+      "reduced_cost": -6186526.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 39.59997700000167,
+      "flows_per_step": [
+       21065118.0,
+       67772664.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8936040997505188,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 84743370.0,
+      "boundary_at_prices": 14979841.0,
+      "reduced_cost": 20785105.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 26.927802900001552,
+      "flows_per_step": [
+       50646368.0,
+       21945688.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8936040997505188,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43172622.0,
+      "boundary_at_prices": 14522192.0,
+      "reduced_cost": -426012.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.62372730000061,
+      "flows_per_step": [
+       24063260.0,
+       27169468.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8936040997505188
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100499744.0,
+      "boundary_at_prices": 56206516.0,
+      "reduced_cost": -10677467.4375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.746579399998154,
+      "flows_per_step": [
+       22427256.0,
+       82480800.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6109582781791687
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60327243.0,
+      "boundary_at_prices": 10390732.0,
+      "reduced_cost": 86427754.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.07335729999977,
+      "flows_per_step": [
+       38362780.0,
+       31826396.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6109582781791687
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52946102.0,
+      "boundary_at_prices": 8684502.0,
+      "reduced_cost": 1176768.6171875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.499999300001946,
+      "flows_per_step": [
+       14158754.0
+      ],
+      "price_mean": [
+       0.6109582781791687
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49371274.0,
+      "boundary_at_prices": 17704186.0,
+      "reduced_cost": 938241397.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 8.558082800002012,
+      "flows_per_step": [
+       11229089.0,
+       7786734.5,
+       12126650.0,
+       35284796.0
+      ],
+      "price_mean": [
+       -105.63004302978516,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6590312719345093
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 61751663.5625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.89085569999952,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -105.63004302978516,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 786325248.0,
+    "feasible": false,
+    "max_violation": 0.025003783404827118,
+    "seconds": 30.179645200001687,
+    "violations": {
+     "plx_simplex_ES1.con:convex": 0.025,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0229,
+     "plx_simplex_AR_TX.con:convex": 0.004,
+     "plx_simplex_SA.con:convex": 0.0036
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.1150803491473198,
+      0.0307261124253273,
+      0.33117806911468506,
+      0.2439602166414261,
+      0.12118362635374069,
+      0.1602145880460739
+     ],
+     "PL": [
+      0.0015623221406713128,
+      0.0015632404247298837,
+      0.0016931425780057907,
+      0.9268632531166077,
+      0.028659524396061897,
+      0.03962346538901329
+     ],
+     "BR+IN": [
+      0.19658446311950684,
+      0.03859665244817734,
+      0.5217552185058594,
+      0.0014774743467569351,
+      0.24211949110031128
+     ],
+     "AR+TX": [
+      0.03674951568245888,
+      0.0008392291492782533,
+      0.5180167555809021,
+      0.1317068338394165,
+      0.168794646859169,
+      0.1438182145357132
+     ],
+     "MX": [
+      0.03506260737776756,
+      0.0014823070960119367,
+      0.7289490103721619,
+      0.01558779552578926,
+      0.2187551110982895
+     ],
+     "OD": [
+      0.12431534379720688,
+      0.007182153407484293,
+      0.5325284004211426,
+      0.0013616598444059491,
+      0.3345696032047272
+     ],
+     "GJ": [
+      0.0075648133642971516,
+      0.00351310265250504,
+      0.2431345134973526,
+      0.3698105812072754,
+      0.180391326546669,
+      0.19529344141483307
+     ],
+     "SA": [
+      0.6187299489974976,
+      0.012632017023861408,
+      0.011408193968236446,
+      0.0005849428125657141,
+      0.15780982375144958,
+      0.19856594502925873
+     ],
+     "ES1": [
+      0.23110711574554443,
+      0.1655338853597641,
+      0.13438019156455994,
+      0.1872093826532364,
+      0.11009988188743591,
+      0.1696835607290268
+     ],
+     "ES2": [
+      0.0018366751028224826,
+      0.001774899661540985,
+      0.0024139846209436655,
+      0.88905268907547,
+      0.027216585353016853,
+      0.07758621126413345
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.2439602166414261,
+     "PL": 0.9268632531166077,
+     "BR+IN": 0.0014774743467569351,
+     "AR+TX": 0.1317068338394165,
+     "MX": 0.01558779552578926,
+     "OD": 0.0013616598444059491,
+     "GJ": 0.3698105812072754,
+     "SA": 0.0005849428125657141,
+     "ES1": 0.1872093826532364,
+     "ES2": 0.88905268907547
+    }
+   }
+  },
+  {
+   "round": 3,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469197056.0,
+      "boundary_at_prices": 124561208.0,
+      "reduced_cost": 4187540916.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.85459540000011,
+      "flows_per_step": [
+       92922936.0,
+       244668400.0
+      ],
+      "price_mean": [
+       -53.012516021728516,
+       0.6587448120117188
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 82064224.8125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.25197670000125,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -53.012516021728516,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 256524224.0,
+      "boundary_at_prices": 78241320.0,
+      "reduced_cost": -4114719.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 44.38931910000247,
+      "flows_per_step": [
+       21065118.0,
+       67772664.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8444478511810303,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 84877192.0,
+      "boundary_at_prices": 13918118.0,
+      "reduced_cost": 24071380.671875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 26.404509200001485,
+      "flows_per_step": [
+       48830104.0,
+       20927346.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8444478511810303,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43525235.0,
+      "boundary_at_prices": 12853504.0,
+      "reduced_cost": -2030746.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.90033509999921,
+      "flows_per_step": [
+       24301464.0,
+       26878692.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8444478511810303
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 101490456.0,
+      "boundary_at_prices": 54501656.0,
+      "reduced_cost": -20766832.3125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.59099680000145,
+      "flows_per_step": [
+       22427256.0,
+       81367304.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7623750567436218,
+       0.6107707619667053
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60928148.0,
+      "boundary_at_prices": 9661052.0,
+      "reduced_cost": 77321711.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.845115600001009,
+      "flows_per_step": [
+       39351700.0,
+       31648384.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7623750567436218,
+       0.6107707619667053
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52932133.0,
+      "boundary_at_prices": 8696815.0,
+      "reduced_cost": 851361.267578125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.175532699999167,
+      "flows_per_step": [
+       14184494.0
+      ],
+      "price_mean": [
+       0.6107707619667053
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49404444.0,
+      "boundary_at_prices": 17660562.0,
+      "reduced_cost": 447901752.9375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.42336609999984,
+      "flows_per_step": [
+       11229089.0,
+       7774162.0,
+       12107450.0,
+       35230124.0
+      ],
+      "price_mean": [
+       -53.012516021728516,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6587448120117188
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 63850535.5625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.85751689999961,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -53.012516021728516,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 819690816.0,
+    "feasible": false,
+    "max_violation": 0.004729126114398241,
+    "seconds": 29.794239599999855,
+    "violations": {
+     "plx_simplex_ES1.con:convex": 0.0047,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0047,
+     "plx_simplex_GJ.con:convex": 0.0047,
+     "plx_simplex_PL.con:convex": 0.0044
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.12470263242721558,
+      0.17333398759365082,
+      0.26834726333618164,
+      0.23807555437088013,
+      0.09478425234556198,
+      0.10150560736656189
+     ],
+     "PL": [
+      0.03681745380163193,
+      0.001997079001739621,
+      0.003644390730187297,
+      0.9086278080940247,
+      0.026429729536175728,
+      0.022815348580479622
+     ],
+     "BR+IN": [
+      0.12324167042970657,
+      0.029254617169499397,
+      0.5617560744285583,
+      0.0009647476836107671,
+      0.28466570377349854
+     ],
+     "AR+TX": [
+      0.028443114832043648,
+      0.20500165224075317,
+      0.4154650866985321,
+      0.10805719345808029,
+      0.13442836701869965,
+      0.10739397257566452
+     ],
+     "MX": [
+      0.03209724277257919,
+      0.001345587894320488,
+      0.7287946343421936,
+      0.019231101498007774,
+      0.21860621869564056
+     ],
+     "OD": [
+      0.09094304591417313,
+      0.004867327865213156,
+      0.543446958065033,
+      0.0012704244581982493,
+      0.3602053225040436
+     ],
+     "GJ": [
+      0.006520440336316824,
+      0.18082045018672943,
+      0.17048628628253937,
+      0.3610464334487915,
+      0.13480710983276367,
+      0.1467302441596985
+     ],
+     "SA": [
+      0.4991722106933594,
+      0.014240127988159657,
+      0.2001287192106247,
+      0.0008171889348886907,
+      0.12635137140750885,
+      0.15898607671260834
+     ],
+     "ES1": [
+      0.22877724468708038,
+      0.15685787796974182,
+      0.10866847634315491,
+      0.18179498612880707,
+      0.1944337636232376,
+      0.13073410093784332
+     ],
+     "ES2": [
+      0.0022643606644123793,
+      0.08065004646778107,
+      0.003651839680969715,
+      0.8660271167755127,
+      0.024189652875065804,
+      0.023019157350063324
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.23807555437088013,
+     "PL": 0.9086278080940247,
+     "BR+IN": 0.0009647476836107671,
+     "AR+TX": 0.10805719345808029,
+     "MX": 0.019231101498007774,
+     "OD": 0.0012704244581982493,
+     "GJ": 0.3610464334487915,
+     "SA": 0.0008171889348886907,
+     "ES1": 0.18179498612880707,
+     "ES2": 0.8660271167755127
+    }
+   }
+  },
+  {
+   "round": 4,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469197136.0,
+      "boundary_at_prices": 123543016.0,
+      "reduced_cost": 1935973176.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.64457699999912,
+      "flows_per_step": [
+       92922936.0,
+       244668400.0
+      ],
+      "price_mean": [
+       -26.70375633239746,
+       0.6546640992164612
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 92268756.40625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.905640900000435,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -26.70375633239746,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 256524224.0,
+      "boundary_at_prices": 73954056.0,
+      "reduced_cost": -12838700.0625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 40.23106960000223,
+      "flows_per_step": [
+       21065118.0,
+       67772664.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8175156712532043,
+       1.0837396383285522
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85251296.0,
+      "boundary_at_prices": 11671454.0,
+      "reduced_cost": 17405710.625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.696038999998564,
+      "flows_per_step": [
+       48573148.0,
+       20344734.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8175156712532043,
+       1.0837396383285522
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43645323.0,
+      "boundary_at_prices": 12017956.0,
+      "reduced_cost": -2062115.125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.86010300000271,
+      "flows_per_step": [
+       24301464.0,
+       26734444.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8175156712532043
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 102101588.0,
+      "boundary_at_prices": 53779880.0,
+      "reduced_cost": -24312781.3125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.118268599999283,
+      "flows_per_step": [
+       21766470.0,
+       80048504.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7560625672340393,
+       0.6106770038604736
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60925122.0,
+      "boundary_at_prices": 9664656.0,
+      "reduced_cost": 75608833.6875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.185040200001822,
+      "flows_per_step": [
+       39351700.0,
+       31653216.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7560625672340393,
+       0.6106770038604736
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52906107.0,
+      "boundary_at_prices": 8721353.0,
+      "reduced_cost": 486311.65625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.176943200000096,
+      "flows_per_step": [
+       14228089.0
+      ],
+      "price_mean": [
+       0.6106770038604736
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49333878.0,
+      "boundary_at_prices": 17582268.0,
+      "reduced_cost": 229926565.3125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.956190199998673,
+      "flows_per_step": [
+       11069721.0,
+       7777031.0,
+       12111858.0,
+       35242724.0
+      ],
+      "price_mean": [
+       -26.70375633239746,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6546640992164612
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 66172141.53125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.314751100002468,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -26.70375633239746,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 807263680.0,
+    "feasible": false,
+    "max_violation": 0.014927001670002937,
+    "seconds": 30.325655099997675,
+    "violations": {
+     "plx_simplex_AR_TX.con:convex": 0.0149,
+     "plx_simplex_GJ.con:convex": 0.0055,
+     "plx_simplex_ES1.con:convex": 0.0054,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0054
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.12170741707086563,
+      0.13022397458553314,
+      0.23687535524368286,
+      0.2466045618057251,
+      0.19155675172805786,
+      0.07276125997304916
+     ],
+     "PL": [
+      0.01887528784573078,
+      0.03417215496301651,
+      0.003983106464147568,
+      0.9002788066864014,
+      0.02291259914636612,
+      0.020021097734570503
+     ],
+     "BR+IN": [
+      0.10613521188497543,
+      0.028138240799307823,
+      0.5694549083709717,
+      0.0024624119978398085,
+      0.29534420371055603
+     ],
+     "AR+TX": [
+      0.2018178105354309,
+      0.16424551606178284,
+      0.3390190899372101,
+      0.10044502466917038,
+      0.11436676979064941,
+      0.07930003851652145
+     ],
+     "MX": [
+      0.03914501890540123,
+      0.0020841246005147696,
+      0.7227027416229248,
+      0.023469077423214912,
+      0.21251577138900757
+     ],
+     "OD": [
+      0.08547982573509216,
+      0.002463510725647211,
+      0.5486122369766235,
+      0.0006758781964890659,
+      0.3636007308959961
+     ],
+     "GJ": [
+      0.1816202998161316,
+      0.12627409398555756,
+      0.12482190132141113,
+      0.3577740490436554,
+      0.10049330443143845,
+      0.10847348719835281
+     ],
+     "SA": [
+      0.49765050411224365,
+      0.01648540236055851,
+      0.19997240602970123,
+      0.0008187505882233381,
+      0.12619835138320923,
+      0.15882712602615356
+     ],
+     "ES1": [
+      0.2106083184480667,
+      0.13615037500858307,
+      0.20224665105342865,
+      0.18499010801315308,
+      0.15628711879253387,
+      0.11197099834680557
+     ],
+     "ES2": [
+      0.08547472208738327,
+      0.019163446500897408,
+      0.004870538599789143,
+      0.8488253951072693,
+      0.022060753777623177,
+      0.020756922662258148
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.2466045618057251,
+     "PL": 0.9002788066864014,
+     "BR+IN": 0.0024624119978398085,
+     "AR+TX": 0.10044502466917038,
+     "MX": 0.023469077423214912,
+     "OD": 0.0006758781964890659,
+     "GJ": 0.3577740490436554,
+     "SA": 0.0008187505882233381,
+     "ES1": 0.18499010801315308,
+     "ES2": 0.8488253951072693
+    }
+   }
+  },
+  {
+   "round": 5,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969328.0,
+      "boundary_at_prices": 122514112.0,
+      "reduced_cost": 1191113432.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 29.779939999996714,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -13.549378395080566,
+       0.6531966328620911
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 82810147.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.610490999999456,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -13.549378395080566,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 256524224.0,
+      "boundary_at_prices": 71786752.0,
+      "reduced_cost": -13859882.125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 40.39687130000311,
+      "flows_per_step": [
+       21065118.0,
+       67772664.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8040494918823242,
+       1.0321613550186157
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85961192.0,
+      "boundary_at_prices": 10020079.0,
+      "reduced_cost": 24252570.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.70687010000256,
+      "flows_per_step": [
+       49585828.0,
+       19971106.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8040494918823242,
+       1.0321613550186157
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43708717.0,
+      "boundary_at_prices": 11599623.0,
+      "reduced_cost": -2144578.875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.62531239999953,
+      "flows_per_step": [
+       24301464.0,
+       26656882.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.8040494918823242
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 102596052.0,
+      "boundary_at_prices": 53270464.0,
+      "reduced_cost": -25240327.6640625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.216545999999653,
+      "flows_per_step": [
+       21695870.0,
+       79200000.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.752906322479248,
+       0.6110051274299622
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60917862.0,
+      "boundary_at_prices": 9673953.0,
+      "reduced_cost": 76162302.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.922527300001093,
+      "flows_per_step": [
+       39351700.0,
+       31665310.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.752906322479248,
+       0.6110051274299622
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52929977.0,
+      "boundary_at_prices": 8703747.0,
+      "reduced_cost": 781294.9375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.845081600000412,
+      "flows_per_step": [
+       14189296.0
+      ],
+      "price_mean": [
+       0.6110051274299622
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49383006.0,
+      "boundary_at_prices": 17479706.0,
+      "reduced_cost": 114479712.296875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.53359029999774,
+      "flows_per_step": [
+       11069721.0,
+       7758430.0,
+       12083216.0,
+       35162172.0
+      ],
+      "price_mean": [
+       -13.549378395080566,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6531966328620911
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 60894786.53125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.688328700001875,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -13.549378395080566,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 822989120.0,
+    "feasible": false,
+    "max_violation": 0.004780639428645372,
+    "seconds": 30.21756219999952,
+    "violations": {
+     "plx_simplex_AR_TX.con:convex": 0.0048,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0046,
+     "plx_simplex_ES1.con:convex": 0.0044,
+     "plx_simplex_GJ.con:convex": 0.0042
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.11541173607110977,
+      0.09503353387117386,
+      0.21098916232585907,
+      0.24303829669952393,
+      0.14409978687763214,
+      0.19125406444072723
+     ],
+     "PL": [
+      0.016541533172130585,
+      0.016866611316800117,
+      0.03045639954507351,
+      0.8988996148109436,
+      0.019771385937929153,
+      0.017458181828260422
+     ],
+     "BR+IN": [
+      0.11667364090681076,
+      0.027329185977578163,
+      0.5633904337882996,
+      0.0001651518978178501,
+      0.292356938123703
+     ],
+     "AR+TX": [
+      0.1613147109746933,
+      0.13085921108722687,
+      0.29462411999702454,
+      0.10012772679328918,
+      0.11746027320623398,
+      0.19611035287380219
+     ],
+     "MX": [
+      0.039174120873212814,
+      0.00240763439796865,
+      0.7241513729095459,
+      0.01996484212577343,
+      0.21396826207637787
+     ],
+     "OD": [
+      0.08405185490846634,
+      0.001361129223369062,
+      0.5362656712532043,
+      0.0008834013715386391,
+      0.3781603276729584
+     ],
+     "GJ": [
+      0.14399297535419464,
+      0.09971090406179428,
+      0.10443034768104553,
+      0.35809454321861267,
+      0.19869844615459442,
+      0.09447415918111801
+     ],
+     "SA": [
+      0.4951435625553131,
+      0.018900563940405846,
+      0.20032532513141632,
+      0.0005769276176579297,
+      0.12653730809688568,
+      0.15917855501174927
+     ],
+     "ES1": [
+      0.1962658315896988,
+      0.12244993448257446,
+      0.1639273315668106,
+      0.1824948787689209,
+      0.13196562230587006,
+      0.20222248136997223
+     ],
+     "ES2": [
+      0.018139908090233803,
+      0.016636863350868225,
+      0.09069550037384033,
+      0.8381602764129639,
+      0.018954714760184288,
+      0.017911650240421295
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.24303829669952393,
+     "PL": 0.8988996148109436,
+     "BR+IN": 0.0001651518978178501,
+     "AR+TX": 0.10012772679328918,
+     "MX": 0.01996484212577343,
+     "OD": 0.0008834013715386391,
+     "GJ": 0.35809454321861267,
+     "SA": 0.0005769276176579297,
+     "ES1": 0.1824948787689209,
+     "ES2": 0.8381602764129639
+    }
+   }
+  },
+  {
+   "round": 6,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969360.0,
+      "boundary_at_prices": 122189184.0,
+      "reduced_cost": 709790304.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 29.558757999999216,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -6.972188472747803,
+       0.651889979839325
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 74097492.28125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.483972199999698,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -6.972188472747803,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 256524224.0,
+      "boundary_at_prices": 70703112.0,
+      "reduced_cost": -17210474.140625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 38.996398999999656,
+      "flows_per_step": [
+       21065118.0,
+       67772664.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7973163723945618,
+       1.006372332572937
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 86036396.0,
+      "boundary_at_prices": 9476084.0,
+      "reduced_cost": 22397554.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.67055590000018,
+      "flows_per_step": [
+       49638736.0,
+       19904374.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7973163723945618,
+       1.006372332572937
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43736689.0,
+      "boundary_at_prices": 11394803.0,
+      "reduced_cost": -3287204.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.173169400000916,
+      "flows_per_step": [
+       24301464.0,
+       26622178.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7973163723945618
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 102183360.0,
+      "boundary_at_prices": 53851948.0,
+      "reduced_cost": -26076142.075683594,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.12757469999997,
+      "flows_per_step": [
+       24770096.0,
+       81784808.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7639532089233398,
+       0.6118879318237305
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60908178.0,
+      "boundary_at_prices": 9684694.0,
+      "reduced_cost": 76057645.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 15.585862899999483,
+      "flows_per_step": [
+       39351700.0,
+       31679874.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7639532089233398,
+       0.6118879318237305
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52928107.0,
+      "boundary_at_prices": 8721145.0,
+      "reduced_cost": 162402.16015625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 26.31660290000218,
+      "flows_per_step": [
+       14194318.0
+      ],
+      "price_mean": [
+       0.6118879318237305
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49412708.0,
+      "boundary_at_prices": 17402464.0,
+      "reduced_cost": 69436498.953125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.249947899999825,
+      "flows_per_step": [
+       11069721.0,
+       7747163.0,
+       12066231.0,
+       35113364.0
+      ],
+      "price_mean": [
+       -6.972188472747803,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.651889979839325
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 53158940.796875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.123299099999713,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -6.972188472747803,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 804677824.0,
+    "feasible": false,
+    "max_violation": 0.011334716342389584,
+    "seconds": 31.015208299999358,
+    "violations": {
+     "plx_simplex_AR_TX.con:convex": 0.0113,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0103,
+     "plx_simplex_ES2.con:convex": 0.0086,
+     "plx_simplex_SA.con:convex": 0.0086
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.12585140764713287,
+      0.18806345760822296,
+      0.19292259216308594,
+      0.25125852227211,
+      0.10289282351732254,
+      0.14106671512126923
+     ],
+     "PL": [
+      0.04576798155903816,
+      0.01618652604520321,
+      0.017888082191348076,
+      0.8851380944252014,
+      0.018510349094867706,
+      0.01665978506207466
+     ],
+     "BR+IN": [
+      0.14600759744644165,
+      0.02526155859231949,
+      0.5488602519035339,
+      0.002254456514492631,
+      0.2786291539669037
+     ],
+     "AR+TX": [
+      0.13101179897785187,
+      0.10632017999887466,
+      0.29502835869789124,
+      0.10753638297319412,
+      0.19979669153690338,
+      0.15691353380680084
+     ],
+     "MX": [
+      0.04364454746246338,
+      0.0026513913180679083,
+      0.7196239829063416,
+      0.026337364688515663,
+      0.20943962037563324
+     ],
+     "OD": [
+      0.08400186896324158,
+      0.0011953326174989343,
+      0.5255009531974792,
+      0.001037418725900352,
+      0.3880561292171478
+     ],
+     "GJ": [
+      0.1138264462351799,
+      0.0784217119216919,
+      0.0882934033870697,
+      0.3634098470211029,
+      0.1575966775417328,
+      0.19865132868289948
+     ],
+     "SA": [
+      0.4916023015975952,
+      0.022443950176239014,
+      0.20060652494430542,
+      0.001154795871116221,
+      0.12666083872318268,
+      0.1594042032957077
+     ],
+     "ES1": [
+      0.18982060253620148,
+      0.20323888957500458,
+      0.1374012678861618,
+      0.19316983222961426,
+      0.11158864945173264,
+      0.16501189768314362
+     ],
+     "ES2": [
+      0.016851024702191353,
+      0.09472504258155823,
+      0.02218683250248432,
+      0.8317075371742249,
+      0.0180307999253273,
+      0.017196346074342728
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.25125852227211,
+     "PL": 0.8851380944252014,
+     "BR+IN": 0.002254456514492631,
+     "AR+TX": 0.10753638297319412,
+     "MX": 0.026337364688515663,
+     "OD": 0.001037418725900352,
+     "GJ": 0.3634098470211029,
+     "SA": 0.001154795871116221,
+     "ES1": 0.19316983222961426,
+     "ES2": 0.8317075371742249
+    }
+   }
+  },
+  {
+   "round": 7,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969328.0,
+      "boundary_at_prices": 122143712.0,
+      "reduced_cost": 566009022.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 31.296644000001834,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -3.6835949420928955,
+       0.6517053842544556
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 72976386.5625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 15.273804699998436,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -3.6835949420928955,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257019096.0,
+      "boundary_at_prices": 69843656.0,
+      "reduced_cost": -15035440.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 34.28068450000137,
+      "flows_per_step": [
+       18653256.0,
+       66017848.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7950436472892761,
+       0.9934778213500977
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85195562.0,
+      "boundary_at_prices": 10120049.0,
+      "reduced_cost": 24537315.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.836258200000884,
+      "flows_per_step": [
+       47496324.0,
+       19870942.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7950436472892761,
+       0.9934778213500977
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43743885.0,
+      "boundary_at_prices": 11327970.0,
+      "reduced_cost": -3146201.125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.198856800001522,
+      "flows_per_step": [
+       24301464.0,
+       26611320.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7950436472892761
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100796548.0,
+      "boundary_at_prices": 55479696.0,
+      "reduced_cost": -26275699.790039062,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.20469039999807,
+      "flows_per_step": [
+       22440478.0,
+       82238112.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7694766521453857,
+       0.6132981181144714
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60908178.0,
+      "boundary_at_prices": 9684694.0,
+      "reduced_cost": 76593449.84375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 15.839711399999942,
+      "flows_per_step": [
+       39351700.0,
+       31679874.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7694766521453857,
+       0.6132981181144714
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52920824.0,
+      "boundary_at_prices": 8752196.0,
+      "reduced_cost": -252018.6953125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.31861000000208,
+      "flows_per_step": [
+       14204086.0
+      ],
+      "price_mean": [
+       0.6132981181144714
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49428538.0,
+      "boundary_at_prices": 17379986.0,
+      "reduced_cost": 47591814.4765625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.9377596000013,
+      "flows_per_step": [
+       11069721.0,
+       7741037.5,
+       12056952.0,
+       35087292.0
+      ],
+      "price_mean": [
+       -3.6835949420928955,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6517053842544556
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 52806846.9375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.759086499998375,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -3.6835949420928955,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 807415616.0,
+    "feasible": false,
+    "max_violation": 0.014864624477922916,
+    "seconds": 30.137795900001947,
+    "violations": {
+     "plx_simplex_AR_TX.con:convex": 0.0149,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0077,
+     "plx_simplex_BR_IN.con:convex": 0.0075,
+     "plx_simplex_ES2.con:convex": 0.0046
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.11351814866065979,
+      0.14414359629154205,
+      0.19134186208248138,
+      0.24907326698303223,
+      0.1936928629875183,
+      0.10654621571302414
+     ],
+     "PL": [
+      0.01923714391887188,
+      0.05802474543452263,
+      0.017216434702277184,
+      0.8729019165039062,
+      0.01771424524486065,
+      0.016233796253800392
+     ],
+     "BR+IN": [
+      0.15745289623737335,
+      0.021132074296474457,
+      0.5444650650024414,
+      0.0025033631827682257,
+      0.27527424693107605
+     ],
+     "AR+TX": [
+      0.10978709906339645,
+      0.20725798606872559,
+      0.28860774636268616,
+      0.10672545433044434,
+      0.161052867770195,
+      0.12709562480449677
+     ],
+     "MX": [
+      0.04778291657567024,
+      0.0011593849631026387,
+      0.7179356217384338,
+      0.02549545280635357,
+      0.20775510370731354
+     ],
+     "OD": [
+      0.08383869379758835,
+      0.0006654955795966089,
+      0.5213069915771484,
+      0.00044456651085056365,
+      0.39375707507133484
+     ],
+     "GJ": [
+      0.08659278601408005,
+      0.19546490907669067,
+      0.08400417119264603,
+      0.3586848974227905,
+      0.1215408518910408,
+      0.15438596904277802
+     ],
+     "SA": [
+      0.4898035526275635,
+      0.024378448724746704,
+      0.20032630860805511,
+      0.0007213038043119013,
+      0.12628330290317535,
+      0.1590941697359085
+     ],
+     "ES1": [
+      0.17845551669597626,
+      0.16748060286045074,
+      0.12115981429815292,
+      0.1877954602241516,
+      0.20491915941238403,
+      0.1402076631784439
+     ],
+     "ES2": [
+      0.09038234502077103,
+      0.02620704285800457,
+      0.01751278154551983,
+      0.8333489894866943,
+      0.017449310049414635,
+      0.016781749203801155
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.24907326698303223,
+     "PL": 0.8729019165039062,
+     "BR+IN": 0.0025033631827682257,
+     "AR+TX": 0.10672545433044434,
+     "MX": 0.02549545280635357,
+     "OD": 0.00044456651085056365,
+     "GJ": 0.3586848974227905,
+     "SA": 0.0007213038043119013,
+     "ES1": 0.1877954602241516,
+     "ES2": 0.8333489894866943
+    }
+   }
+  },
+  {
+   "round": 8,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969328.0,
+      "boundary_at_prices": 122003984.0,
+      "reduced_cost": 455585342.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 32.19297290000031,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -2.039297342300415,
+       0.6511443257331848
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 71866024.0625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.992449000001216,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -2.039297342300415,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257019080.0,
+      "boundary_at_prices": 69535584.0,
+      "reduced_cost": -16148992.375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 40.10338829999819,
+      "flows_per_step": [
+       18653256.0,
+       66017848.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7928134799003601,
+       0.9870306849479675
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85237974.0,
+      "boundary_at_prices": 9946506.0,
+      "reduced_cost": 24388934.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 38.3139826000006,
+      "flows_per_step": [
+       47571008.0,
+       19861274.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7928134799003601,
+       0.9870306849479675
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43752511.0,
+      "boundary_at_prices": 11263553.0,
+      "reduced_cost": -3753567.359375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.359420799999498,
+      "flows_per_step": [
+       24301464.0,
+       26604770.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7928134799003601
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100693016.0,
+      "boundary_at_prices": 55774808.0,
+      "reduced_cost": -26646558.893066406,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.07785949999743,
+      "flows_per_step": [
+       22423758.0,
+       82307864.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7722383141517639,
+       0.6157011389732361
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60821363.0,
+      "boundary_at_prices": 9799550.0,
+      "reduced_cost": 75847395.125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.012797900002624,
+      "flows_per_step": [
+       39227516.0,
+       31691230.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7722383141517639,
+       0.6157011389732361
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52918610.0,
+      "boundary_at_prices": 8794002.0,
+      "reduced_cost": 86562.6015625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.07503849999921,
+      "flows_per_step": [
+       14204927.0
+      ],
+      "price_mean": [
+       0.6157011389732361
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49428544.0,
+      "boundary_at_prices": 17359572.0,
+      "reduced_cost": 38286005.1640625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.115200399999594,
+      "flows_per_step": [
+       11069721.0,
+       7741037.5,
+       12056952.0,
+       35087292.0
+      ],
+      "price_mean": [
+       -2.039297342300415,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6511443257331848
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 52855998.15625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.504041100000904,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -2.039297342300415,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 810517184.0,
+    "feasible": false,
+    "max_violation": 0.018659180030226707,
+    "seconds": 30.746108499999536,
+    "violations": {
+     "plx_simplex_ES1.con:convex": 0.0187,
+     "plx_simplex_AR_TX.con:convex": 0.0059,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0058,
+     "plx_simplex_PL.con:convex": 0.0056
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.11811366677284241,
+      0.11007583141326904,
+      0.178994283080101,
+      0.2501322329044342,
+      0.14971524477005005,
+      0.19476093351840973
+     ],
+     "PL": [
+      0.017570337280631065,
+      0.02138577215373516,
+      0.01599014922976494,
+      0.8849756717681885,
+      0.01638839766383171,
+      0.04349680244922638
+     ],
+     "BR+IN": [
+      0.1704249233007431,
+      0.02242116443812847,
+      0.5375747084617615,
+      0.0007255765958689153,
+      0.2692371904850006
+     ],
+     "AR+TX": [
+      0.20639674365520477,
+      0.1723306030035019,
+      0.2844979166984558,
+      0.10098743438720703,
+      0.13119365274906158,
+      0.10432688146829605
+     ],
+     "MX": [
+      0.04967011511325836,
+      0.0010870459955185652,
+      0.7192738056182861,
+      0.020819393917918205,
+      0.2090958207845688
+     ],
+     "OD": [
+      0.0842844545841217,
+      0.0013206396251916885,
+      0.5229523777961731,
+      0.0010973885655403137,
+      0.3914053738117218
+     ],
+     "GJ": [
+      0.06876007467508316,
+      0.15245436131954193,
+      0.19735640287399292,
+      0.3687177002429962,
+      0.09431938081979752,
+      0.11959122866392136
+     ],
+     "SA": [
+      0.48396432399749756,
+      0.026962779462337494,
+      0.20099519193172455,
+      0.0006142138154245913,
+      0.12691305577754974,
+      0.1597391664981842
+     ],
+     "ES1": [
+      0.1705097109079361,
+      0.14223194122314453,
+      0.20534616708755493,
+      0.18881289660930634,
+      0.1692814826965332,
+      0.12320178002119064
+     ],
+     "ES2": [
+      0.025161823257803917,
+      0.01782999373972416,
+      0.016204984858632088,
+      0.8482385277748108,
+      0.016154207289218903,
+      0.07474931329488754
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.2501322329044342,
+     "PL": 0.8849756717681885,
+     "BR+IN": 0.0007255765958689153,
+     "AR+TX": 0.10098743438720703,
+     "MX": 0.020819393917918205,
+     "OD": 0.0010973885655403137,
+     "GJ": 0.3687177002429962,
+     "SA": 0.0006142138154245913,
+     "ES1": 0.18881289660930634,
+     "ES2": 0.8482385277748108
+    }
+   }
+  },
+  {
+   "round": 9,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969328.0,
+      "boundary_at_prices": 121934120.0,
+      "reduced_cost": 417022200.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 30.420982200001163,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -1.2171489000320435,
+       0.6508638262748718
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 73067322.75,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.524878799998987,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -1.2171489000320435,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257019064.0,
+      "boundary_at_prices": 69417440.0,
+      "reduced_cost": -17736950.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 38.55342720000044,
+      "flows_per_step": [
+       18653256.0,
+       66017848.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7923858761787415,
+       0.983806848526001
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85571802.0,
+      "boundary_at_prices": 9553533.0,
+      "reduced_cost": 23467103.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.360285299997486,
+      "flows_per_step": [
+       48353788.0,
+       19832488.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7923858761787415,
+       0.983806848526001
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43757021.0,
+      "boundary_at_prices": 11248250.0,
+      "reduced_cost": -4737573.9375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 15.010102600001119,
+      "flows_per_step": [
+       24301464.0,
+       26598642.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7923858761787415
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100314656.0,
+      "boundary_at_prices": 56270896.0,
+      "reduced_cost": -27478393.900390625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.211896799999522,
+      "flows_per_step": [
+       22056882.0,
+       82507488.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7736191749572754,
+       0.6907672882080078
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60660657.0,
+      "boundary_at_prices": 10000756.0,
+      "reduced_cost": 77922979.1875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.785829899999953,
+      "flows_per_step": [
+       38945696.0,
+       31731100.0,
+       2400000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7736191749572754,
+       0.6907672882080078
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52802870.0,
+      "boundary_at_prices": 10208458.0,
+      "reduced_cost": 770790.796875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.735518800000136,
+      "flows_per_step": [
+       14400000.0
+      ],
+      "price_mean": [
+       0.6907672882080078
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49428544.0,
+      "boundary_at_prices": 17349362.0,
+      "reduced_cost": 35573807.03125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.598440199999459,
+      "flows_per_step": [
+       11069721.0,
+       7741037.5,
+       12056952.0,
+       35087292.0
+      ],
+      "price_mean": [
+       -1.2171489000320435,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6508638262748718
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 53963530.0625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.267821899997216,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -1.2171489000320435,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 786535296.0,
+    "feasible": false,
+    "max_violation": 0.021463867276906967,
+    "seconds": 30.339470599999913,
+    "violations": {
+     "plx_simplex_DE_FR_NL.con:convex": 0.0215,
+     "plx_simplex_ES1.con:convex": 0.02,
+     "plx_simplex_AR_TX.con:convex": 0.0168,
+     "plx_simplex_ES2.con:convex": 0.0045
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.12267360091209412,
+      0.19015754759311676,
+      0.17095531523227692,
+      0.25835931301116943,
+      0.10992977023124695,
+      0.1459663063287735
+     ],
+     "PL": [
+      0.016705084592103958,
+      0.017541805282235146,
+      0.052680764347314835,
+      0.8744503855705261,
+      0.015759529545903206,
+      0.023275941610336304
+     ],
+     "BR+IN": [
+      0.16537560522556305,
+      0.01926225610077381,
+      0.5402522683143616,
+      0.0021006588358432055,
+      0.2735322415828705
+     ],
+     "AR+TX": [
+      0.17247456312179565,
+      0.1454346776008606,
+      0.2675333321094513,
+      0.10284432768821716,
+      0.10659702867269516,
+      0.20566116273403168
+     ],
+     "MX": [
+      0.05339346453547478,
+      0.002093947259709239,
+      0.717162549495697,
+      0.02035442180931568,
+      0.20698751509189606
+     ],
+     "OD": [
+      0.08386922627687454,
+      0.0005774221499450505,
+      0.5256674885749817,
+      0.0006458356510847807,
+      0.3893238604068756
+     ],
+     "GJ": [
+      0.20155268907546997,
+      0.11880674213171005,
+      0.15646925568580627,
+      0.3556928336620331,
+      0.07429226487874985,
+      0.09251625090837479
+     ],
+     "SA": [
+      0.475248247385025,
+      0.02849421463906765,
+      0.20373548567295074,
+      0.0005525973974727094,
+      0.12942202389240265,
+      0.16236387193202972
+     ],
+     "ES1": [
+      0.16975188255310059,
+      0.12485694140195847,
+      0.1685476154088974,
+      0.1915285736322403,
+      0.14464576542377472,
+      0.20427067577838898
+     ],
+     "ES2": [
+      0.018844803795218468,
+      0.01710396073758602,
+      0.015803953632712364,
+      0.8331349492073059,
+      0.08807922154664993,
+      0.028073949739336967
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.25835931301116943,
+     "PL": 0.8744503855705261,
+     "BR+IN": 0.0021006588358432055,
+     "AR+TX": 0.10284432768821716,
+     "MX": 0.02035442180931568,
+     "OD": 0.0006458356510847807,
+     "GJ": 0.3556928336620331,
+     "SA": 0.0005525973974727094,
+     "ES1": 0.1915285736322403,
+     "ES2": 0.8331349492073059
+    }
+   }
+  },
+  {
+   "round": 10,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969328.0,
+      "boundary_at_prices": 123617696.0,
+      "reduced_cost": 433369463.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 31.298304500000086,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -0.8060743808746338,
+       0.6576194167137146
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 72168367.28125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.967541900001379,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.8060743808746338,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257019080.0,
+      "boundary_at_prices": 69348184.0,
+      "reduced_cost": -17447225.875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 39.26825050000116,
+      "flows_per_step": [
+       18653256.0,
+       66017848.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7919533848762512,
+       0.9821951389312744
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85220752.0,
+      "boundary_at_prices": 9876458.0,
+      "reduced_cost": 23289129.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.45310889999746,
+      "flows_per_step": [
+       47471984.0,
+       19825656.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7919533848762512,
+       0.9821951389312744
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43756287.0,
+      "boundary_at_prices": 11237014.0,
+      "reduced_cost": -5364862.1875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.904145299999072,
+      "flows_per_step": [
+       24301464.0,
+       26599104.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7919533848762512
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100656268.0,
+      "boundary_at_prices": 53457268.0,
+      "reduced_cost": -27881053.827148438,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.560722700000042,
+      "flows_per_step": [
+       21841554.0,
+       70121672.0,
+       14024327.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7329762578010559,
+       0.7283003330230713
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60797946.0,
+      "boundary_at_prices": 9150119.0,
+      "reduced_cost": 75539507.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.994421200000943,
+      "flows_per_step": [
+       39351700.0,
+       23287090.0,
+       10748735.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7329762578010559,
+       0.7283003330230713
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52803783.0,
+      "boundary_at_prices": 10857661.0,
+      "reduced_cost": 697452.15625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.955017700001918,
+      "flows_per_step": [
+       14401054.0
+      ],
+      "price_mean": [
+       0.7283003330230713
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49509600.0,
+      "boundary_at_prices": 17514660.0,
+      "reduced_cost": 34335089.40625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.227771300000313,
+      "flows_per_step": [
+       11106180.0,
+       7715817.5,
+       12018325.0,
+       34977328.0
+      ],
+      "price_mean": [
+       -0.8060743808746338,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6576194167137146
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 53005003.046875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.502160000000003,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -0.8060743808746338,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 809920768.0,
+    "feasible": false,
+    "max_violation": 0.008941100910305977,
+    "seconds": 31.819452899999305,
+    "violations": {
+     "plx_simplex_ES1.con:convex": 0.0089,
+     "plx_simplex_AR_TX.con:convex": 0.008,
+     "plx_simplex_DE_FR_NL.con:convex": 0.0077,
+     "plx_simplex_ES2.con:convex": 0.0045
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.11081583052873611,
+      0.14945824444293976,
+      0.1714048534631729,
+      0.2557411193847656,
+      0.1973322033882141,
+      0.114105224609375
+     ],
+     "PL": [
+      0.015935231000185013,
+      0.01660461165010929,
+      0.023936090990900993,
+      0.8706225752830505,
+      0.054597675800323486,
+      0.017525145784020424
+     ],
+     "BR+IN": [
+      0.16800814867019653,
+      0.019078681245446205,
+      0.5390230417251587,
+      0.0008387223351746798,
+      0.2736436426639557
+     ],
+     "AR+TX": [
+      0.1434146761894226,
+      0.12196683138608932,
+      0.2594090402126312,
+      0.09748388081789017,
+      0.20835016667842865,
+      0.1691962629556656
+     ],
+     "MX": [
+      0.05400555953383446,
+      0.0010939018102362752,
+      0.7149614691734314,
+      0.024502187967300415,
+      0.2052459865808487
+     ],
+     "OD": [
+      0.08406726270914078,
+      0.0007764569018036127,
+      0.5225518941879272,
+      0.001115840976126492,
+      0.39185845851898193
+     ],
+     "GJ": [
+      0.16078060865402222,
+      0.09106865525245667,
+      0.12278169393539429,
+      0.36083734035491943,
+      0.1915137618780136,
+      0.07278818637132645
+     ],
+     "SA": [
+      0.4734261929988861,
+      0.031211039051413536,
+      0.20348531007766724,
+      0.0008250283426605165,
+      0.12900780141353607,
+      0.16204704344272614
+     ],
+     "ES1": [
+      0.16487328708171844,
+      0.20633727312088013,
+      0.1463896483182907,
+      0.18503576517105103,
+      0.12863095104694366,
+      0.1700647473335266
+     ],
+     "ES2": [
+      0.017118511721491814,
+      0.01640385575592518,
+      0.0820709764957428,
+      0.8348050713539124,
+      0.031154470518231392,
+      0.018846631050109863
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.2557411193847656,
+     "PL": 0.8706225752830505,
+     "BR+IN": 0.0008387223351746798,
+     "AR+TX": 0.09748388081789017,
+     "MX": 0.024502187967300415,
+     "OD": 0.001115840976126492,
+     "GJ": 0.36083734035491943,
+     "SA": 0.0008250283426605165,
+     "ES1": 0.18503576517105103,
+     "ES2": 0.8348050713539124
+    }
+   }
+  },
+  {
+   "round": 11,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 469969376.0,
+      "boundary_at_prices": 122740968.0,
+      "reduced_cost": 401653878.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.953082599997288,
+      "flows_per_step": [
+       92955080.0,
+       243656160.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       0.6541013717651367
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22299891.5,
+      "boundary_at_prices": 7737464.0,
+      "reduced_cost": 71754329.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.473739499997464,
+      "flows_per_step": [
+       20318322.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257019064.0,
+      "boundary_at_prices": 69287848.0,
+      "reduced_cost": -21235376.8125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.0220518999995,
+      "flows_per_step": [
+       18653256.0,
+       66017848.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029,
+       0.9813892245292664
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85066230.0,
+      "boundary_at_prices": 10008390.0,
+      "reduced_cost": 23264269.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.67807119999998,
+      "flows_per_step": [
+       47088496.0,
+       19829726.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029,
+       0.9813892245292664
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43756287.0,
+      "boundary_at_prices": 11218430.0,
+      "reduced_cost": -4942512.46875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.50943610000104,
+      "flows_per_step": [
+       24301464.0,
+       26599104.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 102135424.0,
+      "boundary_at_prices": 52918144.0,
+      "reduced_cost": -27804345.426757812,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.95281790000081,
+      "flows_per_step": [
+       25500672.0,
+       82224488.0,
+       2411625.25
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7539882063865662,
+       0.6982230544090271
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60802116.0,
+      "boundary_at_prices": 9299587.0,
+      "reduced_cost": 76010776.625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.421300500001962,
+      "flows_per_step": [
+       39351700.0,
+       23135376.0,
+       10896364.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7539882063865662,
+       0.6982230544090271
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52804465.0,
+      "boundary_at_prices": 10337295.0,
+      "reduced_cost": 427480.3515625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.045046999999613,
+      "flows_per_step": [
+       14400000.0
+      ],
+      "price_mean": [
+       0.6982230544090271
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49509596.0,
+      "boundary_at_prices": 17386344.0,
+      "reduced_cost": 32006918.4375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.022931799998332,
+      "flows_per_step": [
+       11106180.0,
+       7715817.5,
+       12018325.0,
+       34977328.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6541013717651367
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16001016.5,
+      "boundary_at_prices": 5709618.0,
+      "reduced_cost": 52998701.046875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 14.423649500000465,
+      "flows_per_step": [
+       11527664.0,
+       7982742.0,
+       3974285.25,
+       13414975.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 667226624.0,
+    "feasible": false,
+    "max_violation": 0.026863159611821175,
+    "seconds": 30.532862500000192,
+    "violations": {
+     "plx_simplex_ES1.con:convex": 0.0269,
+     "plx_simplex_SA.con:convex": 0.0056,
+     "plx_simplex_PL.con:convex": 0.0056,
+     "plx_simplex_GJ.con:convex": 0.0054
+    },
+    "weights": {
+     "DE+FR+NL": [
+      0.18822185695171356,
+      0.10778847336769104,
+      0.13203246891498566,
+      0.3460519015789032,
+      0.1460876315832138,
+      0.08035587519407272
+     ],
+     "PL": [
+      0.1751663088798523,
+      0.02001715637743473,
+      0.025147607550024986,
+      0.7148094773292542,
+      0.04515418782830238,
+      0.020753582939505577
+     ],
+     "BR+IN": [
+      0.18595553934574127,
+      0.017823655158281326,
+      0.5290577411651611,
+      0.0018089726800099015,
+      0.2647317051887512
+     ],
+     "AR+TX": [
+      0.12271267920732498,
+      0.20848973095417023,
+      0.2538786828517914,
+      0.0978536531329155,
+      0.17475225031375885,
+      0.14237356185913086
+     ],
+     "MX": [
+      0.054620757699012756,
+      0.0021733057219535112,
+      0.7134179472923279,
+      0.024376729503273964,
+      0.20533084869384766
+     ],
+     "OD": [
+      0.08428715914487839,
+      0.0010013389401137829,
+      0.5142486691474915,
+      0.0017578412080183625,
+      0.39956045150756836
+     ],
+     "GJ": [
+      0.1296655237674713,
+      0.07425105571746826,
+      0.09938044100999832,
+      0.35792985558509827,
+      0.14986181259155273,
+      0.18908558785915375
+     ],
+     "SA": [
+      0.4768076241016388,
+      0.03471050783991814,
+      0.20124565064907074,
+      0.0010468742111697793,
+      0.12683041393756866,
+      0.15978559851646423
+     ],
+     "ES1": [
+      0.23704791069030762,
+      0.1482265144586563,
+      0.10541074723005295,
+      0.20810140669345856,
+      0.18315671384334564,
+      0.12315574288368225
+     ],
+     "ES2": [
+      0.021697627380490303,
+      0.18534885346889496,
+      0.0676359310746193,
+      0.6730926036834717,
+      0.03142938017845154,
+      0.02238759584724903
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.3460519015789032,
+     "PL": 0.7148094773292542,
+     "BR+IN": 0.0018089726800099015,
+     "AR+TX": 0.0978536531329155,
+     "MX": 0.024376729503273964,
+     "OD": 0.0017578412080183625,
+     "GJ": 0.35792985558509827,
+     "SA": 0.0010468742111697793,
+     "ES1": 0.20810140669345856,
+     "ES2": 0.6730926036834717
+    }
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 508191681.71875,
+      "boundary_at_prices": 82233664.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0002576388942543417,
+      "seconds": 23.785845400001563,
+      "flows_per_step": [
+       61982336.0,
+       163123472.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       0.6541013717651367
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 24681712.4921875,
+      "boundary_at_prices": 3117175.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.220460399999865,
+      "flows_per_step": [
+       4378902.0,
+       5955459.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 261857042.8125,
+      "boundary_at_prices": 61762780.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 31.84591150000051,
+      "flows_per_step": [
+       22991816.0,
+       62297368.0,
+       22724504.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029,
+       0.9813892245292664
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 83987441.171875,
+      "boundary_at_prices": 10698169.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.09212330000082,
+      "flows_per_step": [
+       42956500.0,
+       22826640.0,
+       10177847.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029,
+       0.9813892245292664
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 44192681.2421875,
+      "boundary_at_prices": 10356113.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.860213800002384,
+      "flows_per_step": [
+       24301064.0,
+       25758448.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7912682890892029
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 104108358.53125,
+      "boundary_at_prices": 48532776.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 25.91064610000103,
+      "flows_per_step": [
+       22579890.0,
+       63407324.0,
+       14718552.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7539882063865662,
+       0.6982230544090271
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60805696.390625,
+      "boundary_at_prices": 7848056.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.981742300002225,
+      "flows_per_step": [
+       25027330.0,
+       20613680.0,
+       3819816.5
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7539882063865662,
+       0.6982230544090271
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 56167723.265625,
+      "boundary_at_prices": 5853505.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.054121000001032,
+      "flows_per_step": [
+       8315769.0
+      ],
+      "price_mean": [
+       0.6982230544090271
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 57509928.734375,
+      "boundary_at_prices": 8969694.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.679845799997565,
+      "flows_per_step": [
+       8803360.0,
+       4862414.0,
+       7525486.5,
+       20255746.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6541013717651367
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 17716356.7421875,
+      "boundary_at_prices": 2297345.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 8.802627000000939,
+      "flows_per_step": [
+       3249769.0,
+       2815346.5,
+       1397401.5,
+       4721726.0
+      ],
+      "price_mean": [
+       -0.6005372405052185,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {},
+   "master": {
+    "objective": 1389374080.0,
+    "feasible": false,
+    "max_violation": 0.4283192753791809,
+    "seconds": 25.37045450000005,
+    "violations": {
+     "steel_market.con:depth": 0.2114,
+     "scrap_market.con:supply": 0.029
+    },
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.0,
+     "PL": 0.0,
+     "BR+IN": 0.0,
+     "AR+TX": 0.0,
+     "MX": 0.0,
+     "OD": 0.0,
+     "GJ": 0.0,
+     "SA": 0.0,
+     "ES1": 0.0,
+     "ES2": 0.0
+    }
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 506391015.8125,
+      "boundary_at_prices": 82635776.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 24.772997600000963,
+      "flows_per_step": [
+       62357320.0,
+       165695216.0
+      ],
+      "price_mean": [
+       -0.4977686405181885,
+       0.647050678730011
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 24458123.5546875,
+      "boundary_at_prices": 3418906.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.849792500001058,
+      "flows_per_step": [
+       4565195.5,
+       6402667.5
+      ],
+      "price_mean": [
+       -0.4977686405181885,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 259963501.03125,
+      "boundary_at_prices": 64367564.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 35.31117109999832,
+      "flows_per_step": [
+       22958560.0,
+       64081544.0,
+       23779998.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7913945317268372,
+       0.9809862971305847
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 83527937.515625,
+      "boundary_at_prices": 11243537.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 27.955702100000053,
+      "flows_per_step": [
+       42956500.0,
+       23055646.0,
+       10518684.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7913945317268372,
+       0.9809862971305847
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 44127933.31640625,
+      "boundary_at_prices": 10532101.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.118512900000496,
+      "flows_per_step": [
+       24301068.0,
+       25921208.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7913945317268372
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 103406268.984375,
+      "boundary_at_prices": 48833552.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.98426180000024,
+      "flows_per_step": [
+       22579892.0,
+       65525916.0,
+       13934529.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7518691420555115,
+       0.6575281620025635
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 59573219.4375,
+      "boundary_at_prices": 9174772.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 13.444480600002862,
+      "flows_per_step": [
+       25027294.0,
+       22524270.0,
+       3918475.75
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7518691420555115,
+       0.6575281620025635
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 55676227.6796875,
+      "boundary_at_prices": 6117320.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.796587400000135,
+      "flows_per_step": [
+       9293172.0
+      ],
+      "price_mean": [
+       0.6575281620025635
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 57060527.12109375,
+      "boundary_at_prices": 9368704.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.562209800002165,
+      "flows_per_step": [
+       8803351.0,
+       4836520.0,
+       7439856.0,
+       21002514.0
+      ],
+      "price_mean": [
+       -0.4977686405181885,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.647050678730011
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 17617554.05078125,
+      "boundary_at_prices": 2465673.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 7.889141600000585,
+      "flows_per_step": [
+       3480744.0,
+       3026290.5,
+       1500216.5,
+       5055522.0
+      ],
+      "price_mean": [
+       -0.4977686405181885,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {},
+   "master": {
+    "objective": 1390506880.0,
+    "feasible": false,
+    "max_violation": 0.8873875141143799,
+    "seconds": 26.065474499999254,
+    "violations": {
+     "steel_market.con:depth": 0.4852,
+     "scrap_market.con:supply": 0.045
+    },
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.0,
+     "PL": 0.0,
+     "BR+IN": 0.0,
+     "AR+TX": 0.0,
+     "MX": 0.0,
+     "OD": 0.0,
+     "GJ": 0.0,
+     "SA": 0.0,
+     "ES1": 0.0,
+     "ES2": 0.0
+    }
+   }
+  },
+  {
+   "round": "commit 2",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 507023274.14453125,
+      "boundary_at_prices": 81558808.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 23.474916800001665,
+      "flows_per_step": [
+       63553664.0,
+       165680752.0
+      ],
+      "price_mean": [
+       -0.44638434052467346,
+       0.6435253024101257
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 24259693.0546875,
+      "boundary_at_prices": 3698870.25,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.528296500000579,
+      "flows_per_step": [
+       4824932.0,
+       6858251.5
+      ],
+      "price_mean": [
+       -0.44638434052467346,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 259801749.40625,
+      "boundary_at_prices": 65749780.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.85789840000143,
+      "flows_per_step": [
+       22915794.0,
+       65040516.0,
+       24250878.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7915618419647217,
+       0.9807848334312439
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 83302717.9765625,
+      "boundary_at_prices": 11530036.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 28.688455800001975,
+      "flows_per_step": [
+       42956516.0,
+       23069360.0,
+       10765600.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7915618419647217,
+       0.9807848334312439
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 44032877.74609375,
+      "boundary_at_prices": 10725482.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 11.661822000001848,
+      "flows_per_step": [
+       24301064.0,
+       26107660.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7915618419647217
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 103678841.4921875,
+      "boundary_at_prices": 42402736.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 22.530988700000307,
+      "flows_per_step": [
+       22580180.0,
+       65865180.0,
+       13444999.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.664434552192688,
+       0.637180745601654
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 59010116.998046875,
+      "boundary_at_prices": 7550344.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 12.790677900000446,
+      "flows_per_step": [
+       25027294.0,
+       23401566.0,
+       3959684.25
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.664434552192688,
+       0.637180745601654
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 55192674.2421875,
+      "boundary_at_prices": 6522202.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 21.121235000002343,
+      "flows_per_step": [
+       10252336.0
+      ],
+      "price_mean": [
+       0.637180745601654
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 56733889.83496094,
+      "boundary_at_prices": 9668062.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 10.129731500001071,
+      "flows_per_step": [
+       8803445.0,
+       4850789.5,
+       7487047.0,
+       21552256.0
+      ],
+      "price_mean": [
+       -0.44638434052467346,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6435253024101257
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 17524109.3046875,
+      "boundary_at_prices": 2635794.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 9.692387999999482,
+      "flows_per_step": [
+       3755309.75,
+       3254236.5,
+       1610667.125,
+       5413984.5
+      ],
+      "price_mean": [
+       -0.44638434052467346,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 2",
+   "plants": {},
+   "master": {
+    "objective": 1392508160.0,
+    "feasible": false,
+    "max_violation": 0.9699817895889282,
+    "seconds": 25.767671000001428,
+    "violations": {
+     "steel_market.con:depth": 0.6587,
+     "scrap_market.con:supply": 0.0699
+    },
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "artificial": {
+     "DE+FR+NL": 0.0,
+     "PL": 0.0,
+     "BR+IN": 0.0,
+     "AR+TX": 0.0,
+     "MX": 0.0,
+     "OD": 0.0,
+     "GJ": 0.0,
+     "SA": 0.0,
+     "ES1": 0.0,
+     "ES2": 0.0
+    }
+   }
+  }
+ ]
+}

@@ -40,9 +40,9 @@ platform.
 
 | Package | Purpose | Key modules |
 |---|---|---|
-| `plyxis/lang` | PLX language, compiler, runtime library | `lexer`, `parser` (recursive descent + Pratt, error recovery), `library` (packages, inheritance), `elaborate` (instances, `for`/`if` generation, tables, GIS, flat netlist), `behavior` (typed IR, units), `compiler` (signal graph, SCC scheduling, code generation), `program` (compiled simulator API), `interp` (reference interpreter), `units`, `printer` |
+| `plyxis/lang` | PLX language, compiler, runtime library | `lexer`, `parser` (recursive descent + Pratt, error recovery), `library` (packages, inheritance), `elaborate` (instances, `for`/`if` generation, tables, GIS, flat netlist), `behavior` (typed IR, units), `compiler` (signal graph, SCC scheduling, code generation), `program` (compiled simulator API), `blocks` (the block tree of the asset graph: what can be solved on its own and why), `hierarchy` (splits one twin into the group and its blocks), `interp` (reference interpreter), `units`, `printer` |
 | `plyxis/lang/stdlib` | Standard packages written in PLX | `core.plx`, `oilgas.plx` (wells, batteries, compression, flares, SWD, trucking, sales, rigs, crews), `mining.plx` (open pit; underground: stopes, ore passes, loader fleets, main fans, ventilation districts, crushers, conveyors, skip hoist, pump stations; processing) |
-| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `sections` (graph filter network, deterministic sections, exact section search), `decomp` (section tables + forest DP on the twin), `sectiondp` (forest DP, induced-forest moves, dual decomposition with certified bound), `structure` (problem classes proven from the planning IR), `branchlp` (exact / sequential LP of recognised branches, HiGHS), `explain`, `dispatch`, `maintenance`, `plan` |
+| `plyxis/optim` | Optimization | `space` (decision vector), `problem` (objective, constraints, scaling), `gradient` (augmented Lagrangian, shadow prices), `partition` (subsystems), `neural` (graph sub-solvers), `metaheur` (PSO, gravitational search, GA, DE, cooperative variants), `cascade` (the layered solver), `sections` (graph filter network, deterministic sections, exact section search), `decomp` (section tables + forest DP on the twin), `sectiondp` (forest DP, induced-forest moves, dual decomposition with certified bound), `structure` (problem classes proven from the planning IR), `branchlp` (exact / sequential LP of recognised branches, HiGHS), `explain`, `dispatch`, `maintenance`, `plan`, `unitdp` (exact per-unit dynamic programs for sequence rules), `corporate` (plants at their own step coordinated by prices) |
 | `plyxis/native` | C++ kernels | `sections.cpp` (C++17 + OpenMP: budgeted union-find clustering, section scoring, exact argmax, Viterbi DP, forest max-sum DP, block coordinate ascent with capacities), ctypes wrapper with NumPy reference implementations; built with g++ / MinGW-w64 |
 | `plyxis/data` | Data integration | `connectors`, `emulator` (synthetic "real" plant), `estimation` (TagMap, LiveTwin, MHE), `anomaly`, `discovery`, `repo` (versioned twin source), `forecast` |
 | `plyxis/runtime` | Live operation | `engine` (two worlds, plant clock, events, KPIs), `planner` (rolling horizon, warm starts, online learning), `twin_manager` (code generation, hot swap), `scenario`, `views` |
@@ -117,6 +117,27 @@ and then replace it with the full plan (~10 s); near-term decisions pay a move p
 plan being executed, so set points do not churn between re-plans. Price forecasts layer announced
 events (a negative-price day, a scarcity window) on persistence and a learned daily profile.
 Details: [OPTIMIZER.md](OPTIMIZER.md).
+
+**One twin, several time scales, found in the equations.** A corporate twin can model a plant machine by machine
+inside a group planned hourly. The model stays one: one register, one calibration, one set of equations, every
+duration stated in time. Nobody declares the plants: the compiler (`plyxis/lang/hierarchy.py`) finds the units whose
+durations need a finer step (a converter's 45-minute tap to tap: 15 minutes), grows a block around them through the
+small buffers between them and cuts it at large stocks and markets - one of three cut rules (shared exchanges, time
+scales, large stocks) that `plyxis/lang/blocks.py` applies level by level to the asset graph, giving a tree of
+networks, sites, lines and cells with what makes each faster to solve (the blocks at the same step as the part around
+them are found and reported, not used: coordinating them by prices does not pay yet).
+It splits the twin into the group's program and one program per block;
+each block's program is its input-output function - given prices for what crosses its fence, its best schedule of
+every unit, solved by the cascade with exact per-unit dynamic programs for heats, cast sequences and roll changes
+(`plyxis/optim/unitdp.py`). The group and its plants are coordinated by prices (`plyxis/optim/corporate.py`): the
+group's shadow prices of the plant's flows, the plant's schedules as options in the group's plan, until no plant
+finds a better schedule; then one schedule per plant is committed and the group re-planned around it.
+
+```
+  group program (hourly)  --- shadow prices of the plant's boundary flows (hour by hour) --->  plant program (15 min)
+        ^                                                                                       every unit, heat level
+        +--------------- the plant's best schedule: boundary flows + internal value ------------+
+```
 
 ## D. Runtime and console
 

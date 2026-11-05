@@ -24,7 +24,7 @@ sub-solvers, live console. All data is synthetic.
 ## Commands (Windows, Git Bash or PowerShell)
 
 ```
-.venv/Scripts/python.exe -m pytest tests -q            # about 115 tests, ~10 min
+.venv/Scripts/python.exe -m pytest tests -q            # about 135 tests, ~7-10 min
 .venv/Scripts/python.exe -m plyxis serve --port 8000   # console at http://127.0.0.1:8000 (needs web/dist)
 cd web && npx vite build                               # rebuild console; npx tsc -b --noEmit to type-check
 .venv/Scripts/python.exe -m bench.showcase_run --hours 72      # Kestrel A/B, ~10 min
@@ -32,6 +32,9 @@ cd web && npx vite build                               # rebuild console; npx ts
 .venv/Scripts/python.exe -m bench.showcase_run --scenario aquila --seed 1   # steel group A/B (96 h), showcase_run_aquila_s1.json
 .venv/Scripts/python.exe scenarios/aquila/generate.py; .venv/Scripts/python.exe scenarios/aquila/make_scenario.py
 .venv/Scripts/python.exe -m bench.policy_in_twin --scenario aquila   # plan vs the baseline's rules in the twin's own world (no truth, no events)
+.venv/Scripts/python.exe -m bench.corporate --rounds 3 --reference --workers 6  # group hourly + the works' plants found at 15 min; toy check
+.venv/Scripts/python.exe -m bench.corporate --regions --rounds 5 --workers 6     # the hourly group: whole vs its regional networks
+.venv/Scripts/python.exe -m bench.corporate --plant-ablation                     # each plant alone: GA vs per-unit DPs
 .venv/Scripts/python.exe -m bench.decomposition --seeds 3       # GA vs GA + exact sections, filter, native kernels
 .venv/Scripts/python.exe -m bench.section_theory                # section DP vs exact MILP (HiGHS), ~25 min
 .venv/Scripts/python.exe -m bench.section_theory --dual smooth --tag smooth   # tight certificate, ~35 min
@@ -48,6 +51,8 @@ cd web && npx vite build                               # rebuild console; npx ts
 .venv/Scripts/python.exe -m bench.solver_budget --cases 5   # live solver budget vs previous / large
 .venv/Scripts/python.exe -m bench.backtest --scenario kestrel   # pilot gate G1: historian export -> twin -> unseen history
 .venv/Scripts/python.exe -m plyxis lint scenarios/corvus/field.plx         # what compiles but will not do what you think
+.venv/Scripts/python.exe -m plyxis structure scenarios/aquila_works/field.plx --sim corp96 --detail   # the block tree, and why
+.venv/Scripts/python.exe -m bench.structure                    # the block tree of every twin -> structure.json
 .venv/Scripts/python.exe -m plyxis backfill history.csv.gz --scenario kestrel   # calibrate a fresh twin from an export
 .venv/Scripts/python.exe -m bench.risk                  # outcome distributions: sigma points vs Monte Carlo (both twins); --frontier
 .venv/Scripts/python.exe -m bench.uncertainty_coverage --scenario kestrel --hours 48   # posterior intervals vs hidden truth
@@ -81,6 +86,17 @@ showcase and the rest. Blueprints that no case study instantiates do not touch t
   the planning IR (DCP-style curvature); `branchlp.py` exact LP / sequential LP of those branches (HiGHS), `tangent_gap`;
   `plyxis/native` C++ kernels (`sections.cpp`: clustering, scoring, Viterbi, forest DP, coordinate ascent)
   with ctypes wrapper and NumPy reference versions. Theory: `docs/DECOMPOSITION.md`.
+- The block tree of the asset graph: `plyxis/lang/blocks.py` `find_structure` cuts the graph at shared exchanges, time
+  scales and large stocks, level by level (no notion of plant or line in it); `compile_hierarchy(split="auto")` takes
+  its blocks at their own step. The earlier detectors in `plyxis/lang/hierarchy.py` - `detect_plants` (units whose
+  durations, stated in time, need a finer step; grown through small buffers, cut at large stocks and stockless units),
+  `detect_regions` (exchanges shared by several networks stay in the master), `compile_hierarchy(split=...)` splits one
+  twin into the master and one program per block (a sim's `plants:` section still overrides with declared groups);
+  `plyxis/optim/corporate.py` coordinates them by prices (Dantzig-Wolfe: probe-slot prices, block columns, block
+  weights, commit; `workers` solves blocks side by side in processes); `plyxis/optim/unitdp.py` exact per-unit dynamic
+  programs for sequence rules (gap / run / reset), the cascade's `discrete = "auto"` uses them wherever rules exist.
+  `scenarios/aquila_works` = Aquila with the Duisburg works machine by machine (`steel.plx` "a works in detail";
+  not a console scenario yet, no truth/baseline). `examples/plants_toy.plx` the toy both the test and the bench use.
 - `plyxis/optim/risk.py` planning under uncertainty (uncertain inputs as factors, sigma-point propagation of every limit and
   the plan value, Sobol remainder, back-offs, `RiskProblem` for the spread cap); the covariance comes from `Estimator.cov`
   (information filter around the MHE) and `Forecaster.log_sigma`. `plyxis/optim/colgen.py` column generation with exact
@@ -341,6 +357,65 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
 - **`planner.runs` keeps the last 30 plans** (a deque): in a 96 h steel run the first of 31 plans is missing from `runs[]`; read
   `plans[]` (plan events) for the first plan.
 
+- **Durations in time, not steps.** A step-relative model (`delay(tap, 1) + delay(tap, 2)`, `tundish = 40` steps,
+  `hold 4`) means something else at every step, and nobody can tell which step it was written for. Write durations as
+  properties with a time unit read through `delay(x, d)` (the compiler divides by `dt`; `delay(taps, cycle - dt)` for a
+  window that includes the current step) and holds as `hold 30 [min]`: the detector derives each unit's step from them
+  (the largest step dividing the sim's at which every duration is a whole number of steps). A `hold 30 [min]` used to
+  parse as `30 [min]` = 0.5 h and silently became one step; `behavior.py` now reads a hold with a time unit as a duration.
+- **What decides where a plant ends.** A receiver joins a plant if its stock holds less than `buffer_steps` (24) sim steps
+  of the flow through it - measured on the twin at default and random decisions; senders into a plant always join (a
+  flow decided outside would be an input it cannot plan); stockless receivers (markets, grids, the gas network without a
+  holder) take the flow per sim step and are the fence. Only bounded states count as stocks: a market's contract
+  backlog is an account. Duisburg splits at its 144 h slab yard into iron/steel/casting and hot rolling.
+- **What makes a regional network.** Exchanges are sinks (take flows from >= 2 units, pass nothing on, no stock); the ones
+  several pieces share stay in the master. A caster (two senders, no stock) is not one: it passes slabs on - counting
+  it cut every site apart.
+- **A plant's program is its input-output function.** Every connection that leaves a plant ends in a priced sink
+  (`plx_bsink_*`: revenue = flow x price, tracking term for the commit); the master sees the plant through column slots
+  (`plx_col_*`: flows and internal value per hour as exogenous state trajectories, a weight per 8-h block) and a simplex
+  (weights add up to 1 every hour). Prices = d(master Lagrangian)/d(probe-slot flows). Every crossing must leave the
+  plant: the detector takes every sender into the plant (a declared group must include them: a connection into a
+  plant is refused). Crossings are one per port on the other side (fifteen units' power into one grid: one flow).
+- **Column generation traps (all hit on the toy):** one start column -> infeasible master -> its multipliers measure the
+  infeasibility and the next prices explode (1e10 reduced cost): start with several (zero prices = the plant alone, and
+  the group's prices scaled); price from multipliers whenever the master's violation is below 0.05 (a master at 0.002
+  counted as infeasible priced the market as open: 98 instead of 70 USD/t); smooth prices half-way; seed a new column at
+  weight 0.2 in the master's warm start (at 0 a converged master never moves it); one weight per whole-horizon schedule
+  is too rigid - weights per block; a mix of schedules is not a schedule - commit (track the mix, re-plan the group,
+  re-price while the committed plan breaks a limit).
+- **Per-unit DP traps.** Linearising one unit at a time swings it between all and nothing (no taps: every tap valuable;
+  a tap every 45 min: none) - start from the relaxed plan rounded with error carried forward, then trust-region sweeps
+  (a cost per changed decision, a sweep kept only if the repaired plan scores better). Three vessels with the same
+  relaxed rate round to the same steps: stagger their errors and de-clash identical units where a limit is broken.
+- **A heat schedule at part load is the hard case.** Below the group's prices the steel side wants to make little but
+  its blast furnaces cannot go under 60 % wind: taps and casts must match around a ladle furnace of four heats. The
+  rounded start broke the ladle's limits (0.11) and a value sweep over all units on one linearisation over-reacted
+  (casters off, 50 % more taps, violation 1.8). Fixes in `unitdp.py`: a feasibility phase first (units one at a time
+  on the gradient of the violations alone, kept only if the total falls, alternated with repairs), trust regions as a
+  quantile of the gradient's size (the mean let whole campaigns flip). At the group's prices and above: feasible; at
+  0.7x it still ends at 0.005-0.018, so the coordinator keeps such schedules out of the master (`col_tol`) and adds
+  start columns at 1.3x / 1.6x when fewer than two keep the block's limits.
+- **Phase I for column generation.** Regional networks all buy scrap as if it were plentiful: no mix of their start
+  schedules keeps the shared scrap supply (master violation 0.39), and an infeasible master's multipliers are not used
+  as prices, so nobody learns the scarcity. If the first master is infeasible, an artificial schedule per block (no flow
+  at the fence, worse every hour than any real one) enters it. Only then: always on, it cost the toy USD 2,000.
+- **A committed plan is feasible only if every block's schedule keeps its own limits** (`CorporatePlan.plant_violation`,
+  `master_feasible`): the first detected-plants run reported "feasible" with the steel side's schedule at 0.0057.
+- **Works: two decisions around a small buffer stall the search.** A power-plant load and a flare decided separately
+  around a gas holder of eleven minutes: the plan flared up to a third of the process gas with the plant half idle; a
+  mill rate against a delayed furnace charge through a 400 t roller table: it rolled half the mill's capacity, and more
+  budget made it worse (value -6 M). Now the power plant burns what the furnaces leave (gas follows, no decision) and
+  the furnaces decide charge and discharge with their content as the buffer, the mill rolls what they discharge: flaring
+  0, pig iron 0-33 t/h instead of 155, feasible (`arms/corporate_plant_declared_plant.json`).
+- **Step-by-step recursions are slow.** A state whose update is not affine in itself is scanned in Python, one step at
+  a time: Duisburg at 384 steps took 157 ms per evaluation with four such scans. Written as running totals compared
+  over a window (`ran - delay(ran, k)`), they vectorise (111 ms). Affine updates `x <- c * x + b` (c, b free of x: the
+  mill's `wear <- (wear + rolled * dt) * (1 - change)`) are now an associative scan (`rt.affine_scan`, log2(T) steps):
+  the hot-rolling plant went from 49 to 15 ms per evaluation and gradient, values identical (`PLX_NO_AFFINE=1` turns it
+  off; the mine twin has 3 such states, the steel group 1 - same objectives at default and random plans, checked).
+  `delay(x, k, init)`: `init` must be a constant or a property, `k` may be a property or a duration.
+
 ## Open work (as of the last benchmark run)
 
 - **Corvus variants predate the forecaster fix** (the mine planned with flat nominal prices). The three main seeds were re-run
@@ -386,5 +461,19 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
   meant frozen or with live estimation.
 - **Not re-run after the plan guard**: `neural_ablation`, `solver_comparison`, `scaling`, `twin_accuracy` (Kestrel-only; solver_comparison, scaling and twin_accuracy never pass a warm start, neural_ablation does, and re-running it retrains `subsolver.pt`).
 - **Not re-run after the `pwl` slope fix** (Kestrel only; the mine's gradients are identical): the same four, `solver_budget`, `decomposition`, the `core` showcase run and the oil-field comparison arms (exact, `relax_tol`, sections). They stay labelled as measured before it.
+- **Plants found in one twin - next** (4 Nov, BENCHMARKS.md "One twin, plants found in it": the detector's two works
+  plants committed USD 1,395.6 M feasible against 1,375.8 M at violation 0.022 for the whole twin at 15 min; 363 vs
+  1,140 s; the run before, same code but the commit retry: 1,393.3 M). Open, roughly in order: (1) the mill runs at
+  525 of 1,350 t/h (the mix asked for 612) - whether a fuller mill is the group's optimum; a commit whose schedule
+  misses the limits falls back to a pool schedule that can be far from the mix (397 t/h in one run); (2) part-load heat schedules (0.005-0.018 at 0.7x prices);
+  (3) regional networks coordinated by prices do not converge in 5 rounds (shared market depth and scrap supply bind;
+  Phase I keeps masters near-feasible but leaning on the artificial schedules; 12 rounds: reduced costs plateau at
+  USD 400 M, commit infeasible - more rounds do not help): a stabilised dual, a resource-directive split of the shared
+  limits, or blocks solved in one batched evaluation (small blocks cost nearly as much per evaluation as the whole);
+  (4) plants inside regional networks (side by side only: `split="both"` compiles, not benchmarked); (5) more plants
+  (Velsen, Dunkirk at machine level); (6) truth model and a works-level baseline for an A/B, then a console scenario;
+  (7) a Lagrangian bound; (8) more machines (oxygen plant, coke ovens, sinter, cranes, grades and cast sequences).
+- **The affine scan changed compiled programs of the mine (3 states) and the steel group (1)**: same objectives and
+  violations at default and random plans (checked with `PLX_NO_AFFINE=1`), so the showcase results stand; not re-run.
 - **Not built**: SSO/RBAC (decisions carry a free-text name), Dockerfile never built (no Docker on the development machine), mobile view, SAP PM / Maximo
   interface proper (flat file only), write-back, job queue for solves, constraint editor beyond the PLX editor.

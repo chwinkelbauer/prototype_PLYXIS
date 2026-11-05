@@ -9,6 +9,8 @@ dependencies) is decomposed into strongly connected components:
 
 * trivial component           -> computed for all time steps at once
 * state accumulator  x <- x+e -> exclusive cumulative sum along time
+* affine state       x <- c*x+b (c, b free of x: a counter that a decision resets, a stock that decays)
+                     -> associative scan in log2(T) vectorised steps
 * any other feedback loop     -> sequential scan over time (only for that loop)
 
 This "time vectorisation" is what makes the twin cheap enough to be evaluated
@@ -17,6 +19,7 @@ differentiable for gradient-based solvers and neural sub-solvers.
 """
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
@@ -62,10 +65,11 @@ class GNode:
 
 @dataclass
 class Block:
-    kind: str                 # vec | acc | scan
+    kind: str                 # vec | acc | affine | scan
     nodes: list               # nids (topological for scan)
     state: Optional[str] = None
     inc: Any = None
+    coef: Any = None          # affine: x <- coef * x + inc
 
 
 @dataclass
@@ -80,6 +84,61 @@ class RoutedPort:
 
 def _ident(s: str) -> str:
     return re.sub(r"[^A-Za-z0-9_]", "_", s)
+
+
+def split_affine(e: IR, x: str) -> Optional[tuple]:
+    """If e == c * state(x) + b with c and b free of x, return (c, b) (IR), else None."""
+    def has_x(z) -> bool:
+        return ("state", x) in instant_refs(z)
+
+    one, zero = C(1.0), C(0.0)
+
+    def mul(a, b):
+        if isinstance(a, C) and a.value == 0.0 or isinstance(b, C) and b.value == 0.0:
+            return zero
+        if isinstance(a, C) and a.value == 1.0:
+            return b
+        if isinstance(b, C) and b.value == 1.0:
+            return a
+        return Op("mul", [a, b])
+
+    def add(a, b, op="add"):
+        if isinstance(b, C) and b.value == 0.0:
+            return a
+        if isinstance(a, C) and a.value == 0.0:
+            return b if op == "add" else Op("neg", [b])
+        return Op(op, [a, b])
+
+    def rec(z):
+        if not has_x(z):
+            return zero, z
+        if isinstance(z, Ref) and z.kind == "state" and z.name == x:
+            return one, zero
+        if isinstance(z, Op):
+            if z.op in ("add", "sub") and len(z.args) == 2:
+                a, b = rec(z.args[0]), rec(z.args[1])
+                if a is None or b is None:
+                    return None
+                return add(a[0], b[0], z.op), add(a[1], b[1], z.op)
+            if z.op == "neg":
+                a = rec(z.args[0])
+                return None if a is None else (Op("neg", [a[0]]), Op("neg", [a[1]]))
+            if z.op == "mul" and len(z.args) == 2:
+                l, r = z.args
+                if has_x(l) and has_x(r):
+                    return None
+                f, m = (l, r) if has_x(l) else (r, l)
+                a = rec(f)
+                return None if a is None else (mul(a[0], m), mul(a[1], m))
+            if z.op == "div" and len(z.args) == 2 and not has_x(z.args[1]):
+                a = rec(z.args[0])
+                return None if a is None else (Op("div", [a[0], z.args[1]]), Op("div", [a[1], z.args[1]]))
+        return None
+
+    out = rec(e)
+    if out is None or (isinstance(out[0], C) and out[0].value == 0.0):
+        return None
+    return out
 
 
 def split_accumulator(e: IR, x: str) -> Optional[IR]:
@@ -324,6 +383,14 @@ class Compiler:
                 name = f"a{len(bc.ir.aggs)}"
                 bc.ir.aggs[name] = ([(g.gid, ("const", 1.0), lis) for g, lis in targets], "count")
                 return Ref("agg", name)
+        # a known entity type with no instance in this program (a plant compiled on its own, a model without that
+        # kind of unit): an aggregate over nothing is 0 - a typo still fails, it resolves to no type
+        if how != "value":
+            lib = self.flat.lib
+            for k in range(len(path) - 1, 0, -1):
+                q = lib.resolve(".".join(path[:k]), self.flat.env_type.package)
+                if q is not None and isinstance(lib.defs.get(q), A.EntityDef) and q not in lib.resources:
+                    return C(0.0)
         return None
 
     # ------------------------------------------------------------------ graph
@@ -472,6 +539,11 @@ class Compiler:
                     inc = split_accumulator(nxt.expr, sname)
                     if inc is not None:
                         self.blocks.append(Block("acc", [states[0], nxt.nid], state=states[0], inc=inc))
+                        continue
+                    aff = None if os.environ.get("PLX_NO_AFFINE") else split_affine(nxt.expr, sname)
+                    if aff is not None:
+                        self.blocks.append(Block("affine", [states[0], nxt.nid], state=states[0], inc=aff[1],
+                                                 coef=aff[0]))
                         continue
             self.blocks.append(Block("scan", self._topo(comp)))
         # static analysis in schedule order
@@ -744,6 +816,18 @@ class Compiler:
                 w(f"_inc = rt.full({self._emit(b.inc, R)}, B, {g.n}, T_len)")
                 w(f"{st.var} = S0_{g.gid}_{_ident(sname)}.unsqueeze(-1) + rt.excumsum(_inc)")
                 w(f"{nx.var} = {st.var} + _inc")
+                w(f"{st.var}_f = {nx.var}[..., -1]")
+                out_names += [st.var, nx.var, f"{st.var}_f"]
+            elif b.kind == "affine":
+                st, nx = self.nodes[b.nodes[0]], self.nodes[b.nodes[1]]
+                g = self.gmap[st.gid]
+                sname = st.key.split(":", 1)[1]
+                R = self._renderer(g, "vec")
+                w(f"# affine state {self._pretty(st.nid)} (associative scan)")
+                w(f"_c = rt.full({self._emit(b.coef, R)}, B, {g.n}, T_len)")
+                w(f"_b = rt.full({self._emit(b.inc, R)}, B, {g.n}, T_len)")
+                w(f"{nx.var} = rt.affine_scan(_c, _b, S0_{g.gid}_{_ident(sname)})")
+                w(f"{st.var} = rt.shift({nx.var}, S0_{g.gid}_{_ident(sname)})")
                 w(f"{st.var}_f = {nx.var}[..., -1]")
                 out_names += [st.var, nx.var, f"{st.var}_f"]
             else:

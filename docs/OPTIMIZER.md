@@ -178,12 +178,119 @@ models where an exact MILP can prove it, in linear time, and with the smoothed d
 90,000 blocks is proven within 1.7-3.7 % of the optimum without an exact solver. Theory, theorems and their limits:
 [DECOMPOSITION.md](DECOMPOSITION.md); measurements: [BENCHMARKS.md](BENCHMARKS.md).
 
+### Per-unit dynamic programs (`unitdp.py`, `discrete = "unitdp"`)
+
+Rounding a relaxed heat schedule puts two taps into one converter cycle and two vessels into the ladle furnace at
+once; a genetic search over hundreds of on/off decisions per unit does not find the sequences either. The rules that
+make it hard are local to one unit and simple, and `find_rules` recognises them in the compiled model, for any
+blueprint:
+
+* **gap** - at most one event in any `W` steps: `tap + delay(tap, 1) + delay(tap, 2) <= up` (a converter, 40 minutes
+  tap to tap at 15-minute steps);
+* **run** - at most `k` steps on in any `k + 1`: a running total `ran <- ran + run` and
+  `ran + run - delay(ran, k) <= k` (a caster's tundish life);
+* **reset** - a counter that grows with the unit's work and is reset by the decision, below a limit:
+  `wear <- (wear + rolled * dt) * (1 - change)`, `wear <= campaign` (a mill's work rolls).
+
+For each a dynamic program over time finds the best sequence exactly, given a value per step. The stage starts from
+the relaxed plan: each unit's fractional decisions are rounded by carrying the rounding error forward (its rate stays
+what the relaxation planned), units of one type with staggered errors, and where a limit is broken by identical units
+firing in the same step the later one moves to the nearest step its own rule allows. If that schedule breaks a limit
+the units share (a caster casting while the converters feeding its ladle furnace are idle), feasibility comes first:
+units one at a time, each on the gradient of the violations alone, a change kept only if the plan's total violation
+falls, alternated with repairs of the continuous decisions. Then trust-region sweeps: per unit, with fresh gradients
+of the augmented Lagrangian (limits shared with other units are priced in it), the best sequence with a cost for every
+decision it changes; the continuous decisions are repaired by the ALM, and a sweep is kept only if the repaired plan
+scores better. Without the trust region every unit swings between all and nothing (at no taps every tap looks
+valuable, at a tap every 45 minutes none does); the cost is a high quantile of the unit's gradient sizes (with their
+mean a caster's whole campaign flipped and a shortfall became an overflow). Measured on the Duisburg works' plants
+alone at the group's prices (`bench/results/corporate_plant.json`, 384 quarter-hour steps): on the steel side
+(2,040 decisions, 1,344 on/off) the GA ends at violation 2.0 (taps inside one cycle, vessels tapping into the ladle
+furnace together), the dynamic programs at 0.0057 with the group's live budget (10 s) and 0.0003 with a larger one
+(21 s); on the hot-rolling side the GA at 0.37, the DPs at 0.030 and 0.007. At part load (prices below the group's)
+the steel side still ends at 0.005-0.018: the coordinator keeps such schedules out of its master.
+
 ### Metaheuristics (`metaheur.py`)
 
 graviSearch (gravitational search), PSO, GA and DE, fully vectorised (one generation = one
 batched simulation). Each has a cooperative mode: if the fitness returns one score per
 subsystem `[P, K]`, selection happens per subsystem - K small searches in parallel instead of
 one huge one (cooperative coevolution). The cascade uses this inside stage 3.
+
+## Plants at their own step (`corporate.py`, `plyxis/lang/hierarchy.py`)
+
+A corporate twin with every machine of every plant at the plant's resolution is one model, not one optimisation
+problem. `compile_hierarchy` splits it ([PLX_LANGUAGE.md](PLX_LANGUAGE.md#4-simulations)) into the group at its step
+(the master) and blocks of the asset graph's tree (`plyxis/lang/blocks.py`: cut at shared exchanges, time scales and
+large stocks, level by level) - nobody declares them. The plan uses the blocks at their own finer step; how such a
+block and the regional networks are found:
+
+* **plants** (`detect_plants`): every unit states its durations in time (a heat's tap to tap, a tundish's life, how
+  often a set point may change). The step a unit needs is the largest one dividing the simulation's at which each
+  duration spans a whole number of steps; units that need a finer step than the simulation's seed a plant. A plant
+  takes in every unit that sends into it (a flow decided outside would be an input it cannot plan) and every receiver
+  whose stock holds less than a day of its flow (measured on the twin at default and random decisions: the stock sees
+  the plant's pattern within the hour, not just its average); it stops at large stocks and at units without one,
+  which take the flow per simulation step. Touching plants merge.
+* **regional networks** (`detect_regions`): exchanges are where flows leave the model - units that take flows from
+  several others, pass nothing on and keep no stock (markets, scrap markets, grid connections). Take them out; those
+  whose neighbours all fall into one piece go back in (a site's own grid, a market one network serves alone); what
+  stays out is shared, and the pieces are regional networks: sites tied by their own transfers. With plants found too
+  (`split = "both"`) the plants' fence units stay with the group, so every block trades with the group only.
+
+A block's program is its input-output function: every connection that leaves it ends in a boundary sink that prices the flow,
+so given prices for what crosses its fence, the cascade (with the per-unit dynamic programs) returns the plant's best
+schedule of every unit. The master sees the plant as an envelope of such schedules (column slots: boundary flows and
+internal value hour by hour, a weight per block of hours, the weights adding up to one in every hour).
+
+`CorporatePlanner` alternates them (Dantzig-Wolfe):
+
+1. **prices** - the derivative of the master's Lagrangian (objective minus multipliers times constraints, as the ALM
+   sees them) with respect to the plant's boundary flows, carried by a probe slot: what a tonne to a market, a tonne
+   of scrap bought, a slab sent to a sister plant is worth to the group in that hour, binding limits included;
+2. **plant** - the plant's best schedule against those prices: a column;
+3. **master** - the group re-planned with the plant's columns as options.
+
+What it took, each found on a toy model where the whole problem can be solved at once (`tests/test_hierarchy.py`):
+
+* *Two or more start columns.* With one column the master cannot keep the weights at one without breaking a market
+  limit; its multipliers then measure the infeasibility and the next prices are garbage. Round 0 solves each plant at
+  a few multiples of the group's prices as it stands (zero = the plant on its own).
+* *Weights per block of hours, values hour by hour.* One weight per whole-horizon schedule is too rigid for operation
+  that changes over the day; per block (8 h) the master mixes schedules where they are good.
+* *Multipliers from nearly feasible masters only, smoothed prices, new columns seeded.* A master at violation 0.002
+  is fine to price from (without its multipliers a binding market looks open); prices move half-way per round;
+  a new column enters the master's warm start at weight 0.2 (at 0 a converged master never moves it).
+* *Commit.* A mix of schedules is not a schedule: at the end each plant solves one schedule near the master's mix
+  (tracking term), the group is re-planned around it, and while that plan breaks a limit of the group the plant is
+  re-priced and solved again. The value reported is the committed plan's.
+
+And, found on the works and the regional networks:
+
+* *Only schedules that keep the block's own limits are points of its function.* A schedule above `col_tol` stays out
+  of the master while the block has one that keeps them; where fewer than two start schedules do (the steel side at
+  part load), the block is also solved at 1.3 and 1.6 times the prices.
+* *A committed plan is feasible only if every block's schedule is* (`CorporatePlan.plant_violation`); a commit whose
+  tracking solve breaks the block's limits falls back to the pool's schedule that keeps them and that the mix leans
+  on most.
+* *Phase I when the first master is infeasible.* Networks that all buy from one scarce market cannot be mixed into a
+  feasible master, and an infeasible master's multipliers are not prices, so nobody learns the scarcity: an
+  artificial schedule per block (no flow at the fence, worse every hour than any real one) enters. Only then - always
+  on it cost the toy USD 2,000.
+
+*Blocks side by side.* Given its prices a block does not depend on the others: with `workers` the blocks of a round
+(and the round-0 start columns, and the commit) are solved in worker processes, each with its own compiled copy of the
+twin.
+
+*The subsolvers choose themselves.* A block's cascade runs with `discrete = "auto"`: the per-unit dynamic programs
+wherever `find_rules` recognises a sequence rule in the block's own equations (the converters' tap to tap, the casters'
+tundish life, the mill's roll campaign), the GA for every other discrete decision.
+
+On the toy (one plant at half the group's step, a market with a demand limit, a dearer supplier) the committed plan
+reached USD 37,069 against 36,052 for the whole model solved at once (hand-worked optimum 37,100) - the same with the
+plant found by the detector as with it declared. Not yet: a connection into a block from the group (the detectors avoid
+it: a plant takes in its senders), blocks inside blocks (a plant inside a regional network: side by side instead), a
+bound.
 
 ## Rolling horizon and live operation (`runtime/planner.py`)
 

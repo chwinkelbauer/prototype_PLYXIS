@@ -1,0 +1,2478 @@
+{
+ "kestrel": {
+  "seconds": 2.8545889999950305,
+  "blocks": 15,
+  "used": [],
+  "by_depth": {
+   "1": 13,
+   "2": 2
+  },
+  "tree": {
+   "name": "kestrel",
+   "units": 167,
+   "step_min": 60.0,
+   "decisions_per_step": 200,
+   "fence_flows": 0,
+   "class": "convex",
+   "exact": [],
+   "rule": "stocks",
+   "why": [
+    "CTB_N: its wat_lvl holds 60 h of its flow (>= 24 steps of 60 min)",
+    "CTB_C: its wat_lvl holds 33 h of its flow (>= 24 steps of 60 min)",
+    "CTB_S: its wat_lvl holds 51 h of its flow (>= 24 steps of 60 min)"
+   ],
+   "used": false,
+   "note": "the whole twin",
+   "depth": 0,
+   "single_units": [],
+   "children": [
+    {
+     "name": "P01.esp_well",
+     "units": 11,
+     "step_min": 60.0,
+     "decisions_per_step": 16,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P02.esp_well",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 14,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P03.esp_well",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 14,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P04.esp_well",
+     "units": 12,
+     "step_min": 60.0,
+     "decisions_per_step": 18,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P05.esp_well",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 14,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P06.esp_well",
+     "units": 12,
+     "step_min": 60.0,
+     "decisions_per_step": 18,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P07.esp_well",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 14,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P08.esp_well",
+     "units": 9,
+     "step_min": 60.0,
+     "decisions_per_step": 12,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P09.esp_well",
+     "units": 13,
+     "step_min": 60.0,
+     "decisions_per_step": 20,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P10.esp_well",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 14,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P11.esp_well",
+     "units": 13,
+     "step_min": 60.0,
+     "decisions_per_step": 20,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "P12.esp_well",
+     "units": 12,
+     "step_min": 60.0,
+     "decisions_per_step": 18,
+     "fence_flows": 2,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    },
+    {
+     "name": "CS1.compressor_station",
+     "units": 11,
+     "step_min": 60.0,
+     "decisions_per_step": 2,
+     "fence_flows": 3,
+     "class": "slp",
+     "exact": [],
+     "rule": "exchanges",
+     "why": [
+      "GASPLANT: takes flows from 2 units, keeps no stock, shared by 2 parts"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": [
+      {
+       "name": "CS1.compressor_station2",
+       "units": 5,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 3,
+       "class": "slp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "CS2.compressor_station",
+       "units": 5,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 3,
+       "class": "slp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "corvus": {
+  "seconds": 0.8847067000024254,
+  "blocks": 11,
+  "used": [],
+  "by_depth": {
+   "1": 11
+  },
+  "tree": {
+   "name": "corvus",
+   "units": 395,
+   "step_min": 60.0,
+   "decisions_per_step": 439,
+   "fence_flows": 0,
+   "class": "convex",
+   "exact": [],
+   "rule": "stocks",
+   "why": [
+    "ROM: its tonnes holds 65 h of its flow (>= 24 steps of 60 min)"
+   ],
+   "used": false,
+   "note": "the whole twin",
+   "depth": 0,
+   "single_units": [
+    "PS_N1",
+    "PS_N2",
+    "PS_N3",
+    "PS_C1",
+    "PS_C2",
+    "PS_C3",
+    "PS_S1",
+    "PS_S2",
+    "PS_S3",
+    "PS_MAIN"
+   ],
+   "children": [
+    {
+     "name": "CREW+FAN+LHD+OP+ST+VD.stope",
+     "units": 238,
+     "step_min": 60.0,
+     "decisions_per_step": 428,
+     "fence_flows": 1,
+     "class": "convex",
+     "exact": [],
+     "rule": "",
+     "why": [
+      "a cell: coupled within its step - direct flows, stocks of OP_S1 1.8 h, OP_C1 1.9 h, OP_N1 2.2 h, SH1 2.5 h"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [],
+     "children": []
+    }
+   ]
+  }
+ },
+ "aquila": {
+  "seconds": 0.4652455000032205,
+  "blocks": 94,
+  "used": [],
+  "by_depth": {
+   "1": 10,
+   "2": 43,
+   "3": 41
+  },
+  "tree": {
+   "name": "aquila",
+   "units": 237,
+   "step_min": 60.0,
+   "decisions_per_step": 120,
+   "fence_flows": 0,
+   "class": "nonlinear",
+   "exact": [],
+   "rule": "exchanges",
+   "why": [
+    "ES_GRID: takes flows from 7 units, keeps no stock, shared by 2 parts",
+    "ES_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "SCRAP_EU: takes flows from 6 units, keeps no stock, shared by 4 parts",
+    "SCRAP_US: takes flows from 5 units, keeps no stock, shared by 3 parts",
+    "SCRAP_IN: takes flows from 3 units, keeps no stock, shared by 2 parts",
+    "EU_HRC: takes flows from 4 units, keeps no stock, shared by 2 parts",
+    "EU_LONG: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "NA_HRC: takes flows from 3 units, keeps no stock, shared by 3 parts",
+    "NA_COAT: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "IN_HRC: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "ME_HRC: takes flows from 3 units, keeps no stock, shared by 3 parts"
+   ],
+   "used": false,
+   "note": "the whole twin",
+   "depth": 0,
+   "single_units": [],
+   "children": [
+    {
+     "name": "DE+FR+NL.blast_furnace",
+     "units": 53,
+     "step_min": 60.0,
+     "decisions_per_step": 28,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "NL_ORE: its stock holds 1,199 h of its flow (>= 24 steps of 60 min)",
+      "DE_ORE: its stock holds 1,198 h of its flow (>= 24 steps of 60 min)",
+      "FR_ORE: its stock holds 1,196 h of its flow (>= 24 steps of 60 min)",
+      "NL_COKE: its stock holds 899 h of its flow (>= 24 steps of 60 min)",
+      "DE_COKE: its stock holds 898 h of its flow (>= 24 steps of 60 min)",
+      "FR_COKE: its stock holds 897 h of its flow (>= 24 steps of 60 min)",
+      "NL_BOFSCRAP: its stock holds 703 h of its flow (>= 24 steps of 60 min)",
+      "DE_BOFSCRAP: its stock holds 649 h of its flow (>= 24 steps of 60 min)",
+      "FR_BOFSCRAP: its stock holds 662 h of its flow (>= 24 steps of 60 min)",
+      "NL_SLABS: its stock holds 120 h of its flow (>= 24 steps of 60 min)",
+      "NL_COIL: its stock holds 124 h of its flow (>= 24 steps of 60 min)",
+      "NL_COATED: its stock holds 168 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_NL_EU_HRC",
+      "L_DE_EU_HRC",
+      "L_FR_EU_HRC",
+      "T_NL_DE",
+      "T_DE_NL",
+      "T_FR_DE"
+     ],
+     "children": [
+      {
+       "name": "NL.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "NL_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "NL_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "NL_HSM",
+        "NL_CGL"
+       ],
+       "children": [
+        {
+         "name": "NL.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "DE.blast_furnace",
+       "units": 9,
+       "step_min": 60.0,
+       "decisions_per_step": 6,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "DE_GRID: takes flows from 7 units, keeps no stock, shared by 3 parts",
+        "DE_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "DE_HSM",
+        "DE_CGL"
+       ],
+       "children": [
+        {
+         "name": "DE.blast_furnace2",
+         "units": 5,
+         "step_min": 60.0,
+         "decisions_per_step": 4,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "FR.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "FR_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "FR_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "FR_HSM",
+        "FR_CGL"
+       ],
+       "children": [
+        {
+         "name": "FR.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "EU.lane_coated",
+       "units": 4,
+       "step_min": 60.0,
+       "decisions_per_step": 3,
+       "fence_flows": 3,
+       "class": "lp",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "EU_COAT: takes flows from 3 units, keeps no stock, shared by 3 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "L_NL_EU_COAT",
+        "L_DE_EU_COAT",
+        "L_FR_EU_COAT"
+       ],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "PL.eaf",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 6,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "PL_EAF1SCRAP: its stock holds 653 h of its flow (>= 24 steps of 60 min)",
+      "PL_HBI: its stock holds 4,870 h of its flow (>= 24 steps of 60 min)",
+      "PL_BILLETS: its stock holds 149 h of its flow (>= 24 steps of 60 min)",
+      "PL_LONG: its stock holds 179 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_PL_EU_LONG"
+     ],
+     "children": [
+      {
+       "name": "PL.eaf2",
+       "units": 5,
+       "step_min": 60.0,
+       "decisions_per_step": 3,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "PL_GRID: takes flows from 3 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": [
+        {
+         "name": "PL.long_mill",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 1,
+         "fence_flows": 3,
+         "class": "lp",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "PL.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "BR+IN.blast_furnace",
+     "units": 35,
+     "step_min": 60.0,
+     "decisions_per_step": 17,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "IN_ORE: its stock holds 1,171 h of its flow (>= 24 steps of 60 min)",
+      "BR_ORE: its stock holds 1,194 h of its flow (>= 24 steps of 60 min)",
+      "IN_COKE: its stock holds 878 h of its flow (>= 24 steps of 60 min)",
+      "BR_COKE: its stock holds 848 h of its flow (>= 24 steps of 60 min)",
+      "IN_BOFSCRAP: its stock holds 661 h of its flow (>= 24 steps of 60 min)",
+      "BR_BOFSCRAP: its stock holds 702 h of its flow (>= 24 steps of 60 min)",
+      "IN_SLABS: its stock holds 133 h of its flow (>= 24 steps of 60 min)",
+      "IN_COIL: its stock holds 122 h of its flow (>= 24 steps of 60 min)",
+      "IN_COATED: its stock holds 190 h of its flow (>= 24 steps of 60 min)",
+      "BR_SLABS: its stock holds 130 h of its flow (>= 24 steps of 60 min)",
+      "BR_COIL: its stock holds 139 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_IN_NA_HRC",
+      "L_IN_NA_COAT",
+      "T_BR_IN"
+     ],
+     "children": [
+      {
+       "name": "IN.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "IN_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "IN_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "IN_HSM",
+        "IN_CGL"
+       ],
+       "children": [
+        {
+         "name": "IN.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "BR.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 7,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "BR_GRID: takes flows from 6 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": [
+        {
+         "name": "BR.hot_strip_mill",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 1,
+         "fence_flows": 3,
+         "class": "lp",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "BR.blast_furnace2",
+         "units": 5,
+         "step_min": 60.0,
+         "decisions_per_step": 4,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "SA.lane_hrc",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "SLAB.lane_slab",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "AR+TX.eaf",
+     "units": 30,
+     "step_min": 60.0,
+     "decisions_per_step": 19,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "TX_PELLETS: its stock holds 1,250 h of its flow (>= 24 steps of 60 min)",
+      "AR_EAF1SCRAP: its stock holds 658 h of its flow (>= 24 steps of 60 min)",
+      "AR_EAF2SCRAP: its stock holds 648 h of its flow (>= 24 steps of 60 min)",
+      "TX_EAF1SCRAP: its stock holds 755 h of its flow (>= 24 steps of 60 min)",
+      "AR_HBI: its stock holds 1,256 h of its flow (>= 24 steps of 60 min)",
+      "TX_HBI: its stock holds 552 h of its flow (>= 24 steps of 60 min)",
+      "AR_SLABS: its stock holds 78 h of its flow (>= 24 steps of 60 min)",
+      "AR_COIL: its stock holds 123 h of its flow (>= 24 steps of 60 min)",
+      "AR_COATED: its stock holds 181 h of its flow (>= 24 steps of 60 min)",
+      "TX_BILLETS: its stock holds 150 h of its flow (>= 24 steps of 60 min)",
+      "TX_LONG: its stock holds 177 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_AR_NA_HRC",
+      "L_AR_NA_COAT",
+      "T_TX_AR"
+     ],
+     "children": [
+      {
+       "name": "AR.eaf",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 6,
+       "fence_flows": 10,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "AR_GRID: takes flows from 6 units, keeps no stock, shared by 4 parts",
+        "AR_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "AR_HSM",
+        "AR_CGL"
+       ],
+       "children": [
+        {
+         "name": "AR.eaf2",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "AR.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "TX.eaf",
+       "units": 6,
+       "step_min": 60.0,
+       "decisions_per_step": 4,
+       "fence_flows": 8,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "TX_GRID: takes flows from 4 units, keeps no stock, shared by 3 parts",
+        "TX_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "TX_DRI",
+        "TX_BAR"
+       ],
+       "children": [
+        {
+         "name": "TX.eaf2",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "NA.lane_long",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "MX.eaf",
+     "units": 12,
+     "step_min": 60.0,
+     "decisions_per_step": 7,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "MX_PELLETS: its stock holds 1,268 h of its flow (>= 24 steps of 60 min)",
+      "MX_EAF1SCRAP: its stock holds 702 h of its flow (>= 24 steps of 60 min)",
+      "MX_HBI: its stock holds 636 h of its flow (>= 24 steps of 60 min)",
+      "MX_SLABS: its stock holds 148 h of its flow (>= 24 steps of 60 min)",
+      "MX_COIL: its stock holds 140 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_MX_NA_HRC"
+     ],
+     "children": [
+      {
+       "name": "MX.eaf2",
+       "units": 6,
+       "step_min": 60.0,
+       "decisions_per_step": 4,
+       "fence_flows": 8,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "MX_GRID: takes flows from 4 units, keeps no stock, shared by 3 parts",
+        "MX_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "MX_DRI",
+        "MX_HSM"
+       ],
+       "children": [
+        {
+         "name": "MX.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "OD.blast_furnace",
+     "units": 18,
+     "step_min": 60.0,
+     "decisions_per_step": 9,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "OD_ORE: its stock holds 1,191 h of its flow (>= 24 steps of 60 min)",
+      "OD_COKE: its stock holds 847 h of its flow (>= 24 steps of 60 min)",
+      "OD_BOFSCRAP: its stock holds 664 h of its flow (>= 24 steps of 60 min)",
+      "OD_SLABS: its stock holds 143 h of its flow (>= 24 steps of 60 min)",
+      "OD_COIL: its stock holds 104 h of its flow (>= 24 steps of 60 min)",
+      "OD_COATED: its stock holds 177 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_OD_IN_HRC",
+      "L_OD_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "OD.blast_furnace2",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "OD_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "OD_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "OD_HSM",
+        "OD_CGL"
+       ],
+       "children": [
+        {
+         "name": "OD.blast_furnace3",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "IN.lane_coated",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "GJ.eaf",
+     "units": 16,
+     "step_min": 60.0,
+     "decisions_per_step": 11,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "GJ_PELLETS: its stock holds 1,242 h of its flow (>= 24 steps of 60 min)",
+      "GJ_EAF1SCRAP: its stock holds 732 h of its flow (>= 24 steps of 60 min)",
+      "GJ_EAF2SCRAP: its stock holds 766 h of its flow (>= 24 steps of 60 min)",
+      "GJ_HBI: its stock holds 472 h of its flow (>= 24 steps of 60 min)",
+      "GJ_SLABS: its stock holds 75 h of its flow (>= 24 steps of 60 min)",
+      "GJ_COIL: its stock holds 105 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_GJ_IN_HRC",
+      "L_GJ_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "GJ.eaf2",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 6,
+       "fence_flows": 10,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "GJ_GRID: takes flows from 6 units, keeps no stock, shared by 4 parts",
+        "GJ_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "GJ_DRI",
+        "GJ_HSM"
+       ],
+       "children": [
+        {
+         "name": "GJ.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "GJ.eaf4",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "SA.eaf",
+     "units": 21,
+     "step_min": 60.0,
+     "decisions_per_step": 12,
+     "fence_flows": 1,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "SA_PELLETS: its stock holds 1,243 h of its flow (>= 24 steps of 60 min)",
+      "SA_EAF1SCRAP: its stock holds 717 h of its flow (>= 24 steps of 60 min)",
+      "SA_EAF2SCRAP: its stock holds 722 h of its flow (>= 24 steps of 60 min)",
+      "SA_HBI: its stock holds 522 h of its flow (>= 24 steps of 60 min)",
+      "SA_BILLETS: its stock holds 151 h of its flow (>= 24 steps of 60 min)",
+      "SA_SLABS: its stock holds 151 h of its flow (>= 24 steps of 60 min)",
+      "SA_COIL: its stock holds 134 h of its flow (>= 24 steps of 60 min)",
+      "SA_LONG: its stock holds 178 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_SA_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "SA.eaf2",
+       "units": 9,
+       "step_min": 60.0,
+       "decisions_per_step": 7,
+       "fence_flows": 13,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "SA_GRID: takes flows from 7 units, keeps no stock, shared by 5 parts",
+        "SA_GAS: takes flows from 3 units, keeps no stock, shared by 3 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "SA_DRI",
+        "SA_HSM",
+        "SA_BAR"
+       ],
+       "children": [
+        {
+         "name": "SA.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "SA.eaf4",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "ME.lane_long",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "ES.blast_furnace",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 5,
+     "fence_flows": 4,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "ES_ORE: its stock holds 1,199 h of its flow (>= 24 steps of 60 min)",
+      "ES_COKE: its stock holds 899 h of its flow (>= 24 steps of 60 min)",
+      "ES_BOFSCRAP: its stock holds 689 h of its flow (>= 24 steps of 60 min)",
+      "ES_SLABS: its stock holds 152 h of its flow (>= 24 steps of 60 min)",
+      "ES_COIL: its stock holds 145 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "ES_HSM",
+      "L_ES_EU_HRC"
+     ],
+     "children": [
+      {
+       "name": "ES.blast_furnace2",
+       "units": 3,
+       "step_min": 60.0,
+       "decisions_per_step": 2,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "ES.eaf",
+     "units": 8,
+     "step_min": 60.0,
+     "decisions_per_step": 6,
+     "fence_flows": 4,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "ES_EAF1SCRAP: its stock holds 621 h of its flow (>= 24 steps of 60 min)",
+      "ES_HBI: its stock holds 8,177 h of its flow (>= 24 steps of 60 min)",
+      "ES_BILLETS: its stock holds 147 h of its flow (>= 24 steps of 60 min)",
+      "ES_LONG: its stock holds 179 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "ES_BAR",
+      "L_ES_EU_LONG"
+     ],
+     "children": [
+      {
+       "name": "ES.eaf2",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 2,
+       "fence_flows": 5,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "aquila_works": {
+  "seconds": 0.7845859999943059,
+  "blocks": 93,
+  "used": [
+   "DE.converter",
+   "DE.hsm_works"
+  ],
+  "by_depth": {
+   "1": 10,
+   "2": 45,
+   "3": 38
+  },
+  "tree": {
+   "name": "aquila_works",
+   "units": 247,
+   "step_min": 60.0,
+   "decisions_per_step": 138,
+   "fence_flows": 0,
+   "class": "nonlinear",
+   "exact": [
+    "converter.tap: one event per window (exact DP)",
+    "caster_works.run: longest run (exact DP)",
+    "hsm_works.change: counter reset (exact DP)"
+   ],
+   "rule": "exchanges",
+   "why": [
+    "ES_GRID: takes flows from 7 units, keeps no stock, shared by 2 parts",
+    "ES_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "SCRAP_EU: takes flows from 6 units, keeps no stock, shared by 4 parts",
+    "SCRAP_US: takes flows from 5 units, keeps no stock, shared by 3 parts",
+    "SCRAP_IN: takes flows from 3 units, keeps no stock, shared by 2 parts",
+    "EU_HRC: takes flows from 4 units, keeps no stock, shared by 2 parts",
+    "EU_LONG: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "NA_HRC: takes flows from 3 units, keeps no stock, shared by 3 parts",
+    "NA_COAT: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "IN_HRC: takes flows from 2 units, keeps no stock, shared by 2 parts",
+    "ME_HRC: takes flows from 3 units, keeps no stock, shared by 3 parts"
+   ],
+   "used": false,
+   "note": "the whole twin",
+   "depth": 0,
+   "single_units": [],
+   "children": [
+    {
+     "name": "DE+FR+NL.reheat_furnace",
+     "units": 63,
+     "step_min": 60.0,
+     "decisions_per_step": 46,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [
+      "converter.tap: one event per window (exact DP)",
+      "caster_works.run: longest run (exact DP)",
+      "hsm_works.change: counter reset (exact DP)"
+     ],
+     "rule": "time scale",
+     "why": [
+      "DE_BOF1: needs 15-minute steps (the window of its constraint cycle spans no whole number of 60-minute steps)",
+      "DE_BOF2: needs 15-minute steps (the window of its constraint cycle spans no whole number of 60-minute steps)",
+      "DE_BOF3: needs 15-minute steps (the window of its constraint cycle spans no whole number of 60-minute steps)",
+      "DE_CC1: needs 30-minute steps (speed held 30 min spans no whole number of 60-minute steps)",
+      "DE_CC2: needs 30-minute steps (speed held 30 min spans no whole number of 60-minute steps)",
+      "DE_RF1: needs 30-minute steps (charge held 30 min spans no whole number of 60-minute steps)",
+      "DE_RF2: needs 30-minute steps (charge held 30 min spans no whole number of 60-minute steps)",
+      "DE_HSM: needs 15-minute steps (change held 15 min spans no whole number of 60-minute steps)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_NL_EU_HRC",
+      "L_DE_EU_HRC",
+      "L_FR_EU_HRC",
+      "T_NL_DE",
+      "T_DE_NL",
+      "T_FR_DE"
+     ],
+     "children": [
+      {
+       "name": "DE.converter",
+       "units": 11,
+       "step_min": 15.0,
+       "decisions_per_step": 14,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [
+        "converter.tap: one event per window (exact DP)",
+        "caster_works.run: longest run (exact DP)"
+       ],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows, stocks of DE_LADLE 1.2 h, DE_HM 2.1 h"
+       ],
+       "used": true,
+       "note": "used: its own step, 15 min inside 60 min",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "DE.hsm_works",
+       "units": 3,
+       "step_min": 15.0,
+       "decisions_per_step": 9,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [
+        "hsm_works.change: counter reset (exact DP)"
+       ],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": true,
+       "note": "used: its own step, 15 min inside 60 min",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "NL.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "NL_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "NL_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "NL_HSM",
+        "NL_CGL"
+       ],
+       "children": [
+        {
+         "name": "NL.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "DE.coating_line",
+       "units": 5,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 24,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "FR.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "FR_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "FR_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "FR_HSM",
+        "FR_CGL"
+       ],
+       "children": [
+        {
+         "name": "FR.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "EU.lane_coated",
+       "units": 4,
+       "step_min": 60.0,
+       "decisions_per_step": 3,
+       "fence_flows": 3,
+       "class": "lp",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "EU_COAT: takes flows from 3 units, keeps no stock, shared by 3 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "L_NL_EU_COAT",
+        "L_DE_EU_COAT",
+        "L_FR_EU_COAT"
+       ],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "PL.eaf",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 6,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "PL_EAF1SCRAP: its stock holds 623 h of its flow (>= 24 steps of 60 min)",
+      "PL_HBI: its stock holds 5,761 h of its flow (>= 24 steps of 60 min)",
+      "PL_BILLETS: its stock holds 150 h of its flow (>= 24 steps of 60 min)",
+      "PL_LONG: its stock holds 175 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_PL_EU_LONG"
+     ],
+     "children": [
+      {
+       "name": "PL.eaf2",
+       "units": 5,
+       "step_min": 60.0,
+       "decisions_per_step": 3,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "PL_GRID: takes flows from 3 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": [
+        {
+         "name": "PL.long_mill",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 1,
+         "fence_flows": 3,
+         "class": "lp",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "PL.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "BR+IN.blast_furnace",
+     "units": 35,
+     "step_min": 60.0,
+     "decisions_per_step": 17,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "IN_ORE: its stock holds 1,162 h of its flow (>= 24 steps of 60 min)",
+      "BR_ORE: its stock holds 1,185 h of its flow (>= 24 steps of 60 min)",
+      "IN_COKE: its stock holds 871 h of its flow (>= 24 steps of 60 min)",
+      "BR_COKE: its stock holds 842 h of its flow (>= 24 steps of 60 min)",
+      "IN_BOFSCRAP: its stock holds 653 h of its flow (>= 24 steps of 60 min)",
+      "BR_BOFSCRAP: its stock holds 709 h of its flow (>= 24 steps of 60 min)",
+      "IN_SLABS: its stock holds 140 h of its flow (>= 24 steps of 60 min)",
+      "IN_COIL: its stock holds 125 h of its flow (>= 24 steps of 60 min)",
+      "IN_COATED: its stock holds 174 h of its flow (>= 24 steps of 60 min)",
+      "BR_SLABS: its stock holds 132 h of its flow (>= 24 steps of 60 min)",
+      "BR_COIL: its stock holds 134 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_IN_NA_HRC",
+      "L_IN_NA_COAT",
+      "T_BR_IN"
+     ],
+     "children": [
+      {
+       "name": "IN.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "IN_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "IN_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "IN_HSM",
+        "IN_CGL"
+       ],
+       "children": [
+        {
+         "name": "IN.blast_furnace2",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "BR.blast_furnace",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 7,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "BR_GRID: takes flows from 6 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": [
+        {
+         "name": "BR.hot_strip_mill",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 1,
+         "fence_flows": 3,
+         "class": "lp",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "BR.blast_furnace2",
+         "units": 5,
+         "step_min": 60.0,
+         "decisions_per_step": 4,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "SA.lane_hrc",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      },
+      {
+       "name": "SLAB.lane_slab",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "AR+TX.eaf",
+     "units": 30,
+     "step_min": 60.0,
+     "decisions_per_step": 19,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "TX_PELLETS: its stock holds 1,249 h of its flow (>= 24 steps of 60 min)",
+      "AR_EAF1SCRAP: its stock holds 663 h of its flow (>= 24 steps of 60 min)",
+      "AR_EAF2SCRAP: its stock holds 662 h of its flow (>= 24 steps of 60 min)",
+      "TX_EAF1SCRAP: its stock holds 724 h of its flow (>= 24 steps of 60 min)",
+      "AR_HBI: its stock holds 1,219 h of its flow (>= 24 steps of 60 min)",
+      "TX_HBI: its stock holds 540 h of its flow (>= 24 steps of 60 min)",
+      "AR_SLABS: its stock holds 76 h of its flow (>= 24 steps of 60 min)",
+      "AR_COIL: its stock holds 114 h of its flow (>= 24 steps of 60 min)",
+      "AR_COATED: its stock holds 192 h of its flow (>= 24 steps of 60 min)",
+      "TX_BILLETS: its stock holds 143 h of its flow (>= 24 steps of 60 min)",
+      "TX_LONG: its stock holds 190 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_AR_NA_HRC",
+      "L_AR_NA_COAT",
+      "T_TX_AR"
+     ],
+     "children": [
+      {
+       "name": "AR.eaf",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 6,
+       "fence_flows": 10,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "AR_GRID: takes flows from 6 units, keeps no stock, shared by 4 parts",
+        "AR_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "AR_HSM",
+        "AR_CGL"
+       ],
+       "children": [
+        {
+         "name": "AR.eaf2",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "AR.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "TX.eaf",
+       "units": 6,
+       "step_min": 60.0,
+       "decisions_per_step": 4,
+       "fence_flows": 8,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "TX_GRID: takes flows from 4 units, keeps no stock, shared by 3 parts",
+        "TX_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "TX_DRI",
+        "TX_BAR"
+       ],
+       "children": [
+        {
+         "name": "TX.eaf2",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "NA.lane_long",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "MX.eaf",
+     "units": 12,
+     "step_min": 60.0,
+     "decisions_per_step": 7,
+     "fence_flows": 2,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "MX_PELLETS: its stock holds 1,236 h of its flow (>= 24 steps of 60 min)",
+      "MX_EAF1SCRAP: its stock holds 731 h of its flow (>= 24 steps of 60 min)",
+      "MX_HBI: its stock holds 623 h of its flow (>= 24 steps of 60 min)",
+      "MX_SLABS: its stock holds 152 h of its flow (>= 24 steps of 60 min)",
+      "MX_COIL: its stock holds 136 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_MX_NA_HRC"
+     ],
+     "children": [
+      {
+       "name": "MX.eaf2",
+       "units": 6,
+       "step_min": 60.0,
+       "decisions_per_step": 4,
+       "fence_flows": 8,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "MX_GRID: takes flows from 4 units, keeps no stock, shared by 3 parts",
+        "MX_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "MX_DRI",
+        "MX_HSM"
+       ],
+       "children": [
+        {
+         "name": "MX.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "OD.blast_furnace",
+     "units": 18,
+     "step_min": 60.0,
+     "decisions_per_step": 9,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "OD_ORE: its stock holds 1,184 h of its flow (>= 24 steps of 60 min)",
+      "OD_COKE: its stock holds 841 h of its flow (>= 24 steps of 60 min)",
+      "OD_BOFSCRAP: its stock holds 678 h of its flow (>= 24 steps of 60 min)",
+      "OD_SLABS: its stock holds 149 h of its flow (>= 24 steps of 60 min)",
+      "OD_COIL: its stock holds 108 h of its flow (>= 24 steps of 60 min)",
+      "OD_COATED: its stock holds 177 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_OD_IN_HRC",
+      "L_OD_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "OD.blast_furnace2",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 5,
+       "fence_flows": 9,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "OD_GRID: takes flows from 6 units, keeps no stock, shared by 3 parts",
+        "OD_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "OD_HSM",
+        "OD_CGL"
+       ],
+       "children": [
+        {
+         "name": "OD.blast_furnace3",
+         "units": 4,
+         "step_min": 60.0,
+         "decisions_per_step": 3,
+         "fence_flows": 6,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "IN.lane_coated",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "GJ.eaf",
+     "units": 16,
+     "step_min": 60.0,
+     "decisions_per_step": 11,
+     "fence_flows": 3,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "GJ_PELLETS: its stock holds 1,238 h of its flow (>= 24 steps of 60 min)",
+      "GJ_EAF1SCRAP: its stock holds 696 h of its flow (>= 24 steps of 60 min)",
+      "GJ_EAF2SCRAP: its stock holds 741 h of its flow (>= 24 steps of 60 min)",
+      "GJ_HBI: its stock holds 476 h of its flow (>= 24 steps of 60 min)",
+      "GJ_SLABS: its stock holds 80 h of its flow (>= 24 steps of 60 min)",
+      "GJ_COIL: its stock holds 106 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_GJ_IN_HRC",
+      "L_GJ_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "GJ.eaf2",
+       "units": 8,
+       "step_min": 60.0,
+       "decisions_per_step": 6,
+       "fence_flows": 10,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "GJ_GRID: takes flows from 6 units, keeps no stock, shared by 4 parts",
+        "GJ_GAS: takes flows from 2 units, keeps no stock, shared by 2 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "GJ_DRI",
+        "GJ_HSM"
+       ],
+       "children": [
+        {
+         "name": "GJ.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "GJ.eaf4",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "SA.eaf",
+     "units": 21,
+     "step_min": 60.0,
+     "decisions_per_step": 12,
+     "fence_flows": 1,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "SA_PELLETS: its stock holds 1,224 h of its flow (>= 24 steps of 60 min)",
+      "SA_EAF1SCRAP: its stock holds 751 h of its flow (>= 24 steps of 60 min)",
+      "SA_EAF2SCRAP: its stock holds 709 h of its flow (>= 24 steps of 60 min)",
+      "SA_HBI: its stock holds 517 h of its flow (>= 24 steps of 60 min)",
+      "SA_BILLETS: its stock holds 145 h of its flow (>= 24 steps of 60 min)",
+      "SA_SLABS: its stock holds 152 h of its flow (>= 24 steps of 60 min)",
+      "SA_COIL: its stock holds 134 h of its flow (>= 24 steps of 60 min)",
+      "SA_LONG: its stock holds 174 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "L_SA_ME_HRC"
+     ],
+     "children": [
+      {
+       "name": "SA.eaf2",
+       "units": 9,
+       "step_min": 60.0,
+       "decisions_per_step": 7,
+       "fence_flows": 13,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "exchanges",
+       "why": [
+        "SA_GRID: takes flows from 7 units, keeps no stock, shared by 5 parts",
+        "SA_GAS: takes flows from 3 units, keeps no stock, shared by 3 parts"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [
+        "SA_DRI",
+        "SA_HSM",
+        "SA_BAR"
+       ],
+       "children": [
+        {
+         "name": "SA.eaf3",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        },
+        {
+         "name": "SA.eaf4",
+         "units": 2,
+         "step_min": 60.0,
+         "decisions_per_step": 2,
+         "fence_flows": 5,
+         "class": "nonlinear",
+         "exact": [],
+         "rule": "",
+         "why": [
+          "a cell: coupled within its step - direct flows"
+         ],
+         "used": false,
+         "note": "found, not used: same step as the part around it",
+         "depth": 3,
+         "single_units": [],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "ME.lane_long",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 1,
+       "fence_flows": 1,
+       "class": "lp",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "ES.blast_furnace",
+     "units": 10,
+     "step_min": 60.0,
+     "decisions_per_step": 5,
+     "fence_flows": 4,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "ES_ORE: its stock holds 1,209 h of its flow (>= 24 steps of 60 min)",
+      "ES_COKE: its stock holds 907 h of its flow (>= 24 steps of 60 min)",
+      "ES_BOFSCRAP: its stock holds 714 h of its flow (>= 24 steps of 60 min)",
+      "ES_SLABS: its stock holds 149 h of its flow (>= 24 steps of 60 min)",
+      "ES_COIL: its stock holds 141 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "ES_HSM",
+      "L_ES_EU_HRC"
+     ],
+     "children": [
+      {
+       "name": "ES.blast_furnace2",
+       "units": 3,
+       "step_min": 60.0,
+       "decisions_per_step": 2,
+       "fence_flows": 6,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "name": "ES.eaf",
+     "units": 8,
+     "step_min": 60.0,
+     "decisions_per_step": 6,
+     "fence_flows": 4,
+     "class": "nonlinear",
+     "exact": [],
+     "rule": "stocks",
+     "why": [
+      "ES_EAF1SCRAP: its stock holds 646 h of its flow (>= 24 steps of 60 min)",
+      "ES_HBI: its stock holds 7,929 h of its flow (>= 24 steps of 60 min)",
+      "ES_BILLETS: its stock holds 147 h of its flow (>= 24 steps of 60 min)",
+      "ES_LONG: its stock holds 174 h of its flow (>= 24 steps of 60 min)"
+     ],
+     "used": false,
+     "note": "found, not used: same step as the part around it",
+     "depth": 1,
+     "single_units": [
+      "ES_BAR",
+      "L_ES_EU_LONG"
+     ],
+     "children": [
+      {
+       "name": "ES.eaf2",
+       "units": 2,
+       "step_min": 60.0,
+       "decisions_per_step": 2,
+       "fence_flows": 5,
+       "class": "nonlinear",
+       "exact": [],
+       "rule": "",
+       "why": [
+        "a cell: coupled within its step - direct flows"
+       ],
+       "used": false,
+       "note": "found, not used: same step as the part around it",
+       "depth": 2,
+       "single_units": [],
+       "children": []
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

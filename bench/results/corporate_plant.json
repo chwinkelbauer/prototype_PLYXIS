@@ -1,0 +1,115 @@
+{
+ "DE.converter": {
+  "ga, live budget": {
+   "seconds": 8.538160700001754,
+   "value_at_prices": -7197019.0,
+   "max_violation": 2.0,
+   "violations": {
+    "caster_works.con:tundish_life": 0.0245,
+    "converter.con:cycle": 2.0,
+    "ladle_pool.con:treatment": 1.8,
+    "ladle_pool.con:stock.lo": 0.0175,
+    "ladle_pool.con:stock.hi": 0.0251
+   },
+   "signals": {
+    "DE_PIG.rate": 66.4,
+    "DE_BF1.made": 304.6,
+    "DE_BF2.made": 278.1,
+    "DE_BF3.made": 225.2,
+    "DE_CC1.steel": 418.3,
+    "DE_CC2.steel": 406.0
+   },
+   "heats": 225,
+   "roll_changes": null
+  },
+  "unit dp, live budget": {
+   "seconds": 10.011051199999201,
+   "value_at_prices": -5804614.5,
+   "max_violation": 0.00571427121758461,
+   "violations": {
+    "hot_metal_pool.con:stock.lo": 0.0011,
+    "ladle_pool.con:stock.lo": 0.0057,
+    "ladle_pool.con:stock.hi": 0.0049
+   },
+   "signals": {
+    "DE_PIG.rate": 0.0,
+    "DE_BF1.made": 290.2,
+    "DE_BF2.made": 265.0,
+    "DE_BF3.made": 214.5,
+    "DE_CC1.steel": 463.5,
+    "DE_CC2.steel": 409.0
+   },
+   "heats": 238,
+   "roll_changes": null
+  },
+  "unit dp, larger budget": {
+   "seconds": 21.17473820000305,
+   "value_at_prices": -5591280.5,
+   "max_violation": 0.00031384258181788027,
+   "violations": {},
+   "signals": {
+    "DE_PIG.rate": 0.0,
+    "DE_BF1.made": 276.6,
+    "DE_BF2.made": 252.5,
+    "DE_BF3.made": 204.4,
+    "DE_CC1.steel": 469.0,
+    "DE_CC2.steel": 413.3
+   },
+   "heats": 241,
+   "roll_changes": null
+  }
+ },
+ "DE.hsm_works": {
+  "ga, live budget": {
+   "seconds": 5.499266599999828,
+   "value_at_prices": 223943280.0,
+   "max_violation": 0.37015530467033386,
+   "violations": {
+    "reheat_furnace.con:residence": 0.2168,
+    "reheat_furnace.con:content.hi": 0.3702,
+    "hsm_works.con:capacity": 0.2923,
+    "hsm_works.con:roll_campaign": 0.0929
+   },
+   "signals": {
+    "DE_HSM.rolled": 865.8,
+    "DE_RF1.fed": 551.6,
+    "DE_RF2.fed": 327.5
+   },
+   "heats": 0,
+   "roll_changes": 30
+  },
+  "unit dp, live budget": {
+   "seconds": 7.296088299997791,
+   "value_at_prices": 247808400.0,
+   "max_violation": 0.030464766547083855,
+   "violations": {
+    "reheat_furnace.con:residence": 0.0133,
+    "reheat_furnace.con:content.hi": 0.0305,
+    "hsm_works.con:capacity": 0.0167,
+    "hsm_works.con:roll_campaign": 0.0061
+   },
+   "signals": {
+    "DE_HSM.rolled": 1003.2,
+    "DE_RF1.fed": 514.6,
+    "DE_RF2.fed": 515.9
+   },
+   "heats": 0,
+   "roll_changes": 35
+  },
+  "unit dp, larger budget": {
+   "seconds": 15.961791199999425,
+   "value_at_prices": 173523728.0,
+   "max_violation": 0.006957499776035547,
+   "violations": {
+    "reheat_furnace.con:residence": 0.007
+   },
+   "signals": {
+    "DE_HSM.rolled": 713.3,
+    "DE_RF1.fed": 391.7,
+    "DE_RF2.fed": 336.1
+   },
+   "heats": 0,
+   "roll_changes": 32
+  }
+ }
+}

@@ -37,6 +37,7 @@ SECTION_ALIASES = {
     "objective": "objective",
     "inputs": "inputs",
     "solver": "solver",
+    "plants": "plants",
 }
 
 TERM_KINDS = ("cost", "revenue", "emission", "metric")
@@ -303,7 +304,13 @@ class Parser:
         while not self.at_op("}") and self.tok.kind != "eof":
             if self.accept_op(";") or self.accept_op(","):
                 continue
-            g.members.append(self.parse_name_template_text())
+            # a member may be a wildcard pattern over instance paths (DE_*, L_?_DE): taken as written
+            member = self.raw_until((",", ";"))
+            if not member:
+                self.error("expected a group member")
+                self.next()
+                continue
+            g.members.append(member)
         self.expect_op("}")
         self.accept_op(";")
         return g
@@ -641,6 +648,8 @@ class Parser:
                         sim.inputs.append(A.Define(A.Name(key, loc=t.loc), val, unit, loc=t.loc))
                     elif section == "solver":
                         sim.solver[key] = (val, unit)
+                    elif section == "plants":
+                        sim.plants[key] = (val, unit)
                     else:
                         sim.settings[key] = (val, unit)
             except ParseError:

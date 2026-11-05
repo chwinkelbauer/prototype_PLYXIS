@@ -3,6 +3,9 @@
     python -m plyxis serve [--port 8000] [--speed 600] [--autoplay] [--no-neural]
     python -m plyxis compile <file.plx> [--env NAME] [--show-code]
     python -m plyxis lint <file.plx> [--env NAME]     checks beyond the compiler (dead decisions, unconnected inputs, ...)
+    python -m plyxis structure <file.plx> [--sim NAME] [--detail]
+                                                      the block tree of the twin's asset graph (lang/blocks.py): what
+                                                      can be solved on its own, why, and what the plan uses
     python -m plyxis optimize <file.plx> [--env NAME]
     python -m plyxis run [--hours 24]                 headless showcase run (A/B KPIs)
     python -m plyxis backfill <history.csv.gz> --scenario NAME [--out calibration.plx]
@@ -33,6 +36,11 @@ def main(argv=None) -> None:
     l = sub.add_parser("lint")
     l.add_argument("files", nargs="+")
     l.add_argument("--env")
+    st = sub.add_parser("structure")
+    st.add_argument("files", nargs="+")
+    st.add_argument("--env")
+    st.add_argument("--sim")
+    st.add_argument("--detail", action="store_true")
     o = sub.add_parser("optimize")
     o.add_argument("files", nargs="+")
     o.add_argument("--env")
@@ -82,6 +90,11 @@ def main(argv=None) -> None:
         warnings = sum(1 for f in found if f.severity == "warning")
         print(f"{warnings} warnings, {len(found) - warnings} for review")
         sys.exit(1 if warnings else 0)
+    elif args.cmd == "structure":
+        from .lang import compile_model
+        from .lang.blocks import find_structure, render
+        m = compile_model(args.files, env=args.env, sim=args.sim)
+        print(render(find_structure(m), m.flat, detail=args.detail))
     elif args.cmd == "backfill":
         from .runtime.backfill import backfill
         root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

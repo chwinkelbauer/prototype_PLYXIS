@@ -482,11 +482,97 @@ def colgen(d) -> None:
     print()
 
 
+def corporate(d) -> None:
+    """One twin, several time scales: the steel group hourly, the Duisburg works' plants found by the detector at their
+    own step, coordinated by prices (bench.corporate)."""
+    pr = d["programs"]
+    blocks = [k for k in pr if k != "master"]
+    print(f"### One twin, plants found in it: the steel group hourly, the Duisburg works' plants at their own step "
+          f"(aquila_works, split {d.get('split', 'auto')})\n")
+    for line in d.get("detected", []):
+        if not line.startswith("  "):
+            print(f"- {line}")
+    ref = d.get("reference", {})
+    print("\n| | " + " | ".join(["group (master)"] + blocks + ["whole twin, one program (reference)"]) + " |")
+    print("|---|" + "---|" * (len(blocks) + 2))
+    print("| instances | " + " | ".join([str(pr["master"]["instances"])] + [str(pr[b]["instances"]) for b in blocks]
+                                         + ["-"]) + " |")
+    print("| steps | " + " | ".join([f"{pr[k]['steps']} x {pr[k]['step_h'] * 60:g} min" for k in ["master"] + blocks]
+                                     + [f"{ref.get('steps', '-')}"]) + " |")
+    dec = d["decisions"]
+    print("| decisions (discrete) | " + " | ".join([f"{dec['master']:,}"] + [f"{dec[b]:,} ({dec.get(b + '_discrete', 0):,})"
+                                                                          for b in blocks]
+                                                 + [f"{ref.get('decisions', 0):,} ({ref.get('discrete', 0):,})"]) + " |")
+    print("| crossings | - | " + " | ".join(str(len(pr[b].get("crossings", []))) for b in blocks) + " | - |")
+    pl = d["plan"]
+    if "plant_violation" in pl:
+        print("\nCommitted schedules' own limits (max violation): "
+              + ", ".join(f"{k} {v:.4f}" for k, v in pl["plant_violation"].items())
+              + f"; the group's program feasible {pl.get('master_feasible')}.")
+    print(f"\nCommitted plan USD {pl['objective']:,.0f}, feasible {pl['feasible']}, {d['seconds']:.0f} s (all rounds); "
+          f"reference USD {ref.get('objective', float('nan')):,.0f}, feasible {ref.get('feasible')} (max violation "
+          f"{ref.get('max_violation', 0):.4f}), {ref.get('seconds', 0):.0f} s.\n")
+    print("| round | block schedules (block: internal value USD M / reduced cost USD M / max violation / seconds) | master (USD M, feasible, seconds) |\n|---|---|---|")
+    for r in d["rounds"]:
+        parts = []
+        for b, cols in r.get("plants", {}).items():
+            for c in (cols if isinstance(cols, list) else []):
+                rc = "-" if c["reduced_cost"] is None else f"{c['reduced_cost'] / 1e6:,.3f}"
+                parts.append(f"{b}: {c['internal'] / 1e6:,.2f} / {rc} / {c['max_violation']:.4f} / {c['seconds']:.0f}")
+        m = r.get("master")
+        ms = f"{m['objective'] / 1e6:,.2f}, {m['feasible']}, {m['seconds']:.0f}" if m else ""
+        print(f"| {r['round']} | {'; '.join(parts)} | {ms} |")
+    for b, p in d.get("plants", {}).items():
+        print(f"\n{b}: committed schedule max violation {p['max_violation']:.4f}; flows at the fence per hour (the "
+              f"schedule / the master's mix): " + ", ".join(f"{k} {v:,.0f} / {p['mix_flows_per_h'][k]:,.0f}"
+                                                            for k, v in p["flows_per_h"].items()))
+        for path, dec_ in sorted(p["schedule"].items()):
+            for name, v in dec_.items():
+                if "events" in v:
+                    print(f"- {path}.{name}: {v['events']} events, {v['starts']} starts, on {100 * v['on_share']:.0f} % of the time")
+        if p.get("signals"):
+            print("- means: " + ", ".join(f"{k} {v:,.1f}" for k, v in p["signals"].items()))
+    if d.get("master_signals"):
+        print("- group (master) means: " + ", ".join(f"{k} {v:,.1f}" for k, v in d["master_signals"].items()))
+    if ref.get("signals"):
+        print("- reference means: " + ", ".join(f"{k} {v:,.1f}" for k, v in ref["signals"].items()))
+    t = d.get("toy")
+    if t:
+        print(f"\nToy (examples/plants_toy.plx, optimum {t['optimum']:,.0f}): whole model solved at once {t['whole']['objective']:,.0f} "
+              f"({t['whole']['seconds']:.1f} s), decomposed {t['decomposed']['objective']:,.0f} committed, feasible "
+              f"{t['decomposed']['feasible']} ({t['decomposed']['seconds']:.1f} s)")
+    print()
+
+
+def corporate_regions(d) -> None:
+    """The steel group hourly: the whole twin against its regional networks coordinated by prices."""
+    print("### Regional networks found in the steel group (aquila, hourly)\n")
+    for line in d.get("detected", []):
+        if not line.startswith("  "):
+            print(f"- {line}")
+    dec = d["decisions"]
+    w, r = d["whole"], d["regions"]
+    print(f"\nDecisions: whole {dec['whole']:,}; master {dec['master']:,} (column weights); blocks "
+          + ", ".join(f"{k} {v:,}" for k, v in dec.items() if k not in ("whole", "master")) + ".\n")
+    print("| | whole twin, one program | regional networks, coordinated by prices |\n|---|---|---|")
+    print(f"| plan value (USD) | {w['objective']:,.0f} (feasible {w['feasible']}) | {r['objective']:,.0f} committed "
+          f"(feasible {r['feasible']}; mix {r['mix_objective']:,.0f}) |")
+    print(f"| seconds | {w['seconds']:.0f} | {r['seconds']:.0f} ({d.get('workers', 0)} workers) |")
+    for rr in d.get("rounds", []):
+        m = rr.get("master")
+        rcs = [c["reduced_cost"] for cols in rr.get("plants", {}).values() for c in cols if c.get("reduced_cost") is not None]
+        if m or rcs:
+            print(f"- round {rr['round']}: " + (f"max reduced cost USD {max(rcs) / 1e6:,.3f} M; " if rcs else "")
+                  + (f"master USD {m['objective'] / 1e6:,.2f} M, feasible {m['feasible']}, {m['seconds']:.0f} s" if m else ""))
+    print()
+
+
 def main() -> None:
     for name, fn in (("risk.json", risk), ("uncertainty_coverage.json", coverage), ("uncertainty_coverage_matching.json", coverage),
                      ("colgen.json", colgen),
                      ("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
                      ("showcase_run_aquila.json", steel), ("policy_in_twin_aquila.json", policy_twin),
+                     ("corporate.json", corporate), ("corporate_regions.json", corporate_regions),
                      ("backtest_kestrel.json", backtest), ("backtest_corvus.json", backtest),
                      ("decomposition.json", decomposition), ("section_theory.json", section_theory),
                      ("exact_branches.json", exact_branches), ("neural_ablation.json", neural),

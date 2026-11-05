@@ -313,6 +313,7 @@ class SimDef(Definition):
     inputs: list = field(default_factory=list)         # list[Define]
     objective: Optional[tuple] = None                  # (sense, Expr)
     solver: dict = field(default_factory=dict)
+    plants: dict = field(default_factory=dict)         # instance group -> (time step Expr, unit)
     legacy_behavior: list = field(default_factory=list)
 
 

@@ -46,7 +46,8 @@ class CascadeConfig:
     patience: Optional[int] = None        # early stop of repair / polish once converged (None = full budget)
     warm_relax: float = 1.0               # fraction of relax_iters used when a warm start is given
     restore_iters: int = 60               # feasibility restoration, only if the polished plan is still infeasible
-    discrete: str = "ga"                  # discrete stage: "ga" (memetic, randomised roundings) or "sections"
+    discrete: str = "ga"                  # discrete stage: "ga" (memetic, randomised roundings), "sections", "unitdp" or
+                                          # "auto" (the per-unit DPs where the model has sequence rules, else the GA)
                                           # (learned graph filter + exact enumeration per section, sections.py)
     section_sweeps: int = 2
     section_window_h: float = 12.0
@@ -56,6 +57,7 @@ class CascadeConfig:
                                           # branches the structure analysis proves affine -> HiGHS LP (branchlp.py)
     branch_iters: int = 6                 # sequential-LP iterations for the piecewise-affine classes
     exact_margin: float = 0.0             # the exact stage keeps state limits this far inside (share of the limit's scale)
+    unit_passes: int = 3                  # discrete = "unitdp": sweeps of the per-unit dynamic programs (unitdp.py)
     second_opinion: Optional[float] = None  # a plan worth this share less than the last one is solved once more (runtime/planner.py)
     cold_starts: int = 1                  # a plan with no running plan to start from is solved from this many random streams, the
                                           # best kept (runtime/planner.py): nothing to compare it with, so the second opinion never fires
@@ -170,6 +172,11 @@ class Cascade:
         if cfg.discrete == "sections" and int(mask.sum()) > 0:
             n_gen = 0
             best_x, best_obj, best_mv, lam_rep, method = self._sections_stage(rel, mask, callback)
+        if cfg.discrete in ("unitdp", "auto") and int(mask.sum()) > 0:
+            out = self._unitdp_stage(rel, callback)
+            if out is not None:                          # no sequence rule in the model: the GA as usual
+                n_gen = 0
+                best_x, best_obj, best_mv, lam_rep, method = out
         for gen_i in range(n_gen):
             rep = alm(pb, pop, iters=cfg.repair_iters, lr=0.02, rho=0.5, outer=10, mask=~mask, relax=False,
                       stage="discrete", callback=lambda r, g=gen_i: self._emit(callback, dict(r, generation=g)),
@@ -309,6 +316,20 @@ class Cascade:
         return CascadeResult(x_final, obj, mv, mv <= 2e-3, prices, pol.multipliers, self._hist, stages,
                              time.perf_counter() - self._t0, pb.n_evals - evals0)
 
+
+    def _unitdp_stage(self, rel, callback):
+        """Exact per-unit dynamic programs for decisions with a sequence rule (unitdp.py), repaired by the ALM."""
+        from .unitdp import UnitDP
+        pb, cfg = self.pb, self.cfg
+        u = UnitDP(pb)
+        if not u.rules:
+            return None
+        cb = lambda r: self._emit(callback, dict(r, stage="discrete", method="unit dp"))  # noqa: E731
+        lam = {k: v[:1] for k, v in rel.multipliers.items()} if rel.multipliers else None
+        x, obj, mv, lam = u.solve(rel.x[:1], lam, passes=cfg.unit_passes, repair_iters=cfg.repair_iters,
+                                  callback=cb, patience=cfg.patience)
+        return x, obj, mv, lam, {"method": "unit dp", "rules": [f"{r.kind}:{pb.prog.gmap[r.gid].ir.type.short}.{r.dec}"
+                                                               for r in u.rules]}
 
     def _sections_stage(self, rel, mask, callback):
         """Deterministic sections: continuous repair and exact section sweeps alternate (sections.py)."""

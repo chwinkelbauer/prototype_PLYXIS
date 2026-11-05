@@ -1,0 +1,850 @@
+{
+ "scenario": "aquila_works",
+ "rounds_max": 3,
+ "toy": {
+  "optimum": 37100.0,
+  "whole": {
+   "objective": 36052.09375,
+   "feasible": true,
+   "seconds": 2.9945148000006157
+  },
+  "decomposed": {
+   "objective": 37069.28125,
+   "feasible": true,
+   "mix_objective": 34518.4765625,
+   "seconds": 23.065128599999298
+  }
+ },
+ "compile_seconds": 0.3871882000021287,
+ "split": "auto",
+ "detected": [
+  "plant DE.converter: 11 units at 15-minute steps",
+  "  DE_BOF1: needs 15-minute steps (the window of its constraint cycle spans no whole number of steps at a coarser one)",
+  "  DE_BOF2: needs 15-minute steps (the window of its constraint cycle spans no whole number of steps at a coarser one)",
+  "  DE_BOF3: needs 15-minute steps (the window of its constraint cycle spans no whole number of steps at a coarser one)",
+  "  DE_CC1: needs 30-minute steps (speed held 30 min spans no whole number of steps at a coarser one)",
+  "  DE_CC2: needs 30-minute steps (speed held 30 min spans no whole number of steps at a coarser one)",
+  "  DE_BF1: joined - sends into DE_HM.feed",
+  "  DE_BF2: joined - sends into DE_HM.feed",
+  "  DE_BF3: joined - sends into DE_HM.feed",
+  "  DE_HM: joined - its stock holds 2.1 h of its flow (less than 24 h)",
+  "  DE_LADLE: joined - its stock holds 1.2 h of its flow (less than 24 h)",
+  "  DE_PIG: joined - sends into DE_HM.draws",
+  "  fence at DE_BOFSCRAP.draws: its stock holds 1780 h of its flow",
+  "  fence at DE_COKE.draws: its stock holds 845 h of its flow",
+  "  fence at DE_GASNET.supply: no stock fed by it: takes the flow per simulation step",
+  "  fence at DE_GRID.requests: no stock fed by it: takes the flow per simulation step",
+  "  fence at DE_ORE.draws: its stock holds 1187 h of its flow",
+  "  fence at DE_SLABS.feed: its stock holds 144 h of its flow",
+  "plant DE.hsm_works: 3 units at 15-minute steps",
+  "  DE_HSM: needs 15-minute steps (change held 15 min spans no whole number of steps at a coarser one)",
+  "  DE_RF1: needs 30-minute steps (charge held 30 min spans no whole number of steps at a coarser one)",
+  "  DE_RF2: needs 30-minute steps (charge held 30 min spans no whole number of steps at a coarser one)",
+  "  fence at DE_COIL.feed: its stock holds 131 h of its flow",
+  "  fence at DE_GAS.requests: no stock fed by it: takes the flow per simulation step",
+  "  fence at DE_GASNET.requests: no stock fed by it: takes the flow per simulation step",
+  "  fence at DE_GRID.requests: no stock fed by it: takes the flow per simulation step",
+  "  fence at DE_SLABS.draws: its stock holds 144 h of its flow",
+  "  fence at DE_SLABS.draws_hot: its stock holds 144 h of its flow"
+ ],
+ "programs": {
+  "master": {
+   "groups": 40,
+   "instances": 249,
+   "junctions": 0,
+   "edges": 425,
+   "decision_signals": 129,
+   "routed_edges": 0,
+   "constraints": 333,
+   "blocks": {
+    "vec": 314,
+    "acc": 13,
+    "scan": 4
+   },
+   "lines_of_generated_code": 1197,
+   "steps": 96,
+   "step_h": 1.0
+  },
+  "DE.converter": {
+   "groups": 13,
+   "instances": 17,
+   "junctions": 0,
+   "edges": 38,
+   "decision_signals": 14,
+   "routed_edges": 0,
+   "constraints": 13,
+   "blocks": {
+    "vec": 113,
+    "acc": 4,
+    "scan": 0
+   },
+   "lines_of_generated_code": 393,
+   "steps": 384,
+   "step_h": 0.25,
+   "crossings": [
+    "3 x DE... -> DE_ORE.draws (iron_ore)",
+    "3 x DE... -> DE_COKE.draws (coke)",
+    "9 x DE... -> DE_GRID.requests (power)",
+    "6 x DE... -> DE_GASNET.supply (proc_gas)",
+    "3 x DE... -> DE_BOFSCRAP.draws (scrap)",
+    "2 x DE... -> DE_SLABS.feed (slab)"
+   ]
+  },
+  "DE.hsm_works": {
+   "groups": 8,
+   "instances": 9,
+   "junctions": 0,
+   "edges": 14,
+   "decision_signals": 9,
+   "routed_edges": 0,
+   "constraints": 8,
+   "blocks": {
+    "vec": 60,
+    "acc": 1,
+    "scan": 0
+   },
+   "lines_of_generated_code": 230,
+   "steps": 384,
+   "step_h": 0.25,
+   "crossings": [
+    "2 x DE... -> DE_SLABS.draws_hot (slab)",
+    "2 x DE... -> DE_SLABS.draws (slab)",
+    "2 x DE... -> DE_GASNET.requests (proc_gas)",
+    "2 x DE... -> DE_GAS.requests (fuel_gas)",
+    "3 x DE... -> DE_GRID.requests (power)",
+    "1 x DE... -> DE_COIL.feed (hrc)"
+   ]
+  }
+ },
+ "decisions": {
+  "master": 2572,
+  "DE.converter": 2040,
+  "DE.hsm_works": 1440,
+  "DE.converter_discrete": 1344,
+  "DE.hsm_works_discrete": 384
+ },
+ "seconds": 446.23403250000047,
+ "plan": {
+  "objective": 1393312128.0,
+  "feasible": true,
+  "master_feasible": true,
+  "plant_violation": {
+   "DE.converter": 0.001152661396190524,
+   "DE.hsm_works": 0.0
+  },
+  "mix_objective": 1365995648.0,
+  "weights_mean": {
+   "DE.converter": [
+    0.33381640911102295,
+    0.3338145911693573,
+    0.3340095281600952
+   ],
+   "DE.hsm_works": [
+    0.5008419156074524,
+    0.4992006719112396
+   ]
+  }
+ },
+ "rounds": [
+  {
+   "round": 0,
+   "plants": {
+    "DE.converter": [
+     {
+      "internal": -6963899.5,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": false,
+      "max_violation": 0.014333663508296013,
+      "seconds": 89.6482829000015,
+      "flows_per_step": [
+       112111760.0,
+       28556964.0,
+       9673659.0,
+       58803332.0,
+       4509947.5,
+       46419168.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": -7976736.0,
+      "boundary_at_prices": 100216.5,
+      "reduced_cost": null,
+      "feasible": false,
+      "max_violation": 0.015102002769708633,
+      "seconds": 94.28086140000232,
+      "flows_per_step": [
+       113485816.0,
+       28846264.0,
+       10037656.0,
+       60087812.0,
+       6349613.0,
+       51200468.0
+      ],
+      "price_mean": [
+       -0.09099999815225601,
+       -0.2345000058412552,
+       -0.0709799975156784,
+       0.025376401841640472,
+       -0.27650004625320435,
+       0.35420000553131104
+      ]
+     },
+     {
+      "internal": -16239105.0,
+      "boundary_at_prices": 10546430.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.00032652978552505374,
+      "seconds": 80.42114159999983,
+      "flows_per_step": [
+       114523184.0,
+       29073600.0,
+       12389202.0,
+       66464600.0,
+       18438682.0,
+       81628800.0
+      ],
+      "price_mean": [
+       -0.12999999523162842,
+       -0.33500000834465027,
+       -0.1013999879360199,
+       0.03625200316309929,
+       -0.39500001072883606,
+       0.5059999227523804
+      ]
+     },
+     {
+      "internal": -17180871.75,
+      "boundary_at_prices": 14918905.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0008167217602021992,
+      "seconds": 52.753335499997775,
+      "flows_per_step": [
+       127476264.0,
+       31734146.0,
+       12981075.0,
+       71885536.0,
+       8155698.0,
+       80258352.0
+      ],
+      "price_mean": [
+       -0.16899998486042023,
+       -0.43549999594688416,
+       -0.1318199783563614,
+       0.04712760075926781,
+       -0.513499915599823,
+       0.657800018787384
+      ]
+     },
+     {
+      "internal": -18786804.25,
+      "boundary_at_prices": 20852168.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0012446268228814006,
+      "seconds": 53.15024569999878,
+      "flows_per_step": [
+       144369632.0,
+       34941192.0,
+       14594907.0,
+       81148040.0,
+       7999998.5,
+       89336168.0
+      ],
+      "price_mean": [
+       -0.20800000429153442,
+       -0.5359999537467957,
+       -0.16224001348018646,
+       0.05800320580601692,
+       -0.6320000290870667,
+       0.8096001148223877
+      ]
+     }
+    ],
+    "DE.hsm_works": [
+     {
+      "internal": -1235325.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.00011539358820300549,
+      "seconds": 68.6849652000019,
+      "flows_per_step": [
+       15516004.0,
+       35269148.0,
+       9176726.0,
+       6086506.0,
+       5903626.5,
+       50421000.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": -1206224.0,
+      "boundary_at_prices": 128359544.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 63.20268529999885,
+      "flows_per_step": [
+       68591176.0,
+       0.0,
+       13337174.0,
+       0.0,
+       7852031.0,
+       66942260.0
+      ],
+      "price_mean": [
+       -0.35420000553131104,
+       -0.35420000553131104,
+       -0.025376401841640472,
+       -0.03424982354044914,
+       -0.0709799975156784,
+       2.141056776046753
+      ]
+     },
+     {
+      "internal": -1849104.0,
+      "boundary_at_prices": 251865536.0,
+      "reduced_cost": null,
+      "feasible": false,
+      "max_violation": 0.0362391397356987,
+      "seconds": 68.58482300000105,
+      "flows_per_step": [
+       95382768.0,
+       0.0,
+       18546652.0,
+       0.0,
+       10908199.0,
+       92986720.0
+      ],
+      "price_mean": [
+       -0.5059999227523804,
+       -0.5059999227523804,
+       -0.03625200316309929,
+       -0.04892832040786743,
+       -0.1013999879360199,
+       3.058652877807617
+      ]
+     }
+    ]
+   },
+   "kept_out": {
+    "DE.converter": 2,
+    "DE.hsm_works": 1
+   },
+   "master": {
+    "objective": 1365995648.0,
+    "feasible": false,
+    "max_violation": 0.007385375909507275,
+    "seconds": 53.741586299998744,
+    "violations": {
+     "plx_simplex_DE_hsm_works.con:convex": 0.0074,
+     "plx_simplex_DE_converter.con:convex": 0.0067
+    },
+    "weights": {
+     "DE.converter": [
+      0.33381640911102295,
+      0.3338145911693573,
+      0.3340095281600952
+     ],
+     "DE.hsm_works": [
+      0.5008419156074524,
+      0.4992006719112396
+     ]
+    },
+    "artificial": {}
+   }
+  },
+  {
+   "round": 1,
+   "plants": {
+    "DE.converter": [
+     {
+      "internal": -18344063.0,
+      "boundary_at_prices": 13122811.0,
+      "reduced_cost": 104901.75,
+      "feasible": true,
+      "max_violation": 8.285413059638813e-05,
+      "seconds": 45.758551399998396,
+      "flows_per_step": [
+       137175792.0,
+       33372522.0,
+       13949189.0,
+       77305648.0,
+       8312486.0,
+       86091968.0
+      ],
+      "price_mean": [
+       -0.12999999523162842,
+       -0.33500000834465027,
+       -0.1013999879360199,
+       0.03625200316309929,
+       -0.4059796631336212,
+       0.5123436450958252
+      ]
+     }
+    ],
+    "DE.hsm_works": [
+     {
+      "internal": -327400.75,
+      "boundary_at_prices": -434475.53125,
+      "reduced_cost": 679378.625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 33.32860399999845,
+      "flows_per_step": [
+       48846156.0,
+       0.0,
+       9497863.0,
+       0.0,
+       5530107.0,
+       47085268.0
+      ],
+      "price_mean": [
+       -0.5123436450958252,
+       -0.5123436450958252,
+       -0.03625200316309929,
+       -0.04892832040786743,
+       -0.1013999879360199,
+       0.5423645973205566
+      ]
+     }
+    ]
+   },
+   "converged": true
+  },
+  {
+   "round": "commit 0",
+   "plants": {
+    "DE.converter": [
+     {
+      "internal": -17667383.0,
+      "boundary_at_prices": 12186170.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001776167075149715,
+      "seconds": 48.21506009999939,
+      "flows_per_step": [
+       134151840.0,
+       32949318.0,
+       13587563.0,
+       75500144.0,
+       7861176.0,
+       82946496.0
+      ],
+      "price_mean": [
+       -0.12999999523162842,
+       -0.33500000834465027,
+       -0.1013999879360199,
+       0.03625200316309929,
+       -0.4059796631336212,
+       0.5123436450958252
+      ]
+     }
+    ],
+    "DE.hsm_works": [
+     {
+      "internal": -1050231.75,
+      "boundary_at_prices": -164616.46875,
+      "reduced_cost": null,
+      "feasible": false,
+      "max_violation": 0.002593563636764884,
+      "seconds": 42.35811230000036,
+      "flows_per_step": [
+       38316980.0,
+       16007004.0,
+       10490346.0,
+       2518166.0,
+       6269969.0,
+       53505536.0
+      ],
+      "price_mean": [
+       -0.5123436450958252,
+       -0.5123436450958252,
+       -0.03625200316309929,
+       -0.04892832040786743,
+       -0.1013999879360199,
+       0.5423645973205566
+      ]
+     }
+    ]
+   },
+   "fallback": {
+    "DE.hsm_works": 0
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {},
+   "master": {
+    "objective": 1392495104.0,
+    "feasible": false,
+    "max_violation": 0.002569531323388219,
+    "seconds": 54.219812600000296,
+    "violations": {
+     "steel_market.con:depth": 0.0026
+    },
+    "weights": {
+     "DE.converter": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "DE.hsm_works": [
+      1.0,
+      0.0
+     ]
+    },
+    "artificial": {}
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {
+    "DE.converter": [
+     {
+      "internal": -17713897.0,
+      "boundary_at_prices": 12507550.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001152661396190524,
+      "seconds": 45.535961900000984,
+      "flows_per_step": [
+       134511488.0,
+       32772312.0,
+       13633726.0,
+       75726288.0,
+       7507691.0,
+       83317120.0
+      ],
+      "price_mean": [
+       -0.12999999523162842,
+       -0.33500000834465027,
+       -0.1013999879360199,
+       0.03625200316309929,
+       -0.40048983693122864,
+       0.5114095211029053
+      ]
+     }
+    ],
+    "DE.hsm_works": [
+     {
+      "internal": -494289.0,
+      "boundary_at_prices": 245404.703125,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.394308300001285,
+      "flows_per_step": [
+       11889346.0,
+       26933482.0,
+       7269256.0,
+       4394465.0,
+       4468769.5,
+       38122812.0
+      ],
+      "price_mean": [
+       -0.5114095211029053,
+       -0.5114095211029053,
+       -0.03625200316309929,
+       -0.04892832040786743,
+       -0.1013999879360199,
+       0.5534574389457703
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {},
+   "master": {
+    "objective": 1393312128.0,
+    "feasible": true,
+    "max_violation": 0.0,
+    "seconds": 43.30488249999689,
+    "violations": {},
+    "weights": {
+     "DE.converter": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "DE.hsm_works": [
+      1.0,
+      0.0
+     ]
+    },
+    "artificial": {}
+   }
+  }
+ ],
+ "master_signals": {
+  "DE_PP.mw": 271.0,
+  "DE_PP.flare": 0.0,
+  "DE_GASNET.made": 2839.7,
+  "DE_GRID.load": -53.7
+ },
+ "plants": {
+  "DE.converter": {
+   "objective": -6941568.5,
+   "max_violation": 0.001152661396190524,
+   "violations": {
+    "ladle_pool.con:stock.lo": 0.0012
+   },
+   "flows_per_h": {
+    "DE_ORE.draws": 1401.2,
+    "DE_COKE.draws": 341.4,
+    "DE_GRID.requests": 142.0,
+    "DE_GASNET.supply": 2839.7,
+    "DE_BOFSCRAP.draws": 78.2,
+    "DE_SLABS.feed": 867.9
+   },
+   "mix_flows_per_h": {
+    "DE_ORE.draws": 1343.9,
+    "DE_COKE.draws": 333.0,
+    "DE_GRID.requests": 139.0,
+    "DE_GASNET.supply": 2748.4,
+    "DE_BOFSCRAP.draws": 120.3,
+    "DE_SLABS.feed": 873.8
+   },
+   "schedule": {
+    "DE_BF1": {
+     "rate": {
+      "mean": 349.387,
+      "min": 276.0,
+      "max": 460.0,
+      "unit": "t/h"
+     }
+    },
+    "DE_BF2": {
+     "rate": {
+      "mean": 307.618,
+      "min": 252.0,
+      "max": 420.0,
+      "unit": "t/h"
+     }
+    },
+    "DE_BF3": {
+     "rate": {
+      "mean": 229.806,
+      "min": 204.0,
+      "max": 340.0,
+      "unit": "t/h"
+     }
+    },
+    "DE_CC1": {
+     "run": {
+      "on_share": 0.906,
+      "events": 87,
+      "starts": 9
+     },
+     "speed": {
+      "mean": 528.716,
+      "min": 467.5,
+      "max": 845.326,
+      "unit": "t/h"
+     }
+    },
+    "DE_CC2": {
+     "run": {
+      "on_share": 0.865,
+      "events": 83,
+      "starts": 9
+     },
+     "speed": {
+      "mean": 460.165,
+      "min": 412.5,
+      "max": 750.0,
+      "unit": "t/h"
+     }
+    },
+    "DE_BOF1": {
+     "tap": {
+      "on_share": 0.216,
+      "events": 83,
+      "starts": 83
+     },
+     "hm_share": {
+      "mean": 0.92,
+      "min": 0.92,
+      "max": 0.92,
+      "unit": null
+     }
+    },
+    "DE_BOF2": {
+     "tap": {
+      "on_share": 0.208,
+      "events": 80,
+      "starts": 80
+     },
+     "hm_share": {
+      "mean": 0.92,
+      "min": 0.92,
+      "max": 0.92,
+      "unit": null
+     }
+    },
+    "DE_BOF3": {
+     "tap": {
+      "on_share": 0.211,
+      "events": 81,
+      "starts": 81
+     },
+     "hm_share": {
+      "mean": 0.92,
+      "min": 0.92,
+      "max": 0.92,
+      "unit": null
+     }
+    },
+    "DE_PIG": {
+     "rate": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "unit": "t/h"
+     }
+    }
+   },
+   "signals": {
+    "DE_PIG.rate": 0.0,
+    "DE_BF1.made": 349.4,
+    "DE_BF2.made": 307.6,
+    "DE_BF3.made": 229.8,
+    "DE_CC1.steel": 484.8,
+    "DE_CC2.steel": 400.8
+   }
+  },
+  "DE.hsm_works": {
+   "objective": -8926631.0,
+   "max_violation": 0.0,
+   "violations": {},
+   "flows_per_h": {
+    "DE_SLABS.draws_hot": 123.8,
+    "DE_SLABS.draws": 280.6,
+    "DE_GASNET.requests": 272.6,
+    "DE_GAS.requests": 164.8,
+    "DE_GRID.requests": 46.5,
+    "DE_COIL.feed": 397.1
+   },
+   "mix_flows_per_h": {
+    "DE_SLABS.draws_hot": 437.7,
+    "DE_SLABS.draws": 184.1,
+    "DE_GASNET.requests": 422.2,
+    "DE_GAS.requests": 114.4,
+    "DE_GRID.requests": 71.7,
+    "DE_COIL.feed": 611.4
+   },
+   "schedule": {
+    "DE_RF1": {
+     "charge": {
+      "mean": 202.224,
+      "min": 0.0,
+      "max": 345.723,
+      "unit": "t/h"
+     },
+     "discharge": {
+      "mean": 204.743,
+      "min": 0.0,
+      "max": 590.744,
+      "unit": "t/h"
+     },
+     "hot_share": {
+      "mean": 0.314,
+      "min": 0.0,
+      "max": 1.0,
+      "unit": null
+     },
+     "pg_share": {
+      "mean": 0.62,
+      "min": 0.097,
+      "max": 1.0,
+      "unit": null
+     }
+    },
+    "DE_RF2": {
+     "charge": {
+      "mean": 202.18,
+      "min": 0.0,
+      "max": 343.516,
+      "unit": "t/h"
+     },
+     "discharge": {
+      "mean": 202.552,
+      "min": 0.0,
+      "max": 593.603,
+      "unit": "t/h"
+     },
+     "hot_share": {
+      "mean": 0.313,
+      "min": 0.0,
+      "max": 1.0,
+      "unit": null
+     },
+     "pg_share": {
+      "mean": 0.664,
+      "min": 0.212,
+      "max": 1.0,
+      "unit": null
+     }
+    },
+    "DE_HSM": {
+     "change": {
+      "on_share": 0.039,
+      "events": 15,
+      "starts": 15
+     }
+    }
+   },
+   "signals": {
+    "DE_HSM.rolled": 397.1,
+    "DE_RF1.fed": 202.2,
+    "DE_RF2.fed": 202.2
+   }
+  }
+ },
+ "reference": {
+  "compile_seconds": 0.3068276000012702,
+  "decisions": 13096,
+  "discrete": 1728,
+  "steps": 384,
+  "objective": 1375778944.0,
+  "feasible": false,
+  "max_violation": 0.02204076014459133,
+  "seconds": 1139.6818238000014,
+  "signals": {
+   "DE_HSM.rolled": 497.9,
+   "DE_PP.mw": 251.5,
+   "DE_PP.flare": 0.0,
+   "DE_PIG.rate": 48.6,
+   "DE_GASNET.made": 2801.4,
+   "DE_GRID.load": -35.4,
+   "DE_BF1.made": 324.7,
+   "DE_BF2.made": 296.5,
+   "DE_BF3.made": 240.0,
+   "DE_RF1.fed": 254.7,
+   "DE_RF2.fed": 254.7,
+   "DE_CC1.steel": 491.6,
+   "DE_CC2.steel": 433.8
+  }
+ }
+}

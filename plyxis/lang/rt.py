@@ -214,6 +214,25 @@ def state_final(x, B, n):
     return full(x, B, n)
 
 
+def affine_scan(c, b, x0):
+    """next[t] of x[t+1] = c[t] * x[t] + b[t], x[0] = x0, along the last axis: a Hillis-Steele scan of the affine
+    maps (log2(T) vectorised steps; only products and sums, so stable for c in [0, 1])."""
+    c, b = T(c), T(b)
+    shape = torch.broadcast_shapes(c.shape, b.shape)
+    A, Bv = c.expand(shape).clone(), b.expand(shape).clone()
+    n = shape[-1]
+    d = 1
+    while d < n:
+        A_prev = torch.cat([torch.ones_like(A[..., :d]), A[..., :-d]], -1)
+        B_prev = torch.cat([torch.zeros_like(Bv[..., :d]), Bv[..., :-d]], -1)
+        Bv = A * B_prev + Bv
+        A = A * A_prev
+        d *= 2
+    x0 = T(x0)
+    x0 = x0.unsqueeze(-1) if x0.dim() == len(shape) - 1 else x0
+    return A * x0 + Bv
+
+
 def excumsum(inc):
     """exclusive cumulative sum along time."""
     c = torch.cumsum(inc, -1)

@@ -10,6 +10,10 @@ python -m bench.showcase_run --hours 72                      # Kestrel A/B run o
 python -m bench.showcase_run --scenario corvus               # Corvus mine A/B run (48 h)
 python -m bench.showcase_run --scenario aquila --seed 1      # Aquila steel group A/B run (96 h)
 python -m bench.policy_in_twin --scenario aquila             # plan vs. the baseline's rules in the twin's own world
+python -m bench.corporate --rounds 3 --reference --workers 6 # steel group hourly + the works' plants found at 15 min; whole twin at 15 min
+python -m bench.corporate --regions --rounds 5 --workers 6   # the hourly group: whole vs its regional networks
+python -m bench.corporate --plant-ablation                   # each plant alone: GA vs per-unit DPs
+python -m bench.structure                                    # the block tree of every twin's asset graph
 python -m bench.twin_accuracy --hours 30 --full              # twin vs. hidden truth over time
 python -m bench.solver_comparison --budget 60                # solvers at equal wall time
 python -m bench.solver_budget --cases 5                      # what the live solver budget buys
@@ -523,6 +527,138 @@ carbon; files in `bench/results/arms/`):
   cost capped below NRV, contracts at about 80 % of capacity with a discounted spot, stock targets with a smooth floor and a top,
   2 USD per t and hour of backlog in the plan, the baseline's S&OP with the carbon price and the arc furnaces' real capacity, the
   forecaster's market tags.
+
+## The block tree of every twin
+
+`bench/results/structure.json` (`python -m bench.structure`; `python -m plyxis structure <file.plx> --detail` for one
+twin) - `plyxis/lang/blocks.py` cuts each twin's asset graph at its shared exchanges, time scales and large stocks,
+level by level; no rule knows what a plant, a site or a line is. Found in under 3 s per twin:
+
+| Twin | blocks | levels | what the cuts find | used by the plan |
+|---|---|---|---|---|
+| Kestrel (oil field) | 15 | 2 | the three central batteries (33-60 h of their flow) separate the twelve well pads - the partition the solver was given by hand so far (`partition = "pad"`); the compressor station splits at its exchange | none |
+| Corvus (mine) | 11 | 1 | the ROM pad (65 h) separates the mine's ore network (238 units, one cell: ore passes of 1.8-2.5 h couple stopes, loaders and fans) from the ten dewatering pump stations | none |
+| Aquila (steel group, hourly) | 94 | 3 | ten regional networks at the markets they share; sites at their slab and coil yards; lines at a site's grid connection (Brazil: its blast-furnace chain and its strip mill) | none |
+| Aquila with the Duisburg works | 93 | 3 | the same, and inside the European network two blocks at 15 minutes (`DE.converter`, `DE.hsm_works`, with the converters' tap to tap, the casters' tundish life and the mill's roll campaign as exact per-unit DPs); Velsen splits at its grid and gas connection into its iron and steel chain, its strip mill and its coating line | the two 15-minute blocks |
+
+The plan uses the blocks at a finer step than the part around them - the ones measured to pay (below). Blocks at the
+same step as their part are found and reported: coordinated by prices they did not converge on the steel group
+(regional networks, below), so they stay in their part's program for now.
+
+## One twin, plants found in it: the steel group hourly, the Duisburg works' plants at their own step
+
+`bench/results/corporate.json` (`python -m bench.corporate --rounds 3 --workers 6 --reference-from
+bench/results/arms/corporate_detected_before_commit_retry.json`; the reference, the whole twin solved by the cascade,
+is unchanged by the coordinator's last fix and comes from that run of `--reference`) -
+`scenarios/aquila_works`: the Aquila group with the Duisburg works modelled machine by machine (three blast furnaces
+that burn more coke at low wind, the torpedo pool and pig caster, three converter vessels heat by heat, the ladle
+furnace, two slab casters with their tundish sequences, a slab yard with hot slabs, two reheating furnaces on process or
+natural gas, the hot strip mill with its work-roll changes, the galvanising line, the works' gas network and power
+plant). One twin, planned hourly; nothing declares a plant. The blueprints state their durations in time (tap to tap
+45 minutes, a tundish ten hours, set points held 15 or 30 minutes) and `plyxis/lang/hierarchy.py` finds:
+
+* **DE.converter** (11 units at 15 minutes): the three converters need 15-minute steps (their tap-to-tap window spans no
+  whole number of coarser steps), the casters 30 (speed held 30 minutes); the blast furnaces and the pig caster join
+  because they send into the torpedo pool, which holds 2.1 h of its flow, the ladle furnace 1.2 h. Its fence: the
+  slab yard (144 h of flow), the ore, coke and scrap bays (845-1,780 h), the grid connection and the gas network
+  (no stock: they take the flow hour by hour);
+* **DE.hsm_works** (3 units at 15 minutes): the strip mill (roll changes held 15 minutes) and the two reheating
+  furnaces (30 minutes). Its fence: the slab yard, the coil yard (131 h), the gas network, the gas supply, the grid.
+
+The slab yard cuts the works in two, as works are run. Each plant's sequence rules are found in its equations and
+solved by exact per-unit dynamic programs (`discrete = "auto"`): the converters' tap to tap (one heat per window, from
+a running count), the casters' tundish life (longest run), the mill's roll campaign (reset).
+
+| | group (master) | DE.converter | DE.hsm_works | the whole twin as one program at 15 min |
+|---|---|---|---|---|
+| instances | 249 (incl. 2 x 7 column slots, 2 simplexes) | 17 (incl. 6 boundary sinks) | 9 (incl. 6) | |
+| steps | 96 x 1 h | 384 x 15 min | 384 x 15 min | 384 x 15 min |
+| decisions (discrete) | 2,572 | 2,040 (1,344) | 1,440 (384) | 13,096 (1,728) |
+| plan value (USD) | **1,395,638,144**, feasible (schedules' own limits: 0.0002, 0.0000) | | | 1,375,778,944, violation 0.022 |
+| seconds | 363 (all rounds, blocks on 6 worker processes) | | | 1,140 |
+
+Both with the same budget per program (the works' larger one: relaxation 800, repair 300, polish 800, restoration 200).
+Round 0 solved each plant at 0, 0.7 and 1.0 times the group's prices as it stands, side by side; the steel side broke
+its torpedo and ladle limits at 0 and 0.7 (0.014, 0.015: at part load the furnaces' minimum wind forces taps and casts
+to match around a ladle furnace of four heats), so it was also solved at 1.3 and 1.6 and the two infeasible schedules
+were kept out of the master. Round 1's new schedules were worth USD 0.2 M and 1.2 M more than the master's mix at its
+prices (below 0.1 % of the plan): converged. Both plants' schedules near the master's mix kept their limits, and the
+group re-planned around them was feasible at the first commit.
+
+Duisburg's committed schedule: 82, 86 and 82 heats on the three vessels in 96 hours, 10 and 9 tundish sequences on the
+two casters, 18 work-roll changes, no pig iron, no gas flared, blast furnaces at 881 t/h, the mill at 525 t/h.
+
+What this shows and what it does not:
+
+* **Found, not declared, and better than one program.** The decomposition the detector found beats the whole twin
+  solved at once by USD 19.9 M (1.4 %) in 96 hours at 0.32 of the time, and it is feasible where the reference is not.
+  Runs of the same code vary: the run before (`arms/corporate_detected_before_commit_retry.json`, identical but for
+  the commit's retry) committed USD 1,393.3 M in 446 s - its first commit's mill schedule missed its limits by 0.0026,
+  the commit fell back to a pool schedule rolling 397 t/h, and the group was re-planned around less coil (the retry
+  now solves such a schedule once more from itself first; in the run above it was not needed). The reference ended at
+  USD 1,376.0 M and violation 0.0021 in an earlier run (2,544 s, before the faster mill counter below;
+  `arms/corporate_detected_first_run.json`).
+* **Side by side halves the time.** The same decomposition with the blocks solved one after another, each on six
+  threads (`corporate_sequential.json`, `--workers 0`): USD 1,391.1 M, feasible (own limits 0.0010, 0.0000), in 730 s
+  - each plant solve takes 20-48 s on six threads against 46-94 s for a worker on one, but eight start solves side by
+  side beat eight in a row. Its start columns are solved warm from each other (the steel side kept its limits at 0.7x
+  this way) and it ran all three rounds (reduced costs USD 3-4 M in round 1); the USD 4.5 M between the two runs is
+  within the spread of runs of the same code.
+* **The same as declaring it.** On the toy (`examples/plants_toy.plx`: a maker that changes its rate every half hour, a
+  small store, a lane; a market with a demand limit, a dearer supplier) the detector finds the plant a hand-written
+  group named before, and the committed plan is the same: USD 37,069 against 36,052 for the whole model at once
+  (hand-worked optimum 37,100). The declared Duisburg plant of the previous version (one plant of 31 units including
+  yards, lanes, grid and power plant; `arms/corporate_declared_plant.json`): USD 1,387.1 M in 1,817 s against a
+  reference of 1,369.8 M at a smaller budget.
+* **What made it work** (each found on this run's predecessors): only schedules that keep a block's own limits are
+  points of its input-output function (the coordinator keeps the others out of the master and adds start columns at
+  higher prices where fewer than two keep them); a committed plan is feasible only if every block's schedule is; a
+  feasibility phase in the per-unit DPs (units one at a time on the violations alone) - without it the steel side's
+  rounded schedule broke the ladle furnace's limits by 0.11 and the value sweeps made it worse; the mill's roll-wear
+  counter vectorised as an associative scan (49 to 15 ms per evaluation, the same values).
+* **A heat schedule needs its own subsolver.** Each plant alone at the group's prices as it stands
+  (`bench/results/corporate_plant.json`, `--plant-ablation`): on the steel side the cascade's GA ends at violation 2.0
+  (two taps inside one cycle, two vessels in the ladle furnace at once), the per-unit dynamic programs at 0.0057 with
+  the group's live budget (10 s) and 0.0003 with a larger one (relaxation 400, repair 150, polish 400: 21 s, 241
+  heats); on the hot-rolling side the GA at 0.37 (furnace content and mill capacity), the DPs at 0.030 and 0.007 -
+  feasible only with the benchmark's own budget above. (The declared plant of the previous version, with the old
+  stage: GA 2.0, DPs 0.009 / 0.0013 in 197 / 333 s; `arms/corporate_plant_declared_plant.json`.)
+* **Duisburg still runs below its capacity**: the mill at 525 t/h of its 1,350 (the master's mix asked for 612 t/h of
+  coil), the reference at 498. Whether the group's optimum is a fuller mill is not checked.
+* **Not measured: an A/B.** No hidden truth and no conventional baseline at works level yet: the planning layer only.
+
+
+### Regional networks: found, but coordinating them by prices does not pay yet
+
+`bench/results/corporate_regions.json` (`python -m bench.corporate --regions --rounds 5 --workers 6`) - the Aquila group
+hourly (`scenarios/aquila`, no works detail). `detect_regions` finds ten regional networks at the exchanges they
+share (the steel markets several networks sell to, the scrap markets they buy from, Spain's grid connection and gas
+supply shared by its two networks): DE+FR+NL (53 units, 372 decisions, trading at the European coil and scrap
+markets), AR+TX (508 decisions), SA (340), GJ (316), BR+IN (228), MX (184), PL (168), ES2 (168), OD (120), ES1 (72).
+The master keeps no decisions of its own: 840 column weights.
+
+| | the whole twin as one program | ten regional networks, coordinated by prices |
+|---|---|---|
+| plan value (USD) | **1,392,000,512**, feasible | 1,390,109,056 committed, violation 0.63 (market depth) |
+| seconds | 47 | 642 (5 rounds, 6 worker processes) |
+
+* **Phase I was needed and is not enough.** The first master mixing the networks' start schedules broke a scrap
+  market's supply limit (violation 0.39, recorded before Phase I stepped in): every network buys scrap as if it were
+  plentiful, and an infeasible master's multipliers are not used as prices, so nobody learns the scarcity. Without
+  Phase I (`arms/corporate_regions_no_phase1.json`) every master stayed at violation 0.31-0.35, and the commit ended at
+  USD 1,394.9 M with violation 1.0 in 1,102 s. With an artificial schedule per block the masters come within 0.008-0.039, but they still lean on it
+  (Poland 97 %, ES2 89 %, GJ 36 % of the weight) and the networks' new schedules are still worth USD 340-480 M more at
+  the master's prices after five rounds: the shared markets' depth limits bind. More rounds do not fix it
+  (`corporate_regions_r12.json`, twelve rounds): the masters stall at USD 0.80-0.82 B with the artificial schedules,
+  the reduced costs fall to a plateau of USD 400-430 M from round 8, the commit ends at USD 1,392.5 M with violation
+  0.97 (19 minutes). Price coordination alone does not converge here; a stabilised dual or a
+  resource-directive split of the shared limits (each network its share of a market's depth) is the next thing to try.
+* **Small blocks are not cheap.** A regional solve took 35-95 s on one thread - the cascade's number of evaluations is
+  fixed, and a small program's evaluation costs nearly as much as a large one's - against 47-67 s for the whole group
+  on six threads. At 2,476 decisions the whole program wins; decomposition at the same step is for twins too large to
+  solve at once.
+* So `split = "auto"` decomposes into plants (time scales) only; regional networks are detected and available with
+  `split = "regions"` (or `"both"`: plants and networks side by side), not used by default.
 
 ## Deterministic sections (learned graph filter + exact section search)
 

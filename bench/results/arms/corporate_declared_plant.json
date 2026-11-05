@@ -1,0 +1,513 @@
+{
+ "scenario": "aquila_works",
+ "rounds_max": 3,
+ "toy": {
+  "optimum": 37100.0,
+  "whole": {
+   "objective": 36052.09375,
+   "feasible": true,
+   "seconds": 4.1390133000004425
+  },
+  "decomposed": {
+   "objective": 37069.28125,
+   "feasible": true,
+   "mix_objective": 34518.4765625,
+   "seconds": 28.071049800000765
+  }
+ },
+ "compile_seconds": 0.33690150000074937,
+ "programs": {
+  "master": {
+   "groups": 34,
+   "instances": 224,
+   "junctions": 0,
+   "edges": 359,
+   "decision_signals": 115,
+   "routed_edges": 0,
+   "constraints": 307,
+   "blocks": {
+    "vec": 260,
+    "acc": 9,
+    "scan": 5
+   },
+   "lines_of_generated_code": 1009,
+   "steps": 96,
+   "step_h": 1.0
+  },
+  "DE": {
+   "groups": 28,
+   "instances": 37,
+   "junctions": 0,
+   "edges": 69,
+   "decision_signals": 30,
+   "routed_edges": 0,
+   "constraints": 46,
+   "blocks": {
+    "vec": 221,
+    "acc": 12,
+    "scan": 2
+   },
+   "lines_of_generated_code": 824,
+   "steps": 384,
+   "step_h": 0.25
+  },
+  "crossings": [
+   "DE_BOFSCRAP.purchase -> SCRAP_EU.requests (scrap)",
+   "L_DE_EU_HRC.deliver -> EU_HRC.rec (hrc)",
+   "L_DE_EU_COAT.deliver -> EU_COAT.rec (coated)",
+   "T_NL_DE.draw -> NL_SLABS.draws (slab)",
+   "T_DE_NL.deliver -> NL_SLABS.feed (slab)",
+   "T_FR_DE.draw -> FR_SLABS.draws (slab)"
+  ]
+ },
+ "decisions": {
+  "master": 2404,
+  "DE": 3816,
+  "DE_discrete": 1728
+ },
+ "seconds": 1816.5895247999997,
+ "plan": {
+  "objective": 1387141504.0,
+  "feasible": true,
+  "mix_objective": 1391167360.0,
+  "weights_mean": {
+   "DE": [
+    0.3229071795940399,
+    0.3316099941730499,
+    0.3461640179157257
+   ]
+  }
+ },
+ "rounds": [
+  {
+   "round": 0,
+   "plants": {
+    "DE": [
+     {
+      "internal": 284661056.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.00028531457064673305,
+      "seconds": 340.8705259999988,
+      "flows_per_step": [
+       46080000.0,
+       0.0,
+       0.0,
+       24000000.0,
+       0.0,
+       19200000.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 242547306.0,
+      "boundary_at_prices": 11778423.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 338.9135047999989,
+      "flows_per_step": [
+       46080000.0,
+       16680508.0,
+       17518562.0,
+       6500000.0,
+       12000000.0,
+       5200000.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       0.5984999537467957,
+       0.7175000309944153,
+       -0.4979391098022461,
+       0.4979391098022461,
+       -0.49277302622795105
+      ]
+     },
+     {
+      "internal": 201057392.0,
+      "boundary_at_prices": 69294248.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 335.58010359999935,
+      "flows_per_step": [
+       23846202.0,
+       35112468.0,
+       30720000.0,
+       0.0,
+       24000000.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.8550000786781311,
+       1.0250000953674316,
+       -0.7113416194915771,
+       0.7113416194915771,
+       -0.7039614319801331
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 1391167360.0,
+    "feasible": false,
+    "max_violation": 0.019249023869633675,
+    "seconds": 74.1645339000006,
+    "weights": {
+     "DE": [
+      0.3229071795940399,
+      0.3316099941730499,
+      0.3461640179157257
+     ]
+    }
+   }
+  },
+  {
+   "round": 1,
+   "plants": {
+    "DE": [
+     {
+      "internal": 207267016.0,
+      "boundary_at_prices": 52376320.0,
+      "reduced_cost": -5428852.0,
+      "feasible": true,
+      "max_violation": 0.00028964353259652853,
+      "seconds": 334.70609870000044,
+      "flows_per_step": [
+       23846202.0,
+       25994016.0,
+       30708548.0,
+       0.0,
+       24000000.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6712916493415833,
+       0.9224166870117188,
+       -0.6244392991065979,
+       0.6244392991065979,
+       -0.6283321976661682
+      ]
+     }
+    ]
+   },
+   "converged": true
+  },
+  {
+   "round": "commit 0",
+   "plants": {
+    "DE": [
+     {
+      "internal": 238343266.8125,
+      "boundary_at_prices": 13896822.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0007300698198378086,
+      "seconds": 334.48883340000066,
+      "flows_per_step": [
+       38411160.0,
+       18756892.0,
+       18659760.0,
+       8470102.0,
+       13858338.0,
+       6721104.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6712916493415833,
+       0.9224166870117188,
+       -0.6244392991065979,
+       0.6244392991065979,
+       -0.6283321976661682
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {},
+   "master": {
+    "objective": 1387141504.0,
+    "feasible": true,
+    "max_violation": 0.0010443750070407987,
+    "seconds": 57.788542000000234,
+    "weights": {
+     "DE": [
+      1.0,
+      0.0,
+      0.0
+     ]
+    }
+   }
+  }
+ ],
+ "plant": {
+  "objective": 251665600.0,
+  "max_violation": 0.0007300698198378086,
+  "violations": {},
+  "flows_t_per_h": {
+   "DE_BOFSCRAP.purchase": 400.1,
+   "L_DE_EU_HRC.deliver": 195.4,
+   "L_DE_EU_COAT.deliver": 194.4,
+   "T_NL_DE.draw": 88.2,
+   "T_DE_NL.deliver": 144.4,
+   "T_FR_DE.draw": 70.0
+  },
+  "mix_flows_t_per_h": {
+   "DE_BOFSCRAP.purchase": 400.1,
+   "L_DE_EU_HRC.deliver": 183.3,
+   "L_DE_EU_COAT.deliver": 173.3,
+   "T_NL_DE.draw": 100.8,
+   "T_DE_NL.deliver": 131.4,
+   "T_FR_DE.draw": 80.6
+  },
+  "schedule": {
+   "DE_BF1": {
+    "rate": {
+     "mean": 297.958,
+     "min": 276.0,
+     "max": 331.894,
+     "unit": "t/h"
+    }
+   },
+   "DE_BF2": {
+    "rate": {
+     "mean": 266.529,
+     "min": 252.0,
+     "max": 305.917,
+     "unit": "t/h"
+    }
+   },
+   "DE_BF3": {
+    "rate": {
+     "mean": 222.752,
+     "min": 204.0,
+     "max": 255.345,
+     "unit": "t/h"
+    }
+   },
+   "DE_CC1": {
+    "run": {
+     "on_share": 0.917,
+     "events": 88,
+     "starts": 9
+    },
+    "speed": {
+     "mean": 537.763,
+     "min": 467.5,
+     "max": 785.272,
+     "unit": "t/h"
+    }
+   },
+   "DE_CC2": {
+    "run": {
+     "on_share": 0.906,
+     "events": 87,
+     "starts": 10
+    },
+    "speed": {
+     "mean": 478.583,
+     "min": 412.5,
+     "max": 692.888,
+     "unit": "t/h"
+    }
+   },
+   "DE_CGL": {
+    "rate": {
+     "mean": 194.106,
+     "min": 0.0,
+     "max": 257.226,
+     "unit": "t/h"
+    }
+   },
+   "DE_BOF1": {
+    "tap": {
+     "on_share": 0.224,
+     "events": 86,
+     "starts": 86
+    },
+    "hm_share": {
+     "mean": 0.779,
+     "min": 0.744,
+     "max": 0.869,
+     "unit": null
+    }
+   },
+   "DE_BOF2": {
+    "tap": {
+     "on_share": 0.221,
+     "events": 85,
+     "starts": 85
+    },
+    "hm_share": {
+     "mean": 0.777,
+     "min": 0.749,
+     "max": 0.842,
+     "unit": null
+    }
+   },
+   "DE_BOF3": {
+    "tap": {
+     "on_share": 0.221,
+     "events": 85,
+     "starts": 85
+    },
+    "hm_share": {
+     "mean": 0.779,
+     "min": 0.754,
+     "max": 0.899,
+     "unit": null
+    }
+   },
+   "L_DE_EU_COAT": {
+    "ship": {
+     "mean": 194.373,
+     "min": 88.324,
+     "max": 245.519,
+     "unit": "t/h"
+    }
+   },
+   "L_DE_EU_HRC": {
+    "ship": {
+     "mean": 195.384,
+     "min": 53.204,
+     "max": 726.857,
+     "unit": "t/h"
+    }
+   },
+   "T_NL_DE": {
+    "ship": {
+     "mean": 88.23,
+     "min": 34.864,
+     "max": 191.527,
+     "unit": "t/h"
+    }
+   },
+   "T_DE_NL": {
+    "ship": {
+     "mean": 144.358,
+     "min": 58.653,
+     "max": 211.816,
+     "unit": "t/h"
+    }
+   },
+   "T_FR_DE": {
+    "ship": {
+     "mean": 70.011,
+     "min": 27.225,
+     "max": 152.922,
+     "unit": "t/h"
+    }
+   },
+   "DE_PIG": {
+    "rate": {
+     "mean": 0.076,
+     "min": 0.0,
+     "max": 0.732,
+     "unit": "t/h"
+    }
+   },
+   "DE_RF1": {
+    "charge": {
+     "mean": 239.304,
+     "min": 0.0,
+     "max": 548.234,
+     "unit": "t/h"
+    },
+    "discharge": {
+     "mean": 241.332,
+     "min": 0.0,
+     "max": 646.471,
+     "unit": "t/h"
+    },
+    "hot_share": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0,
+     "unit": null
+    },
+    "pg_share": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0,
+     "unit": null
+    }
+   },
+   "DE_RF2": {
+    "charge": {
+     "mean": 234.133,
+     "min": 0.0,
+     "max": 480.762,
+     "unit": "t/h"
+    },
+    "discharge": {
+     "mean": 234.986,
+     "min": 0.0,
+     "max": 664.783,
+     "unit": "t/h"
+    },
+    "hot_share": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0,
+     "unit": null
+    },
+    "pg_share": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0,
+     "unit": null
+    }
+   },
+   "DE_HSM": {
+    "change": {
+     "on_share": 0.047,
+     "events": 18,
+     "starts": 18
+    }
+   },
+   "DE_BOFSCRAP": {
+    "buy": {
+     "mean": 400.116,
+     "min": 340.547,
+     "max": 441.47,
+     "unit": "t/h"
+    }
+   }
+  },
+  "signals": {
+   "DE_HSM.rolled": 464.4,
+   "DE_PP.mw": 241.7,
+   "DE_PP.flare": 0.0,
+   "DE_PIG.rate": 0.1,
+   "DE_BF1.made": 298.0,
+   "DE_BF2.made": 266.5,
+   "DE_BF3.made": 222.8,
+   "DE_RF1.fed": 239.3,
+   "DE_RF2.fed": 234.1,
+   "DE_CC1.steel": 498.2,
+   "DE_CC2.steel": 438.4
+  }
+ },
+ "reference": {
+  "compile_seconds": 0.5396020000007411,
+  "decisions": 13096,
+  "discrete": 1728,
+  "steps": 384,
+  "objective": 1369788928.0,
+  "feasible": true,
+  "max_violation": 0.0,
+  "seconds": 1108.7707864999993
+ }
+}

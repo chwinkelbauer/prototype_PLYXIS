@@ -80,6 +80,7 @@ through each event.
 | Kestrel A/B, 72 h vs. competent manual operations | operating profit +14.4 % (mean of 3 seeds, +13.8 to +14.7 %; +USD 393 k per 72 h), after carbon +15.1 %, oil +11 %, cash operating cost -10 %, flaring -84 %, CO2e -30 %, no unplanned pump failure (baseline: 1); 93 of 96 plans feasible; without the two newest events +9.5 % |
 | Corvus mine A/B, 48 h vs. competent mine control | operating profit +10.3 % (mean of 3 seeds, +9.8 to +10.8 %; +USD 583 k per 48 h): copper +6.4 %, production cost per t of copper -7.0 %, cash cost about equal (-0.4 %); about four fifths of the copper is head grade, near the top of the plan's window (1.43 %, conventional 1.37 %, limit 1.45 %). With the window capped at 1.40 % the lead is +4.9 %. Baseline operating cost about USD 500 M/a |
 | Aquila steel group A/B, 96 h vs. a competent corporate S&OP and site control rooms | no operating-profit lead: -1.6 % (mean of 3 seeds, -4.9 to +0.8 %; USD -0.42 M per 96 h on about USD 24 M). After the group's internal carbon price (the objective both worlds plan with) USD +1.39 M per 96 h, all three seeds ahead, CO2e -6.2 %: the plan runs Europe on scrap instead of hot metal (blast furnaces near turndown, which the model lets them do at no efficiency cost). Merit-order allocation by standard cost leaves little to gain in a market-limited group |
+| One twin, plants found in it (steel group hourly, the Duisburg works machine by machine) | nothing declares a plant: from the blueprints' durations and buffers the compiler finds two plants at 15 minutes in the works (iron, steel and casting; hot rolling), cut apart at the slab yard. Coordinated with the group by prices they beat the whole twin as one program at 15 minutes: USD 1,395.6 M, feasible, against 1,375.8 M at violation 0.022 for 96 hours (+1.4 %; the run before with the same code but for one commit fix: 1,393.3 M) in 6 against 19 minutes. The heat schedules are feasible only with the exact per-unit dynamic programs the compiler picks from the equations (the GA ends at violation 2.0). Regional networks are found too (ten in the group), but coordinating them by prices does not pay yet (USD 1,390.1 M infeasible in 11 minutes against 1,392.0 M in 47 s). Planning layer only: no A/B yet |
 | Backtest, pilot gate G1 | a twin calibrated on a raw historian export and then frozen predicts unseen history: the mine passes; the oil field fails on one signal (disposal pressure 16.9 % vs. limit 10 %, an unannounced loss of injectivity at one well, which the live twin re-estimates within 3 h), all others pass |
 | Twin accuracy | well deliverability error 11.9 % → 2.4 %; SWD-2 injectivity loss re-estimated within 3 h to within 1 % |
 | Solver, 4,983 decisions | cascade + neural sub-solvers: feasible plan in 10.6 s, 4.9 % better than the best metaheuristic (GA) after 60 s |
@@ -111,16 +112,21 @@ Method, caveats and how the A/B is valued: [docs/BENCHMARKS.md](docs/BENCHMARKS.
 ## Repository layout
 
 ```
-plyxis/lang        PLX lexer, parser, library, elaborator, typed IR, compiler, runtime, interpreter
+plyxis/lang        PLX lexer, parser, library, elaborator, typed IR, compiler, runtime, interpreter;
+                   blocks: the block tree of the twin's asset graph (cut at shared exchanges, time scales and
+                   large stocks: networks, sites, lines, cells); hierarchy: one twin split into the group and its blocks
 plyxis/lang/stdlib standard packages written in PLX (core, oilgas, mining, steel)
 plyxis/optim       decision space, problem, ALM, metaheuristics, partition, neural sub-solvers, cascade,
-                   explanations, dispatch, maintenance planning
+                   explanations, dispatch, maintenance planning; unitdp (exact per-unit schedules: heats,
+                   cast sequences, roll changes), corporate (plants coordinated with the group by prices)
 plyxis/data        connectors, plant emulator, estimation, anomaly detection, discovery, twin repo, forecasts
 plyxis/runtime     live engine (two worlds), planner, twin manager, scenario, views
 plyxis/server      FastAPI + WebSocket API, serves the console
 web/               React console (Vite, TypeScript, Tailwind, MapLibre, ECharts, Monaco)
 scenarios/         kestrel (oil field showcase), corvus (underground mine), aquila (global steel group),
+                   aquila_works (the steel group with the Duisburg works machine by machine at 15 minutes),
                    mining_demo (copper pit), enterprise (generated multi-field)
+examples/          plants_toy.plx (a plant at its own step, small enough to check against the whole model)
 bench/             benchmarks and their results (bench/results)
 tests/             pytest suite
 docs/              documentation

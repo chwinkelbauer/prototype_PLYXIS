@@ -1,0 +1,2371 @@
+{
+ "scenario": "aquila",
+ "rounds_max": 4,
+ "workers": 6,
+ "compile_seconds": 0.5975491999997757,
+ "detected": [
+  "region DE+FR+NL: 53 units at the simulation's 60-minute step",
+  "  trades at EU_HRC.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region PL: 10 units at the simulation's 60-minute step",
+  "  trades at EU_LONG.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region BR+IN: 35 units at the simulation's 60-minute step",
+  "  trades at NA_COAT.rec: shared by 2 regional networks",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region AR+TX: 30 units at the simulation's 60-minute step",
+  "  trades at NA_COAT.rec: shared by 2 regional networks",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region MX: 12 units at the simulation's 60-minute step",
+  "  trades at NA_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_US.requests: shared by 3 regional networks",
+  "region OD: 18 units at the simulation's 60-minute step",
+  "  trades at IN_HRC.rec: shared by 2 regional networks",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_IN.requests: shared by 2 regional networks",
+  "region GJ: 16 units at the simulation's 60-minute step",
+  "  trades at IN_HRC.rec: shared by 2 regional networks",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "  trades at SCRAP_IN.requests: shared by 2 regional networks",
+  "region SA: 21 units at the simulation's 60-minute step",
+  "  trades at ME_HRC.rec: shared by 3 regional networks",
+  "region ES1: 10 units at the simulation's 60-minute step",
+  "  trades at ES_GAS.requests: shared by 2 regional networks",
+  "  trades at ES_GRID.requests: shared by 2 regional networks",
+  "  trades at EU_HRC.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks",
+  "region ES2: 8 units at the simulation's 60-minute step",
+  "  trades at ES_GAS.requests: shared by 2 regional networks",
+  "  trades at ES_GRID.requests: shared by 2 regional networks",
+  "  trades at EU_LONG.rec: shared by 2 regional networks",
+  "  trades at SCRAP_EU.requests: shared by 4 regional networks"
+ ],
+ "decisions": {
+  "whole": 2476,
+  "master": 840,
+  "DE+FR+NL": 372,
+  "PL": 168,
+  "BR+IN": 228,
+  "AR+TX": 508,
+  "MX": 184,
+  "OD": 120,
+  "GJ": 316,
+  "SA": 340,
+  "ES1": 72,
+  "ES2": 168
+ },
+ "crossings": {
+  "DE+FR+NL": 2,
+  "PL": 2,
+  "BR+IN": 3,
+  "AR+TX": 3,
+  "MX": 2,
+  "OD": 3,
+  "GJ": 3,
+  "SA": 1,
+  "ES1": 4,
+  "ES2": 4
+ },
+ "whole": {
+  "objective": 1391988608.0,
+  "feasible": true,
+  "max_violation": 0.00012749999586958438,
+  "seconds": 67.14092359999995
+ },
+ "regions": {
+  "objective": 1394880768.0,
+  "feasible": false,
+  "mix_objective": 1184774144.0,
+  "seconds": 1102.3167060000014
+ },
+ "rounds": [
+  {
+   "round": 0,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 620523840.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001013888861052692,
+      "seconds": 60.962323300002026,
+      "flows_per_step": [
+       103680000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 555409080.0,
+      "boundary_at_prices": 41241472.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0010243055876344442,
+      "seconds": 62.77420730000085,
+      "flows_per_step": [
+       103680000.0,
+       110482752.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       0.5984999537467957
+      ]
+     },
+     {
+      "internal": 467497168.0,
+      "boundary_at_prices": 175130624.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 61.72388150000188,
+      "flows_per_step": [
+       96904776.0,
+       249600000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.8550000786781311
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 37186680.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.599540700000944,
+      "flows_per_step": [
+       26208000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 37182233.5,
+      "boundary_at_prices": -7242052.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 47.57636429999911,
+      "flows_per_step": [
+       26208000.0,
+       7010.83154296875
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       0.5747000575065613
+      ]
+     },
+     {
+      "internal": 22414369.5,
+      "boundary_at_prices": 7622964.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.04878099999769,
+      "flows_per_step": [
+       20608194.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.8210000991821289
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 312200224.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 95.35860049999974,
+      "flows_per_step": [
+       30240000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 263366432.0,
+      "boundary_at_prices": 56460708.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0017492187907919288,
+      "seconds": 75.70909179999944,
+      "flows_per_step": [
+       30240000.0,
+       63701688.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049,
+       0.8295000195503235
+      ]
+     },
+     {
+      "internal": 253208064.0,
+      "boundary_at_prices": 91085336.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 74.26715499999773,
+      "flows_per_step": [
+       21065118.0,
+       70622528.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 118625416.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 66.5202262999992,
+      "flows_per_step": [
+       73632000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 98464328.0,
+      "boundary_at_prices": 1477081.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 66.99257790000047,
+      "flows_per_step": [
+       73632000.0,
+       16470785.0,
+       12904495.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049,
+       0.8295000195503235
+      ]
+     },
+     {
+      "internal": 80978924.0,
+      "boundary_at_prices": 21024868.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 66.78140480000002,
+      "flows_per_step": [
+       48028124.0,
+       34536548.0,
+       5360939.5
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 63497920.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 51.55937839999751,
+      "flows_per_step": [
+       36192000.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 49061235.0,
+      "boundary_at_prices": 7773342.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 51.24773979999736,
+      "flows_per_step": [
+       36192000.0,
+       25873634.0
+      ],
+      "price_mean": [
+       -0.2835000157356262,
+       0.6965000629425049
+      ]
+     },
+     {
+      "internal": 42382256.0,
+      "boundary_at_prices": 18102946.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 53.205739000000904,
+      "flows_per_step": [
+       23698402.0,
+       27840000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.9950000643730164
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 148347072.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 66.35745329999918,
+      "flows_per_step": [
+       33120000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 119811552.0,
+      "boundary_at_prices": 23078816.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.001721093780361116,
+      "seconds": 66.81824219999908,
+      "flows_per_step": [
+       33120000.0,
+       38077056.0,
+       20389842.0
+      ],
+      "price_mean": [
+       -0.29749998450279236,
+       0.5425000786781311,
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 99645076.0,
+      "boundary_at_prices": 57439152.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 64.82989659999657,
+      "flows_per_step": [
+       22129592.0,
+       56132544.0,
+       28800000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.8149999976158142
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 89331784.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 53.462259100000665,
+      "flows_per_step": [
+       57408000.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 86481910.0,
+      "boundary_at_prices": -14181749.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 53.008975500000815,
+      "flows_per_step": [
+       57408000.0,
+       0.0,
+       4622728.0
+      ],
+      "price_mean": [
+       -0.29749998450279236,
+       0.5425000786781311,
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 59946294.0,
+      "boundary_at_prices": 11404307.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 55.54513489999954,
+      "flows_per_step": [
+       38362780.0,
+       5368130.0,
+       28800000.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.8149999976158142
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 60335140.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 75.93423099999927,
+      "flows_per_step": [
+       0.0
+      ],
+      "price_mean": [
+       0.0
+      ]
+     },
+     {
+      "internal": 54355117.0,
+      "boundary_at_prices": 6750523.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 75.36649930000203,
+      "flows_per_step": [
+       11651496.0
+      ],
+      "price_mean": [
+       0.5705000758171082
+      ]
+     },
+     {
+      "internal": 50649692.0,
+      "boundary_at_prices": 14083200.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 74.73741410000002,
+      "flows_per_step": [
+       17280000.0
+      ],
+      "price_mean": [
+       0.8149999976158142
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 70647760.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 54.757848600002035,
+      "flows_per_step": [
+       12384000.0,
+       4639525.0,
+       7030277.5,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 60798471.0,
+      "boundary_at_prices": 6719776.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 53.52422019999722,
+      "flows_per_step": [
+       12384000.0,
+       5506924.0,
+       8253372.0,
+       16922502.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       -0.04885999858379364,
+       -0.03424982354044914,
+       0.5984999537467957
+      ]
+     },
+     {
+      "internal": 49099538.0,
+      "boundary_at_prices": 25122238.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 50.20656360000066,
+      "flows_per_step": [
+       12384000.0,
+       8059629.0,
+       12547390.0,
+       36480000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8550000786781311
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 26452314.0,
+      "boundary_at_prices": 0.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 33.789844099999755,
+      "flows_per_step": [
+       17472000.0,
+       7889936.0,
+       3716488.0,
+       0.0
+      ],
+      "price_mean": [
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "internal": 24334322.0,
+      "boundary_at_prices": -3032355.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 35.552094300001045,
+      "flows_per_step": [
+       17472000.0,
+       4702981.5,
+       2099163.75,
+       3360000.0
+      ],
+      "price_mean": [
+       -0.27650004625320435,
+       -0.04885999858379364,
+       -0.03424982354044914,
+       0.5747000575065613
+      ]
+     },
+     {
+      "internal": 16415999.0,
+      "boundary_at_prices": 5294634.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 29.645989399999962,
+      "flows_per_step": [
+       12578249.0,
+       7982735.5,
+       3974267.0,
+       13414969.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.8210000991821289
+      ]
+     }
+    ]
+   },
+   "kept_out": {
+    "DE+FR+NL": 0,
+    "PL": 0,
+    "BR+IN": 0,
+    "AR+TX": 0,
+    "MX": 0,
+    "OD": 0,
+    "GJ": 0,
+    "SA": 0,
+    "ES1": 0,
+    "ES2": 0
+   },
+   "master": {
+    "objective": 1131960704.0,
+    "feasible": false,
+    "max_violation": 0.3511863648891449,
+    "seconds": 26.096298399999796,
+    "weights": {
+     "DE+FR+NL": [
+      0.0,
+      0.0,
+      0.6967334747314453
+     ],
+     "PL": [
+      0.04633253812789917,
+      0.04117917641997337,
+      0.8214845061302185
+     ],
+     "BR+IN": [
+      0.2416808158159256,
+      0.04690981283783913,
+      0.6660448908805847
+     ],
+     "AR+TX": [
+      0.0,
+      0.0,
+      0.9816341996192932
+     ],
+     "MX": [
+      0.018228478729724884,
+      0.0012808045139536262,
+      0.9683394432067871
+     ],
+     "OD": [
+      0.5186983346939087,
+      0.007253596559166908,
+      0.34332430362701416
+     ],
+     "GJ": [
+      0.0420072041451931,
+      0.03563832864165306,
+      0.7720558643341064
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      0.3933151662349701,
+      0.3107137680053711,
+      0.25829964876174927
+     ],
+     "ES2": [
+      0.014413759112358093,
+      0.014416195452213287,
+      0.9092221856117249
+     ]
+    }
+   }
+  },
+  {
+   "round": 1,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 467497168.0,
+      "boundary_at_prices": 121466616.0,
+      "reduced_cost": 195430080.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 70.98348330000226,
+      "flows_per_step": [
+       96904776.0,
+       249600000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 34194697.0,
+      "boundary_at_prices": -7360177.0,
+      "reduced_cost": 1562474.625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 40.255988299999444,
+      "flows_per_step": [
+       18633362.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6060000061988831
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257776464.0,
+      "boundary_at_prices": 73740400.0,
+      "reduced_cost": -3027444.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 84.74228230000153,
+      "flows_per_step": [
+       21065118.0,
+       66155236.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7960625290870667,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85101396.0,
+      "boundary_at_prices": 12739636.0,
+      "reduced_cost": 3486744.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 59.37160759999824,
+      "flows_per_step": [
+       47473540.0,
+       19955354.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7960625290870667,
+       1.1850000619888306
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43517397.0,
+      "boundary_at_prices": 11582546.0,
+      "reduced_cost": 3533011.5634765625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.420093600001564,
+      "flows_per_step": [
+       23698402.0,
+       26582834.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7960625290870667
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 101539208.0,
+      "boundary_at_prices": 55077240.0,
+      "reduced_cost": 43060380.59375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 52.467221800001425,
+      "flows_per_step": [
+       22527304.0,
+       83419432.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6000000238418579
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60318804.0,
+      "boundary_at_prices": 10341100.0,
+      "reduced_cost": 18485503.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 41.739463899997645,
+      "flows_per_step": [
+       38238596.0,
+       34218768.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7750000953674316,
+       0.6000000238418579
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52952239.0,
+      "boundary_at_prices": 8490101.0,
+      "reduced_cost": 1107180.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 50.417929399998684,
+      "flows_per_step": [
+       14150169.0
+      ],
+      "price_mean": [
+       0.6000000238418579
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49624594.0,
+      "boundary_at_prices": 16757347.0,
+      "reduced_cost": 7272402.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.97641440000007,
+      "flows_per_step": [
+       12194936.0,
+       7833311.5,
+       12199408.0,
+       35496892.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 24112490.0,
+      "boundary_at_prices": -4968408.0,
+      "reduced_cost": 2306381.0625,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 35.29208160000053,
+      "flows_per_step": [
+       12578249.0,
+       0.0,
+       0.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6060000061988831
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 1169233408.0,
+    "feasible": false,
+    "max_violation": 0.3074757754802704,
+    "seconds": 30.45052580000265,
+    "weights": {
+     "DE+FR+NL": [
+      0.0,
+      0.0,
+      0.5294746160507202,
+      0.17208780348300934
+     ],
+     "PL": [
+      0.0,
+      0.0,
+      0.34812211990356445,
+      0.5904626846313477
+     ],
+     "BR+IN": [
+      0.19374068081378937,
+      0.044633958488702774,
+      0.7530574798583984
+     ],
+     "AR+TX": [
+      0.0022958803456276655,
+      0.0,
+      0.7690708637237549,
+      0.21872328221797943
+     ],
+     "MX": [
+      2.6638432245817967e-05,
+      2.7310959922033362e-05,
+      0.7842177748680115,
+      0.20746451616287231
+     ],
+     "OD": [
+      0.016865132376551628,
+      0.0,
+      0.4768047332763672,
+      0.4490762948989868
+     ],
+     "GJ": [
+      0.0,
+      0.0,
+      0.5186074376106262,
+      0.38142696022987366
+     ],
+     "SA": [
+      0.9948381781578064,
+      0.0027921535074710846,
+      0.002426608232781291
+     ],
+     "ES1": [
+      0.37354913353919983,
+      0.23526300489902496,
+      0.1357700228691101,
+      0.21412326395511627
+     ],
+     "ES2": [
+      0.0,
+      0.0,
+      0.7467270493507385,
+      0.21462009847164154
+     ]
+    }
+   }
+  },
+  {
+   "round": 2,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 467497168.0,
+      "boundary_at_prices": 121466616.0,
+      "reduced_cost": 180403400.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 73.29713549999724,
+      "flows_per_step": [
+       96904776.0,
+       249600000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 21968079.0,
+      "boundary_at_prices": 6005255.5,
+      "reduced_cost": 4998652.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.07895130000179,
+      "flows_per_step": [
+       19478342.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.7135000228881836
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257826208.0,
+      "boundary_at_prices": 71886816.0,
+      "reduced_cost": 11879578.375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 86.78018630000224,
+      "flows_per_step": [
+       21065118.0,
+       66197432.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7910624146461487,
+       1.1230312585830688
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 85575124.0,
+      "boundary_at_prices": 11263699.0,
+      "reduced_cost": 3723215.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 60.27630639999916,
+      "flows_per_step": [
+       48513136.0,
+       19887002.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7910624146461487,
+       1.1230312585830688
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43518917.0,
+      "boundary_at_prices": 11443089.0,
+      "reduced_cost": 796994.7934646606,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.8161936999968,
+      "flows_per_step": [
+       23698402.0,
+       26582700.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7910624146461487
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 101937444.0,
+      "boundary_at_prices": 53919952.0,
+      "reduced_cost": 13666501.75,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 56.59712379999837,
+      "flows_per_step": [
+       21650270.0,
+       82537888.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7623750567436218,
+       0.6031041145324707
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60668128.0,
+      "boundary_at_prices": 9861670.0,
+      "reduced_cost": 10738141.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 39.8307676000004,
+      "flows_per_step": [
+       38637948.0,
+       34039244.0,
+       0.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7623750567436218,
+       0.6031041145324707
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52898705.0,
+      "boundary_at_prices": 8597951.0,
+      "reduced_cost": 1123134.10546875,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 51.9735802000032,
+      "flows_per_step": [
+       14240545.0
+      ],
+      "price_mean": [
+       0.6031041145324707
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49624594.0,
+      "boundary_at_prices": 16757347.0,
+      "reduced_cost": 6506753.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 46.77089010000054,
+      "flows_per_step": [
+       12194936.0,
+       7833311.5,
+       12199408.0,
+       35496892.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16715690.0,
+      "boundary_at_prices": 3571305.0,
+      "reduced_cost": 683369.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 37.659521100002166,
+      "flows_per_step": [
+       12578249.0,
+       7961353.5,
+       3914872.0,
+       13009770.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.7135000228881836
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 1193635456.0,
+    "feasible": false,
+    "max_violation": 0.30802929401397705,
+    "seconds": 31.709357199997612,
+    "weights": {
+     "DE+FR+NL": [
+      0.0013052943395450711,
+      0.0008703533676452935,
+      0.4043585956096649,
+      0.11844911426305771,
+      0.1807788461446762
+     ],
+     "PL": [
+      0.0,
+      0.0,
+      0.20531000196933746,
+      0.537935197353363,
+      0.20128591358661652
+     ],
+     "BR+IN": [
+      0.12378501147031784,
+      0.03751683607697487,
+      0.6184514164924622,
+      0.21327465772628784
+     ],
+     "AR+TX": [
+      0.002175175817683339,
+      0.0005945519078522921,
+      0.6452799439430237,
+      0.17592018842697144,
+      0.1618499755859375
+     ],
+     "MX": [
+      0.00037200329825282097,
+      0.0005313002620823681,
+      0.7855802178382874,
+      0.20664222538471222
+     ],
+     "OD": [
+      0.0,
+      0.0,
+      0.412686824798584,
+      0.306996613740921,
+      0.22868984937667847
+     ],
+     "GJ": [
+      0.0,
+      0.0,
+      0.3153192102909088,
+      0.41063717007637024,
+      0.18550986051559448
+     ],
+     "SA": [
+      0.9728360176086426,
+      0.011416296474635601,
+      0.015414864756166935
+     ],
+     "ES1": [
+      0.3764229118824005,
+      0.18608815968036652,
+      0.07220061123371124,
+      0.14964772760868073,
+      0.17834915220737457
+     ],
+     "ES2": [
+      0.0,
+      0.0,
+      0.7513999342918396,
+      0.2096000760793686
+     ]
+    }
+   }
+  },
+  {
+   "round": 3,
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 467497168.0,
+      "boundary_at_prices": 121466616.0,
+      "reduced_cost": 168426814.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 75.60796130000017,
+      "flows_per_step": [
+       96904776.0,
+       249600000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 22021616.5,
+      "boundary_at_prices": 6983740.0,
+      "reduced_cost": 3540847.375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.15077139999994,
+      "flows_per_step": [
+       19613824.0,
+       19200000.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.7672500610351562
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 257826256.0,
+      "boundary_at_prices": 69941424.0,
+      "reduced_cost": 7107555.25,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 87.17997489999834,
+      "flows_per_step": [
+       21065118.0,
+       66197432.0,
+       24960000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919,
+       1.057296872138977
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 86022886.0,
+      "boundary_at_prices": 9807708.0,
+      "reduced_cost": 3894341.380859375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 62.016298800001096,
+      "flows_per_step": [
+       49502088.0,
+       19843450.0,
+       13440000.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919,
+       1.057296872138977
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43518809.0,
+      "boundary_at_prices": 11325145.0,
+      "reduced_cost": 1005534.33984375,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.30240759999651,
+      "flows_per_step": [
+       23698402.0,
+       26583714.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 101384016.0,
+      "boundary_at_prices": 50996228.0,
+      "reduced_cost": 9596902.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 58.34164419999797,
+      "flows_per_step": [
+       21283400.0,
+       73873920.0,
+       9061027.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7151041626930237,
+       0.6731770634651184
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 60968410.0,
+      "boundary_at_prices": 8200960.0,
+      "reduced_cost": 8174156.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.5833578999991,
+      "flows_per_step": [
+       39408564.0,
+       30033924.0,
+       4015631.5
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7151041626930237,
+       0.6731770634651184
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 52892670.0,
+      "boundary_at_prices": 9814106.0,
+      "reduced_cost": 2167185.8125,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 54.122859099999914,
+      "flows_per_step": [
+       14249343.0
+      ],
+      "price_mean": [
+       0.6731770634651184
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 49624594.0,
+      "boundary_at_prices": 16757347.0,
+      "reduced_cost": 4382257.5,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 44.82644749999963,
+      "flows_per_step": [
+       12194936.0,
+       7833311.5,
+       12199408.0,
+       35496892.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16565902.0,
+      "boundary_at_prices": 4427972.0,
+      "reduced_cost": 413380.0,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 34.611340700001165,
+      "flows_per_step": [
+       12578249.0,
+       7972308.5,
+       3945300.5,
+       13217512.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.7672500610351562
+      ]
+     }
+    ]
+   },
+   "master": {
+    "objective": 1184774144.0,
+    "feasible": false,
+    "max_violation": 0.30800744891166687,
+    "seconds": 30.7548418999977,
+    "weights": {
+     "DE+FR+NL": [
+      0.0026090042665600777,
+      0.0013472557766363025,
+      0.3088248670101166,
+      0.0800972431898117,
+      0.1299610584974289,
+      0.18533794581890106
+     ],
+     "PL": [
+      0.0,
+      0.0,
+      0.18934424221515656,
+      0.4481966495513916,
+      0.094070203602314,
+      0.2135412096977234
+     ],
+     "BR+IN": [
+      0.10089706629514694,
+      0.025457462295889854,
+      0.4969749450683594,
+      0.16884185373783112,
+      0.19822214543819427
+     ],
+     "AR+TX": [
+      0.004997194278985262,
+      0.00031280910479836166,
+      0.5530065298080444,
+      0.14523623883724213,
+      0.11763807386159897,
+      0.16396142542362213
+     ],
+     "MX": [
+      0.00020612060325220227,
+      0.00020881688396912068,
+      0.7882137298583984,
+      0.2036510854959488
+     ],
+     "OD": [
+      0.0,
+      0.0,
+      0.4095780551433563,
+      0.1538296490907669,
+      0.16106556355953217,
+      0.2313404083251953
+     ],
+     "GJ": [
+      0.0,
+      0.0,
+      0.27822163701057434,
+      0.4243803024291992,
+      0.07687075436115265,
+      0.14071927964687347
+     ],
+     "SA": [
+      0.7890651226043701,
+      0.013232276774942875,
+      0.014794871211051941,
+      0.1832668036222458
+     ],
+     "ES1": [
+      0.38228049874305725,
+      0.1633906215429306,
+      0.03667164221405983,
+      0.0934387817978859,
+      0.11639988422393799,
+      0.17372053861618042
+     ],
+     "ES2": [
+      0.0,
+      0.0,
+      0.7561150193214417,
+      0.20463339984416962
+     ]
+    }
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 502176111.4169922,
+      "boundary_at_prices": 86106680.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 57.18983859999935,
+      "flows_per_step": [
+       69079616.0,
+       177176752.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 26703928.4140625,
+      "boundary_at_prices": 1223897.25,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.628146600000036,
+      "flows_per_step": [
+       16504136.0,
+       10220728.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.7672500610351562
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 260364440.34375,
+      "boundary_at_prices": 66951432.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0010000000474974513,
+      "seconds": 62.500398200001655,
+      "flows_per_step": [
+       22089664.0,
+       64283460.0,
+       23925564.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919,
+       1.057296872138977
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 83491746.92578125,
+      "boundary_at_prices": 11551768.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 59.584521400000085,
+      "flows_per_step": [
+       47427108.0,
+       27469680.0,
+       8741969.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919,
+       1.057296872138977
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43217018.349609375,
+      "boundary_at_prices": 11610779.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.76781699999992,
+      "flows_per_step": [
+       23506542.0,
+       26856420.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7867917418479919
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100613309.71875,
+      "boundary_at_prices": 49964808.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 54.869867800000065,
+      "flows_per_step": [
+       19343568.0,
+       69020008.0,
+       13477721.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7151041626930237,
+       0.6731770634651184
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 59242399.6640625,
+      "boundary_at_prices": 8748017.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 41.72283529999913,
+      "flows_per_step": [
+       33505952.0,
+       23073320.0,
+       9619555.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7151041626930237,
+       0.6731770634651184
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 58617164.74609375,
+      "boundary_at_prices": 2356029.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 49.6632611999994,
+      "flows_per_step": [
+       3445842.5
+      ],
+      "price_mean": [
+       0.6731770634651184
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 60636024.36328125,
+      "boundary_at_prices": 5506523.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 34.79349110000112,
+      "flows_per_step": [
+       11864448.0,
+       4747018.0,
+       7143885.5,
+       16990408.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 17694737.796875,
+      "boundary_at_prices": 3047578.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 34.18171820000134,
+      "flows_per_step": [
+       12083321.0,
+       6848359.0,
+       3339011.25,
+       10986431.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.7672500610351562
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 0",
+   "plants": {},
+   "master": {
+    "objective": 1394014464.0,
+    "feasible": false,
+    "max_violation": 0.5605229139328003,
+    "seconds": 26.07026830000177,
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 501279826.77734375,
+      "boundary_at_prices": 87075768.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 55.320609800000966,
+      "flows_per_step": [
+       69398520.0,
+       178887792.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 26199014.7578125,
+      "boundary_at_prices": 2104635.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 41.73482560000048,
+      "flows_per_step": [
+       16504136.0,
+       10988065.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.7941250801086426
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 259050655.1875,
+      "boundary_at_prices": 67266624.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 85.45066969999971,
+      "flows_per_step": [
+       22079528.0,
+       65214944.0,
+       24671186.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7851770520210266,
+       1.0140234231948853
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 83964527.07617188,
+      "boundary_at_prices": 10729767.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 60.81417739999961,
+      "flows_per_step": [
+       47427120.0,
+       26753532.0,
+       8872401.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7851770520210266,
+       1.0140234231948853
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43379865.62988281,
+      "boundary_at_prices": 11410249.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 45.40717009999935,
+      "flows_per_step": [
+       23506536.0,
+       26660670.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.7851770520210266
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 100672910.546875,
+      "boundary_at_prices": 48862280.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 55.47388610000053,
+      "flows_per_step": [
+       19371922.0,
+       69528888.0,
+       13012592.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7014270424842834,
+       0.6433489918708801
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 58888679.265625,
+      "boundary_at_prices": 8448760.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.5604940000012,
+      "flows_per_step": [
+       33505952.0,
+       23766460.0,
+       9500667.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.7014270424842834,
+       0.6433489918708801
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 58427991.41015625,
+      "boundary_at_prices": 2482814.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 51.2076571999969,
+      "flows_per_step": [
+       3822069.5
+      ],
+      "price_mean": [
+       0.6433489918708801
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 60269162.14550781,
+      "boundary_at_prices": 5907743.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 37.33754059999774,
+      "flows_per_step": [
+       11864448.0,
+       4655630.0,
+       6841675.0,
+       17584242.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 17102817.2734375,
+      "boundary_at_prices": 4128995.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 36.64970330000142,
+      "flows_per_step": [
+       12083304.0,
+       7510439.0,
+       3660032.5,
+       12031128.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.7941250801086426
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 1",
+   "plants": {},
+   "master": {
+    "objective": 1394578304.0,
+    "feasible": false,
+    "max_violation": 1.0,
+    "seconds": 25.700944699998217,
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "round": "commit 2",
+   "plants": {
+    "DE+FR+NL": [
+     {
+      "internal": 501279816.0,
+      "boundary_at_prices": 87075768.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 73.12528839999868,
+      "flows_per_step": [
+       69398520.0,
+       178887792.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "PL": [
+     {
+      "internal": 25989756.991210938,
+      "boundary_at_prices": 1418601.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.061297500000364,
+      "flows_per_step": [
+       16504166.0,
+       11306089.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       0.7093543410301208
+      ]
+     }
+    ],
+    "BR+IN": [
+     {
+      "internal": 258676211.7578125,
+      "boundary_at_prices": 67216968.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 83.03954019999946,
+      "flows_per_step": [
+       22079528.0,
+       65578532.0,
+       24921634.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.784567654132843,
+       0.9923866391181946
+      ]
+     }
+    ],
+    "AR+TX": [
+     {
+      "internal": 84277544.02929688,
+      "boundary_at_prices": 10244709.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 59.43847050000113,
+      "flows_per_step": [
+       47427132.0,
+       26253778.0,
+       8974263.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.784567654132843,
+       0.9923866391181946
+      ]
+     }
+    ],
+    "MX": [
+     {
+      "internal": 43420646.835998535,
+      "boundary_at_prices": 11352941.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 42.54753239999991,
+      "flows_per_step": [
+       23506536.0,
+       26610082.0
+      ],
+      "price_mean": [
+       -0.4050000011920929,
+       0.784567654132843
+      ]
+     }
+    ],
+    "OD": [
+     {
+      "internal": 101017949.30859375,
+      "boundary_at_prices": 44848008.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 57.52870729999995,
+      "flows_per_step": [
+       19397312.0,
+       69418488.0,
+       12649012.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.6524739861488342,
+       0.6256119608879089
+      ]
+     }
+    ],
+    "GJ": [
+     {
+      "internal": 58981715.75683594,
+      "boundary_at_prices": 7041180.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 40.52228209999885,
+      "flows_per_step": [
+       33505952.0,
+       23828130.0,
+       9302948.0
+      ],
+      "price_mean": [
+       -0.42500004172325134,
+       0.6524739861488342,
+       0.6256119608879089
+      ]
+     }
+    ],
+    "SA": [
+     {
+      "internal": 58239433.95703125,
+      "boundary_at_prices": 2641787.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 50.66797569999835,
+      "flows_per_step": [
+       4197002.5
+      ],
+      "price_mean": [
+       0.6256119608879089
+      ]
+     }
+    ],
+    "ES1": [
+     {
+      "internal": 59900505.18652344,
+      "boundary_at_prices": 6305184.5,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 37.946092600002885,
+      "flows_per_step": [
+       11864448.0,
+       4627678.0,
+       6749242.0,
+       18195130.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.6399999856948853
+      ]
+     }
+    ],
+    "ES2": [
+     {
+      "internal": 16898791.267578125,
+      "boundary_at_prices": 3313235.0,
+      "reduced_cost": null,
+      "feasible": true,
+      "max_violation": 0.0,
+      "seconds": 35.41464620000261,
+      "flows_per_step": [
+       12083304.0,
+       7732188.5,
+       3768045.25,
+       12384087.0
+      ],
+      "price_mean": [
+       -0.39500001072883606,
+       -0.0697999894618988,
+       -0.04892832040786743,
+       0.7093543410301208
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "round": "commit 2",
+   "plants": {},
+   "master": {
+    "objective": 1394880768.0,
+    "feasible": false,
+    "max_violation": 1.0,
+    "seconds": 25.768011500000284,
+    "weights": {
+     "DE+FR+NL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "PL": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "BR+IN": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "AR+TX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "MX": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "OD": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "GJ": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "SA": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES1": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "ES2": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   }
+  }
+ ]
+}

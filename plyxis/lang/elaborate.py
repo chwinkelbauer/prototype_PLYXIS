@@ -8,6 +8,7 @@ evaluates all parameters into canonical units.
 """
 from __future__ import annotations
 
+import fnmatch
 import math
 from dataclasses import dataclass, field
 from typing import Any, Optional
@@ -82,6 +83,7 @@ class SimSpec:
     solver: dict = field(default_factory=dict)
     inputs: dict = field(default_factory=dict)   # name -> A.Expr
     input_units: dict = field(default_factory=dict)
+    plants: dict = field(default_factory=dict)   # instance group -> its own time step (canonical): plyxis/lang/hierarchy.py
     loc: Loc = NOLOC
 
 
@@ -289,7 +291,13 @@ class Elaborator:
             members = []
             for m in st.members:
                 path = ctx.prefix + m
-                if path in self.flat.by_path:
+                if any(c in m for c in "*?["):
+                    # wildcards match the instances created so far (put the group after them)
+                    hit = [i for p, i in self.flat.by_path.items() if fnmatch.fnmatchcase(p, path)]
+                    if not hit:
+                        self.diags.warning(f"group member '{m}' matches no instance", st.loc, "W-GRP")
+                    members.extend(i for i in hit if i not in members)
+                elif path in self.flat.by_path:
                     members.append(self.flat.by_path[path])
                 elif path in self.flat.inst_groups:
                     members.extend(self.flat.inst_groups[path])
@@ -805,6 +813,15 @@ class Elaborator:
         except EvalError as ex:
             self.diags.error(str(ex), ex.loc or sd.loc, "E-SIM")
         spec.objective = sd.objective
+        for k, (expr, unit) in sd.plants.items():
+            try:
+                v = const_eval(expr, Scope({"env": _EnvRef(self)}))
+                spec.plants[k] = float(_to_canon(v, unit or "h", self.diags, sd.loc))
+            except EvalError as ex:
+                self.diags.error(str(ex), ex.loc or sd.loc, "E-SIM")
+            if k not in self.flat.inst_groups:
+                self.diags.error(f"plant '{k}' is not an instance group (define {k} as group {{ ... }} in the "
+                                 f"environment)", sd.loc, "E-SIM")
         for k, (expr, unit) in sd.solver.items():
             try:
                 spec.solver[k] = const_eval(expr, {})
