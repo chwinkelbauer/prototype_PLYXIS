@@ -1,0 +1,337 @@
+{
+ "t": 38.500000077,
+ "plan": 14,
+ "plan_t0": 38.166666743,
+ "objective": 1405209856.0,
+ "markets": {
+  "EU_COAT": {
+   "planned_t_h": 501.5,
+   "contract_t_h": 450.0,
+   "backlog_now_t": 0,
+   "backlog_12h_t": 0
+  },
+  "NA_COAT": {
+   "planned_t_h": 327.2,
+   "contract_t_h": 280.0,
+   "backlog_now_t": 0,
+   "backlog_12h_t": 0
+  },
+  "IN_COAT": {
+   "planned_t_h": 122.5,
+   "contract_t_h": 130.0,
+   "backlog_now_t": 120,
+   "backlog_12h_t": 210
+  },
+  "EU_HRC": {
+   "planned_t_h": 1789.8,
+   "contract_t_h": 1750.0,
+   "backlog_now_t": 2,
+   "backlog_12h_t": 0
+  },
+  "NA_HRC": {
+   "planned_t_h": 1081.3,
+   "contract_t_h": 1100.0,
+   "backlog_now_t": 0,
+   "backlog_12h_t": 224
+  },
+  "SA_HRC": {
+   "planned_t_h": 302.5,
+   "contract_t_h": 330.0,
+   "backlog_now_t": 291,
+   "backlog_12h_t": 622
+  },
+  "IN_HRC": {
+   "planned_t_h": 939.2,
+   "contract_t_h": 950.0,
+   "backlog_now_t": 72,
+   "backlog_12h_t": 201
+  },
+  "ME_HRC": {
+   "planned_t_h": 246.1,
+   "contract_t_h": 240.0,
+   "backlog_now_t": 23,
+   "backlog_12h_t": 0
+  },
+  "EU_LONG": {
+   "planned_t_h": 230.1,
+   "contract_t_h": 230.0,
+   "backlog_now_t": 1,
+   "backlog_12h_t": 3
+  },
+  "NA_LONG": {
+   "planned_t_h": 149.0,
+   "contract_t_h": 170.0,
+   "backlog_now_t": 142,
+   "backlog_12h_t": 395
+  },
+  "ME_LONG": {
+   "planned_t_h": 152.0,
+   "contract_t_h": 150.0,
+   "backlog_now_t": 10,
+   "backlog_12h_t": 0
+  },
+  "SLAB_EXP": {
+   "planned_t_h": 637.0,
+   "contract_t_h": 520.0,
+   "backlog_now_t": 0,
+   "backlog_12h_t": 0
+  }
+ },
+ "yards": {
+  "ES_BILLETS": {
+   "now_t": 8630,
+   "in_12h_t": 8588,
+   "target_t": 8400
+  },
+  "PL_BILLETS": {
+   "now_t": 12454,
+   "in_12h_t": 12627,
+   "target_t": 12600
+  },
+  "TX_BILLETS": {
+   "now_t": 10089,
+   "in_12h_t": 10241,
+   "target_t": 10200
+  },
+  "SA_BILLETS": {
+   "now_t": 11627,
+   "in_12h_t": 11527,
+   "target_t": 11400
+  },
+  "NL_COATED": {
+   "now_t": 13844,
+   "in_12h_t": 13441,
+   "target_t": 13200
+  },
+  "DE_COATED": {
+   "now_t": 19001,
+   "in_12h_t": 18816,
+   "target_t": 19200
+  },
+  "FR_COATED": {
+   "now_t": 9594,
+   "in_12h_t": 9633,
+   "target_t": 9600
+  },
+  "IN_COATED": {
+   "now_t": 15391,
+   "in_12h_t": 15468,
+   "target_t": 15600
+  },
+  "OD_COATED": {
+   "now_t": 12024,
+   "in_12h_t": 12051,
+   "target_t": 12000
+  },
+  "AR_COATED": {
+   "now_t": 8125,
+   "in_12h_t": 8341,
+   "target_t": 8400
+  },
+  "NL_COIL": {
+   "now_t": 39704,
+   "in_12h_t": 39504,
+   "target_t": 39360
+  },
+  "DE_COIL": {
+   "now_t": 65079,
+   "in_12h_t": 63419,
+   "target_t": 64800
+  },
+  "FR_COIL": {
+   "now_t": 44234,
+   "in_12h_t": 42414,
+   "target_t": 43200
+  },
+  "ES_COIL": {
+   "now_t": 18777,
+   "in_12h_t": 18395,
+   "target_t": 18240
+  },
+  "IN_COIL": {
+   "now_t": 43542,
+   "in_12h_t": 43977,
+   "target_t": 43200
+  },
+  "BR_COIL": {
+   "now_t": 24627,
+   "in_12h_t": 23078,
+   "target_t": 24960
+  },
+  "OD_COIL": {
+   "now_t": 45194,
+   "in_12h_t": 45030,
+   "target_t": 45600
+  },
+  "AR_COIL": {
+   "now_t": 19211,
+   "in_12h_t": 18785,
+   "target_t": 19200
+  },
+  "MX_COIL": {
+   "now_t": 13697,
+   "in_12h_t": 13745,
+   "target_t": 13920
+  },
+  "GJ_COIL": {
+   "now_t": 22239,
+   "in_12h_t": 22081,
+   "target_t": 21600
+  },
+  "SA_COIL": {
+   "now_t": 8687,
+   "in_12h_t": 8723,
+   "target_t": 8640
+  },
+  "ES_LONG": {
+   "now_t": 8338,
+   "in_12h_t": 8421,
+   "target_t": 8400
+  },
+  "PL_LONG": {
+   "now_t": 12738,
+   "in_12h_t": 12458,
+   "target_t": 12000
+  },
+  "TX_LONG": {
+   "now_t": 10273,
+   "in_12h_t": 9613,
+   "target_t": 10200
+  },
+  "SA_LONG": {
+   "now_t": 11251,
+   "in_12h_t": 11265,
+   "target_t": 11400
+  },
+  "NL_SLABS": {
+   "now_t": 56559,
+   "in_12h_t": 57767,
+   "target_t": 57000
+  },
+  "DE_SLABS": {
+   "now_t": 95214,
+   "in_12h_t": 98130,
+   "target_t": 96000
+  },
+  "FR_SLABS": {
+   "now_t": 59957,
+   "in_12h_t": 61596,
+   "target_t": 63000
+  },
+  "ES_SLABS": {
+   "now_t": 24411,
+   "in_12h_t": 25173,
+   "target_t": 25800
+  },
+  "IN_SLABS": {
+   "now_t": 62019,
+   "in_12h_t": 63037,
+   "target_t": 63000
+  },
+  "BR_SLABS": {
+   "now_t": 83825,
+   "in_12h_t": 86840,
+   "target_t": 81000
+  },
+  "OD_SLABS": {
+   "now_t": 70136,
+   "in_12h_t": 70045,
+   "target_t": 69000
+  },
+  "AR_SLABS": {
+   "now_t": 12174,
+   "in_12h_t": 12419,
+   "target_t": 12600
+  },
+  "MX_SLABS": {
+   "now_t": 17418,
+   "in_12h_t": 17320,
+   "target_t": 17400
+  },
+  "GJ_SLABS": {
+   "now_t": 14303,
+   "in_12h_t": 14238,
+   "target_t": 13800
+  },
+  "SA_SLABS": {
+   "now_t": 10996,
+   "in_12h_t": 10968,
+   "target_t": 11400
+  }
+ },
+ "trajectory_t_delta_shipped_plyxis_legacy": [
+  [
+   27.0,
+   639168,
+   6551,
+   6555
+  ],
+  [
+   28.0,
+   679610,
+   6605,
+   6557
+  ],
+  [
+   29.0,
+   719292,
+   6633,
+   6559
+  ],
+  [
+   30.0,
+   756844,
+   6647,
+   6561
+  ],
+  [
+   31.0,
+   797903,
+   6657,
+   6563
+  ],
+  [
+   32.0,
+   840217,
+   6662,
+   6565
+  ],
+  [
+   33.0,
+   877909,
+   6665,
+   6566
+  ],
+  [
+   34.0,
+   909215,
+   6666,
+   6568
+  ],
+  [
+   35.0,
+   969713,
+   6562,
+   6501
+  ],
+  [
+   36.0,
+   992926,
+   6492,
+   6505
+  ],
+  [
+   37.0,
+   1009021,
+   6456,
+   6519
+  ],
+  [
+   38.0,
+   1017056,
+   6437,
+   6537
+  ]
+ ],
+ "note": "replay of seed 1 (current code, ALM fix, no polish) to hour 38.5; the executed plan's 12 h view"
+}

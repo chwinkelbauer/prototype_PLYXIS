@@ -60,6 +60,10 @@ class CorporateConfig:
     new_weight: float = 0.2           # a new column enters the master's warm start with this weight (at 0 a converged
                                       # master never moves it)
     feas_tol: float = 2e-3            # a committed schedule must keep its block's limits to this (the cascade's own)
+    commit_track: float = 16.0        # weight of the commit's tracking of the mix (1: a deviation of the mix's own size costs
+                                      # about what that flow is worth at the current prices - and a plant whose best answer is
+                                      # all or nothing is indifferent to the mix: with the ALM's best-iterate fix it went to the
+                                      # extreme every time, the toy's market 25-32 % over its demand; 16 keeps it near the mix)
     phase1: bool = True               # if the first master is infeasible: an artificial schedule per block (no flows at
                                       # the fence, a large cost) keeps it feasible while the real ones cannot share a
                                       # limit, so its multipliers price that limit (Phase I)
@@ -484,7 +488,7 @@ class CorporatePlanner:
                         continue
                     m = target[name]
                     scale = m.abs().mean(-1).clamp(min=1e-6)
-                    track_w = st.prices.abs().mean(-1) / self.dt_m / scale
+                    track_w = cfg.commit_track * st.prices.abs().mean(-1) / self.dt_m / scale
                     jobs.append((name, st.prices, (m, track_w)))
                 t = time.perf_counter()
                 rec = {"round": f"commit {it}", "plants": {}}
@@ -530,6 +534,30 @@ class CorporatePlanner:
                     st = self.state[name]
                     st.prices = cfg.smoothing * new[name] + (1.0 - cfg.smoothing) * st.prices
                     target[name] = plant_flows[name]
+        if cfg.commit and not feas:
+            # no schedule near the mix fits the group (re-pricing cannot help: above 0.05 the master's multipliers
+            # are not prices): try the pool's schedules that keep their own limits, most-weighted first, one plant at
+            # a time, and keep the first the group's program can take
+            for name, p in self.h.plants.items():
+                st, w = self.state[name], weights[name]
+                cand = sorted((j for j, c in enumerate(st.columns) if c["max_violation"] <= cfg.feas_tol),
+                              key=lambda j: -(float(w[j].sum()) if j < w.shape[0] else 0.0))
+                for j in cand:
+                    col = st.columns[j]
+                    for jj in range(len(st.columns)):
+                        self._unload(p, jj)
+                    self._load_column(p, 0, {"flows": col["flows"], "value_h": self._value_h(name, col["eval"])},
+                                      fixed=True)
+                    rec = {"round": f"commit fallback {name} {j}", "plants": {}}
+                    res_c, x_c, _, _ = self._master(x_m, lam, rec)
+                    rounds.append(rec)
+                    if bool(res_c.feasible):
+                        x_m, obj, feas = x_c, res_c.objective, True
+                        plant_x[name], plant_eval[name], plant_flows[name] = col["x"], col["eval"], col["flows"]
+                        viol[name] = float(col["max_violation"])
+                        break
+                if feas:
+                    break
         self.close()
         plants_ok = all(v <= cfg.feas_tol for v in viol.values())
         return CorporatePlan(x_m, obj, feas and plants_ok, mix_objective, weights, plant_x, plant_eval, plant_flows, mix,

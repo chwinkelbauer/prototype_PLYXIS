@@ -1,0 +1,1208 @@
+{
+ "scenario": "aquila",
+ "speed": 600.0,
+ "seed": 0,
+ "hours": 96.0,
+ "boot_seconds": 125.37214710000262,
+ "wall_seconds": 621.7019417999982,
+ "kpis": {
+  "plyxis": {
+   "revenue": 449592429.125,
+   "cost": 455938897.3017578,
+   "emission_kg": 900690703.0,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 96.00000000000054,
+   "inventory_value": 28608246.69356823,
+   "equipment_value": 0.0,
+   "profit": 22261778.516810417,
+   "carbon_cost": 27020721.090000086,
+   "profit_after_carbon": -4758942.5731895855,
+   "flared_over_permit_mscf": 0.0,
+   "m_shipped": 632590.9223750026,
+   "m_crude": 662580.9831249998,
+   "m_iron": 450352.1793749989,
+   "m_eaf": 147746.25948437478,
+   "m_power": 221056.62634374993
+  },
+  "legacy": {
+   "revenue": 454491083.5625,
+   "cost": 434530747.41882324,
+   "emission_kg": 963644728.625,
+   "oil_bbl": 0.0,
+   "gas_mscf": 0.0,
+   "water_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "spilled_bbl": 0.0,
+   "hours": 96.00000000000054,
+   "inventory_value": 2199644.842895508,
+   "equipment_value": 0.0,
+   "profit": 22159980.986572266,
+   "carbon_cost": 28909341.858749975,
+   "profit_after_carbon": -6749360.8721777275,
+   "flared_over_permit_mscf": 0.0,
+   "m_shipped": 640313.139250001,
+   "m_crude": 672597.1550000001,
+   "m_iron": 494391.3632500001,
+   "m_eaf": 132821.08978124982,
+   "m_power": 219887.55375000017
+  },
+  "delta": {
+   "profit": 101797.53023815155,
+   "profit_after_carbon": 1990418.298988142,
+   "oil_bbl": 0.0,
+   "flared_mscf": 0.0,
+   "emission_t": -62954.025625,
+   "m_shipped": -7722.216874998412,
+   "m_crude": -10016.17187500035,
+   "m_iron": -44039.18387500121,
+   "m_eaf": 14925.169703124964,
+   "m_power": 1169.0725937497627
+  }
+ },
+ "bridge": [
+  {
+   "key": "inventory_value",
+   "label": "Inventories (tanks, bins, stockpiles)",
+   "delta": 26408602
+  },
+  {
+   "key": "scrap",
+   "label": "scrap",
+   "delta": -23699594
+  },
+  {
+   "key": "sales",
+   "label": "sales",
+   "delta": -4898654
+  },
+  {
+   "key": "merchant_hbi",
+   "label": "merchant hbi",
+   "delta": -2320167
+  },
+  {
+   "key": "ets",
+   "label": "ets",
+   "delta": 2027081
+  },
+  {
+   "key": "pci",
+   "label": "pci",
+   "delta": 924823
+  },
+  {
+   "key": "ironmaking",
+   "label": "ironmaking",
+   "delta": 616548
+  },
+  {
+   "key": "power",
+   "label": "Power",
+   "delta": 566400
+  },
+  {
+   "key": "downgrade",
+   "label": "downgrade",
+   "delta": -343501
+  },
+  {
+   "key": "gas",
+   "label": "Gas sales",
+   "delta": 322124
+  },
+  {
+   "key": "rolling",
+   "label": "rolling",
+   "delta": 285465
+  },
+  {
+   "key": "overrun_charge",
+   "label": "overrun charge",
+   "delta": -184019
+  },
+  {
+   "key": "coating",
+   "label": "coating",
+   "delta": 158344
+  },
+  {
+   "key": "casting",
+   "label": "casting",
+   "delta": 151349
+  },
+  {
+   "key": "steelmaking",
+   "label": "steelmaking",
+   "delta": 81714
+  },
+  {
+   "key": "freight",
+   "label": "freight",
+   "delta": 50005
+  },
+  {
+   "key": "reduction",
+   "label": "reduction",
+   "delta": -44722
+  }
+ ],
+ "plans": "deque([{'id': 1, 't': 0.0, 'clock': 'Day 1 00:00', 'trigger': 'initial plan', 'objective': 1389404160.0, 'feasible': False, 'seconds': 123.68507469999895, 'variables': 2476}, {'id': 2, 't': 4.000000008, 'clock': 'Day 1 04:00', 'trigger': 'rolling horizon', 'objective': 1387846528.0, 'feasible': True, 'seconds': 49.42810419999296, 'variables': 2476}, {'id': 3, 't': 12.166666691, 'clock': 'Day 1 12:10', 'trigger': 'disruption detected', 'objective': 1393236096.0, 'feasible': True, 'seconds': 64.97113429999445, 'variables': 2476}, {'id': 4, 't': 23.000000046, 'clock': 'Day 1 23:00', 'trigger': 'market notice: power_ercot', 'objective': 1388939392.0, 'feasible': True, 'seconds': 50.89482649999263, 'variables': 2476}, {'id': 5, 't': 31.66666673, 'clock': 'Day 2 07:40', 'trigger': 'rolling horizon', 'objective': 1394507136.0, 'feasible': True, 'seconds': 51.92310480000742, 'variables': 2476}, {'id': 6, 't': 40.333333414, 'clock': 'Day 2 16:20', 'trigger': 'disruption detected', 'objective': 1400012160.0, 'feasible': True, 'seconds': 79.9511499000073, 'variables': 2476}, {'id': 7, 't': 53.666666774, 'clock': 'Day 3 05:40', 'trigger': 'midstream notice', 'objective': 1405361280.0, 'feasible': True, 'seconds': 80.64852849999443, 'variables': 2476}, {'id': 8, 't': 67.166666801, 'clock': 'Day 3 19:10', 'trigger': 'midstream notice', 'objective': 1399516800.0, 'feasible': True, 'seconds': 50.56357630000275, 'variables': 2476}, {'id': 9, 't': 75.666666818, 'clock': 'Day 4 03:40', 'trigger': 'disruption detected', 'objective': 1416555008.0, 'feasible': True, 'seconds': 50.83129809999082, 'variables': 2476}, {'id': 10, 't': 84.333333502, 'clock': 'Day 4 12:20', 'trigger': 'rolling horizon', 'objective': 1422465792.0, 'feasible': True, 'seconds': 66.01306639998802, 'variables': 2476}], maxlen=50)",
+ "hourly": [
+  {
+   "t": 0.0,
+   "wall": 0.2,
+   "plyxis": 0,
+   "legacy": 0,
+   "delta": 0,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": false
+  },
+  {
+   "t": 1.0,
+   "wall": 6.2,
+   "plyxis": 184594,
+   "legacy": 235667,
+   "delta": -51073,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": false
+  },
+  {
+   "t": 2.0,
+   "wall": 12.2,
+   "plyxis": 460906,
+   "legacy": 476699,
+   "delta": -15794,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": false
+  },
+  {
+   "t": 3.0,
+   "wall": 18.2,
+   "plyxis": 744848,
+   "legacy": 734225,
+   "delta": 10623,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": false
+  },
+  {
+   "t": 4.0,
+   "wall": 24.3,
+   "plyxis": 1045487,
+   "legacy": 1008610,
+   "delta": 36877,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 5.0,
+   "wall": 30.3,
+   "plyxis": 1342779,
+   "legacy": 1290076,
+   "delta": 52704,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 6.0,
+   "wall": 36.3,
+   "plyxis": 1637050,
+   "legacy": 1560853,
+   "delta": 76197,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 7.0,
+   "wall": 42.3,
+   "plyxis": 1919511,
+   "legacy": 1813428,
+   "delta": 106083,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 8.0,
+   "wall": 48.3,
+   "plyxis": 2181079,
+   "legacy": 2062397,
+   "delta": 118682,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 9.0,
+   "wall": 54.3,
+   "plyxis": 2454414,
+   "legacy": 2318543,
+   "delta": 135871,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 10.0,
+   "wall": 60.3,
+   "plyxis": 2741932,
+   "legacy": 2593454,
+   "delta": 148477,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 11.0,
+   "wall": 66.3,
+   "plyxis": 3025491,
+   "legacy": 2867519,
+   "delta": 157972,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 12.0,
+   "wall": 72.4,
+   "plyxis": 3312305,
+   "legacy": 3140078,
+   "delta": 172227,
+   "plan": 1,
+   "plan_t": 0.0,
+   "solving": true
+  },
+  {
+   "t": 13.0,
+   "wall": 84.8,
+   "plyxis": 3612337,
+   "legacy": 3404492,
+   "delta": 207845,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 14.0,
+   "wall": 90.8,
+   "plyxis": 3895436,
+   "legacy": 3649879,
+   "delta": 245557,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 15.0,
+   "wall": 96.8,
+   "plyxis": 4156050,
+   "legacy": 3873217,
+   "delta": 282833,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 16.0,
+   "wall": 102.8,
+   "plyxis": 4405513,
+   "legacy": 4087480,
+   "delta": 318033,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 17.0,
+   "wall": 108.8,
+   "plyxis": 4648007,
+   "legacy": 4287373,
+   "delta": 360634,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 18.0,
+   "wall": 114.7,
+   "plyxis": 4882898,
+   "legacy": 4475640,
+   "delta": 407258,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 19.0,
+   "wall": 120.7,
+   "plyxis": 5119822,
+   "legacy": 4669720,
+   "delta": 450102,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 20.0,
+   "wall": 126.8,
+   "plyxis": 5370768,
+   "legacy": 4879148,
+   "delta": 491621,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 21.0,
+   "wall": 132.8,
+   "plyxis": 5640605,
+   "legacy": 5091347,
+   "delta": 549257,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 22.0,
+   "wall": 138.8,
+   "plyxis": 5866048,
+   "legacy": 5262333,
+   "delta": 603715,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 23.0,
+   "wall": 144.7,
+   "plyxis": 6112258,
+   "legacy": 5467436,
+   "delta": 644822,
+   "plan": 3,
+   "plan_t": 12.166666691,
+   "solving": true
+  },
+  {
+   "t": 24.0,
+   "wall": 157.1,
+   "plyxis": 6314447,
+   "legacy": 5675032,
+   "delta": 639415,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 25.0,
+   "wall": 163.3,
+   "plyxis": 6506959,
+   "legacy": 5876801,
+   "delta": 630158,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 26.0,
+   "wall": 169.1,
+   "plyxis": 6715967,
+   "legacy": 6079025,
+   "delta": 636942,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 27.0,
+   "wall": 175.3,
+   "plyxis": 6945198,
+   "legacy": 6296454,
+   "delta": 648744,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 28.0,
+   "wall": 181.3,
+   "plyxis": 7193853,
+   "legacy": 6537580,
+   "delta": 656273,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 29.0,
+   "wall": 187.3,
+   "plyxis": 7456870,
+   "legacy": 6791628,
+   "delta": 665242,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 30.0,
+   "wall": 193.3,
+   "plyxis": 7703869,
+   "legacy": 7027185,
+   "delta": 676683,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 31.0,
+   "wall": 199.4,
+   "plyxis": 7940569,
+   "legacy": 7247772,
+   "delta": 692797,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 32.0,
+   "wall": 205.4,
+   "plyxis": 8181476,
+   "legacy": 7472296,
+   "delta": 709180,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 33.0,
+   "wall": 211.4,
+   "plyxis": 8428306,
+   "legacy": 7693954,
+   "delta": 734352,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 34.0,
+   "wall": 217.4,
+   "plyxis": 8697028,
+   "legacy": 7942853,
+   "delta": 754175,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 35.0,
+   "wall": 223.2,
+   "plyxis": 8962060,
+   "legacy": 8088221,
+   "delta": 873839,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 36.0,
+   "wall": 229.2,
+   "plyxis": 9228628,
+   "legacy": 8262458,
+   "delta": 966171,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 37.0,
+   "wall": 235.2,
+   "plyxis": 9487171,
+   "legacy": 8433951,
+   "delta": 1053220,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 38.0,
+   "wall": 241.2,
+   "plyxis": 9733747,
+   "legacy": 8600887,
+   "delta": 1132860,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 39.0,
+   "wall": 247.3,
+   "plyxis": 9966857,
+   "legacy": 8762105,
+   "delta": 1204752,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 40.0,
+   "wall": 253.3,
+   "plyxis": 10170588,
+   "legacy": 8910044,
+   "delta": 1260544,
+   "plan": 4,
+   "plan_t": 23.000000046,
+   "solving": true
+  },
+  {
+   "t": 41.0,
+   "wall": 265.7,
+   "plyxis": 10341040,
+   "legacy": 9044586,
+   "delta": 1296454,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 42.0,
+   "wall": 271.7,
+   "plyxis": 10497188,
+   "legacy": 9176593,
+   "delta": 1320595,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 43.0,
+   "wall": 277.7,
+   "plyxis": 10656505,
+   "legacy": 9318333,
+   "delta": 1338172,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 44.0,
+   "wall": 283.5,
+   "plyxis": 10826055,
+   "legacy": 9476548,
+   "delta": 1349507,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 45.0,
+   "wall": 289.8,
+   "plyxis": 11015586,
+   "legacy": 9663980,
+   "delta": 1351606,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 46.0,
+   "wall": 295.8,
+   "plyxis": 11130476,
+   "legacy": 9839416,
+   "delta": 1291060,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 47.0,
+   "wall": 301.6,
+   "plyxis": 11251036,
+   "legacy": 10067656,
+   "delta": 1183380,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 48.0,
+   "wall": 307.6,
+   "plyxis": 11420941,
+   "legacy": 10336288,
+   "delta": 1084653,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 49.0,
+   "wall": 313.8,
+   "plyxis": 11620579,
+   "legacy": 10612778,
+   "delta": 1007801,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 50.0,
+   "wall": 319.6,
+   "plyxis": 11878216,
+   "legacy": 10918088,
+   "delta": 960128,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 51.0,
+   "wall": 325.6,
+   "plyxis": 12133870,
+   "legacy": 11221138,
+   "delta": 912731,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 52.0,
+   "wall": 331.6,
+   "plyxis": 12401549,
+   "legacy": 11535296,
+   "delta": 866254,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 53.0,
+   "wall": 337.7,
+   "plyxis": 12676810,
+   "legacy": 11851119,
+   "delta": 825692,
+   "plan": 6,
+   "plan_t": 40.333333414,
+   "solving": true
+  },
+  {
+   "t": 54.0,
+   "wall": 349.9,
+   "plyxis": 12947822,
+   "legacy": 12155085,
+   "delta": 792737,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 55.0,
+   "wall": 355.9,
+   "plyxis": 13208583,
+   "legacy": 12436003,
+   "delta": 772580,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 56.0,
+   "wall": 361.9,
+   "plyxis": 13474777,
+   "legacy": 12718876,
+   "delta": 755901,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 57.0,
+   "wall": 367.7,
+   "plyxis": 13758100,
+   "legacy": 13015947,
+   "delta": 742154,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 58.0,
+   "wall": 373.7,
+   "plyxis": 14051578,
+   "legacy": 13323200,
+   "delta": 728379,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 59.0,
+   "wall": 379.8,
+   "plyxis": 14350910,
+   "legacy": 13641638,
+   "delta": 709272,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 60.0,
+   "wall": 385.8,
+   "plyxis": 14636485,
+   "legacy": 13948374,
+   "delta": 688110,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 61.0,
+   "wall": 391.8,
+   "plyxis": 14859695,
+   "legacy": 14198744,
+   "delta": 660952,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 62.0,
+   "wall": 397.8,
+   "plyxis": 15075426,
+   "legacy": 14437258,
+   "delta": 638168,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 63.0,
+   "wall": 404.0,
+   "plyxis": 15273503,
+   "legacy": 14659890,
+   "delta": 613612,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 64.0,
+   "wall": 409.8,
+   "plyxis": 15460738,
+   "legacy": 14870535,
+   "delta": 590203,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 65.0,
+   "wall": 415.8,
+   "plyxis": 15606995,
+   "legacy": 15048470,
+   "delta": 558525,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 66.0,
+   "wall": 421.9,
+   "plyxis": 15770903,
+   "legacy": 15237542,
+   "delta": 533361,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 67.0,
+   "wall": 427.9,
+   "plyxis": 15963486,
+   "legacy": 15439668,
+   "delta": 523818,
+   "plan": 7,
+   "plan_t": 53.666666774,
+   "solving": true
+  },
+  {
+   "t": 68.0,
+   "wall": 440.3,
+   "plyxis": 16158078,
+   "legacy": 15647661,
+   "delta": 510417,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 69.0,
+   "wall": 446.3,
+   "plyxis": 16350075,
+   "legacy": 15859889,
+   "delta": 490186,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 70.0,
+   "wall": 452.3,
+   "plyxis": 16540000,
+   "legacy": 16095189,
+   "delta": 444811,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 71.0,
+   "wall": 458.4,
+   "plyxis": 16732065,
+   "legacy": 16335799,
+   "delta": 396266,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 72.0,
+   "wall": 464.4,
+   "plyxis": 16921565,
+   "legacy": 16577075,
+   "delta": 344490,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 73.0,
+   "wall": 470.4,
+   "plyxis": 17100251,
+   "legacy": 16744718,
+   "delta": 355533,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 74.0,
+   "wall": 476.4,
+   "plyxis": 17292457,
+   "legacy": 16905341,
+   "delta": 387117,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 75.0,
+   "wall": 482.4,
+   "plyxis": 17468250,
+   "legacy": 17053882,
+   "delta": 414367,
+   "plan": 8,
+   "plan_t": 67.166666801,
+   "solving": true
+  },
+  {
+   "t": 76.0,
+   "wall": 494.6,
+   "plyxis": 17711546,
+   "legacy": 17250008,
+   "delta": 461539,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 77.0,
+   "wall": 500.6,
+   "plyxis": 17968276,
+   "legacy": 17453293,
+   "delta": 514983,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 78.0,
+   "wall": 506.7,
+   "plyxis": 18199581,
+   "legacy": 17645340,
+   "delta": 554241,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 79.0,
+   "wall": 512.5,
+   "plyxis": 18414359,
+   "legacy": 17823014,
+   "delta": 591345,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 80.0,
+   "wall": 518.6,
+   "plyxis": 18608850,
+   "legacy": 17999254,
+   "delta": 609597,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 81.0,
+   "wall": 524.6,
+   "plyxis": 18828870,
+   "legacy": 18253644,
+   "delta": 575227,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 82.0,
+   "wall": 530.6,
+   "plyxis": 19071783,
+   "legacy": 18531706,
+   "delta": 540078,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 83.0,
+   "wall": 536.6,
+   "plyxis": 19331852,
+   "legacy": 18827415,
+   "delta": 504437,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 84.0,
+   "wall": 542.6,
+   "plyxis": 19590589,
+   "legacy": 19119265,
+   "delta": 471325,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 85.0,
+   "wall": 548.6,
+   "plyxis": 19842919,
+   "legacy": 19404418,
+   "delta": 438500,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 86.0,
+   "wall": 554.6,
+   "plyxis": 20084896,
+   "legacy": 19680510,
+   "delta": 404386,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 87.0,
+   "wall": 560.7,
+   "plyxis": 20309213,
+   "legacy": 19933703,
+   "delta": 375509,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 88.0,
+   "wall": 566.7,
+   "plyxis": 20497933,
+   "legacy": 20149818,
+   "delta": 348115,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 89.0,
+   "wall": 572.5,
+   "plyxis": 20713490,
+   "legacy": 20387635,
+   "delta": 325855,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 90.0,
+   "wall": 578.7,
+   "plyxis": 20935731,
+   "legacy": 20628118,
+   "delta": 307614,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 91.0,
+   "wall": 584.7,
+   "plyxis": 21159365,
+   "legacy": 20874708,
+   "delta": 284658,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 92.0,
+   "wall": 590.7,
+   "plyxis": 21386422,
+   "legacy": 21120103,
+   "delta": 266320,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 93.0,
+   "wall": 596.6,
+   "plyxis": 21615849,
+   "legacy": 21369680,
+   "delta": 246169,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 94.0,
+   "wall": 602.6,
+   "plyxis": 21836917,
+   "legacy": 21634610,
+   "delta": 202307,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 95.0,
+   "wall": 608.6,
+   "plyxis": 22052424,
+   "legacy": 21893660,
+   "delta": 158764,
+   "plan": 9,
+   "plan_t": 75.666666818,
+   "solving": true
+  },
+  {
+   "t": 96.0,
+   "wall": 621.2,
+   "plyxis": 22261779,
+   "legacy": 22159981,
+   "delta": 101798,
+   "plan": 11,
+   "plan_t": 95.333333524,
+   "solving": true
+  }
+ ],
+ "runs": [
+  {
+   "id": 1,
+   "t": 0.0,
+   "trigger": "initial plan",
+   "objective": 1389404160.0,
+   "feasible": false,
+   "seconds": 123.68507469999895
+  },
+  {
+   "id": 2,
+   "t": 4.000000008,
+   "trigger": "rolling horizon",
+   "objective": 1387846528.0,
+   "feasible": true,
+   "seconds": 49.42810419999296
+  },
+  {
+   "id": 3,
+   "t": 12.166666691,
+   "trigger": "disruption detected",
+   "objective": 1393236096.0,
+   "feasible": true,
+   "seconds": 64.97113429999445
+  },
+  {
+   "id": 4,
+   "t": 23.000000046,
+   "trigger": "market notice: power_ercot",
+   "objective": 1388939392.0,
+   "feasible": true,
+   "seconds": 50.89482649999263
+  },
+  {
+   "id": 5,
+   "t": 31.66666673,
+   "trigger": "rolling horizon",
+   "objective": 1394507136.0,
+   "feasible": true,
+   "seconds": 51.92310480000742
+  },
+  {
+   "id": 6,
+   "t": 40.333333414,
+   "trigger": "disruption detected",
+   "objective": 1400012160.0,
+   "feasible": true,
+   "seconds": 79.9511499000073
+  },
+  {
+   "id": 7,
+   "t": 53.666666774,
+   "trigger": "midstream notice",
+   "objective": 1405361280.0,
+   "feasible": true,
+   "seconds": 80.64852849999443
+  },
+  {
+   "id": 8,
+   "t": 67.166666801,
+   "trigger": "midstream notice",
+   "objective": 1399516800.0,
+   "feasible": true,
+   "seconds": 50.56357630000275
+  },
+  {
+   "id": 9,
+   "t": 75.666666818,
+   "trigger": "disruption detected",
+   "objective": 1416555008.0,
+   "feasible": true,
+   "seconds": 50.83129809999082
+  },
+  {
+   "id": 10,
+   "t": 84.333333502,
+   "trigger": "rolling horizon",
+   "objective": 1422465792.0,
+   "feasible": true,
+   "seconds": 66.01306639998802
+  }
+ ]
+}

@@ -56,6 +56,18 @@ class CascadeConfig:
     exact_branches: tuple = ()            # structure classes solved exactly after the polish, e.g. ("lp",):
                                           # branches the structure analysis proves affine -> HiGHS LP (branchlp.py)
     branch_iters: int = 6                 # sequential-LP iterations for the piecewise-affine classes
+    slp_iters: Optional[int] = None       # sequential LP on the twin's algebraic model after everything else (exact.py): iterations;
+                                          # 0 = off, None = decided by the twin: 15 where it has no discrete decisions (the steel
+                                          # group: the polish is its main gain), off where a discrete stage decides (oil field:
+                                          # neutral in the A/B). The whole twin's continuous decisions; discrete ones (and exclusive
+                                          # line-ups) stay where the discrete stage put them. Kept only where F rises
+    slp_radius: float = 0.02              # its first trust region (share of each decision's range); from the steel group's cascade
+                                          # plan: 0.005 with a floor of 1e-3 stopped after 3 iterations, 0.02 down to 2e-4 gained
+                                          # USD 1.04 M in 15 (plan_quality_aquila.json has the first, the A/B the second)
+    slp_min_radius: float = 2e-4          # it stops below this
+    slp_lp_time: float = 10.0             # seconds per LP (a timed-out LP counts as a rejected step) - one LP of the mine's polish ran
+                                          # for over 15 minutes without a limit
+    slp_time: float = 60.0                # seconds for the whole stage; it keeps the best plan found so far
     exact_margin: float = 0.0             # the exact stage keeps state limits this far inside (share of the limit's scale)
     unit_passes: int = 3                  # discrete = "unitdp": sweeps of the per-unit dynamic programs (unitdp.py)
     second_opinion: Optional[float] = None  # a plan worth this share less than the last one is solved once more (runtime/planner.py)
@@ -302,7 +314,7 @@ class Cascade:
             if len(var):
                 br = BL.solve_branches(pb, x_final, var, affine=set(cfg.exact_branches) <= {"lp"},
                                        iters=cfg.branch_iters, callback=lambda r: self._emit(callback, r),
-                                       margin=cfg.exact_margin)
+                                       margin=cfg.exact_margin, warm_lp=True)
                 if br.F > br.F0 + 1e-9:
                     x_final = br.x
                     with torch.no_grad():
@@ -312,6 +324,23 @@ class Cascade:
                                "max_violation": mv, "variables": br.variables, "rows": br.rows,
                                "gain": round(br.F - br.F0, 6), "lp_seconds": round(br.lp_seconds, 3),
                                "jacobian_seconds": round(br.jac_seconds, 3)})
+        disc = bool(sp.discrete_mask().any())
+        n_slp = int(cfg.slp_iters) if cfg.slp_iters is not None else (0 if disc else 15)
+        if n_slp:
+            # the twin's own equations as algebra, solved exactly in a trust region and judged on the twin: the
+            # first-order search stops short where couplings are tight (the steel group under-ships)
+            from .exact import fitness as _fit, slp as _slp
+            t = time.perf_counter()
+            F0, _, _ = _fit(pb, x_final, False)
+            r = _slp(pb, x_final, iters=n_slp, radius=cfg.slp_radius, min_radius=cfg.slp_min_radius,
+                     fix_discrete=disc, warm_lp=True, lp_time=cfg.slp_lp_time, time_budget=cfg.slp_time)
+            F1, mv1, obj1 = _fit(pb, r.x, False)
+            kept = F1 > F0 + 1e-9 and mv1 <= max(mv, 2e-3)
+            if kept:
+                x_final, obj, mv = r.x.reshape(1, -1).clone(), obj1, mv1
+            stages.append({"stage": "slp", "seconds": time.perf_counter() - t, "objective": obj, "max_violation": mv,
+                           "kept": kept, "gain_F": round(F1 - F0, 7), "iterations": r.iterations,
+                           "lp_seconds": round(r.lp_seconds, 2), "linearize_seconds": round(r.lin_seconds, 2)})
         self._emit(callback, {"stage": "done", "objective": obj, "max_violation": mv, "feasible": mv <= 2e-3})
         return CascadeResult(x_final, obj, mv, mv <= 2e-3, prices, pol.multipliers, self._hist, stages,
                              time.perf_counter() - self._t0, pb.n_evals - evals0)

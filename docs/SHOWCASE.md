@@ -302,14 +302,16 @@ cannot take its hot metal sends it to the pig caster.
    stops the Texan arc furnace for it, PLYXIS plans its heats and the billet yard around it.
 5. **Gas curtailed, scrap jumps, customers pull orders forward** - the value bridge shows what each part is worth.
 
-## Result (96 h, three seeds)
+## Result (96 h, six seeds)
 
-[BENCHMARKS.md](BENCHMARKS.md#aquila-steel-group-showcase-run-96-h) has the numbers. PLYXIS has **no operating-profit lead** over
-the competent S&OP: -1.6 % on the mean of three seeds (-4.9 to +0.8 %). After the group's internal carbon price - the objective
-both worlds plan with - it is ahead on every seed (USD +1.0 to +1.9 M per 96 h) with 6.2 % less CO2e. The difference is the
-metallic mix: in Europe the plan runs the blast furnaces near turndown and the converters on more scrap, because with the EU's
-allowances and the carbon price hot metal costs it more than scrap; outside Europe every furnace runs at full wind. Present it as
-that trade, not as a margin gain, and expect two questions: furnace turndown costs no extra fuel in the model (optimistic for this
+[BENCHMARKS.md](BENCHMARKS.md#aquila-steel-group-showcase-run-96-h) has the numbers. PLYXIS has **a small operating-profit lead, within the spread of its seeds,** over
+the competent S&OP: +1.9 % on the mean of 6 seeds (-0.3 % to +4.9 %). After the group's internal carbon price - the objective
+both worlds plan with - it is ahead on 6 of 6 seeds (USD +1.3 to +2.2 M per 96 h) with 4.1 % less CO2e. The difference is the
+metallic mix: in Europe the plan runs the blast furnaces near turndown and the converters on more scrap; outside Europe every furnace
+runs at full wind. Do not present it as a deliberate trade of margin for carbon: with the carbon price at 0 in both worlds the
+operating gap is the same, and a better plan in PLYXIS's own objective runs the European furnaces higher and sells more spot - the
+planner's search stalls short of it ([BENCHMARKS.md](BENCHMARKS.md#why-plyxis-trails-on-operating-profit-5-nov-2026)). Expect
+two more questions: furnace turndown costs no extra fuel in the model (optimistic for this
 strategy), and the European crunch in the first two days hits a plan with its furnaces down (one seed lost USD 1.4 M in eight hours).
 The allocation of markets to sites, which a good S&OP does by merit order, leaves little to improve in a group that is limited by
 its markets.

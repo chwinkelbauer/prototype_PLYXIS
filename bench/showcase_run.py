@@ -86,9 +86,11 @@ def main() -> None:
     ap.add_argument("--relax-tol", type=float, default=None, help="violation up to which the relaxation counts an iterate as feasible")
     ap.add_argument("--set", action="append", default=[], metavar="NAME=VALUE", help="any other CascadeConfig field for this run, e.g. population=4")
     ap.add_argument("--seed", type=int, default=0, help="scenario seed (prices, sensor and process noise; both worlds)")
+    ap.add_argument("--scenario-dir", default=None, help="run a variant of the scenario from this folder (outside scenarios/, "
+                                                           "so the console does not list it); results keep --scenario's name + --tag")
     args = ap.parse_args()
     t0 = time.perf_counter()
-    sdir = os.path.join(ROOT, "scenarios", args.scenario)
+    sdir = args.scenario_dir or os.path.join(ROOT, "scenarios", args.scenario)
     eng = Engine(sdir, seed=args.seed, sync_plans=True, use_neural=not args.no_neural)
     args.hours = args.hours or eng.sc.end_hour
     import dataclasses
@@ -102,6 +104,8 @@ def main() -> None:
         name, _, value = item.partition("=")
         cur = getattr(eng.planner.cfg, name)
         conv = float if cur is None else type(cur)          # an option that is off by default (None) takes a number
+        if cur is None and value.lstrip("-").isdigit():
+            conv = int
         eng.planner.cfg = dataclasses.replace(eng.planner.cfg, **{name: conv(value)})
     if args.discrete is not None:
         eng.planner.cfg = dataclasses.replace(eng.planner.cfg, discrete=args.discrete)

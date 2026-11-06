@@ -24,7 +24,7 @@ sub-solvers, live console. All data is synthetic.
 ## Commands (Windows, Git Bash or PowerShell)
 
 ```
-.venv/Scripts/python.exe -m pytest tests -q            # about 135 tests, ~7-10 min
+.venv/Scripts/python.exe -m pytest tests -q            # about 155 tests, ~10-12 min
 .venv/Scripts/python.exe -m plyxis serve --port 8000   # console at http://127.0.0.1:8000 (needs web/dist)
 cd web && npx vite build                               # rebuild console; npx tsc -b --noEmit to type-check
 .venv/Scripts/python.exe -m bench.showcase_run --hours 72      # Kestrel A/B, ~10 min
@@ -57,6 +57,12 @@ cd web && npx vite build                               # rebuild console; npx ts
 .venv/Scripts/python.exe -m bench.risk                  # outcome distributions: sigma points vs Monte Carlo (both twins); --frontier
 .venv/Scripts/python.exe -m bench.uncertainty_coverage --scenario kestrel --hours 48   # posterior intervals vs hidden truth
 .venv/Scripts/python.exe -m bench.colgen                # column generation vs exact MILP by site size; --learn (learned prices)
+.venv/Scripts/python.exe -m bench.reduction --sites 1 2 4 8 16 32 64   # reduction engine vs whole-model MILP as a twin grows; + filters on the 4 twins
+.venv/Scripts/python.exe -m bench.reduction --parts slp      # sequential LP on the algebraic model vs the cascade (steel group)
+.venv/Scripts/python.exe -m bench.console_run --scenario aquila   # the A/B as the console runs it (600x, plans in the background)
+.venv/Scripts/python.exe -m bench.plan_quality           # one steel plan: cascade vs a better stored plan, restarts, exact polish, a step's errors
+.venv/Scripts/python.exe -m bench.planner_speed          # plan time and value per twin: morning planner, current, quarter budget + polish (alone!)
+.venv/Scripts/python.exe -m bench.showcase_run --scenario aquila --scenario-dir <copy> --tag x   # a scenario variant from a copy
 .venv/Scripts/python.exe -m bench.report                # markdown tables from bench/results
 ```
 
@@ -97,6 +103,14 @@ showcase and the rest. Blueprints that no case study instantiates do not touch t
   programs for sequence rules (gap / run / reset), the cascade's `discrete = "auto"` uses them wherever rules exist.
   `scenarios/aquila_works` = Aquila with the Duisburg works machine by machine (`steel.plx` "a works in detail";
   not a console scenario yet, no truth/baseline). `examples/plants_toy.plx` the toy both the test and the bench use.
+- The exact layer: `plyxis/optim/algebra.py` the algebraic backend of the compiler (`linearize(pb, x)`: every node's
+  value and sparse Jacobian in the lifted form - states and recursive delays as columns, so rows are local in time;
+  exact where affine, piecewise terms of discrete decisions encoded exactly with indicators, first order elsewhere;
+  `check()` against the simulator); `exact.py` HiGHS LP / MILP on any part of it (row scaling, elastic hard rows at
+  the planner's price, soft slacks, trust region, local branching for integers, shadow prices) and `slp()` the
+  trust-region sequential LP judged on the twin; `reduce.py` the reduction engine (filters contract the math graph:
+  LP cells, discrete blocks under an integer cap, recourse, hubs, closure; Dantzig-Wolfe with exact block MILPs,
+  Lagrangian bound, commit). Tests: `tests/test_reduce.py`; `tests/models/kilns.plx` the small discrete twin.
 - `plyxis/optim/risk.py` planning under uncertainty (uncertain inputs as factors, sigma-point propagation of every limit and
   the plan value, Sobol remainder, back-offs, `RiskProblem` for the spread cap); the covariance comes from `Estimator.cov`
   (information filter around the MHE) and `Forecaster.log_sigma`. `plyxis/optim/colgen.py` column generation with exact
@@ -237,7 +251,8 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
   the inflow from the estimator (any inflow fits a full sump), so the twin could not see it was under-pumping.
 - **Events**: `fail`/`trip` with `hours` restore themselves (repair / restore_units); `assets: [...]`
   applies one event to many assets (a level closed by seismicity). Per-scenario planner budget in
-  `scenario.json` -> `planner` (the mine uses `discrete: "ga+sections"`), KPI metrics in `kpi` (drives the
+  `scenario.json` -> `planner` (the mine uses `discrete: "ga"` since 6 Nov: without the section search +595,515 against
+  +589,677, 3 seeds, and 5-10 s faster per plan), KPI metrics in `kpi` (drives the
   generic Overview), market tags in `market_tags`.
 - **3D geometry**: `at = (lat, lon, z)`, `path` with z, `geojson("x.geojson")` keeps elevation. The 3D view
   appears in the console when any asset has a z coordinate.
@@ -338,12 +353,26 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
   baseline that profits from emptying yards is as wrong as a planner that does.
 - **Steel: lanes draw without `sat`.** A yard drawn below empty would create material in the plant; the emulator logs any
   state underflow (`PlantEmulator.underflow`, `protection` in every showcase result): an A/B is only valid at zero in both worlds.
-- **Steel: Europe runs on scrap in the plan - by choice.** With the EU's allowances and the internal carbon price, European hot metal
-  costs the plan more than scrap at 395 USD/t: it runs the eight European blast furnaces near their 60 % turndown and the converters
-  at their lowest hot-metal share (gradient of the wind about zero - an optimum, not a stalled search; outside Europe every furnace
-  is at full wind with a strong gradient). That is the whole A/B: less operating profit, more after carbon, -6 % CO2e. The model
-  charges no extra fuel at low wind (optimistic for this strategy), and it leaves no buffer for the European crunch (Duisburg BF1
-  out + IJmuiden storm: one seed lost USD 1.4 M in eight hours).
+- **Steel: Europe runs on scrap in the plan - not by choice, the search stalls there.** The plans run the European blast furnaces
+  near their 60 % turndown, sell little spot and buy scrap into the bays; the wind's gradient is about zero, which was read as an
+  optimum. It is not: a plan worth USD 2.7 M more in the same objective (`bench/results/arms/aquila_plan_better.pt`, found by
+  accident by a short relaxation before the ALM fix) ships 3.9 % more, sells 45 % more spot (European coil, slab exports) and runs
+  the French, Dutch and Spanish furnaces higher (`plan_quality_aquila.json`). And the operating gap is not the carbon price: with
+  it at 0 in both worlds PLYXIS is still -0.46 M on the mean of three seeds (`showcase_run_aquila_nocarbon*.json`), shipping less.
+  Why first order stalls: at a yard's stock target the smooth floor has zero slope, so neither a lane alone (the yard falls) nor
+  a furnace alone (the yard rises) gains - only the joint move does, and it earns the spot margin. The LP on the algebraic model
+  sees that move exactly (the sequential LP from the cascade's plan ships 6,900 t more in its first 15 iterations); its steps
+  are cut short by kinks the first-order model gets wrong (spot depth through the backlog's `pos()`, the grid overrun charge).
+- **The ALM stored its best iterate one optimiser step late** (`gradient.py`, fixed 5 Nov 2026). It scored `e.x`, which is `x`
+  itself when nothing is pinned, and copied it after `opt.step()` had moved it in place: the "best" was always a step past the
+  plan it was scored for, and a warm start was never kept (a feasible steel plan worth USD 1,394.7 M came back as 1,387.2 M at
+  violation 0.29). `test_alm_returns_the_iterate_it_scored`. Every result before 5 Nov carries it. It also changed the
+  coordinator's commit on the toy: the plant's best answer is all or nothing, and at a tracking weight of 1 it went to the extreme
+  every time (market 25-32 % over its demand); `CorporateConfig.commit_track` = 16 keeps it near the mix (and a commit that still
+  breaks a limit tries the pool's feasible schedules).
+- **The console's lag is not what costs the steel group.** At 600x (`bench/console_run.py`) a plan takes 10-12 plant hours and the
+  plant ran on 8 plans instead of 31, yet seed 0 ended where the waiting benchmark did (+0.10 M operating, +1.99 M after carbon;
+  benchmark +0.18 / +1.95 M).
 - **Steel: the end value of a yard shortfall is smooth too.** `value_to_go` (200 USD per t short at the plan's end) as a hinge at the
   target was the same trap as the hinged floor; quadratic up to 10 % of the target. Start plan +3.1 M in the twin's world, A/B within noise.
 - **`bench.policy_in_twin` flatters a plan that ends below its targets.** One 96 h plan sold 36,700 t more steel out of the yards than
@@ -416,13 +445,78 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
   off; the mine twin has 3 such states, the steel group 1 - same objectives at default and random plans, checked).
   `delay(x, k, init)`: `init` must be a constant or a property, `k` may be a property or a duration.
 
+- **A first-order model at a kink drops the rule.** `pos(on(t-1) - on(t-2)) <= on` (a minimum run) linearised at
+  "all on" sits exactly on its kink: the slope taken is the flat side, the rule vanished from the model and the
+  whole MILP's plan broke it on the twin (kilns: violation 1.0). Piecewise terms (pos, min, max, abs, clamp) whose
+  argument reads a discrete decision and only boxed columns are now exact (`Linearizer._max`: a column, an
+  indicator, big-Ms from the decisions' full box - the layout does not depend on the reference). Terms of states stay
+  first order (a state has no box).
+- **Dantzig-Wolfe pricing must own its states.** The hot-strip mill's roll wear is updated from the reheating
+  furnaces' flow; with the furnaces in the master that row was priced, the wear column was free in the mill's pricing
+  problem and HiGHS reported it unbounded - and the round's bound fell below a plan the whole MILP had found. The
+  closure filter moves every atom a block's definition rows read into the block (atom by atom - union-find would
+  have swallowed the whole LP cell). A pricing problem that is still unbounded is solved in a wide box and its
+  round's bound marked unproven.
+- **The integer trust region is a flip budget, not the radius.** A radius below 1 freezes binaries (|u - u_ref| <=
+  0.3); `solve(flips=k)` is local branching (sum |z - z_ref| <= k, decisions only, not indicators). Splitting one
+  budget across blocks restricts the problem the engine solves - compare bounds only at equal budgets.
+- **Scale the rows.** Tonnes, MW and USD 1e9 in one model: HiGHS's MILP failed numerically on the works twin
+  (status 4) until every row was scaled to unit largest coefficient (duals are mapped back per raw unit).
+- **The exact polish in the cascade** (`slp_iters`, last stage; 5 Nov evening): the whole twin's continuous decisions by
+  sequential LP on the algebraic model, discrete ones fixed (`fix_discrete`, also exclusive line-ups and the indicators),
+  each LP warm-started from the last HiGHS basis (`warm_lp`: scipy's bundled `scipy.optimize._highspy._core._Highs`, no
+  extra package; every row kept so the dimensions are stable - half the LP time). HiGHS options (presolve off, parallel
+  dual) do not matter; IPM wrongly reports the steel LP infeasible. On the mine the branch stage stays: restricted to its
+  4,032 decisions the polish gained less in more time (the lifted model is far larger than the branch stage's reduced LP);
+  on top of the branch stage it lost (+572,540 on 2 seeds against +589,677) and one of its LPs ran for over 15 minutes, so
+  every polish and branch LP now has a 10 s limit (`slp_lp_time`; a timed-out LP is a rejected step) and the stage 60 s
+  (`slp_time`); a warm start HiGHS ends 'Unknown' (steel, step 23) is retried once from scratch - it used to end the polish.
+  On the steel group the trust region settles at 0.0018 and gains about the same every step (15 steps ~ 8 s; the first two
+  steps at 0.02 / 0.006 are rejected). `slp_iters = None` (default): on for twins without discrete decisions, off otherwise (oil field neutral,
+  mine negative); the steel group sets 15.
+- **A shorter cascade plans the steel group better.** With the polish after it, a quarter of the live budget (relax 50,
+  repair 20, ALM polish 30) gives better cold plans in 20 s instead of 46 s (`planner_speed.json`): the long relaxation
+  drifts into the low-throughput basin. On the oil field a quarter budget loses (cold plan USD 3.81 M against 4.41 M), on the mine a warm one (-0.09 M), and
+  the polish is neutral in the A/B (+402,831 against +403,607): there it stays off.
+- **Each block prices on its own sub-model** (`Engine._cache`): slicing the whole model per pricing call made a round
+  cost blocks x model size (16 kiln sites: 29 s; 21 s on sub-models, 16 s without the block sweeps, which never
+  improved a plan and are off by default).
+
 ## Open work (as of the last benchmark run)
+
+- **Exact layer / reduction engine (5 Nov 2026, BENCHMARKS.md "The exact layer").** The algebraic model and the sequential
+  LP are wired into the planner (the cascade's exact polish, "Planner speed" in BENCHMARKS.md); the reduction engine is
+  not. No speed-up to claim for the engine: on the kiln family HiGHS solves the whole MILP faster at most sizes (tight LP
+  relaxation); the engine's bound is valid and its plans within 0.04 % from 8 sites on, but its time grows faster than
+  linearly (commit 62 s of 110 s at 64 sites). Next, roughly in order: (1) the oil field's on/off wells - the sequential MILP stalls at an
+  infeasible point (pump curves times on/off: a flip changes the model more than first order can say); start it
+  from the cascade's relaxation instead of the default plan; (2) the master LP is the cost on large twins (scipy has
+  no warm start; highspy would give one); (3) pricing in parallel processes; (4) nested contraction where a site's
+  blocks no longer fit one MILP (DW inside a block); (5) convex terms (the yards' quadratic stock penalties) as cuts
+  instead of trust-region steps; (6) A/B over seeds before anything is switched on.
 
 - **Corvus variants predate the forecaster fix** (the mine planned with flat nominal prices). The three main seeds were re-run
   (4 Nov: +10.3 %, mean USD +583 k, unchanged); the variants (capped grade window, no branches, risk arms, relax_tol, exact, fast)
   were not, so the exact-branch effect on the mine compares runs across the fix.
-- **Aquila: no operating-profit lead** (4 Nov, 3 seeds, 96 h, BENCHMARKS.md: -1.6 %, USD -0.42 M; after carbon +1.39 M, all seeds
-  ahead; CO2e -6.2 %). Next, each with a 3-seed A/B: a fuel-rate penalty at low blast-furnace wind (in twin and truth); the 110 %
+- **Aquila: why PLYXIS trails (5 Nov, BENCHMARKS.md "Why PLYXIS trails on operating profit").** Not the console's lag, not the
+  carbon price (no-carbon arm: the same gap): the plans stall in a low-throughput local optimum - a plan worth USD 2.7 M more ships
+  3.9 % more, mostly spot - and in rolling operation the lead PLYXIS builds by hour 40-48 drains in the second half by shipping
+  300-700 t/h less than the baseline. The ALM fix alone does not change the A/B (mean -0.96 M, seed 1 a shipping collapse of
+  1,900 t/h from hour 38). The exact polish (`slp_iters` 15) is the best arm: operating -0.09 M (-0.4 %), after carbon +1.67 M on
+  the mean of three seeds, seed 1's collapse gone - now on for Aquila (`scenario.json`; plans 23-32 s longer); within noise for
+  seeds 0 and 2, so more seeds would tell. Next: (0) polish several candidates and keep the best - where the polish ends depends
+  on its start (`plan_quality_aquila.json` "polish_starts": +0.16 to +3.55 M, best 1,395.95 M = 3.9 M above the cascade's plan);
+  the first plan's two cold starts are the obvious pair; (1) Kestrel and Corvus with the polish (continuous twins only so far: the
+  stage skips twins with discrete decisions); (2) the kinks that keep its steps
+  small - the markets' backlog `pos()` (needs a box on the backlog state: interval propagation through the state updates, then
+  indicators), the overrun charge and the spot discount (exact as epigraphs, `Linearizer(epigraph=True)`, opt-in: the blend's
+  copper downgrade then mispredicts); (3) why seed 1's plan of hour 38 holds 1,900 t/h back (replay to hour 38 and read the plan's
+  lanes and yards; a same-seed replay did not reproduce it, `arms/replay_aquila_s1_h38.json`); (4) the ALM fix on Kestrel and
+  Corvus was re-run (3 seeds each): +403,607 vs +392,840 and +576,462 vs +583,368 - within noise, headline numbers kept; the other
+  Kestrel/Corvus benchmarks (variants, neural ablation, scaling, ...) predate it; (5) the corporate benchmarks (`corporate*.json`)
+  predate the fix and `commit_track` = 16.
+- **Aquila: a small operating-profit lead** (5 Nov night, current code = quarter budget + polish, 6 seeds, 96 h: +1.9 %, USD +0.46 M; after carbon +1.64 M, 6 of 6 seeds
+  ahead; CO2e -4.1 %; full budget + polish +0.26 / +1.88 M; before the fix and the polish -1.6 % / +1.39 M). Next, each with a 3-seed A/B: a fuel-rate penalty at low blast-furnace wind (in twin and truth); the 110 %
   stock-band top for scrap bays and DRI piles (bays reach 144 % of target when the market is a few dollars below book); whether
   the European strategy should keep a buffer for outages (risk-aware planning, `risk.py`). The demo texts claim no behaviour that
   was not measured - check any new one against a run. Not checked yet: what the plan does in the ERCOT window and after the
@@ -453,6 +547,7 @@ Fonts: Outfit (headings, hero numbers), Inter (UI text), JetBrains Mono (numbers
 - **Exact branches**: on for the mine (+USD 44 k / 48 h, 3 seeds; the stage-off arm predates the forecaster fix, +47 k at equal code), off for the oil field (before the slope fix: -USD 7 k / 72 h with 10 % margins on state limits,
   3 seeds; -USD 48 k without). Single-plan gains in the twin's objective do not predict this (`bench.exact_branches`) - always decide with A/B over seeds.
 - **Section search** has no measurable gain, also not with charge-up crews on the mine or after the polish (`late_sections`; +0.5 % in one mine plan, not A/B tested there; oil field A/B +USD 2.7 k, noise).
+  Off on the mine since 6 Nov (`showcase_run_corvus_ga*.json` +595,515 against `_final` +589,677 with it, 3 seeds).
   The scaling claim holds. Crew limits rarely bind in a 48 h horizon; a model with a binding discrete resource would be the test.
 - **Certificates.** Smoothed dual decomposition (`sectiondp.solve(dual="smooth")`) proves 1.7-3.7 % up to
   90,000 blocks at 6-9x the time of the subgradient bound (2.5-19 %); the default stays the fast one.

@@ -643,7 +643,11 @@
   },
   "planner": {
     "relax_tol": 0.01,
-    "cold_starts": 2
+    "cold_starts": 2,
+    "slp_iters": 15,
+    "relax_iters": 50,
+    "polish_iters": 30,
+    "repair_iters": 20
   },
   "legacy": {
     "utilisation": 0.97,

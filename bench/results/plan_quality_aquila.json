@@ -1,0 +1,393 @@
+{
+ "stored": {
+  "cascade": {
+   "objective": 1392003584.0,
+   "F": 0.6132684350013733,
+   "max_violation": 0.00012749999586958438,
+   "shipped_kg": 642745728.0,
+   "spot_kg": 43336276.3125,
+   "hot_metal_kg": 446936590.0,
+   "delivered_by_market_kg": {
+    "EU_COAT": 44017920.0,
+    "NA_COAT": 30144178.0,
+    "IN_COAT": 12517792.0,
+    "EU_HRC": 180288368.0,
+    "NA_HRC": 118634104.0,
+    "SA_HRC": 34896484.0,
+    "IN_HRC": 91311664.0,
+    "ME_HRC": 18009320.0,
+    "EU_LONG": 22110344.0,
+    "NA_LONG": 16320000.0,
+    "ME_LONG": 17738882.0,
+    "SLAB_EXP": 56756672.0
+   },
+   "spot_by_market_kg": {
+    "EU_COAT": 1130683.5,
+    "NA_COAT": 3264180.0,
+    "IN_COAT": 37791.6875,
+    "EU_HRC": 12288359.0,
+    "NA_HRC": 13034107.0,
+    "SA_HRC": 3216485.0,
+    "IN_HRC": 111650.0,
+    "ME_HRC": 43982.625,
+    "EU_LONG": 33484.25,
+    "NA_LONG": 0.0,
+    "ME_LONG": 3338883.75,
+    "SLAB_EXP": 6836669.5
+   },
+   "hot_metal_by_furnace_kg": {
+    "NL_BF1": 24197806.0,
+    "NL_BF2": 21086120.0,
+    "DE_BF1": 28220478.0,
+    "DE_BF2": 25768792.0,
+    "DE_BF3": 20757954.0,
+    "FR_BF1": 25323720.0,
+    "FR_BF2": 21919982.0,
+    "ES_BF1": 18970542.0,
+    "IN_BF1": 41086076.0,
+    "IN_BF2": 36245120.0,
+    "BR_BF1": 37440000.0,
+    "BR_BF2": 32640000.0,
+    "BR_BF3": 28800000.0,
+    "OD_BF1": 45120000.0,
+    "OD_BF2": 39360000.0
+   },
+   "terms": {
+    "casting": 8934422.0,
+    "downgrade": 1003226.875,
+    "pci": 9385668.0,
+    "ironmaking": 6257112.0,
+    "furnace_fixed": 8640000.0,
+    "furnace_co2": 648058112.0,
+    "ets": 7962550.5,
+    "hot_metal": 446936608.0,
+    "coating": 4583463.5,
+    "line_fixed": 1152000.0,
+    "purchases": 161739552.0,
+    "inventory": 1431088512.0,
+    "reduction": 863697.625,
+    "plant_fixed": 960000.0,
+    "dri_made": 71974800.0,
+    "merchant_hbi": 4920974.0,
+    "value_to_go": 1261119.5,
+    "steelmaking": 23072070.0,
+    "shop_fixed": 5568000.0,
+    "melt_co2": 65119312.0,
+    "gas": 9963423.0,
+    "combustion": 85870984.0,
+    "power": 13459460.0,
+    "overrun_charge": 7919.859375,
+    "grid": 94138784.0,
+    "site_power": 217536432.0,
+    "rolling": 12528742.0,
+    "mill_fixed": 4272000.0,
+    "hot_rolled": 519737120.0,
+    "freight": 17191302.0,
+    "scrap": 104520568.0,
+    "scrap_bought": 261591056.0,
+    "labour": 45024000.0,
+    "overhead": 14688000.0,
+    "sales": 457847072.0,
+    "shortfall": 431245.09375,
+    "late_delivery": 1000350.0625,
+    "shipped": 642745664.0,
+    "pig_iron": 0.0,
+    "crude_steel": 646313088.0,
+    "shipments": 642745792.0,
+    "group_power": 217536416.0,
+    "hot_metal_made": 446936608.0,
+    "eaf_steel": 149378144.0
+   }
+  },
+  "better": {
+   "objective": 1394723456.0,
+   "F": 0.6152471899986267,
+   "max_violation": 0.0,
+   "shipped_kg": 667803182.0,
+   "spot_kg": 63010127.25,
+   "hot_metal_kg": 468410804.0,
+   "delivered_by_market_kg": {
+    "EU_COAT": 49285660.0,
+    "NA_COAT": 30963726.0,
+    "IN_COAT": 13093118.0,
+    "EU_HRC": 188296048.0,
+    "NA_HRC": 117594040.0,
+    "SA_HRC": 37337312.0,
+    "IN_HRC": 91228488.0,
+    "ME_HRC": 23382136.0,
+    "EU_LONG": 22100142.0,
+    "NA_LONG": 16320000.0,
+    "ME_LONG": 17382552.0,
+    "SLAB_EXP": 60819960.0
+   },
+   "spot_by_market_kg": {
+    "EU_COAT": 6085656.5,
+    "NA_COAT": 4083727.75,
+    "IN_COAT": 613117.0,
+    "EU_HRC": 20296062.0,
+    "NA_HRC": 11994047.0,
+    "SA_HRC": 5657315.5,
+    "IN_HRC": 31528.5,
+    "ME_HRC": 342136.5,
+    "EU_LONG": 24033.75,
+    "NA_LONG": 0.0,
+    "ME_LONG": 2982551.75,
+    "SLAB_EXP": 10899951.0
+   },
+   "hot_metal_by_furnace_kg": {
+    "NL_BF1": 28067104.0,
+    "NL_BF2": 24374348.0,
+    "DE_BF1": 29523236.0,
+    "DE_BF2": 26956228.0,
+    "DE_BF3": 21822222.0,
+    "FR_BF1": 30193180.0,
+    "FR_BF2": 25880350.0,
+    "ES_BF1": 20844816.0,
+    "IN_BF1": 41083228.0,
+    "IN_BF2": 36306092.0,
+    "BR_BF1": 37440000.0,
+    "BR_BF2": 32640000.0,
+    "BR_BF3": 28800000.0,
+    "OD_BF1": 45120000.0,
+    "OD_BF2": 39360000.0
+   },
+   "terms": {
+    "casting": 9303801.0,
+    "downgrade": 1002287.8125,
+    "pci": 9836627.0,
+    "ironmaking": 6557751.5,
+    "furnace_fixed": 8640000.0,
+    "furnace_co2": 679195648.0,
+    "ets": 8811800.0,
+    "hot_metal": 468410848.0,
+    "coating": 4945568.5,
+    "line_fixed": 1152000.0,
+    "purchases": 161739552.0,
+    "inventory": 1419980160.0,
+    "reduction": 912323.75,
+    "plant_fixed": 960000.0,
+    "dri_made": 76026992.0,
+    "merchant_hbi": 5010675.5,
+    "value_to_go": 1283326.25,
+    "steelmaking": 24037012.0,
+    "shop_fixed": 5568000.0,
+    "melt_co2": 67711992.0,
+    "gas": 10389705.0,
+    "combustion": 90083696.0,
+    "power": 14141301.0,
+    "overrun_charge": 4248.03515625,
+    "grid": 98832640.0,
+    "site_power": 228151872.0,
+    "rolling": 13006537.0,
+    "mill_fixed": 4272000.0,
+    "hot_rolled": 541740928.0,
+    "freight": 17645828.0,
+    "scrap": 102160776.0,
+    "scrap_bought": 255115616.0,
+    "labour": 45024000.0,
+    "overhead": 14688000.0,
+    "sales": 474586144.0,
+    "shortfall": 554.72998046875,
+    "late_delivery": 2668.4365234375,
+    "shipped": 667803200.0,
+    "pig_iron": 0.0,
+    "crude_steel": 672655360.0,
+    "shipments": 667803136.0,
+    "group_power": 228151872.0,
+    "hot_metal_made": 468410848.0,
+    "eaf_steel": 157002416.0
+   }
+  }
+ },
+ "cold": [
+  {
+   "multistart": 8,
+   "seed": 0,
+   "seconds": 158.01910369999996,
+   "objective": 1391994240.0,
+   "F": 0.6124743819236755,
+   "max_violation": 0.00026465277187526226,
+   "shipped_kg": 642527186.0,
+   "spot_kg": 43154896.4375,
+   "hot_metal_kg": 446884072.0
+  },
+  {
+   "multistart": 8,
+   "seed": 1,
+   "seconds": 128.9754985999998,
+   "objective": 1391100288.0,
+   "F": 0.6136488914489746,
+   "max_violation": 0.0,
+   "shipped_kg": 634611858.0,
+   "spot_kg": 32405875.6875,
+   "hot_metal_kg": 446891710.0
+  },
+  {
+   "multistart": 16,
+   "seed": 0,
+   "seconds": 181.22904569999992,
+   "objective": 1392544000.0,
+   "F": 0.6100444197654724,
+   "max_violation": 0.00042694443254731596,
+   "shipped_kg": 640947261.0,
+   "spot_kg": 38415908.5625,
+   "hot_metal_kg": 445540074.0
+  }
+ ],
+ "polish": [
+  {
+   "radius": 0.005,
+   "min_radius": 0.001,
+   "iterations": 3,
+   "seconds": 15.037385800000266,
+   "objective": 1392002048.0,
+   "F": 0.6140463948249817,
+   "max_violation": 6.944444663758986e-08,
+   "shipped_kg": 644613196.0,
+   "spot_kg": 45331784.0,
+   "hot_metal_kg": 447398900.0
+  },
+  {
+   "radius": 0.02,
+   "min_radius": 0.0002,
+   "iterations": 15,
+   "seconds": 70.26822290000018,
+   "objective": 1393043712.0,
+   "F": 0.6145055890083313,
+   "max_violation": 6.944444663758986e-08,
+   "shipped_kg": 651597898.0,
+   "spot_kg": 49459743.9375,
+   "hot_metal_kg": 448273830.0
+  }
+ ],
+ "step": {
+  "radius": 0.02,
+  "objective_before": 1392003584.0,
+  "objective_after": 1391082112.0,
+  "model_F": 0.6149330006431237,
+  "model_F_ref": 0.6132682624395229,
+  "terms": [
+   {
+    "term": "overrun_charge",
+    "kind": "cost",
+    "model": -211292.00150650326,
+    "twin": 1035290.6875
+   },
+   {
+    "term": "sales",
+    "kind": "revenue",
+    "model": 5273474.743048694,
+    "twin": 4494048.0
+   },
+   {
+    "term": "shortfall",
+    "kind": "cost",
+    "model": -162509.6484089465,
+    "twin": 139611.71875
+   },
+   {
+    "term": "late_delivery",
+    "kind": "cost",
+    "model": -134884.70470260803,
+    "twin": 160107.8125
+   },
+   {
+    "term": "value_to_go",
+    "kind": "cost",
+    "model": 42740.3015233998,
+    "twin": 233252.625
+   },
+   {
+    "term": "inventory",
+    "kind": "revenue",
+    "model": -5028480.186053755,
+    "twin": -5028608.0
+   },
+   {
+    "term": "steelmaking",
+    "kind": "cost",
+    "model": 112447.80646208182,
+    "twin": 112554.0
+   },
+   {
+    "term": "casting",
+    "kind": "cost",
+    "model": 44732.77397035958,
+    "twin": 44780.0
+   },
+   {
+    "term": "power",
+    "kind": "cost",
+    "model": 76656.58826001274,
+    "twin": 76632.0
+   },
+   {
+    "term": "scrap",
+    "kind": "cost",
+    "model": -2153288.544819462,
+    "twin": -2153280.0
+   },
+   {
+    "term": "downgrade",
+    "kind": "cost",
+    "model": 20155.44968942913,
+    "twin": 20160.6875
+   },
+   {
+    "term": "freight",
+    "kind": "cost",
+    "model": 182063.77426028144,
+    "twin": 182066.0
+   }
+  ],
+  "broken_limits": {
+   "steel_market.con:depth": 0.6101375222206116
+  }
+ },
+ "polish_starts": [
+  {
+   "start": "cascade",
+   "start_objective": 1392003584.0,
+   "iterations": 17,
+   "seconds": 69.95570820000103,
+   "objective": 1393112704.0,
+   "F": 0.6145319938659668,
+   "max_violation": 8.333333425980527e-06,
+   "shipped_kg": 651812983.0,
+   "spot_kg": 49589594.9375
+  },
+  {
+   "start": "better",
+   "start_objective": 1394723456.0,
+   "iterations": 15,
+   "seconds": 43.54335910000009,
+   "objective": 1394884352.0,
+   "F": 0.6153181195259094,
+   "max_violation": 0.0,
+   "shipped_kg": 669379267.0,
+   "spot_kg": 64609410.875
+  },
+  {
+   "start": "cold_seed1",
+   "start_objective": 1391086336.0,
+   "iterations": 40,
+   "seconds": 131.24529409999923,
+   "objective": 1394632576.0,
+   "F": 0.6152070760726929,
+   "max_violation": 0.0,
+   "shipped_kg": 655106472.0,
+   "spot_kg": 50386455.53125
+  },
+  {
+   "start": "cold_upper_start",
+   "start_objective": 1393333632.0,
+   "iterations": 40,
+   "seconds": 127.7743745000007,
+   "objective": 1395947136.0,
+   "F": 0.6157866716384888,
+   "max_violation": 6.944444663758986e-08,
+   "shipped_kg": 664388935.0,
+   "spot_kg": 59595476.21875
+  }
+ ]
+}

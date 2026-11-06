@@ -567,9 +567,78 @@ def corporate_regions(d) -> None:
     print()
 
 
+def reduction(d) -> None:
+    """The exact layer: reduction engine vs whole-model MILP as the kiln group grows; filters on the twins; SLP."""
+    print("### Reduction engine vs the whole-model MILP (N kiln sites, one market)\n")
+    print("| sites | binaries (decisions + indicators) | whole MILP s | whole F | engine s | engine F | bound | gap to bound | rounds | blocks |")
+    print("|---|---|---|---|---|---|---|---|---|---|")
+    for c in d.get("scaling", []):
+        w, e = c["whole"], c["engine"]
+        print(f"| {c['sites']} | {c['model']['discrete']:,} | {w['seconds']:.1f} ({w['status']}) | {w['F']:.5f} | "
+              f"{e['seconds']:.1f} | {e['F']:.5f} | {e['bound']:.5f} | {e['gap']:.2%} | {e['rounds']} | {e['blocks']} |")
+    st = d.get("structure", {})
+    if st:
+        print("\n| twin | linearise s | rows | nonzeros | filters s | blocks | largest block (integers) | master columns |")
+        print("|---|---|---|---|---|---|---|---|")
+        for k, v in st.items():
+            big = max((b["ints"] for b in v["blocks"]), default=0)
+            print(f"| {k} | {v['linearize_s']:.2f} | {v['model']['rows']:,} | {v['model']['nonzeros']:,} | {v['contract_s']:.2f} | "
+                  f"{len(v['blocks'])} | {big} | {v['master_columns']:,} |")
+    for r in d.get("slp_vs_cascade", []):
+        print(f"\n{r['twin']}: start F {r['start']['F']:.4f}; sequential LP F {r['slp']['F']:.5f} (USD {r['slp']['objective']:,.0f}, "
+              f"violation {r['slp']['violation']:.2g}) in {r['slp']['seconds']:.0f} s; cascade F {r['cascade']['F']:.5f} "
+              f"(USD {r['cascade']['objective']:,.0f}, violation {r['cascade']['violation']:.2g}) in {r['cascade']['seconds']:.0f} s")
+    print()
+
+
+def plan_quality(d) -> None:
+    """One steel plan: the cascade's against a better stored one, restarts, the exact polish, where a step goes wrong."""
+    print("### One steel-group plan: how good is it (plan_quality_aquila.json)\n")
+    print("| plan | value (USD) | shipped (t) | spot (t) |\n|---|---|---|---|")
+    for name, r in d.get("stored", {}).items():
+        print(f"| stored: {name} | {r['objective']:,.0f} | {r['shipped_kg'] / 1e3:,.0f} | {r['spot_kg'] / 1e3:,.0f} |")
+    for r in d.get("cold", []):
+        print(f"| cold cascade, {r['multistart']} restarts, seed {r['seed']} | {r['objective']:,.0f} | "
+              f"{r['shipped_kg'] / 1e3:,.0f} | {r['spot_kg'] / 1e3:,.0f} |")
+    for r in d.get("polish") or []:
+        print(f"| sequential LP from the cascade's plan, radius {r['radius']} (floor {r['min_radius']}), {r['iterations']} it | "
+              f"{r['objective']:,.0f} | {r['shipped_kg'] / 1e3:,.0f} | {r['spot_kg'] / 1e3:,.0f} |")
+    st = d.get("step")
+    if st:
+        print(f"\nOne LP step of {st['radius']} from the cascade's plan: twin USD {st['objective_before']:,.0f} -> "
+              f"{st['objective_after']:,.0f}; broken: {st['broken_limits']}")
+        print("\n| term | model change | twin change |\n|---|---|---|")
+        for t in st["terms"][:8]:
+            print(f"| {t['term']} ({t['kind']}) | {t['model']:+,.0f} | {t['twin']:+,.0f} |")
+    print()
+
+
+def console_run(d) -> None:
+    """The A/B as the console runs it."""
+    k = d["kpis"]["delta"]
+    plans = sorted({h["plan"] for h in d.get("hourly", []) if h.get("plan") is not None})
+    print(f"### Console run ({d['scenario']}, {d['speed']:.0f}x, seed {d['seed']}): operating {k['profit']:+,.0f} USD, after carbon "
+          f"{k.get('profit_after_carbon', k['profit']):+,.0f} USD; the plant executed {len(plans)} plans\n")
+
+
+def planner_speed(d) -> None:
+    """Plan time and value per twin: the morning's planner, the current one, a quarter budget with the exact polish."""
+    print(f"### Planner speed ({d.get('threads')} threads, default problem, one plan each)\n")
+    print("| twin | configuration | cold s | cold value (USD) | warm s | warm value (USD) |\n|---|---|---|---|---|---|")
+    for sc in ("kestrel", "corvus", "aquila"):
+        if sc not in d:
+            continue
+        for name, rows in d[sc]["configs"].items():
+            for r in rows:
+                c, w = r["cold"], r["warm"]
+                print(f"| {sc} | {name} | {c['seconds']:.1f} | {c['objective']:,.0f} | {w['seconds']:.1f} | {w['objective']:,.0f} |")
+    print()
+
+
 def main() -> None:
     for name, fn in (("risk.json", risk), ("uncertainty_coverage.json", coverage), ("uncertainty_coverage_matching.json", coverage),
-                     ("colgen.json", colgen),
+                     ("colgen.json", colgen), ("reduction.json", reduction), ("plan_quality_aquila.json", plan_quality),
+                     ("console_run_aquila.json", console_run), ("planner_speed.json", planner_speed),
                      ("showcase_run.json", showcase), ("showcase_run_corvus.json", mine),
                      ("showcase_run_aquila.json", steel), ("policy_in_twin_aquila.json", policy_twin),
                      ("corporate.json", corporate), ("corporate_regions.json", corporate_regions),

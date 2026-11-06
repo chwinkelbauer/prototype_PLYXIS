@@ -264,7 +264,7 @@ def jacobian_structured(pb: Problem, x: torch.Tensor, var: np.ndarray, step: flo
 
 
 def solve_lp(pb: Problem, x: torch.Tensor, var: np.ndarray, jac: dict, trust: Optional[float] = None,
-             margin: float = 0.0):
+             margin: float = 0.0, warm: Optional[dict] = None):
     """The branch LP (see module doc) -> new x (only x[var] changes). `margin` keeps state limits (tanks, bins) that
     far inside, in units of the limit's scale: an LP optimum sits on the limits as the twin sees them, a real plant
     with an estimation error then runs into them (protection cuts production, a buffer is gone when it is needed)."""
@@ -338,12 +338,23 @@ def solve_lp(pb: Problem, x: torch.Tensor, var: np.ndarray, jac: dict, trust: Op
     lo, hi = -cur, 1.0 - cur
     if trust is not None:
         lo, hi = np.maximum(lo, -trust), np.minimum(hi, trust)
-    bounds = list(zip(lo, hi)) + [(0, None)] * (nv_h + ns + nm)
     t = time.perf_counter()
-    res = linprog(c, A_ub=A, b_ub=bvec, bounds=bounds, method="highs")
-    lp_s = time.perf_counter() - t
-    if res.status != 0 or res.x is None:
-        return None, lp_s, res
+    if warm is not None and A is not None:            # HiGHS directly, from the last LP's basis (exact._highs_lp)
+        from .exact import _highs_lp
+        lo_all = np.concatenate([lo, np.zeros(nv_h + ns + nm)])
+        hi_all = np.concatenate([hi, np.full(nv_h + ns + nm, np.inf)])
+        # 10 s per LP: an LP without a limit once held a mine plan for over 15 minutes (a timed-out LP = no step)
+        y, status, _ = _highs_lp(c, A, np.full(A.shape[0], -np.inf), bvec, lo_all, hi_all, warm, time_limit=10.0)
+        lp_s = time.perf_counter() - t
+        if y is None:
+            return None, lp_s, None
+        res = type("R", (), {"x": y, "status": 0})()
+    else:
+        bounds = list(zip(lo, hi)) + [(0, None)] * (nv_h + ns + nm)
+        res = linprog(c, A_ub=A, b_ub=bvec, bounds=bounds, method="highs")
+        lp_s = time.perf_counter() - t
+        if res.status != 0 or res.x is None:
+            return None, lp_s, res
     xn = x.clone()
     xn[0, var] = torch.as_tensor(np.clip(cur + res.x[:n], 0.0, 1.0), dtype=x.dtype)
     return xn, lp_s, res
@@ -383,7 +394,8 @@ def _penalties(pb: Problem, x: torch.Tensor, var: np.ndarray, jac: dict, margin:
 
 
 def solve_branches(pb: Problem, x: torch.Tensor, var: np.ndarray, affine: bool = True, iters: int = 4,
-                   trust: float = 0.25, tol: float = 1e-5, callback=None, margin: float = 0.0) -> BranchResult:
+                   trust: float = 0.25, tol: float = 1e-5, callback=None, margin: float = 0.0,
+                   warm_lp: bool = False) -> BranchResult:
     """LP (affine) or sequential LP with a trust region (piecewise affine) over x[var], verified on the twin.
     Sequential LP reuses the Jacobian while its steps verify (slopes of a piecewise-affine function only
     change where a kink is crossed) and recomputes it after a rejected step."""
@@ -396,6 +408,7 @@ def solve_branches(pb: Problem, x: torch.Tensor, var: np.ndarray, affine: bool =
     r = None if affine else trust
     hist, jac_s, lp_s, rows = [], 0.0, 0.0, 0
     jac, x_jac = None, None
+    lp_state = {} if warm_lp else None                 # HiGHS basis carried from one LP to the next
     it = 0
     for it in range(1, iters + 1):
         if jac is None:
@@ -412,7 +425,7 @@ def solve_branches(pb: Problem, x: torch.Tensor, var: np.ndarray, affine: bool =
             jac = _shift(pb, jac, x, var)                                  # same slopes, current offsets
             x_jac = x.clone()
         rows = len(jac["meta"])
-        xn, s, _ = solve_lp(pb, x, var, jac, r, margin)
+        xn, s, _ = solve_lp(pb, x, var, jac, r, margin, warm=lp_state)
         lp_s += s
         accepted, step = False, 0.0
         if xn is not None:

@@ -101,6 +101,9 @@ def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, 
         for gparam in opt.param_groups:
             gparam["lr"] = lr * (lr_final + (1 - lr_final) * 0.5 * (1 + math.cos(math.pi * frac)))
         e = problem.evaluate(x, relax=relax)
+        # the plans this objective and these residuals belong to: e.x is x itself when nothing is pinned, and the
+        # optimiser step below moves x in place - the "best iterate" used to be stored one step after it was scored
+        x_scored = e.x.detach().clone()
         if fr is None:
             fr = _FlatResiduals(e, B)
             lam = fr.from_dict(lam0, B)
@@ -130,7 +133,7 @@ def alm(problem: Problem, x0: torch.Tensor, iters: int = 300, lr: float = 0.03, 
                 feas = bool(mv[b] <= tol)
                 k = (feas, float(obj[b]) if feas else -float(mv[b]))
                 if best_key is None or k > best_key:
-                    best_key, best_x = k, e.x[b:b + 1].detach().clone()
+                    best_key, best_x = k, x_scored[b:b + 1].clone()
             if (it + 1) % outer == 0 and fr.M:
                 lam = torch.where(fr.eq, lam + rho * hd, torch.relu(lam + rho * hd))
                 cur = float(mv.min())

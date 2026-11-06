@@ -222,7 +222,7 @@
     "population": 8,
     "repair_iters": 60,
     "polish_iters": 80,
-    "discrete": "ga+sections",
+    "discrete": "ga",
     "exact_branches": [
       "lp",
       "slp",

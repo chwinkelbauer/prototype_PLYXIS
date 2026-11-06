@@ -1,0 +1,342 @@
+{
+ "threads": 6,
+ "kestrel": {
+  "replan_h": 3.0,
+  "configs": {
+   "live": [
+    {
+     "cold": {
+      "seconds": 11.504055100000187,
+      "objective": 4409946.5,
+      "F": 0.8872510194778442,
+      "max_violation": 0.00047316134441643953,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.24,
+       "discrete": 2.82,
+       "polish": 2.44
+      }
+     },
+     "warm": {
+      "seconds": 10.647256899999775,
+      "objective": 4417753.0,
+      "F": 0.8885061740875244,
+      "max_violation": 0.0007243185536935925,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 5.55,
+       "discrete": 2.7,
+       "polish": 2.4
+      }
+     }
+    }
+   ],
+   "current": [
+    {
+     "cold": {
+      "seconds": 10.721741099998326,
+      "objective": 4409946.5,
+      "F": 0.8872510194778442,
+      "max_violation": 0.00047316134441643953,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 5.64,
+       "discrete": 2.67,
+       "polish": 2.41
+      }
+     },
+     "warm": {
+      "seconds": 10.738383699999758,
+      "objective": 4417753.0,
+      "F": 0.8885061740875244,
+      "max_violation": 0.0007243185536935925,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 5.59,
+       "discrete": 2.71,
+       "polish": 2.44
+      }
+     }
+    }
+   ],
+   "sections": [
+    {
+     "cold": {
+      "seconds": 15.718488800001069,
+      "objective": 4409946.5,
+      "F": 0.8872510194778442,
+      "max_violation": 0.00047316134441643953,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 5.52,
+       "discrete": 7.81,
+       "polish": 2.39
+      }
+     },
+     "warm": {
+      "seconds": 13.829874200000631,
+      "objective": 4417753.0,
+      "F": 0.8885061740875244,
+      "max_violation": 0.0007243185536935925,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 5.7,
+       "discrete": 5.72,
+       "polish": 2.41
+      }
+     }
+    }
+   ],
+   "quarter": [
+    {
+     "cold": {
+      "seconds": 6.4862039999989065,
+      "objective": 3809069.25,
+      "F": 0.7662321925163269,
+      "max_violation": 0.0009017438278533518,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 1.36,
+       "discrete": 0.7,
+       "polish": 0.62,
+       "slp": 3.81
+      }
+     },
+     "warm": {
+      "seconds": 7.9386654000009,
+      "objective": 4262134.0,
+      "F": 0.8596420288085938,
+      "max_violation": 0.0005185186164453626,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 1.35,
+       "discrete": 0.73,
+       "polish": 1.44,
+       "slp": 4.41
+      }
+     }
+    }
+   ]
+  }
+ },
+ "corvus": {
+  "replan_h": 3.0,
+  "configs": {
+   "live": [
+    {
+     "cold": {
+      "seconds": 21.93617169999925,
+      "objective": 7638470.5,
+      "F": 0.37394604086875916,
+      "max_violation": 4.953774350724416e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.62,
+       "discrete": 3.8,
+       "polish": 3.89,
+       "branches": 7.63
+      }
+     },
+     "warm": {
+      "seconds": 21.724050999999236,
+      "objective": 7645828.0,
+      "F": 0.37430304288864136,
+      "max_violation": 4.985051305084198e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.71,
+       "discrete": 3.93,
+       "polish": 3.78,
+       "branches": 7.3
+      }
+     }
+    }
+   ],
+   "current": [
+    {
+     "cold": {
+      "seconds": 22.174993099999483,
+      "objective": 7638470.5,
+      "F": 0.37394604086875916,
+      "max_violation": 4.953774350724416e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.71,
+       "discrete": 3.82,
+       "polish": 3.84,
+       "branches": 7.81
+      }
+     },
+     "warm": {
+      "seconds": 21.72369400000025,
+      "objective": 7645828.0,
+      "F": 0.37430304288864136,
+      "max_violation": 4.985051305084198e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.84,
+       "discrete": 3.81,
+       "polish": 3.82,
+       "branches": 7.25
+      }
+     }
+    }
+   ],
+   "sections": [
+    {
+     "cold": {
+      "seconds": 26.905315499998324,
+      "objective": 7646505.0,
+      "F": 0.3743272125720978,
+      "max_violation": 7.954545253596734e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.76,
+       "discrete": 10.4,
+       "polish": 3.87,
+       "branches": 5.87
+      }
+     },
+     "warm": {
+      "seconds": 25.97319880000032,
+      "objective": 7625269.5,
+      "F": 0.37329936027526855,
+      "max_violation": 6.634558644691424e-07,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.67,
+       "discrete": 7.77,
+       "polish": 3.79,
+       "branches": 7.74
+      }
+     }
+    }
+   ],
+   "quarter": [
+    {
+     "cold": {
+      "seconds": 23.187192999999752,
+      "objective": 7640077.0,
+      "F": 0.3738996088504791,
+      "max_violation": 6.635734462179244e-05,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 1.7,
+       "discrete": 0.98,
+       "polish": 6.75,
+       "branches": 7.65,
+       "slp": 6.09
+      }
+     },
+     "warm": {
+      "seconds": 15.8787427999996,
+      "objective": 7557121.0,
+      "F": 0.3699183464050293,
+      "max_violation": 3.4883623811765574e-06,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 2.22,
+       "discrete": 1.0,
+       "polish": 6.65,
+       "branches": 3.35,
+       "slp": 2.65
+      }
+     }
+    }
+   ]
+  }
+ },
+ "aquila": {
+  "replan_h": 4.0,
+  "configs": {
+   "live": [
+    {
+     "cold": {
+      "seconds": 46.565320699999575,
+      "objective": 1392005760.0,
+      "F": 0.6140483021736145,
+      "max_violation": 0.0,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 24.67,
+       "discrete": 0.04,
+       "polish": 21.85
+      }
+     },
+     "warm": {
+      "seconds": 46.49348009999994,
+      "objective": 1393234944.0,
+      "F": 0.6145905256271362,
+      "max_violation": 0.0,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 24.52,
+       "discrete": 0.05,
+       "polish": 21.93
+      }
+     }
+    }
+   ],
+   "current": [
+    {
+     "cold": {
+      "seconds": 19.348687899999277,
+      "objective": 1394019968.0,
+      "F": 0.6149368286132812,
+      "max_violation": 0.0,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.17,
+       "discrete": 0.04,
+       "polish": 5.58,
+       "slp": 7.55
+      }
+     },
+     "warm": {
+      "seconds": 21.10245980000036,
+      "objective": 1395093760.0,
+      "F": 0.6154102087020874,
+      "max_violation": 6.944444663758986e-08,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.25,
+       "discrete": 0.04,
+       "polish": 5.57,
+       "slp": 9.24
+      }
+     }
+    }
+   ],
+   "quarter": [
+    {
+     "cold": {
+      "seconds": 19.102937899999233,
+      "objective": 1394019968.0,
+      "F": 0.6149368286132812,
+      "max_violation": 0.0,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.11,
+       "discrete": 0.04,
+       "polish": 5.51,
+       "slp": 7.44
+      }
+     },
+     "warm": {
+      "seconds": 20.855390900000202,
+      "objective": 1395093760.0,
+      "F": 0.6154102087020874,
+      "max_violation": 6.944444663758986e-08,
+      "stages": {
+       "compile": 0.0,
+       "relaxation": 6.16,
+       "discrete": 0.04,
+       "polish": 5.54,
+       "slp": 9.11
+      }
+     }
+    }
+   ]
+  }
+ }
+}

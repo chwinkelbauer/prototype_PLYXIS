@@ -140,7 +140,8 @@ does not grow with the site. In the cascade the stage runs as an exact large-nei
 GA's best plan (`discrete="ga+sections"`): its result is accepted only if the penalised score improves the
 GA's plan. Run alone instead of the GA (`discrete="sections"`) it is weaker on fields where discrete and
 continuous decisions are tightly coupled (switching a well changes the optimal speeds of its neighbours,
-which the section move holds fixed). **Measured so far:** the scaling holds (sections stay at 3 assets
+which the section move holds fixed). No case study uses it now (the mine dropped it on 6 Nov after an A/B without it,
+[BENCHMARKS.md](BENCHMARKS.md#planner-speed-and-the-exact-polish-on-every-twin)). **Measured so far:** the scaling holds (sections stay at 3 assets
 while the site grows 8x), but the plan value is not measurably better than the GA's on either case study
 (-0.0 % oil field, -0.4 % mine, within run-to-run noise; [BENCHMARKS.md](BENCHMARKS.md)). The discrete
 choices of these two models interact too little for an exact search to find more than the GA does.
@@ -291,6 +292,65 @@ reached USD 37,069 against 36,052 for the whole model solved at once (hand-worke
 plant found by the detector as with it declared. Not yet: a connection into a block from the group (the detectors avoid
 it: a plant takes in its senders), blocks inside blocks (a plant inside a regional network: side by side instead), a
 bound.
+
+## The exact layer: the twin as algebra (`algebra.py`, `exact.py`, `reduce.py`)
+
+Everything above searches the plan through the simulator: decisions in, trajectories out. Exact methods need the
+same equations as rows and columns, so the compiler has a second backend. `algebra.linearize(pb, x)` walks the
+compiled program's node graph (the nodes the simulator computes, in their order) and builds every node's value at
+plan `x` and its sparse Jacobian, in the lifted form of optimal control: the plan's decisions, every state per
+instance and step, and delays on recursions are columns; state updates, constraints and soft limits are rows. With
+the states as columns every row is local in time - a stock's row touches the stock, its next value and that step's
+flows - so the model is very sparse and takes 0.07-0.24 s to build on the case studies (the batched finite
+differences of `branchlp.py` took about 21 s on the mine). It is exact where the equations are affine; piecewise
+terms (`pos`, `min`, `max`, `abs`, `clamp`) whose argument reads a discrete decision get an indicator column and
+big-Ms from the decisions' full box, so start counts and minimum runs are exact rules in a MILP; everything else
+is first order at `x`, and every row records which of these it is. `check()` compares the model with the
+simulator - values at `x`, and its predictions for a step against a re-simulation.
+
+`exact.solve(m, ...)` hands any part of that model to HiGHS: a set of free columns (the rest fixed), its rows,
+hard limits elastic at the planner's own price (`MU / T` per scaled unit, as the fitness `F`), soft limits at their
+declared prices, a trust region for the continuous decisions and a budget of flips for the discrete ones (local
+branching), rows scaled to unit largest coefficient. An LP returns the shadow price of every row. `exact.slp(pb)`
+repeats linearise -> solve -> simulate: a candidate is kept only if the twin's `F` rises, the radius grows when
+the model predicted well and shrinks when it did not. On an affine twin that is one LP and the global optimum.
+
+`reduce.Engine` is the reduction engine on the model's math graph (atoms = assets, linked when a row touches both).
+Its filters contract the graph, each into a node with an exact algorithm, repeated until nothing changes:
+
+| Filter | What it contracts | Algorithm of the node |
+|---|---|---|
+| lp-cell | atoms without discrete decisions, connected | linear program, any size |
+| discrete | discrete atoms coupled directly, strongest coupling first, while the block's integers stay under `int_cap` | MILP of bounded size |
+| recourse | an LP cell that touches one discrete block only | joins that block |
+| site | an LP cell whose discrete neighbours fit under the cap together | the hub becomes internal to one block |
+| closure | atoms a block's state definitions read | join the block (its pricing problem stays bounded) |
+
+LP cells shared by more blocks than fit together (markets, group limits) stay in the master, exactly. Coordination
+is Dantzig-Wolfe: the master LP (those columns and one weight per block schedule) prices every coupling row, each
+block answers with its exact best schedule at those prices (HiGHS MILP on its own sub-model), and the Lagrangian
+bound - master value plus every block's reduced cost - limits what any plan of the model can be worth. The commit
+fixes every integer on which the schedules the master weights agree, solves the few others and all continuous
+decisions in one MILP (and, as a second candidate, one schedule per block with one LP), then re-solves each block
+whose integers were undecided with the rest fixed. Nothing in it knows what a plant, a line or a market is.
+
+What it guarantees, and what not: every block's response is exact (within HiGHS's MILP tolerance 1e-4); the bound
+is valid for the model inside the trust region; the plan's distance from it is reported, not assumed. On a
+nonlinear twin the model is first order away from its kinks, so the plan is judged on the simulator, never on the
+model. Measured: [BENCHMARKS.md](BENCHMARKS.md#the-exact-layer-the-twin-as-algebra-and-the-reduction-engine).
+
+**In the planner: the exact polish** (`CascadeConfig.slp_iters`, the cascade's last stage). After the cascade has
+decided the discrete choices, `exact.slp` takes the whole twin's continuous decisions - every one, no structure
+classes, no branch selected by hand - and runs the sequential LP on the algebraic model from the cascade's plan:
+discrete decisions, exclusive line-ups and the indicators of exact piecewise terms stay where they are
+(`fix_discrete`), the trust region starts at 0.02 of each decision's range and may shrink to 2e-4, each LP starts
+from the last one's HiGHS basis (`warm_lp`: scipy's bundled HiGHS interface, every row kept so the dimensions do not
+change - half the LP time on the steel group), and the result is kept only if the twin's F rises. Where the first-order
+search stops short (the steel group's joint furnace-to-market moves) it adds value; where an earlier stage has already
+solved the linear layer exactly (the mine's branch stage) it stops after one LP. It also lets the cascade itself be
+shorter: on the steel group a quarter of the live budget with the polish gives better cold plans in less than half
+the time - the long relaxation drifts into a low-throughput basin. Measured:
+[BENCHMARKS.md](BENCHMARKS.md#planner-speed-and-the-exact-polish-on-every-twin).
 
 ## Rolling horizon and live operation (`runtime/planner.py`)
 
